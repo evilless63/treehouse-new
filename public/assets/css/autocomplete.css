@@ -1,0 +1,33 @@
+.ui-widget {
+    font-family: 'Proxima Nova', 'Arial', 'Helvetica', sans-serif !important;
+    font-size: 1em !important;
+    border-color: #d1d2d5 !important;
+    z-index: 999999;
+}
+
+.ui-widget-content {
+    color: #887568 !important;
+}
+
+.ui-menu-item b,
+.ui-menu-item strong {
+    font-weight: 400 !important;
+    text-transform: uppercase !important;
+    font-size: 0.9em !important;
+}
+
+.ui-menu-item small {
+    font-size: 85% !important;
+    color: #c4aa98 !important;
+    padding-left: 10px !important;
+}
+
+.ui-menu-item-wrapper {
+    padding: 0.85714rem 0.78571rem !important;
+}
+
+.ui-state-active {
+    border-color: #c5a995 !important;
+    color: #c4aa98 !important;
+    background: #ede5de !important;
+}
