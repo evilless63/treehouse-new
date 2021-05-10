@@ -13,15 +13,15 @@ return [
     |
     */
 
-    'edit' => 'edit',
-    'name' => 'name',
-    'create' => 'create',
-    'update' => 'update',
-    'parent_category' => 'parent category',
-    'without_category' => 'without category',
-    'action_success' => 'action was finished with success',
-    'action_error' => 'action was finished with error',
-    'create_category' => 'create category',
-    'categories_for_product' => 'categories for product',
-    'action_error_no_stock' => 'no stock product qty'
+    'edit' => 'редактировать',
+    'name' => 'наименование',
+    'create' => 'создать',
+    'update' => 'обновить',
+    'parent_category' => 'родительская категория',
+    'without_category' => 'без категории',
+    'action_success' => 'успешно выполнено',
+    'action_error' => 'отказано в выполнении',
+    'create_category' => 'создать категорию',
+    'categories_for_product' => 'В каких категориях показывать товар',
+    'action_error_no_stock' => 'Не хватает товара на остатке!'
 ];
