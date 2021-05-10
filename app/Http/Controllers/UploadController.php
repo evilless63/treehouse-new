@@ -20,8 +20,9 @@ class UploadController extends Controller
             $folder = $folder . '/' . $colorVariation->product->slug . '/' . $colorVariation->color->slug;
         }
         
-        $imageName = $request->file('image')->getClientOriginalName();
-        $request->image->move(public_path('images' . $folder), $imageName);
+        $time = time();
+        $imageName = $time . $request->file('image')->getClientOriginalName();
+        $request->image->move(public_path('images' . $folder),  $imageName);
 
         $image = new ImageGallery;
         $image->img_path = 'images' . $folder . "/" . $imageName;

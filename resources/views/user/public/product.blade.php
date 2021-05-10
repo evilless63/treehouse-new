@@ -270,7 +270,7 @@
                   <div class="card-media__thumbs-list js-media-thumbs">
                     @foreach($images as $image)
                     <button class="card-media__thumbs-item">
-                      <img src="{{asset('uploads/gallery/' . $image)}}" alt="{{$product->title}}" class="card-media__thumbs-image" style="width: 58px" />
+                      <img src="{{asset($image->img_path)}}" alt="{{$product->title}}" class="card-media__thumbs-image" style="width: 58px" />
                     </button>
                     @endforeach
 
@@ -291,7 +291,7 @@
                       @foreach($images as $image)
                       <div class="card-media__item" style="z-index: 7" data-ga-index="{{$loop->iteration}}" data-type="image">
                         <div class="card-media__item-inner">
-                          <img src="{{asset('uploads/gallery/' . $image)}}" data-observer-src="{{asset('uploads/gallery/' . $image)}}" alt="{{$product->title}}" data-zoom-src="{{asset('uploads/gallery/' . $image)}}" class="card-media__image" />
+                          <img src="{{asset($image->img_path)}}" data-observer-src="{{asset($image->img_path)}}" alt="{{$product->title}}" data-zoom-src="{{asset($image->img_path)}}" class="card-media__image" />
                         </div>
                       </div>
                       @endforeach
@@ -889,7 +889,7 @@
       <div class="card-zoom__list js-card-zoom-slider">
         @foreach($images as $image)
         <div class="card-zoom__item">
-          <img src="{{asset('uploads/gallery/' . $image)}}" data-observer-src="{{asset('uploads/gallery/' . $image)}}" class="card-zoom__image" />
+          <img src="{{asset($image->path)}}" data-observer-src="{{asset($image->path)}}" class="card-zoom__image" />
         </div>
         @endforeach
       </div>

@@ -130,7 +130,7 @@ class UserPublicController extends Controller
         // $related_products = $this->productRepository->getRelatedProducts($id);
         $related_products = []; //TODO treehouse
         // $images = $this->productRepository->getGallery($id);
-        $images = []; //TODO treehouse
+        $images = $colorVariation->images; //TODO treehouse
         // $product = Product::find($id);
         // $product = Product::where('slug', $product_slug)->first();
 
