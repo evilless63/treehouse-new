@@ -420,7 +420,7 @@
                                                             </td>
                                                             <td>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" onchange="changeIsVisible(event)" sizeVariationId="{{$sizeVariation->id}}" type="checkbox" @if($sizeVariation->is_visible) checked @endif>
+                                                                    <input class="form-check-input" onchange="changeIsVisible(event)" sizeVariationId="{{$sizeVariation->id}}" type="checkbox" @if($sizeVariation->is_visible) checked @endif @if($sizeVariation->stock <= 0) disabled @endif>
                                                                     <label class="form-check-label">Доступен на сайте</label>
                                                                 </div>
                                                             </td>
