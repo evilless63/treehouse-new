@@ -16,4 +16,5 @@ return [
     'default_category_name' => 'all products',
     'units' => 'pts',
     'currency' => '$',
+    'color' => 'Цвет',
 ];

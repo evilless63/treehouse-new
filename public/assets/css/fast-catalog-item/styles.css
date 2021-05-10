@@ -3113,7 +3113,10 @@ textarea {
     font: inherit
 }
 
-@font-face {
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@100&display=swap');
+
+/* @font-face {
+    
     font-family: Cera Pro;
     src: url(../fonts/CeraPro-Light.eot);
     src: url(../fonts/CeraPro-Light.eot?#iefix) format("embedded-opentype"), url(../fonts/CeraPro-Light.woff2) format("woff2"), url(../fonts/CeraPro-Light.woff) format("woff"), url(../fonts/CeraPro-Light.ttf) format("truetype"), url(../fonts/CeraPro-Light.svg#CeraPro-Light) format("svg");
@@ -3143,7 +3146,7 @@ textarea {
     src: url(../fonts/CeraPro-Bold.eot?#iefix) format("embedded-opentype"), url(../fonts/CeraPro-Bold.woff2) format("woff2"), url(../fonts/CeraPro-Bold.woff) format("woff"), url(../fonts/CeraPro-Bold.ttf) format("truetype"), url(../fonts/CeraPro-Bold.svg#CeraPro-Bold) format("svg");
     font-weight: 700;
     font-style: "normal"
-}
+} */
 
 .svg-icon {
     background-position: 50% 50%;
@@ -3228,7 +3231,8 @@ html.t-zoom {
 }
 
 body {
-    font-family: Cera Pro, Arial, Helvetica, sans-serif;
+    /* font-family: Cera Pro, Arial, Helvetica, sans-serif; */
+    font-family: 'Jost', sans-serif;
     font-size: 1rem;
     line-height: 1.4;
     letter-spacing: .05em;
@@ -8149,7 +8153,7 @@ body.hide_one_click .button_one_click {
 
 .sizes-selector__size {
     display: block;
-    width: 79px
+    /* width: 79px */
 }
 
 .sizes-selector-button__text {
@@ -14150,7 +14154,7 @@ a.findsize-download:hover {
 
 .logo {
     vertical-align: middle;
-    display: none;
+    display: inline-block;
     margin-left: -2px;
     position: relative;
     z-index: 1;

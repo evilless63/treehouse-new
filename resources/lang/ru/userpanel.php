@@ -16,4 +16,5 @@ return [
     'default_category_name' => 'Весь ассортимент',
     'units' => 'шт',
     'currency' => '₽',
+    'color' => 'Цвет',
 ];

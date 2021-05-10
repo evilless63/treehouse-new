@@ -207,7 +207,7 @@
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="radio-group" id="delivery-type" data-v-b31126bc="">
                       <div data-v-08921c00="" class="radio checked"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-0" type="radio" class="radio-control" value="1610902120585-0"> <label data-v-08921c00="" for="delivery-type-1610902120585-0" class="radio-label">
-                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">курьер</span> <span class="nowrap">– 490&nbsp;₽</span> <span class="nowrap">(3-10 дней)</span></span>
+                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">курьер</span> <span class="nowrap">– 490&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-10 дней)</span></span>
                           </div>
                           <!---->
                           <!---->
@@ -224,7 +224,7 @@
                         </label></div>
                       <div data-v-08921c00="" class="radio boxberry"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-1" type="radio" class="radio-control" value="1610902120585-1"> <label data-v-08921c00="" for="delivery-type-1610902120585-1" class="radio-label">
                           <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">пункт выдачи
-                                BoxBerry</span> <span class="nowrap">– 190&nbsp;₽</span> <span class="nowrap">(3-4
+                                BoxBerry</span> <span class="nowrap">– 190&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-4
                                 дня)</span></span></div>
                           <!---->
                           <!---->
@@ -324,14 +324,14 @@
                 <div data-v-ea5ca2c8="" class="total">
                   <div data-v-ea5ca2c8="" class="total-item">
                     <div data-v-ea5ca2c8="" class="total-label">Доставка:</div>
-                    <div data-v-ea5ca2c8="" class="total-value">490&nbsp;₽</div>
+                    <div data-v-ea5ca2c8="" class="total-value">490&nbsp;{{__('userpanel.currency')}}</div>
                   </div>
                   <!---->
                   <!---->
                   <!---->
                   <div data-v-ea5ca2c8="" class="total-item">
                     <div data-v-ea5ca2c8="" class="total-label">Итого:</div>
-                    <div data-v-ea5ca2c8="" class="total-value big-text">60&nbsp;370&nbsp;₽</div>
+                    <div data-v-ea5ca2c8="" class="total-value big-text">60&nbsp;370&nbsp;{{__('userpanel.currency')}}</div>
                   </div>
                   <!---->
                 </div>

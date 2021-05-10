@@ -101,7 +101,7 @@
                                 </div>
                               </div>
                               <div class="goods__total">
-                                <div class="goods__price">6&nbsp;980&nbsp;₽</div>
+                                <div class="goods__price">6&nbsp;980&nbsp;{{__('userpanel.currency')}}</div>
                               </div>
                             </div>
                           </div>
@@ -145,7 +145,7 @@
                                 </div>
                               </div>
                               <div class="goods__total">
-                                <div class="goods__price">8&nbsp;980&nbsp;₽</div>
+                                <div class="goods__price">8&nbsp;980&nbsp;{{__('userpanel.currency')}}</div>
                               </div>
                             </div>
                           </div>

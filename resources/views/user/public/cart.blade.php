@@ -70,7 +70,7 @@
                           </div>
                         </div>
                         <div data-v-1b2b3207="" class="goods__total">
-                          <div data-v-1b2b3207="" class="goods__price">39&nbsp;920&nbsp;₽</div>
+                          <div data-v-1b2b3207="" class="goods__price">39&nbsp;920&nbsp;{{__('userpanel.currency')}}</div>
                           <!---->
                         </div>
                       </div>
@@ -136,7 +136,7 @@
                           </div>
                         </div>
                         <div data-v-1b2b3207="" class="goods__total">
-                          <div data-v-1b2b3207="" class="goods__price">19&nbsp;960&nbsp;₽</div>
+                          <div data-v-1b2b3207="" class="goods__price">19&nbsp;960&nbsp;{{__('userpanel.currency')}}</div>
                           <!---->
                         </div>
                       </div>
@@ -281,7 +281,7 @@
                               class="radio-label">
                               <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span
                                   data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">курьер</span> <span
-                                    class="nowrap">– 490&nbsp;₽</span> <span class="nowrap">(3-10 дней)</span></span>
+                                    class="nowrap">– 490&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-10 дней)</span></span>
                               </div>
                               <!---->
                               <!---->
@@ -302,7 +302,7 @@
                               class="radio-label">
                               <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span
                                   data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">пункт выдачи
-                                    BoxBerry</span> <span class="nowrap">– 190&nbsp;₽</span> <span class="nowrap">(3-4
+                                    BoxBerry</span> <span class="nowrap">– 190&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-4
                                     дня)</span></span></div>
                               <!---->
                               <!---->
@@ -424,14 +424,14 @@
                     <div data-v-ea5ca2c8="" class="total">
                       <div data-v-ea5ca2c8="" class="total-item">
                         <div data-v-ea5ca2c8="" class="total-label">Доставка:</div>
-                        <div data-v-ea5ca2c8="" class="total-value">490&nbsp;₽</div>
+                        <div data-v-ea5ca2c8="" class="total-value">490&nbsp;{{__('userpanel.currency')}}</div>
                       </div>
                       <!---->
                       <!---->
                       <!---->
                       <div data-v-ea5ca2c8="" class="total-item">
                         <div data-v-ea5ca2c8="" class="total-label">Итого:</div>
-                        <div data-v-ea5ca2c8="" class="total-value big-text">60&nbsp;370&nbsp;₽</div>
+                        <div data-v-ea5ca2c8="" class="total-value big-text">60&nbsp;370&nbsp;{{__('userpanel.currency')}}</div>
                       </div>
                       <!---->
                     </div>

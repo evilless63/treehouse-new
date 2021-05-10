@@ -2,7 +2,7 @@
 @foreach($items as $item)
 
             <p class="categories__item">
-                <a @if($item->hasChildren() || $item->parent_id == 0) style="font-size: 16px;" @endif class="categories__link" href="{{route('user.category',$item->id) }}">{{ $item->title }}</a>
+                <a @if($item->hasChildren() || $item->parent_id == 0) style="font-size: 16px;" @endif class="categories__link" href="{{route('user.category',$item->nickname) }}">{{ $item->title }}</a>
             </p>
 
         @if($item->hasChildren())

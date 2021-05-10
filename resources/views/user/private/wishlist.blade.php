@@ -292,7 +292,7 @@
 
                             <!-- Цена и скидка товара -->
                             <div class="catalog-list__price">
-                              560 ₽                              </div>
+                              560 {{__('userpanel.currency')}}                              </div>
                             <!-- Цена и скидка товара END -->
                           </div>
                         

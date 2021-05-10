@@ -4,7 +4,9 @@
 <div class="hero" data-id="48" data-title="Приветственный текст Дом на дереве (для акций и тд и тп)">
 
   <div class="hero__media hero__image-wrapper">
-    <img class="hero__image" src="{{asset('/uploads/banners_media/banner_info.jpg')}}" alt="Приветственный текст Дом на дереве (для акций и тд и тп)">
+    <video autoplay muted loop id="myVideo">
+      <source src="https://player.vimeo.com/external/544892571.hd.mp4?s=9d8268d66d314fa52cac019d19365c52196b0fec&profile_id=175" type="video/mp4">
+    </video>
   </div>
 
   <a href="{{route('user.category', 6)}}" class="hero__holder">
@@ -87,14 +89,18 @@
 
             <!-- Цена и скидка товара -->
             <div class="catalog-list__price">
-              {{$new_product->sizeVariations->sortBy('price')->first()->price}} - {{$new_product->sizeVariations->sortByDesc('price')->first()->price}} ₽
+              @if($new_product->sizeVariations->sortBy('price')->first()->price == $new_product->sizeVariations->sortByDesc('price')->first()->price)
+              {{$new_product->sizeVariations->sortBy('price')->first()->price}}
+              @else
+              {{$new_product->sizeVariations->sortBy('price')->first()->price}} - {{$new_product->sizeVariations->sortByDesc('price')->first()->price}}
+              @endif {{__('userpanel.currency')}}
             </div>
             <!-- Цена и скидка товара END -->
 
             <!-- Цвета -->
             <ul class="catalog-list__colors catalog-list-colors">
               @foreach($new_product->product->colorVariations as $colorVariation)
-              <li class="catalog-list-colors__color " title="$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())" style="background:{{$colorVariation->color->hex}}">
+              <li class="catalog-list-colors__color " title="{{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" style="background:{{$colorVariation->color->hex}}">
               </li>
               @endforeach
             </ul>
@@ -177,14 +183,18 @@
 
             <!-- Цена и скидка товара -->
             <div class="catalog-list__price">
-              {{$bestseller->sizeVariations->sortBy('price')->first()->price}} - {{$bestseller->sizeVariations->sortByDesc('price')->first()->price}} ₽
+              @if($bestseller->sizeVariations->sortBy('price')->first()->price == $bestseller->sizeVariations->sortByDesc('price')->first()->price)
+              {{$bestseller->sizeVariations->sortBy('price')->first()->price}}
+              @else
+              {{$bestseller->sizeVariations->sortBy('price')->first()->price}} - {{$bestseller->sizeVariations->sortByDesc('price')->first()->price}}
+              @endif {{__('userpanel.currency')}}
             </div>
             <!-- Цена и скидка товара END -->
 
             <!-- Цвета -->
             <ul class="catalog-list__colors catalog-list-colors">
               @foreach($bestseller->product->colorVariations as $colorVariation)
-              <li class="catalog-list-colors__color " title="$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())" style="background:{{$colorVariation->color->hex}}">
+              <li class="catalog-list-colors__color " title="{{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" style="background:{{$colorVariation->color->hex}}">
               </li>
               @endforeach
             </ul>

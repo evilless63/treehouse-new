@@ -28,12 +28,12 @@ class Category extends LocalizedModel
             foreach ($arrMenu as $item) {
                 if ($item->parent_id == 0) {
                     $m->add($item->getLocalizeTitle(LaravelLocalization::getCurrentLocale()), $item->id, $item->parent_id)
-                        ->id($item->id);
+                        ->id($item->id)->nickname($item->slug);
                 } else {
                     if ($m->find($item->parent_id)) {
                         $m->find($item->parent_id)
                             ->add($item->getLocalizeTitle(LaravelLocalization::getCurrentLocale()), $item->id, $item->parent_id)
-                            ->id($item->id);
+                            ->id($item->id)->nickname($item->slug);
                     }
                 }
             }
