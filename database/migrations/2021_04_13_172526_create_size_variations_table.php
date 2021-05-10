@@ -21,6 +21,7 @@ class CreateSizeVariationsTable extends Migration
             $table->float('price');
             $table->float('discount');
             $table->integer('stock');
+            $table->boolean('is_visible')->default(false);
         });
     }
 

@@ -78,7 +78,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/image/upload', [UploadController::class, 'imageUpload']);
     Route::post('/image/delete', [UploadController::class, 'imageDelete']);
     Route::post('/image/delete-from-gallery', [UploadController::class, 'deleteImageFromGallery']);
-    Route::post('/product/change-discount', [ProductController::class, 'changeDiscount']);   
+
+    Route::post('/product/change-discount', [ProductController::class, 'changeDiscount']);  
+    Route::post('/product/change-is-visible', [ProductController::class, 'changeIsVisibleSizeVariation']); 
+    Route::post('/product/change-is-new', [ProductController::class, 'changeIsNewColorVariation']); 
+    Route::post('/product/change-is-bestseller', [ProductController::class, 'changeIsBestsellerColorVariation']); 
 });
 
 Route::middleware('auth')->group(function () {

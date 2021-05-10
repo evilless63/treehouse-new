@@ -88,7 +88,14 @@
                             <div class="w-full pt-4">
                                 @foreach($current_product->colorVariations as $colorVariation)
                                 <div x-show="openTabColor === {{$loop->index + 1}}">
-
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" onchange="changeIsNew(event)" colorVariationId="{{$colorVariation->id}}" type="checkbox" @if($colorVariation->is_new) checked @endif>
+                                        <label class="form-check-label">Новинка</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" onchange="changeIsBestseller(event)" colorVariationId="{{$colorVariation->id}}" type="checkbox" @if($colorVariation->is_bestseller) checked @endif>
+                                        <label class="form-check-label">Бестселлер</label>
+                                    </div>
                                     <div x-data="{openTabColorVariationTabs: 1 ,activeClasses: 'border-l border-t border-r rounded-t text-blue-700',inactiveClasses: 'text-blue-500 hover:text-blue-800'}" class="my-6">
                                         <ul class="flex border-b">
 
@@ -408,7 +415,13 @@
                                                             <td>
                                                                 <div class="input-group mb-3 discountBlock">
                                                                     <input type="number" min="0" max="100" step="0.1" class="form-control discount-sum" placeholder="Новая скидка">
-                                                                    <button class="btn btn-primary" type="button"  onclick="editDiscount(event)" sizeVariationId="{{$sizeVariation->id}}">изменить</button>
+                                                                    <button class="btn btn-primary" type="button" onclick="editDiscount(event)" sizeVariationId="{{$sizeVariation->id}}">изменить</button>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" onchange="changeIsVisible(event)" sizeVariationId="{{$sizeVariation->id}}" type="checkbox" @if($sizeVariation->is_visible) checked @endif>
+                                                                    <label class="form-check-label">Доступен на сайте</label>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -490,6 +503,51 @@
                     $(event.target).siblings(".discount-sum").val('');
                     $(event.target).closest('.sizeVariationBlock').find('.currentDiscount').text('скидка ' + discountValue + ' %');
                 }
+            });
+        }
+
+        function changeIsNew() {
+            var colorVariationId = $(event.target).attr('colorVariationId');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{url('/admin/product/change-is-new')}}",
+                type: "post",
+                data: {
+                    id: colorVariationId,
+                    is_new: event.target.checked,
+                },
+            });
+        }
+
+        function changeIsBestseller() {
+            var colorVariationId = $(event.target).attr('colorVariationId');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{url('/admin/product/change-is-bestseller')}}",
+                type: "post",
+                data: {
+                    id: colorVariationId,
+                    is_bestseller: event.target.checked,
+                },
+            });
+        }
+
+        function changeIsVisible() {
+            var sizeVariationId = $(event.target).attr('sizeVariationId');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{url('/admin/product/change-is-visible')}}",
+                type: "post",
+                data: {
+                    id: sizeVariationId,
+                    is_visible: event.target.checked,
+                },
             });
         }
     </script>

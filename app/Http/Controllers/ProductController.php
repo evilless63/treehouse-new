@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\SizeVariation;
+use App\Models\ColorVariation;
 use Throwable;
 use Image;
 use File;
@@ -130,6 +131,37 @@ class ProductController extends Controller
     public function changeDiscount() {
         $sizeVariation = SizeVariation::where('id', request()->id)->first();
         $sizeVariation->discount = request()->value;
+        $sizeVariation->update();
+    }
+
+    public function changeIsNewColorVariation() {
+        $colorVariation = ColorVariation::where('id', request()->id)->first();
+        if(request()->is_new == "true"){
+            $colorVariation->is_new = 1;
+        } else {
+            $colorVariation->is_new = 0;
+        }
+        
+        $colorVariation->update();
+    }
+
+    public function changeIsBestsellerColorVariation() {
+        $colorVariation = ColorVariation::where('id', request()->id)->first();
+        if(request()->is_bestseller == "true"){
+            $colorVariation->is_bestseller = 1;
+        } else {
+            $colorVariation->is_bestseller = 0;
+        }
+        $colorVariation->update();
+    }
+
+    public function changeIsVisibleSizeVariation() {
+        $sizeVariation = SizeVariation::where('id', request()->id)->first();
+        if(request()->is_visible == "true"){
+            $sizeVariation->is_visible = 1;
+        } else {
+            $sizeVariation->is_visible = 0;
+        }
         $sizeVariation->update();
     }
 }

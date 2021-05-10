@@ -21,7 +21,6 @@ class CreateColorVariationsTable extends Migration
             $table->string('main_img')->nullable();
             $table->boolean('is_new')->default(false);
             $table->boolean('is_bestseller')->default(false);
-            $table->boolean('is_visible')->default(false);
         });
     }
 
