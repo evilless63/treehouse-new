@@ -6,7 +6,7 @@
     @csrf
 
     <label for="counteragentInn">ИНН Организации:</label>
-    <input type="text" id="counteragentInn" />
+    <input type="text" class="form-control"id="counteragentInn" />
     <button id="getDataByInn">Найти по ИНН</button>
 
     <label for="counteragentOrgType">Тип организации:</label>
@@ -23,40 +23,40 @@
     </select>
 
     <label for="counteragentKpp">КПП Организации:</label>
-    <input type="text" id="counteragentKpp" />
+    <input type="text" class="form-control"id="counteragentKpp" />
 
     <label for="counteragentName">Наименование организации:</label>
-    <input type="text" id="counteragentName" />
+    <input type="text" class="form-control"id="counteragentName" />
 
     <label for="counteragentRegistrationName">Наименование по регистрации (без типа юр.лица):</label>
-    <input type="text" id="counteragentRegistrationName" /> 
+    <input type="text" class="form-control"id="counteragentRegistrationName" /> 
 
     <label for="counteragentAddress">Юридический адрес:</label>
-    <input type="text" id="counteragentAddress" />
+    <input type="text" class="form-control"id="counteragentAddress" />
 
     <label for="counteragentAddress">Фактический адрес:</label>
-    <input type="text" id="counteragentFactAddress" />
+    <input type="text" class="form-control"id="counteragentFactAddress" />
 
     <label for="counteragentRegion">Регион:</label>
-    <input type="text" id="counteragentRegion" />
+    <input type="text" class="form-control"id="counteragentRegion" />
 
     <label for="counteragentCity">Город:</label>
-    <input type="text" id="counteragentCity" />
+    <input type="text" class="form-control"id="counteragentCity" />
 
     <label for="counteragentContactUserSurname">Фамилия контактного лица:</label>
-    <input type="text" id="counteragentContactUserSurname" />
+    <input type="text" class="form-control"id="counteragentContactUserSurname" />
 
     <label for="counteragentContactUserName">Имя контактного лица:</label>
-    <input type="text" id="counteragentContactUserName" />
+    <input type="text" class="form-control"id="counteragentContactUserName" />
 
     <label for="counteragentContactUserPatronymic">Отчество контактного лица:</label>
-    <input type="text" id="counteragentContactUserPatronymic" />
+    <input type="text" class="form-control"id="counteragentContactUserPatronymic" />
 
     <label for="counteragentContactUserPosition">Должность контактного лица:</label>
-    <input type="text" id="counteragentContactUserPosition" />
+    <input type="text" class="form-control"id="counteragentContactUserPosition" />
 
     <label for="counteragentContactPhone">Контактный телефон:</label>
-    <input type="text" id="counteragentContactPhone" />
+    <input type="text" class="form-control"id="counteragentContactPhone" />
 
     <div>
         <label for="useForPhoneNotifications">Использовать телефон для уведомлений</label>
@@ -64,19 +64,19 @@
     </div>
 
     <label for="counteragentBankName">Название банка:</label>
-    <input type="text" id="counteragentBankName" />
+    <input type="text" class="form-control"id="counteragentBankName" />
 
     <label for="counteragentBankBik">БИК банка:</label>
-    <input type="text" id="counteragentBankBik" />
+    <input type="text" class="form-control"id="counteragentBankBik" />
 
     <label for="counteragentBankKSchet">К/счет банка:</label>
-    <input type="text" id="counteragentBankKSchet" />
+    <input type="text" class="form-control"id="counteragentBankKSchet" />
 
     <label for="counteragentBankRSchet">Р/счет банка:</label>
-    <input type="text" id="counteragentBankRSchet" />
+    <input type="text" class="form-control"id="counteragentBankRSchet" />
 
     <label for="counteragentContactPhone">Email:</label>
-    <input type="text" id="counteragentEmail" />
+    <input type="text" class="form-control"id="counteragentEmail" />
 
     <label for="counteragentPassword">Пароль (не менее 3х символов):</label>
     <input type="password" id="counteragentPassword" />
@@ -90,7 +90,7 @@
     <div class="form-group" id="refreshrecapcha">
     {!!captcha_img('flat')!!}
     </div>
-    <input type="text" name="captcha" data-validation="required">
+    <input type="text" class="form-control"name="captcha" data-validation="required">
     <a id="refreshCapchaButton" href="javascript:void(0)">Обновить код</a>
     
 
@@ -99,7 +99,7 @@
         <input type="checkbox" />       
     </div>
 
-    <input type="submit" value="Зарегестрировать" />
+    <input type="submit" class="btn btn-primary"value="Зарегестрировать" />
 
 </form>
 
@@ -110,22 +110,22 @@
     @csrf
 
     <label for="privatePersonRegion">Регион:</label>
-    <input type="text" id="privatePersonRegion" name="privatePersonRegion" />
+    <input type="text" class="form-control"id="privatePersonRegion" name="privatePersonRegion" />
 
     <label for="privatePersonCity">Город:</label>
-    <input type="text" id="privatePersonCity" name="privatePersonCity"/>
+    <input type="text" class="form-control"id="privatePersonCity" name="privatePersonCity"/>
 
     <label for="privatePersonContactUserSurname">Фамилия:</label>
-    <input type="text" id="privatePersonContactUserSurname" name="privatePersonContactUserSurname" />
+    <input type="text" class="form-control"id="privatePersonContactUserSurname" name="privatePersonContactUserSurname" />
 
     <label for="privatePersonContactUserName">Имя:</label>
-    <input type="text" id="privatePersonContactUserName" name="privatePersonContactUserName" />
+    <input type="text" class="form-control"id="privatePersonContactUserName" name="privatePersonContactUserName" />
 
     <label for="privatePersonContactUserPatronymic">Отчество:</label>
-    <input type="text" id="privatePersonContactUserPatronymic" name="privatePersonContactUserPatronymic"/>
+    <input type="text" class="form-control"id="privatePersonContactUserPatronymic" name="privatePersonContactUserPatronymic"/>
 
     <label for="privatePersonContactPhone">Контактный телефон:</label>
-    <input type="text" id="privatePersonContactPhone" name="privatePersonContactPhone" />
+    <input type="text" class="form-control"id="privatePersonContactPhone" name="privatePersonContactPhone" />
 
     <div>
         <label for="privatePersonUsePhoneNotifications">Использовать телефон для уведомлений</label>
@@ -133,7 +133,7 @@
     </div>
 
     <label for="privatePersonContactPhone">Email:</label>
-    <input type="text" id="privatePersonEmail" name="privatePersonEmail" />
+    <input type="text" class="form-control"id="privatePersonEmail" name="privatePersonEmail" />
 
     <label for="privatePersonPassword">Пароль (не менее 3х символов):</label>
     <input type="password" id="privatePersonPassword" name="privatePersonPassword" />
@@ -145,7 +145,7 @@
     <div class="form-group" id="refreshrecapcha1">
     {!!captcha_img('flat')!!}
     </div>
-    <input type="text" name="captcha" data-validation="required" name="captcha" >
+    <input type="text" class="form-control"name="captcha" data-validation="required" name="captcha" >
     <a id="refreshCapchaButton1" href="javascript:void(0)">Обновить код</a>
     
 
@@ -154,7 +154,7 @@
         <input type="checkbox" name="policy"/>       
     </div>
 
-    <input type="submit" value="Зарегестрировать" />
+    <input type="submit" class="btn btn-primary"value="Зарегестрировать" />
 
 </form>
 

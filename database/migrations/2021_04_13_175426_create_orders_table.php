@@ -20,6 +20,12 @@ class CreateOrdersTable extends Migration
             $table->boolean('is_closed')->default(false);
             $table->boolean('is_paid')->default(false);
             $table->string('comment')->nullable();
+            $table->string('country');
+            $table->string('city');
+            $table->string('street');
+            $table->string('house');
+            $table->string('room')->nullable();
+            $table->string('zipcode');
         });
     }
 

@@ -25,19 +25,31 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <a href="{{route('sliders.create')}}">Создать слайдер</a>
+                    <div class="mb-3">
+                        <a class="btn btn-primary" href="{{route('sliders.create')}}">Создать слайдер</a>
+                    </div>
 
-                    @foreach($sliders as $slider)
-                    <li style="list-style-type: none">
-                        <h3>{{{ $slider->getLocalizeTitleRu() }}} ----- <a href="{{route('sliders.edit', $slider->id)}}">{{__('adminpanel.edit')}}</a> -----
-                            <form method="POST" action="{{route('sliders.destroy', $slider->id)}}">
-                                @csrf
-                                @method('delete')
-                                <input type="submit" value="Удалить">
-                            </form>
-                        </h3>
-                    </li>
-                    @endforeach
+                    <div class="mb-3">
+                        <input type="text" class="form-control" class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
+                    </div>
+
+                    <table class="table" id="findTable">
+                        <tbody>
+                            @foreach($sliders as $slider)
+                            <tr>
+                                <th scope="row">{{{ $slider->getLocalizeTitleRu() }}}</th>
+                                <td><a href="{{route('sliders.edit', $slider->id)}}">{{__('adminpanel.edit')}}</a></td>
+                                <td>
+                                    <form method="POST" action="{{route('sliders.destroy', $slider->id)}}">
+                                        @csrf
+                                        @method('delete')
+                                        <input type="submit" class="btn btn-danger" value="Удалить">
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
                 </div>
             </div>

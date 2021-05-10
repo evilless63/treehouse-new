@@ -45,24 +45,24 @@
                                 @foreach($lang_field_sets as $lang_field_set)
                                 <div x-show="openTab === {{$loop->index + 1}}">
                                     <label>{{__('adminpanel.name')}} -- {{$lang_field_set->lang}}</label>
-                                    <input type="text" placeholder="{{__('adminpanel.name')}}" name="localization[{{$lang_field_set->lang}}][title]" class="@error('title') is-invalid @enderror" value="{{$lang_field_set->title}}">
+                                    <input type="text" class="form-control"placeholder="{{__('adminpanel.name')}}" name="localization[{{$lang_field_set->lang}}][title]" class="@error('title') is-invalid @enderror" value="{{$lang_field_set->title}}">
                                 </div>
                                 @endforeach
                             </div>
                         </div>
                         <label>Ссылка</label>
-                        <input type="text" placeholder="ссылка" name="link" value="{{$current_slider->link}}">
+                        <input type="text" class="form-control"placeholder="ссылка" name="link" value="{{$current_slider->link}}">
                         <a href="{{$current_slider->link}}">Посмотреть ссылку</a>
 
                         <label>Изображение</label>
                         <input type="file" class="filepond my-4" name="source_path" value="{{$current_slider->source_path}}">
 
                         <label>Ссылка на ресурс (youtube)</label>
-                        <input type="text" class="filepond my-4" name="source_path" value="{{$current_slider->source_path}}">
+                        <input type="text" class="form-control"class="filepond my-4" name="source_path" value="{{$current_slider->source_path}}">
 
                         <label>Использовать на сайте</label>
                         <input type="checkbox" name="is_active" value="{{old('is_active')}}">
-                        <input type="submit" value="{{__('adminpanel.edit')}}">
+                        <input type="submit" class="btn btn-primary"value="{{__('adminpanel.edit')}}">
 
                     </form>
                 </div>

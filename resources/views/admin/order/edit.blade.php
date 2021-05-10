@@ -81,7 +81,7 @@
                         @if($order->is_closed)
                         <a href="{{route('orders.index')}}">К списку заказов</a>
                         @else
-                        <input type="submit" value="{{__('adminpanel.edit')}}">
+                        <input type="submit" class="btn btn-primary"value="{{__('adminpanel.edit')}}">
                         @endif
 
 

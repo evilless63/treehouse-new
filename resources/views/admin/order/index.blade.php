@@ -24,18 +24,31 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                
-                    @foreach($orders as $order)
-                    <li style="list-style-type: none">
-                        <h3>{{{ $order->id }}} ----- <a href="{{route('orders.edit', $order->id)}}">{{__('adminpanel.edit')}}</a> ----- @if($order->is_closed) Закрыт (оплачен) @else Не закрыт (не оплачен)@endif -----
-                            <form method="POST" action="{{route('orders.destroy', $order->id)}}">
-                                @csrf
-                                @method('delete')
-                                <input type="submit" value="Удалить">
-                            </form>
-                        </h3>
-                    </li>
-                    @endforeach
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
+                    </div>
+
+                    <table class="table" id="findTable">
+                        <tbody>
+                            @foreach($orders as $order)
+                            <tr>
+                                <th scope="row">{{{ $order->id }}}</th>
+                                <td><a href="{{route('orders.edit', $order->id)}}">Посмотреть</a></td>
+                                <td> @if($order->is_closed) Закрыт (оплачен) @else Не закрыт (не оплачен)@endif</td>
+                                <td>
+                                    @if(!$order->is_closed)
+                                    <form method="POST" action="{{route('orders.destroy', $order->id)}}">
+                                        @csrf
+                                        @method('delete')
+                                        <input type="submit" class="btn btn-primary" value="Удалить">
+                                    </form>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
                 </div>
             </div>

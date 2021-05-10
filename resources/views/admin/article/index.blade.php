@@ -25,19 +25,32 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <a href="{{route('articles.create')}}">Создать статью</a>
+                    <div class="mb-3">
+                        <a class="btn btn-primary" href="{{route('articles.create')}}">Создать статью</a>
+                    </div>
 
-                    @foreach($articles as $article)
-                    <li style="list-style-type: none">
-                        <h3>{{{ $article->getLocalizeTitleRu() }}} ----- <a href="{{route('articles.edit', $article->id)}}">{{__('adminpanel.edit')}}</a> ----- <a href="{{route('articles.replicate', $article->id)}}">Скопировать</a> -----
-                            <form method="POST" action="{{route('articles.destroy', $article->id)}}">
-                                @csrf
-                                @method('delete')
-                                <input type="submit" value="Удалить">
-                            </form>
-                        </h3>
-                    </li>
-                    @endforeach
+                    <div class="mb-3">
+                        <input type="text" class="form-control" class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
+                    </div>
+
+                    <table class="table" id="findTable">
+                        <tbody>
+                            @foreach($articles as $article)
+                            <tr>
+                                <th scope="row">{{{ $article->getLocalizeTitleRu() }}}</th>
+                                <td><a href="{{route('articles.edit', $article->id)}}">{{__('adminpanel.edit')}}</a></td>
+                                <td><a href="{{route('articles.replicate', $article->id)}}">Скопировать</a></td>
+                                <td>
+                                    <form method="POST" action="{{route('articles.destroy', $article->id)}}">
+                                        @csrf
+                                        @method('delete')
+                                        <input type="submit" class="btn btn-danger" value="Удалить">
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
                 </div>
             </div>

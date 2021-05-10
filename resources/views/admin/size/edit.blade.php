@@ -31,13 +31,13 @@
 
                         @foreach($lang_field_sets as $lang_field_set)
                         <label>{{__('adminpanel.name')}} -- {{$lang_field_set->lang}}</label>
-                        <input type="text" placeholder="{{__('adminpanel.name')}}" name="localization[{{$lang_field_set->lang}}][title]" class="@error('title') is-invalid @enderror" value="{{$lang_field_set->title}}">
+                        <input type="text" class="form-control"placeholder="{{__('adminpanel.name')}}" name="localization[{{$lang_field_set->lang}}][title]" class="@error('title') is-invalid @enderror" value="{{$lang_field_set->title}}">
                         @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         @endforeach
 
-                        <input type="submit" value="{{__('adminpanel.edit')}}">
+                        <input type="submit" class="btn btn-primary"value="{{__('adminpanel.edit')}}">
 
                     </form>
                     </div>

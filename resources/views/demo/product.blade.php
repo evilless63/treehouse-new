@@ -7,7 +7,7 @@ onmouseover="this.style.backgroundColor='#e1d7d7';" onmouseout="this.style.backg
     <form style="margin-block-end: 0em;" method="POST" action="{{route('make-order')}}">
         @csrf
         <input type="hidden" name="product_id" value="{{$product->product_id}}">
-        <input type="submit" value="заказать">
+        <input type="submit" class="btn btn-primary"value="заказать">
     </form>
 </li>
 </ul>

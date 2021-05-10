@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.User.create')->with([
+        return view('admin.user.create')->with([
             'locales' => $this->locales
         ]);
     }
@@ -39,19 +39,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        
         $data = $request->all();
-        $data['slug'] = str_slug(request()->get('localization')['ru']['title']);
 
-        $User = User::create($data);
-        foreach ($request->input('localization', []) as $k => $i) {
-            $local = $User->localizations()
-                ->create($i + ['lang' => $k]);
+        if($request->has('is_admin')){
+            $data['is_admin'] = true;
+        }else{
+            $data['is_admin'] = false;
         }
 
+        if($request->has('is_active')){
+            $data['is_active'] = true;
+        }else{
+            $data['is_active'] = false;
+        }
+
+        $User = User::create($data);
+
         if ($User) {
-            return redirect()->route('Users.index')->with('success', __('adminpanel.action_success'));
+            return redirect()->route('users.index')->with('success', __('adminpanel.action_success'));
         } else {
-            return redirect()->route('Users.index')->with('error', __('adminpanel.action_error'));
+            return redirect()->route('users.index')->with('error', __('adminpanel.action_error'));
         }
     }
 
@@ -76,17 +84,8 @@ class UserController extends Controller
     {
         $current_User = User::find($id);
 
-        $lang_field_sets = collect();
-        foreach ($this->locales as $locale) {
-            $lang_field_sets->add($current_User
-                ->localization()
-                ->where('lang', $locale)
-                ->first());
-        }
-
-        return view('admin.User.edit')->with([
-            'current_User' => $current_User,
-            'lang_field_sets' => $lang_field_sets
+        return view('admin.user.edit')->with([
+            'current_user' => $current_User
         ]);
     }
 
@@ -100,16 +99,12 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $User = User::find($id);
-
         $haveBeenUpdated = $User->update($request->all());
-        foreach ($request->input('localization', []) as $k => $i) {
-            $locale = $User->localizations()->where('lang', $k)
-                ->update($i + ['lang' => $k]);
-        }
+
         if ($haveBeenUpdated) {
-            return redirect()->route('Users.index')->with('success', __('adminpanel.action_success'));
+            return redirect()->route('users.index')->with('success', __('adminpanel.action_success'));
         } else {
-            return redirect()->route('Users.index')->with('error', __('adminpanel.action_error'));
+            return redirect()->route('users.index')->with('error', __('adminpanel.action_error'));
         }
     }
 
@@ -123,7 +118,7 @@ class UserController extends Controller
     {
         $current_User = User::find($id);
         $current_User->delete();
-        return redirect()->route('Users.index')->with('success', __('adminpanel.action_success'));
+        return redirect()->route('users.index')->with('success', __('adminpanel.action_success'));
     }
 
     public function replicate($id)
@@ -145,9 +140,9 @@ class UserController extends Controller
         }
 
         if($replicatedUser) {
-            return redirect()->route('Users.index')->with('error', __('adminpanel.action_error'));
+            return redirect()->route('users.index')->with('error', __('adminpanel.action_error'));
         } else {
-            return redirect()->route('Users.index')->with('success', __('adminpanel.action_success'));
+            return redirect()->route('users.index')->with('success', __('adminpanel.action_success'));
         }
     }
 }

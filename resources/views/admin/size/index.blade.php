@@ -42,11 +42,20 @@
                     </div>
                     @endif
 
-                    @foreach($sizes as $size)
-                    <li style="list-style-type: none">
-                        <h3>{{{ $size->getLocalizeTitleRu() }}} ----- <a href="{{route('sizes.edit', $size->id)}}">{{__('adminpanel.edit')}}</a></h3>
-                    </li>
-                    @endforeach
+                    <div class="mb-3">
+                        <input type="text" class="form-control" class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
+                    </div>
+
+                    <table class="table" id="findTable">
+                        <tbody>
+                            @foreach($sizes as $size)
+                            <tr>
+                                <th scope="row">{{{ $size->getLocalizeTitleRu() }}}</th>
+                                <td><a href="{{route('sizes.edit', $size->id)}}">{{__('adminpanel.edit')}}</a></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

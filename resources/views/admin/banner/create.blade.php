@@ -43,14 +43,14 @@
                                 @foreach($locales as $locale)
                                 <div x-show="openTab === {{$loop->index + 1}}">
                                     <label>{{__('adminpanel.name')}} -- {{$locale}}</label>
-                                    <input type="text" placeholder="{{__('adminpanel.name')}}" name="localization[{{$locale}}][title]" class="@error('title') is-invalid @enderror" value="{{old('title')}}">
+                                    <input type="text" class="form-control"placeholder="{{__('adminpanel.name')}}" name="localization[{{$locale}}][title]" class="@error('title') is-invalid @enderror" value="{{old('title')}}">
                                 </div>
                                 @endforeach
                             </div>
                         </div>
 
                         <label>Ссылка</label>
-                        <input type="text" placeholder="ссылка" name="link" value="{{old('link')}}">
+                        <input type="text" class="form-control"placeholder="ссылка" name="link" value="{{old('link')}}">
                         <label>Размещение баннера</label>
                         <select name="banner_position">
                             <option selected value="0">Не размещать</option>
@@ -62,7 +62,7 @@
 
                         <label>Изображение</label>
                         <input type="file" class="filepond my-4" name="img_path" value="{{old('img_path')}}">
-                        <input type="submit" value="{{__('adminpanel.update')}}">
+                        <input type="submit" class="btn btn-primary"value="{{__('adminpanel.update')}}">
 
                     </form>
                 </div>

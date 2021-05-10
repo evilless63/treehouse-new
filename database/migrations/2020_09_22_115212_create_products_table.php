@@ -19,9 +19,6 @@ class CreateProductsTable extends Migration
             $table->string('slug',255)->unique();
             $table->string('sku',255)->nullable();
             $table->string('code',255)->nullable();
-            $table->boolean('is_new')->default(false);
-            $table->boolean('is_bestseller')->default(false);
-            $table->boolean('is_visible')->default(false);
         });
 
         Schema::create('product_localizations', function(Blueprint $table) {

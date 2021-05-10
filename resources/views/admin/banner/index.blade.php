@@ -25,19 +25,32 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <a href="{{route('banners.create')}}">Создать баннер</a>
+                    <div class="mb-3">
+                        <a class="btn btn-primary" href="{{route('banners.create')}}">Создать баннер</a>
+                    </div>
 
-                    @foreach($banners as $banner)
-                    <li style="list-style-type: none">
-                        <h3>{{{ $banner->getLocalizeTitleRu() }}} ----- <a href="{{route('banners.edit', $banner->id)}}">{{__('adminpanel.edit')}}</a> ----- 
-                            <form method="POST" action="{{route('banners.destroy', $banner->id)}}">
-                                @csrf
-                                @method('delete')
-                                <input type="submit" value="Удалить">
-                            </form>
-                        </h3>
-                    </li>
-                    @endforeach
+                    <div class="mb-3">
+                        <input type="text" class="form-control" class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
+                    </div>
+
+                    <table class="table" id="findTable">
+                        <tbody>
+                            @foreach($banners as $banner)
+                            <tr>
+                                <th scope="row">{{{ $banner->getLocalizeTitleRu() }}}</th>
+                                <td><a href="{{route('banners.edit', $banner->id)}}">{{__('adminpanel.edit')}}</a></td>
+                                <td>
+                                    <form method="POST" action="{{route('banners.destroy', $banner->id)}}">
+                                        @csrf
+                                        @method('delete')
+                                        <input type="submit" class="btn btn-danger" value="Удалить">
+                                    </form>
+                                </td>
+                                <td>{{config('enums.banner_positions')[$banner->banner_position]}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 
                 </div>
             </div>

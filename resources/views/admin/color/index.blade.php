@@ -41,11 +41,20 @@
                     </div>
                     @endif
 
-                    @foreach($colors as $color)
-                    <li style="list-style-type: none">
-                        <h3>{{{ $color->getLocalizeTitleRu() }}} ----- <a href="{{route('colors.edit', $color->id)}}">{{__('adminpanel.edit')}}</a></h3>
-                    </li>
-                    @endforeach
+                    <div class="mb-3">
+                        <input type="text" class="form-control" class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
+                    </div>
+
+                    <table class="table" id="findTable">
+                        <tbody>
+                            @foreach($colors as $color)
+                            <tr>
+                                <th scope="row">{{{ $color->getLocalizeTitleRu() }}}</th>
+                                <td><a href="{{route('colors.edit', $color->id)}}">{{__('adminpanel.edit')}}</a></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

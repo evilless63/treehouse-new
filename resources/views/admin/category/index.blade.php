@@ -24,21 +24,32 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <a href="{{route('categories.create')}}">{{__('adminpanel.create_category')}}</a>
+                    <div class="mb-3">
+                        <a class="btn btn-primary" href="{{route('categories.create')}}">{{__('adminpanel.create_category')}}</a>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control"class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
+                    </div>
 
-                    @foreach($categories as $category)
-                    <li style="list-style-type: none">
-                        <h3>{{{ $category->getLocalizeTitleRu() }}} ----- <a href="{{route('categories.edit', $category->id)}}">{{__('adminpanel.edit')}}</a> ----- <a href="{{route('categories.replicate', $category->id)}}">Скопировать</a></h3>
-                        @if(true == false)
-                        @if(count($category->products))
-                        @include('demo.product ',['products' => $category->products])
-                        @endif
-                        @endif
-                        @if(count($category->childs))
-                        @include('admin.category.includes.childs',['childs' => $category->childs])
-                        @endif
-                    </li>
-                    @endforeach
+                    <table class="table" id="findTable">
+                        <tbody>
+                            @foreach($categories as $category)
+                            <tr>
+                                <th scope="row">{{{ $category->getLocalizeTitleRu() }}}</th>
+                                <td><a href="{{route('categories.edit', $category->id)}}">{{__('adminpanel.edit')}}</a></td>
+                                <td><a href="{{route('categories.replicate', $category->id)}}">Скопировать</a></td>
+                            </tr>
+                            @if(true == false)
+                            @if(count($category->products))
+                            @include('demo.product ',['products' => $category->products])
+                            @endif
+                            @endif
+                            @if(count($category->childs))
+                            @include('admin.category.includes.childs',['childs' => $category->childs])
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

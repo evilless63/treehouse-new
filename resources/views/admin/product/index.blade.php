@@ -24,13 +24,19 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-
-
-                    @foreach($products as $product)
-                    <li style="list-style-type: none">
-                        <h3>{{{ $product->getLocalizeTitleRu() }}} ----- <a href="{{route('products.edit', $product->id)}}">{{__('adminpanel.edit')}}</a></h3>
-                    </li>
-                    @endforeach
+                    <div class="mb-3">
+                        <input type="text" class="form-control"class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
+                    </div>
+                    <table class="table" id="findTable">
+                        <tbody>
+                            @foreach($products as $product)
+                            <tr>
+                                <th scope="row">{{{ $product->getLocalizeTitleRu() }}}</th>
+                                <td><a href="{{route('products.edit', $product->id)}}">{{__('adminpanel.edit')}}</a></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -23,6 +23,7 @@ class CreateAddressesTable extends Migration
             $table->string('room')->nullable();
             $table->string('zipcode');
             $table->string('user_id');
+            $table->boolean('is_default')->default(false);
         });
     }
 

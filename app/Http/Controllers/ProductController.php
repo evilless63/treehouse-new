@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\SizeVariation;
 use Throwable;
+use Image;
+use File;
 
 class ProductController extends Controller
 {
@@ -122,5 +125,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function changeDiscount() {
+        $sizeVariation = SizeVariation::where('id', request()->id)->first();
+        $sizeVariation->discount = request()->value;
+        $sizeVariation->update();
     }
 }

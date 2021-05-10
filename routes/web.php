@@ -75,20 +75,23 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/api/v1/importdata/sizes', [ImportController::class, 'ImportSizesFrom1c']);
     Route::post('/api/v1/importdata/products', [ImportController::class, 'ImportProductsFrom1c']);
 
-    Route::post('/filepond/api/',[UploadController::class, 'uploadFile']);
+    Route::post('/image/upload', [UploadController::class, 'imageUpload']);
+    Route::post('/image/delete', [UploadController::class, 'imageDelete']);
+    Route::post('/image/delete-from-gallery', [UploadController::class, 'deleteImageFromGallery']);
+    Route::post('/product/change-discount', [ProductController::class, 'changeDiscount']);   
 });
 
 Route::middleware('auth')->group(function () {
     Route::post('/card/add', [CartController::class, 'addToCard'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'getCartContent'])->name('cart.content');
-    Route::delete('/cart/destroy',[CartController::class, 'destroy'])->name('cart.destroy');
+    Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::get('/user/cabinet', [UserPrivateController::class, 'profile'])->name('user.profile');
     Route::get('/user/edit', [UserPrivateController::class, 'editProfile'])->name('user.edit_profile');
     Route::get('/user/orders', [UserPrivateController::class, 'orders'])->name('user.orders');
     Route::get('/user/subscribe', [UserPrivateController::class, 'subscribe'])->name('user.subscribe');
     Route::get('/user/wishlist', [UserPrivateController::class, 'wishlist'])->name('user.wishlist');
-    Route::get('/cart',[UserPrivateController::class, 'cart'])->name('user.cart');
-    Route::post('/makeorder',[UserPrivateController::class, 'makeOrderUnpayed'])->name('makeorder');
+    Route::get('/cart', [UserPrivateController::class, 'cart'])->name('user.cart');
+    Route::post('/makeorder', [UserPrivateController::class, 'makeOrderUnpayed'])->name('makeorder');
 });
 
 Route::get('/', [UserPublicController::class, 'index'])->name('user.index');

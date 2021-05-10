@@ -19,6 +19,7 @@ class CreateSizeVariationsTable extends Migration
             $table->integer('size_id');
             $table->integer('color_variation_id');
             $table->float('price');
+            $table->float('discount');
             $table->integer('stock');
         });
     }

@@ -31,7 +31,7 @@
                         @foreach($locales as $locale)
 
                         <label>{{__('adminpanel.name')}} -- {{$locale}}</label>
-                        <input type="text" placeholder="{{__('adminpanel.name')}}" name="localization[{{$locale}}][title]" class="@error('title') is-invalid @enderror" value="{{old('title')}}">
+                        <input type="text" class="form-control"placeholder="{{__('adminpanel.name')}}" name="localization[{{$locale}}][title]" class="@error('title') is-invalid @enderror" value="{{old('title')}}">
                         @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -49,7 +49,7 @@
                         <label>Использовать в шапке сайта</label>
                         <input type="checkbox" name="in_header" value="{{old('in_header')}}">
 
-                        <input type="submit" value="{{__('adminpanel.update')}}">
+                        <input type="submit" class="btn btn-primary"value="{{__('adminpanel.update')}}">
 
                     </form>
                 </div>

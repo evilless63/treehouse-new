@@ -43,7 +43,7 @@
                                 @foreach($locales as $locale)
                                 <div x-show="openTab === {{$loop->index + 1}}">
                                     <label>{{__('adminpanel.name')}} -- {{$locale}}</label>
-                                    <input type="text" placeholder="{{__('adminpanel.name')}}" name="localization[{{$locale}}][title]" class="@error('title') is-invalid @enderror" value="{{old('title')}}">
+                                    <input type="text" class="form-control"placeholder="{{__('adminpanel.name')}}" name="localization[{{$locale}}][title]" class="@error('title') is-invalid @enderror" value="{{old('title')}}">
                                     @error('name')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -63,7 +63,7 @@
                             @endforeach
                         </select>
 
-                        <input type="submit" value="{{__('adminpanel.update')}}">
+                        <input type="submit" class="btn btn-primary"value="{{__('adminpanel.update')}}">
 
                     </form>
                 </div>
