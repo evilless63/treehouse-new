@@ -113,7 +113,7 @@ class UserPublicController extends Controller
 
     public function product($product_slug, $color_slug)
     {
-        
+        // dd(geoip(request()->ip()));
 
         // if(!Auth::guest()) {
         //     $wishlist = Auth::user()->wishlists();

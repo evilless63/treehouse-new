@@ -50,7 +50,6 @@ Route::get('/', function () {
 // Route::post('/register-counteragent', 'App\Http\Controllers\DemoController@postCounteragentRegisterTo1c')->name('register-counteragent');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    App::setLocale('en');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth'])->name('dashboard');

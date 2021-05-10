@@ -209,7 +209,7 @@
               </ul>
             </div>
             <div class="logo ">
-              <a href="/" class="logo__link">
+              <a href="{{LaravelLocalization::localizeUrl('/')}}" class="logo__link">
                 <svg style="width: 60%;" viewBox="0 0 510 221" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <title>Дом на дереве</title>
                   <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
