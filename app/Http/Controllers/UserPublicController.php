@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ColorVariation;
+use App\Models\Banner;
 use View;
 use Auth;
 use Cart;
@@ -43,11 +45,16 @@ class UserPublicController extends Controller
     }
 
     public function index() {
-        $new_products = Product::where('is_visible','1')->where('is_new', '1')->get();
-        $bestseller_products = Product::where('is_visible','1')->where('is_bestseller', '1')->get();
+        // $new_products = Product::where('is_visible','1')->where('is_new', '1')->get();
+        $new_products = ColorVariation::where('is_new', '1')->get();
+        $bestseller_products = ColorVariation::where('is_bestseller', '1')->get();
+        $topLeftBanner = Banner::where('banner_position', 'TOP-LEFT')->first();
+        $topRightBanner = Banner::where('banner_position', 'TOP-RIGHT')->first();
+        $downLeftBanner = Banner::where('banner_position', 'DOWN_LEFT')->first();
+        $downRightBanner = Banner::where('banner_position', 'DOWN_RIGHT')->first();
         // $instagram_posts = InstagramPost::all();
         $instagram_posts = collect([]); //TODO treehouse
-        return view('user.public.index', compact('new_products', 'bestseller_products', 'instagram_posts'));
+        return view('user.public.index', compact('new_products', 'bestseller_products', 'instagram_posts','topLeftBanner','topRightBanner','downLeftBanner','downRightBanner'));
     }
 
     public function category($id = null) {

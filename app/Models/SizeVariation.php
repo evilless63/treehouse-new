@@ -22,4 +22,12 @@ class SizeVariation extends Model
     public function orders() {
         return $this->hasMany(Order::class);
     }
+
+    // public function getMinPrice() {
+    //     return $this->sortBy('price')->first()->price;
+    // }
+
+    // public function getMaxPrice() {
+    //     return $this->sortByDesc('price')->first()->price;
+    // }
 }
