@@ -234,7 +234,7 @@
   </div>
 
   <div id="popup-sizesinfo" class="popupify-inner">
-    <h4 class="popupify-inner__title">Таблица размеров</h4>
+    <h4 class="popupify-inner__title">{{__('userpanel.size_table_header')}}</h4>
     {{$productLangFields->size_table}}
   </div>
 
@@ -377,7 +377,7 @@
               <!-- Размеры NEW -->
               <div class="sizes-selector">
                 <div class="sizes-selector__title">
-                  Выбрать размер
+                  {{__('userpanel.choose_size')}}
                 </div>
                 <ul class="sizes-selector__list">
 
@@ -396,7 +396,8 @@
               <!-- Таблица размеров и обмеров -->
               <div class="product-description__section">
                 <a href="#sizesinfo" data-ga-action="Find your size click" data-ga-label="Трикотаж" class="card-new-sizes__guide">
-                  Таблица размеров и обмеры </a>
+                  {{__('userpanel.size_table')}}
+                </a>
               </div>
               <!-- Таблица размеров и обмеров END -->
 
@@ -406,7 +407,7 @@
                 <div class="product-controls__row">
 
                   <div class="product-button js-product__cart product-button--main">
-                    <span class="product-button__label css-hide-mobile css-hide-tablet">Добавить в корзину</span>
+                    <span class="product-button__label css-hide-mobile css-hide-tablet">{{__('userpanel.add_to_cart')}}</span>
                     <span class="product-button__label css-hide-desktop">В корзину, {{$product->price}} {{__('userpanel.currency')}}</span>
                   </div>
 
@@ -426,10 +427,11 @@
 
 
               <div class="card-product-details">
-                <h4 class="card-product-details__title">Детали</h4>
+                <h4 class="card-product-details__title">{{__('userpanel.product_details')}}</h4>
                 <ul class="card-product-details__list product-details-list">
                   <li class="product-details-list__item">
-                    Артикул: {{$product->sku}} </li>
+                    {{__('userpanel.product_article')}}: {{$product->sku}}
+                  </li>
                   <!-- <li class="product-details-list__item">
                           Состав: 100% Хлопок </li>
                         <li class="product-details-list__item">
@@ -460,7 +462,7 @@
               <!-- Подробности -->
               <div class="card-product-details card-product-details--last card-product-more media-query-show_tablet">
                 <h4 class="card-product-details__title">
-                  Подробности
+                  {{__('userpanel.product_specialty')}}
                 </h4>
                 <div class="card-features card__features">
                   <div class="card-features__holder accordion js-accordion">
@@ -471,19 +473,21 @@
                     <div class="accordion__item card-features__item">
                       <div class="accordion__head card-features__head" data-ga-action="Description click" data-ga-label="Трикотаж">
                         <div class="accordion__title">
-                          <div class="card-features__title">Обмеры и описание</div>
+                          <div class="card-features__title">{{__('userpanel.product_measurements_and_desc')}}</div>
                           <div class="accordion__icon card-features__icon"></div>
                         </div>
                       </div>
                       <div class="accordion__box card-features__box">
                         <div class="card-features__text">
                           <h4 class="card-features__text-title">
-                            Обмеры изделия </h4>
+                            {{__('userpanel.product_measurements')}}
+                          </h4>
                           <p class="card-features__text-sizes">
                             {{$productLangFields->details}}
                           </p>
                           <h4 class="card-features__text-title">
-                            Описание </h4>
+                            {{__('userpanel.product_desc')}}
+                          </h4>
                           <p>{{$productLangFields->content}}</p>
                         </div>
                       </div>
@@ -494,7 +498,7 @@
                     <div class="accordion__item card-features__item">
                       <div class="accordion__head card-features__head" data-ga-action="Look after click" data-ga-label="Трикотаж">
                         <div class="accordion__title">
-                          <div class="card-features__title">Состав и уход</div>
+                          <div class="card-features__title">{{__('userpanel.product_care')}}</div>
                           <div class="accordion__icon card-features__icon"></div>
                         </div>
                       </div>
@@ -527,7 +531,7 @@
                   </div>
                   <div class="mobile-sizes-popup__button">
                     <span class="mobile-sizes-popup__button-text">
-                      Добавить в корзину </span>
+                      {{__('userpanel.add_to_cart')}} </span>
                   </div>
                 </div>
               </div>
@@ -559,19 +563,21 @@
                 <div class="accordion__item card-features__item">
                   <div class="accordion__head card-features__head" data-ga-action="Description click" data-ga-label="Трикотаж">
                     <div class="accordion__title">
-                      <div class="card-features__title">Обмеры и описание</div>
+                      <div class="card-features__title">{{__('userpanel.product_measurements_and_desc')}}</div>
                       <div class="accordion__icon card-features__icon"></div>
                     </div>
                   </div>
                   <div class="accordion__box card-features__box">
                     <div class="card-features__text">
                       <h4 class="card-features__text-title">
-                        Обмеры изделия </h4>
+                        {{__('userpanel.product_measurements')}}
+                      </h4>
                       <p class="card-features__text-sizes">
                         {{$productLangFields->details}}
                       </p>
                       <h4 class="card-features__text-title">
-                        Описание </h4>
+                        {{__('userpanel.product_desc')}}
+                      </h4>
                       <p>
                         {{$productLangFields->content}}
                       </p>
@@ -584,7 +590,7 @@
                 <div class="accordion__item card-features__item">
                   <div class="accordion__head card-features__head" data-ga-action="Look after click" data-ga-label="Трикотаж">
                     <div class="accordion__title">
-                      <div class="card-features__title">Состав и уход</div>
+                      <div class="card-features__title">{{__('userpanel.product_care')}}</div>
                       <div class="accordion__icon card-features__icon"></div>
                     </div>
                   </div>
@@ -609,7 +615,7 @@
 
         <div id="might-like" class="card__item card__item--slider">
           <div class="card__item_head">
-            <h2 class="card__title">Вам может понравиться</h2>
+            <h2 class="card__title">{{__('userpanel.you_may_like')}}</h2>
 
             <div class="card__item_controls card-item-controls accompaniments-controls">
               <div class="card-item-controls__prev"></div>
@@ -743,7 +749,7 @@
         <div class="card__item card__item_lastview card__item--slider">
 
           <div class="card__item_head ">
-            <h2 class="card__title">Вы недавно смотрели</h2>
+            <h2 class="card__title">{{__('userpanel.you_recently_viewed')}}</h2>
             <div class="card__item_controls card-item-controls last-view-controls">
               <div class="card-item-controls__prev"></div>
               <div class="card-item-controls__next"></div>
@@ -874,7 +880,7 @@
             </div>
           </div>
           @endif
-          <!-- <a href="#select_size" class="button button_powdery button_fixed card__button media-query-show_mobile js-card-button card__button_with-spaces buy_button js-popup" data-target="#might-like">Добавить в корзину</a> -->
+          <!-- <a href="#select_size" class="button button_powdery button_fixed card__button media-query-show_mobile js-card-button card__button_with-spaces buy_button js-popup" data-target="#might-like">{{__('userpanel.add_to_cart')}}</a> -->
       </div>
     </div>
   </div>
@@ -895,7 +901,7 @@
   <input type="hidden" class="card-button-locale--subscribed" value="Вы подписаны">
   <input type="hidden" class="card-button-locale--preorder" value="Оформить предзаказ">
   <div style="display:none" class="card-button-locale--add-to-cart">
-    <span class="product-button__label css-hide-mobile css-hide-tablet">Добавить в корзину</span>
+    <span class="product-button__label css-hide-mobile css-hide-tablet">{{__('userpanel.add_to_cart')}}</span>
     <span class="product-button__label css-hide-desktop">В корзину, 5 980 {{__('userpanel.currency')}}</span>
   </div>
   <input type="hidden" class="card-button-locale--size" value="Размер">

@@ -25,7 +25,7 @@
                 <div class="menu__item" data-slug="info">
                   <a href="#" class="menu__link js-sub-menu">
                     <span class="menu__text">
-                      Покупателям <i class="menu__sub-icon"></i>
+                      {{__('userpanel.customers')}} <i class="menu__sub-icon"></i>
                     </span>
                     <span class="menu__sub-icon-mobile"></span>
                   </a>
@@ -63,7 +63,7 @@
                 <div class="menu__item" data-slug="about">
                   <a href="#" class="menu__link js-sub-menu">
                     <span class="menu__text">
-                      О компании <i class="menu__sub-icon"></i>
+                      {{__('userpanel.company')}} <i class="menu__sub-icon"></i>
                     </span>
                     <span class="menu__sub-icon-mobile"></span>
                   </a>
@@ -311,7 +311,7 @@
                 <!-- Новый футер start -->
                 <div class="footer-col">
                   <div class="footer-col__item footer-col-item" data-slug="info">
-                    <span class="footer-col-item__title"><i class="arrow-icon"></i>Покупателям</span>
+                    <span class="footer-col-item__title"><i class="arrow-icon"></i>{{__('userpanel.customers')}}</span>
                     <ul class="footer-col-item__list footer-list">
                       <li class="footer-list__item footer-list-item" data-slug="support" data-rank="">
                         <a class="footer-list-item__link" href="/support/support">
@@ -340,7 +340,7 @@
                     </ul>
                   </div>
                   <div class="footer-col__item footer-col-item" data-slug="about">
-                    <span class="footer-col-item__title"><i class="arrow-icon"></i>О компании</span>
+                    <span class="footer-col-item__title"><i class="arrow-icon"></i>{{__('userpanel.company')}}</span>
                     <ul class="footer-col-item__list footer-list">
                       <li class="footer-list__item footer-list-item" data-slug="brand" data-rank="12">
                         <a class="footer-list-item__link" href="/about/brand">
@@ -360,7 +360,7 @@
 
                 <div class="footer-col">
                   <div class="footer-col__item footer-col-item footer-col-item--connect">
-                    <span class="footer-col-item__title"><i class="arrow-icon"></i>Задайте вопрос</span>
+                    <span class="footer-col-item__title"><i class="arrow-icon"></i>{{__('userpanel.question')}}</span>
                     <ul class="footer-col-item__list footer-list">
                       <li class="footer-list__item footer-list-item">
                         <a class="footer-list-item__link footer-list-item__link-social footer-list-item__link--wa" target="_blank" href="https://api.whatsapp.com/send?phone=79126156257">

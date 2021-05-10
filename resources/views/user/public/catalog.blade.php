@@ -5,7 +5,7 @@
   <div class="catalog__holder">
     <div class="page__row">
       <div class="page__sidebar page__sidebar_left js-fixed-block media-query-show_wide">
-        <div class="page__title">Каталог</div>
+        <div class="page__title">{{__('userpanel.catalog')}}</div>
         <div class="categories catalog__categories">
           @include('user.includes.sidebar_categories', ['items'=>$categories_menu->roots()])
           <!-- <div class="categories__item ">
@@ -156,7 +156,7 @@
           <div class="card__item card__item_lastview card__item--slider">
 
             <div class="card__item_head card__item_head--catalog">
-              <h2 class="card__title">Вы недавно смотрели</h2>
+              <h2 class="card__title">{{__('userpanel.you_recently_viewed')}}</h2>
               <div class="card__item_controls card-item-controls last-view-controls">
                 <div class="card-item-controls__prev"></div>
                 <div class="card-item-controls__next"></div>

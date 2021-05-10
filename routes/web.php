@@ -77,35 +77,35 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/image/delete', [UploadController::class, 'imageDelete']);
     Route::post('/image/delete-from-gallery', [UploadController::class, 'deleteImageFromGallery']);
 
-    Route::post('/product/change-discount', [ProductController::class, 'changeDiscount']);  
-    Route::post('/product/change-is-visible', [ProductController::class, 'changeIsVisibleSizeVariation']); 
-    Route::post('/product/change-is-new', [ProductController::class, 'changeIsNewColorVariation']); 
-    Route::post('/product/change-is-bestseller', [ProductController::class, 'changeIsBestsellerColorVariation']); 
+    Route::post('/product/change-discount', [ProductController::class, 'changeDiscount']);
+    Route::post('/product/change-is-visible', [ProductController::class, 'changeIsVisibleSizeVariation']);
+    Route::post('/product/change-is-new', [ProductController::class, 'changeIsNewColorVariation']);
+    Route::post('/product/change-is-bestseller', [ProductController::class, 'changeIsBestsellerColorVariation']);
 });
 
-Route::group(['prefix' => LaravelLocalization::setLocale()], function()
-{
-Route::middleware('auth')->group(function () {
-    Route::post('/card/add', [CartController::class, 'addToCard'])->name('cart.add');
-    Route::get('/cart', [CartController::class, 'getCartContent'])->name('cart.content');
-    Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
-    Route::get('/user/cabinet', [UserPrivateController::class, 'profile'])->name('user.profile');
-    Route::get('/user/edit', [UserPrivateController::class, 'editProfile'])->name('user.edit_profile');
-    Route::get('/user/orders', [UserPrivateController::class, 'orders'])->name('user.orders');
-    Route::get('/user/subscribe', [UserPrivateController::class, 'subscribe'])->name('user.subscribe');
-    Route::get('/user/wishlist', [UserPrivateController::class, 'wishlist'])->name('user.wishlist');
-    Route::get('/cart', [UserPrivateController::class, 'cart'])->name('user.cart');
-    Route::post('/makeorder', [UserPrivateController::class, 'makeOrderUnpayed'])->name('makeorder');
-});
+Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+    App::setLocale(LaravelLocalization::setLocale());
+    Route::middleware('auth')->group(function () {
+        Route::post('/card/add', [CartController::class, 'addToCard'])->name('cart.add');
+        Route::get('/cart', [CartController::class, 'getCartContent'])->name('cart.content');
+        Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
+        Route::get('/user/cabinet', [UserPrivateController::class, 'profile'])->name('user.profile');
+        Route::get('/user/edit', [UserPrivateController::class, 'editProfile'])->name('user.edit_profile');
+        Route::get('/user/orders', [UserPrivateController::class, 'orders'])->name('user.orders');
+        Route::get('/user/subscribe', [UserPrivateController::class, 'subscribe'])->name('user.subscribe');
+        Route::get('/user/wishlist', [UserPrivateController::class, 'wishlist'])->name('user.wishlist');
+        Route::get('/cart', [UserPrivateController::class, 'cart'])->name('user.cart');
+        Route::post('/makeorder', [UserPrivateController::class, 'makeOrderUnpayed'])->name('makeorder');
+    });
 
-Route::get('/', [UserPublicController::class, 'index'])->name('user.index');
-Route::get('/shop/{category?}', [UserPublicController::class, 'category'])->name('user.category');
-Route::get('/login', [UserPublicController::class, 'login'])->name('login');
-Route::get('/shop/{product}/{color}', [UserPublicController::class, 'product'])->name('user.product');
-Route::get('/articles', [UserPublicController::class, 'articles'])->name('user.articles');
-Route::get('/articles/{slug}', [UserPublicController::class, 'article'])->name('user.article');
-Route::get('/info/{slug}', [UserPublicController::class, 'info'])->name('user.info');
-Route::get('/home', [UserPublicController::class, 'index'])->name('home');
+    Route::get('/', [UserPublicController::class, 'index'])->name('user.index');
+    Route::get('/shop/{category?}', [UserPublicController::class, 'category'])->name('user.category');
+    Route::get('/login', [UserPublicController::class, 'login'])->name('login');
+    Route::get('/shop/{product}/{color}', [UserPublicController::class, 'product'])->name('user.product');
+    Route::get('/articles', [UserPublicController::class, 'articles'])->name('user.articles');
+    Route::get('/articles/{slug}', [UserPublicController::class, 'article'])->name('user.article');
+    Route::get('/info/{slug}', [UserPublicController::class, 'info'])->name('user.info');
+    Route::get('/home', [UserPublicController::class, 'index'])->name('home');
 
-Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');
+    Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');
 });
