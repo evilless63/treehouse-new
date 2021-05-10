@@ -12,6 +12,7 @@ use View;
 use Auth;
 use Cart;
 use LaravelLocalization;
+use App;
 // use App\Repositories\ProductRepository;
 // use App\Repositories\CategoryRepository;
 // use Phpfastcache\Helper\Psr16Adapter;
@@ -112,6 +113,7 @@ class UserPublicController extends Controller
 
     public function product($product_slug, $color_slug)
     {
+        
 
         // if(!Auth::guest()) {
         //     $wishlist = Auth::user()->wishlists();

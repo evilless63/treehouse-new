@@ -34,7 +34,6 @@ use App\Models\Order;
 
 require __DIR__ . '/auth.php';
 
-
 Route::get('/', function () {
     return redirect('/admin/categories');
 });
@@ -51,7 +50,7 @@ Route::get('/', function () {
 // Route::post('/register-counteragent', 'App\Http\Controllers\DemoController@postCounteragentRegisterTo1c')->name('register-counteragent');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    App::setLocale('ru');
+    App::setLocale('en');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth'])->name('dashboard');
@@ -85,6 +84,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/product/change-is-bestseller', [ProductController::class, 'changeIsBestsellerColorVariation']); 
 });
 
+Route::group(['prefix' => LaravelLocalization::setLocale()], function()
+{
 Route::middleware('auth')->group(function () {
     Route::post('/card/add', [CartController::class, 'addToCard'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'getCartContent'])->name('cart.content');
@@ -108,3 +109,4 @@ Route::get('/info/{slug}', [UserPublicController::class, 'info'])->name('user.in
 Route::get('/home', [UserPublicController::class, 'index'])->name('home');
 
 Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');
+});
