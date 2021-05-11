@@ -15,6 +15,10 @@ class Category extends LocalizedModel
     public function products() {
         return $this->belongsToMany(Product::class);
     }
+
+    public function colorVariations() {
+        return $this->belongsToMany(ColorVariation::class, "category_color_variaton", "category_id", "color_variation_id");
+    }
     
     public function childs()
     {

@@ -92,11 +92,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
+        
+        // try {
             $product = Product::find($id);
             $product->categories()->detach();
             foreach($request->choosed_categories as $choosed_cat_id) {
                 $product->categories()->attach(Category::find($choosed_cat_id));
+            }
+            
+            foreach ($request->input('choosed_categories', []) as $k => $i) {
+                ColorVariation::where('id', $k)->first()->categories()->detach();
+                ColorVariation::where('id', $k)->first()->categories()->attach(Category::find($i));
             }
 
             foreach ($request->input('localization', []) as $k => $i) {
@@ -105,10 +111,10 @@ class ProductController extends Controller
             }
 
             return redirect()->route('products.index')->with('success', __('adminpanel.action_success'));
-        } catch (Throwable $e) {
-            report($e);
-            return redirect()->route('products.index')->with('error', __('adminpanel.action_error'));
-        }
+        // } catch (Throwable $e) {
+        //     report($e);
+        //     return redirect()->route('products.index')->with('error', __('adminpanel.action_error'));
+        // }
         
         // if($product->update($request->all())) {
         //     return redirect()->route('categories.index')->with('success', __('adminpanel.action_success'));     

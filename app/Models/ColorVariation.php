@@ -30,4 +30,8 @@ class ColorVariation extends Model
     public function orders() {
         return $this->hasMany(Order::class);
     }
+
+    public function categories() {
+        return $this->belongsToMany(Category::class, "category_color_variaton", "color_variation_id", "category_id");
+    }
 }

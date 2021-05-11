@@ -634,36 +634,37 @@
               <div class="catalog-list__holder">
                 <div class="catalog-list__row">
                   @foreach($related_products as $related_product)
-                  <div class="catalog-list__item accompaniment-item" data-id="102449">
+                  <div class="catalog-list__item accompaniment-item" data-id="{{$related_product->id}}">
 
-                    <a href="{{route('user.product', $related_product->related_id)}}" class="catalog-list__link accompaniment-link" data-id="102449" data-type="accompaniment">
+                    <a href="{{route('user.product', [
+              'product' => $related_product->product->slug,
+              'color' => $related_product->color->slug,
+              ])}}" class="catalog-list__link accompaniment-link" data-id="{{$related_product->id}}" data-type="accompaniment">
                       <div class="catalog-list__preview catalog-list__preview--round">
                         <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" style="display:none"></span>
                         <span class="catalog-list__fav js-add-fav"></span>
-                        <img src="{{asset('uploads/single/' . $related_product->img)}}" alt="{{$related_product->title}}" data-observer-src="{{asset('uploads/single/' . $related_product->img)}}" class="catalog-list__image" />
+                        <img src="{{asset('$related_product->main_img')}}" alt="{{$related_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$related_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset('$related_product->main_img')}}" class="catalog-list__image" />
                       </div>
 
                       <div class="catalog-list__box">
-
                         <div class="catalog-list__info catalog-list__info_head">
-
-
-
-
-
                         </div>
 
                         <!-- Заголовок товара -->
                         <div class="catalog-list__title">
                           <div class="catalog-list__title-inn">
-                            <span>{{$related_product->title}}</span>
+                            <span>{{$related_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$related_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
                           </div>
                         </div>
                         <!-- Заголовок товара END -->
 
                         <!-- Цена и скидка товара -->
                         <div class="catalog-list__price">
-                          {{$related_product->price}} {{__('userpanel.currency')}}
+                          @if($related_product->sizeVariations->sortBy('price')->first()->price == $related_product->sizeVariations->sortByDesc('price')->first()->price)
+                          {{$related_product->sizeVariations->sortBy('price')->first()->price}}
+                          @else
+                          {{$related_product->sizeVariations->sortBy('price')->first()->price}} - {{$related_product->sizeVariations->sortByDesc('price')->first()->price}}
+                          @endif {{__('userpanel.currency')}}
                         </div>
                         <!-- Цена и скидка товара END -->
 
@@ -671,10 +672,10 @@
                     </a>
 
                     <!-- Цвета -->
-                    <!-- <ul class="catalog-list__colors catalog-list-colors">
-                            <li class="catalog-list-colors__color " title="Чёрный" style="background: #000000">
-                            </li>
-                          </ul> -->
+                    <ul class="catalog-list__colors catalog-list-colors">
+                      <li class="catalog-list-colors__color " title="{{$related_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" style="background: {{$related_product->color->hex}}">
+                      </li>
+                    </ul>
                     <!-- Цвета END -->
                   </div>
                   @endforeach
@@ -767,7 +768,7 @@
                     <div class="catalog-list__preview catalog-list__preview--round">
                       <span class="catalog-list__fav catalog-list__fav__in js-rem-fav"></span>
                       <span class="catalog-list__fav js-add-fav" style="display:none"></span>
-                      <img src="{{asset('uploads/single/' . $recently_viewed_product->main_img)}}" alt="{{$recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset('uploads/single/' . $recently_viewed_product->main_img)}}" class="catalog-list__image" />
+                      <img src="{{asset('$recently_viewed_product->main_img')}}" alt="{{$recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset('$recently_viewed_product->main_img')}}" class="catalog-list__image" />
                     </div>
 
                     <div class="catalog-list__box">

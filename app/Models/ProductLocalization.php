@@ -10,7 +10,7 @@ class ProductLocalization extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['lang','title','unit','content','keywords','description','details','care'];
+    protected $fillable = ['lang','title','unit','content','keywords','description','details','care','size_table'];
     public $timestamps = false;
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

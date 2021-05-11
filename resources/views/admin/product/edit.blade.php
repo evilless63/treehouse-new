@@ -60,20 +60,7 @@
                             </div>
 
                         </div>
-                        <label>{{__('adminpanel.categories_for_product')}}</label>
-                        @if($choosed_categories->count() > 0)
-                        @foreach($categories as $category)
-                        @if($choosed_categories->contains($category))
-                        {{ $category->getLocalizeTitleRu() }} --- <input type="checkbox" name="choosed_categories[]" value="{{$category->id}}" checked>
-                        @else
-                        {{ $category->getLocalizeTitleRu() }} --- <input type="checkbox" name="choosed_categories[]" value="{{$category->id}}">
-                        @endif
-                        @endforeach
-                        @else
-                        @foreach($categories as $category)
-                        {{ $category->getLocalizeTitleRu() }} --- <input type="checkbox" name="choosed_categories[]" value="{{$category->id}}">
-                        @endforeach
-                        @endif
+
 
                         <div x-data="{openTabColor: 1 ,activeClasses: 'border-l border-t border-r rounded-t text-blue-700',inactiveClasses: 'text-blue-500 hover:text-blue-800'}" class="my-6">
                             <ul class="flex border-b">
@@ -96,6 +83,20 @@
                                         <input class="form-check-input" onchange="changeIsBestseller(event)" colorVariationId="{{$colorVariation->id}}" type="checkbox" @if($colorVariation->is_bestseller) checked @endif>
                                         <label class="form-check-label">Бестселлер</label>
                                     </div>
+                                    <label>{{__('adminpanel.categories_for_product')}}</label>
+                                    @if($colorVariation->categories->count() > 0)
+                                    @foreach($categories as $category)
+                                    @if($colorVariation->categories->contains($category))
+                                    {{ $category->getLocalizeTitleRu() }} --- <input type="checkbox" name="choosed_categories[{{$colorVariation->id}}][]" value="{{$category->id}}" checked>
+                                    @else
+                                    {{ $category->getLocalizeTitleRu() }} --- <input type="checkbox" name="choosed_categories[{{$colorVariation->id}}][]" value="{{$category->id}}">
+                                    @endif
+                                    @endforeach
+                                    @else
+                                    @foreach($categories as $category)
+                                    {{ $category->getLocalizeTitleRu() }} --- <input type="checkbox" name="choosed_categories[{{$colorVariation->id}}][]" value="{{$category->id}}">
+                                    @endforeach
+                                    @endif
                                     <div x-data="{openTabColorVariationTabs: 1 ,activeClasses: 'border-l border-t border-r rounded-t text-blue-700',inactiveClasses: 'text-blue-500 hover:text-blue-800'}" class="my-6">
                                         <ul class="flex border-b">
 
@@ -421,7 +422,7 @@
                                                             <td>
                                                                 <div class="form-check form-check-inline">
                                                                     <input class="form-check-input" onchange="changeIsVisible(event)" sizeVariationId="{{$sizeVariation->id}}" type="checkbox" @if($sizeVariation->is_visible) checked @endif @if($sizeVariation->stock <= 0) disabled @endif>
-                                                                    <label class="form-check-label">Доступен на сайте</label>
+                                                                        <label class="form-check-label">Доступен на сайте</label>
                                                                 </div>
                                                             </td>
                                                         </tr>

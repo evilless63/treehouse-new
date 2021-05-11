@@ -94,16 +94,17 @@ class UserPublicController extends Controller
         // } else {
         //     // $products_by_category = $this->productRepository->getProductsByCategoryId($id);
         // }
-        $products_by_category = $category->products()->get();
-        $collectionColorsVariations = collect();
-        foreach ($products_by_category as $product) {
-            foreach ($product->colorVariations as $colorVariation) {
-                $collectionColorsVariations->push($colorVariation);
-            }
-        }
+        // $products_by_category = $category->colorVariations()->get();
+        // $collectionColorsVariations = collect();
+        // foreach ($products_by_category as $product) {
+        //     foreach ($product->colorVariations as $colorVariation) {
+        //         $collectionColorsVariations->push($colorVariation);
+        //     }
+        // }
 
-        $products_by_category = $collectionColorsVariations->shuffle();
+        // $products_by_category = $collectionColorsVariations->shuffle();
 
+        $products_by_category = $category->colorVariations()->get()->shuffle();
         $recently_viewed_ids = session()->get('recently_viewed_ids');
         if (!$recently_viewed_ids) {
             $recently_viewed_ids = [];
@@ -138,7 +139,12 @@ class UserPublicController extends Controller
         ->first();
 
         // $related_products = $this->productRepository->getRelatedProducts($id);
-        $related_products = []; //TODO treehouse
+        $related_products = collect();
+        foreach($colorVariation->categories()->get() as $category) {
+            foreach($category->colorVariations()->get() as $colorVariation)
+            $related_products->push($colorVariation); 
+        }
+        $related_products = $related_products->shuffle();
         // $images = $this->productRepository->getGallery($id);
         $images = $colorVariation->images; //TODO treehouse
         // $product = Product::find($id);
