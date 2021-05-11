@@ -16,7 +16,7 @@
     @endif
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mt-16">
-            Слайдеры -- Список
+            Видео баннер
         </h2>
     </x-slot>
 

@@ -16,7 +16,7 @@
     @endif
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mt-16">
-            Слайдеры -- Редактирование
+            Видео баннер -- Редактирование
         </h2>
     </x-slot>
 
@@ -52,7 +52,7 @@
                         </div>
                         <label>Ссылка</label>
                         <input type="text" class="form-control"placeholder="ссылка" name="link" value="{{$current_slider->link}}">
-                        <a href="{{$current_slider->link}}">Посмотреть ссылку</a>
+                        <!-- <a href="{{$current_slider->link}}">Посмотреть ссылку</a> -->
 
                         <label>Видео</label>
                         <input type="file" class="filepond my-4" name="source_path">
@@ -60,8 +60,8 @@
                         <!-- <label>Ссылка на ресурс (youtube)</label>
                         <input type="text" class="form-control"class="filepond my-4" name="source_path" value="{{$current_slider->source_path}}"> -->
 
-                        <label>Использовать на сайте</label>
-                        <input type="checkbox" name="is_active" value="{{old('is_active')}}">
+                        <!-- <label>Использовать на сайте</label>
+                        <input type="checkbox" name="is_active" value="{{old('is_active')}}"> -->
                         <input type="submit" class="btn btn-primary"value="{{__('adminpanel.edit')}}">
 
                     </form>
