@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Article;
 use Auth;
 use View;
 use Cart;
@@ -19,6 +20,9 @@ class UserPrivateController extends Controller
     private $productRepository;
     public $mainmenu_categories;
     public $wishlist;
+    public $company_articles;
+    public $blog_articles;
+    public $customer_articles;
 
 
     public function __construct()
@@ -29,6 +33,9 @@ class UserPrivateController extends Controller
         // $this->categoryRepository = app(CategoryRepository::class);
         $this->mainmenu_categories = Category::where('in_header', '1')->get();
         $this->categories_menu = Category::buildMenu(Category::all());
+        $this->company_articles = Article::where('purpose', 'about')->get();
+        $this->blog_articles = Article::where('purpose', 'blog')->get();
+        $this->customer_articles = Article::where('purpose', 'counteragents')->get();
 
         if(!Auth::guest()) {
             $this->wishlist = Cart::instance('wishlist')->content();
@@ -39,6 +46,9 @@ class UserPrivateController extends Controller
         View::share('mainmenu_categories', $this->mainmenu_categories);
         View::share('wishlist', $this->wishlist);
         View::share('categories_menu', $this->categories_menu);
+        View::share('company_articles', $this->company_articles);
+        View::share('blog_articles', $this->blog_articles);
+        View::share('customer_articles', $this->customer_articles);
     }
 
     public function profile() {

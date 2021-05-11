@@ -256,7 +256,7 @@
       <div class="page__sidebar page__sidebar_left js-sticky-sidebar card__back" data-holder=".card">
         <a href="{{route('user.category', $product->category_id)}}" class="page-back page-back--hidden">
           <div class="page-back__holder">
-            <i class="page-back__icon"></i><span class="page-back__text page-back__text" data-js-label="Назад">Посмотреть все</span>
+            <i class="page-back__icon"></i><span class="page-back__text page-back__text" data-js-label="{{__('userpanel.backspace_link')}}">{{__('userpanel.backspace_link')}}</span>
           </div>
         </a>
       </div>

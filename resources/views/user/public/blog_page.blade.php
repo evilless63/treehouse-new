@@ -12,12 +12,12 @@
       <div class="page__middle">
         <div class="blog-post__top">
           <div class="blog-post__header">
-            <h1 class="blog-post__title">Доставка</h1>
+            <h1 class="blog-post__title">{{$articleLangFields->title}}</h1>
             <div class="blog-post__date">&nbsp;</div>
           </div>
         </div>
         <div class="content blog-post__content">
-
+          {!!$articleLangFields->content!!}
         </div>
       </div>
     </div>
@@ -25,20 +25,20 @@
   @endsection
 
   @section('scripts')
-  <script src="assets/js/jquery.js"></script>
-  <script src="assets/js/jquery.infinitescroll.js"></script>
-  <script src="assets/js/yii.js"></script>
-  <script src="assets/js/yii.validation.js"></script>
-  <script src="assets/js/yii.activeform.js"></script>
-  <script src="assets/js/jquery.pjax.js"></script>
-  <script src="assets/js/chunks/vendor.js"></script>
-  <script src="assets/js/chunks/layout-base.js"></script>
-  <script src="assets/js/intellinput.js"></script>
-  <script src="assets/js/whishlist/scripts.js"></script>
-  <script src="assets/js/jquery-ui.js"></script>
-  <script src="assets/js/autocomplete.js"></script>
-  <script src="assets/js/base/scripts.js"></script>
-  <script src="assets/js/utils.js"></script>
+  <script src="{{asset('assets/js/jquery.js')}}"></script>
+  <script src="{{asset('assets/js/jquery.infinitescroll.js')}}"></script>
+  <script src="{{asset('assets/js/yii.js')}}"></script>
+  <script src="{{asset('assets/js/yii.validation.js')}}"></script>
+  <script src="{{asset('assets/js/yii.activeform.js')}}"></script>
+  <script src="{{asset('assets/js/jquery.pjax.js')}}"></script>
+  <script src="{{asset('assets/js/chunks/vendor.js')}}"></script>
+  <script src="{{asset('assets/js/chunks/layout-base.js')}}"></script>
+  <script src="{{asset('assets/js/intellinput.js')}}"></script>
+  <script src="{{asset('assets/js/whishlist/scripts.js')}}"></script>
+  <script src="{{asset('assets/js/jquery-ui.js')}}"></script>
+  <script src="{{asset('assets/js/autocomplete.js')}}"></script>
+  <script src="{{asset('assets/js/base/scripts.js')}}"></script>
+  <script src="{{asset('assets/js/utils.js')}}"></script>
   @endsection
 
   @section('head')
@@ -52,11 +52,11 @@
 
   <meta name="description" content="Большой выбор женской одежды, платья, рубашки, костюмы, верхняя одежда, аксессуары. Доставка.">
 
-  <link rel="stylesheet" href="assets/js/base/styles.css">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/jquery-ui.css">
-  <link rel="stylesheet" href="assets/css/intellinput.css">
-  <link rel="stylesheet" href="assets/css/autocomplete.css">
+  <link rel="stylesheet" href="{{asset('assets/js/base/styles.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/jquery-ui.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/intellinput.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/autocomplete.css')}}">
   <style>
     /* SITEDEV-2039 */
 

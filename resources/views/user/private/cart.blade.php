@@ -138,7 +138,7 @@
           <!---->
           <div data-v-cfe42f2e="" class="bordered-block hidden">
             <!---->
-            <div data-v-cfe42f2e="" class="cart__back">Назад</div>
+            <div data-v-cfe42f2e="" class="cart__back">{{__('userpanel.backspace_link')}}</div>
             <form data-v-684b9f47="" data-v-cfe42f2e="" class="form">
               <h2 data-v-684b9f47="" class="title">Оформление заказа</h2>
               <div data-v-684b9f47="" class="observer">

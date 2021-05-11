@@ -13,6 +13,7 @@ use Auth;
 use Cart;
 use LaravelLocalization;
 use App;
+use App\Models\Article;
 // use App\Repositories\ProductRepository;
 // use App\Repositories\CategoryRepository;
 // use Phpfastcache\Helper\Psr16Adapter;
@@ -26,6 +27,9 @@ class UserPublicController extends Controller
     public $mainmenu_categories;
     public $categories_menu;
     public $wishlist;
+    public $company_articles;
+    public $blog_articles;
+    public $customer_articles;
 
     public function __construct()
     {
@@ -34,6 +38,9 @@ class UserPublicController extends Controller
         // $this->categoryRepository = app(CategoryRepository::class);
         $this->mainmenu_categories = Category::where('in_header', '1')->get();
         $this->categories_menu = Category::buildMenu(Category::all());
+        $this->company_articles = Article::where('purpose', 'about')->get();
+        $this->blog_articles = Article::where('purpose', 'blog')->get();
+        $this->customer_articles = Article::where('purpose', 'counteragents')->get();
 
         if (!Auth::guest()) {
             $this->wishlist = Cart::instance('wishlist')->content();
@@ -44,6 +51,9 @@ class UserPublicController extends Controller
         View::share('mainmenu_categories', $this->mainmenu_categories);
         View::share('wishlist', $this->wishlist);
         View::share('categories_menu', $this->categories_menu);
+        View::share('company_articles', $this->company_articles);
+        View::share('blog_articles', $this->blog_articles);
+        View::share('customer_articles', $this->customer_articles);
     }
 
     public function index()
@@ -152,8 +162,15 @@ class UserPublicController extends Controller
         return view('user.public.block_cards');
     }
 
-    public function article()
+    public function article($slug)
     {
-        return view('user.public.blog_page');
+        $article = Article::where('slug', $slug)->first();
+        $articleLangFields = $article->localization()
+        ->where('lang', LaravelLocalization::getCurrentLocale())
+        ->first();
+        return view('user.public.blog_page')->with([
+            'article' => $article,
+            'articleLangFields' => $articleLangFields
+        ]);
     }
 }

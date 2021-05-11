@@ -30,31 +30,14 @@
                     <span class="menu__sub-icon-mobile"></span>
                   </a>
                   <ul class="menu__sub">
+                    @foreach($customer_articles as $c_article)
                     <li class="menu__sub-item">
-                      <a href="/info/dostavka" class="menu__sub-link">
-                        <span class="menu__text ">Доставка</span>
-                      </a>
+                      <a href="{{LaravelLocalization::localizeUrl(route('user.article', [
+                        'slug' => $c_article->slug,
+                        ]))}}" class="menu__sub-link">
+                        <span class="menu__text "> {{$c_article->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span></a>
                     </li>
-                    <li class="menu__sub-item">
-                      <a href="/info/vozvrattovar" class="menu__sub-link">
-                        <span class="menu__text ">Возврат</span>
-                      </a>
-                    </li>
-                    <li class="menu__sub-item">
-                      <a href="/support/support" class="menu__sub-link">
-                        <span class="menu__text ">Вопросы и ответы</span>
-                      </a>
-                    </li>
-                    <li class="menu__sub-item">
-                      <a href="/feedback/feedback" class="menu__sub-link">
-                        <span class="menu__text ">Отзывы</span>
-                      </a>
-                    </li>
-                    <li class="menu__sub-item">
-                      <a href="/about/contacts" class="menu__sub-link">
-                        <span class="menu__text ">Связаться с нами</span>
-                      </a>
-                    </li>
+                    @endforeach
                   </ul>
                 </div>
               </div>
@@ -68,36 +51,14 @@
                     <span class="menu__sub-icon-mobile"></span>
                   </a>
                   <ul class="menu__sub">
+                    @foreach($company_articles as $article)
                     <li class="menu__sub-item">
-                      <a href="/about/brand" class="menu__sub-link">
-                        <span class="menu__text ">О нас</span>
-                      </a>
+                      <a href="{{LaravelLocalization::localizeUrl(route('user.article', [
+                        'slug' => $article->slug,
+                        ]))}}" class="menu__sub-link">
+                        <span class="menu__text ">{{$article->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span></a>
                     </li>
-                    <li class="menu__sub-item">
-                      <a href="/about/contacts" class="menu__sub-link">
-                        <span class="menu__text ">Контакты</span>
-                      </a>
-                    </li>
-                    <li class="menu__sub-item">
-                      <a href="/about/press" class="menu__sub-link">
-                        <span class="menu__text ">Пресса о нас</span>
-                      </a>
-                    </li>
-                    <li class="menu__sub-item">
-                      <a href="/about/rabota-u-nas" class="menu__sub-link">
-                        <span class="menu__text ">Карьера</span>
-                      </a>
-                    </li>
-                    <li class="menu__sub-item">
-                      <a href="/about/office" class="menu__sub-link">
-                        <span class="menu__text ">Офис</span>
-                      </a>
-                    </li>
-                    <li class="menu__sub-item">
-                      <a href="/about/stories" class="menu__sub-link">
-                        <span class="menu__text ">Блог</span>
-                      </a>
-                    </li>
+                    @endforeach
                   </ul>
                 </div>
               </div>
@@ -106,7 +67,7 @@
                 <div class="menu__item">
                   <div class="search menu__search-item">
                     <form id="search" class="search__form" method="get" action="/catalog/search" ">
-                  <input type=" text" name="search" placeholder="найти на сайте" autocomplete="off" class="search__input" value="" />
+                  <input type=" text" name="search" placeholder="{{__('userpanel.find_on_site_placeholder')}}" autocomplete="off" class="search__input" value="" />
                     <button type="submit" class="search__button"><i class="search__icon"></i></button>
                     </form>
                   </div>
@@ -114,11 +75,11 @@
                 <div data-dkey="login"></div>
                 @if(LaravelLocalization::getCurrentLocale() == 'ru')
                 <a class="menu__english-link" href="{{ LaravelLocalization::getLocalizedURL('en') }}">
-                  <span>English version</span>
+                  <span>{{__('userpanel.english')}}</span>
                 </a>
                 @else
                 <a class="menu__english-link" href="{{ LaravelLocalization::getLocalizedURL('ru') }}">
-                  <span>Русская версия</span>
+                  <span>{{__('userpanel.russian')}}</span>
                 </a>
                 @endif
 
@@ -162,12 +123,12 @@
               @if(LaravelLocalization::getCurrentLocale() == 'ru')
               <a href="{{ LaravelLocalization::getLocalizedURL('en') }}" class="menu__tools-button menu__tools-button_globus">
                 <span class="menu__tools-button-icon menu__tools-button-icon--globus"></span>
-                <span class="menu__tools-button-text">English</span>
+                <span class="menu__tools-button-text">{{__('userpanel.english')}}</span>
               </a>
               @else
               <a href="{{ LaravelLocalization::getLocalizedURL('ru') }}" class="menu__tools-button menu__tools-button_globus">
                 <span class="menu__tools-button-icon menu__tools-button-icon--globus"></span>
-                <span class="menu__tools-button-text">Русский язык</span>
+                <span class="menu__tools-button-text">{{__('userpanel.russian')}}</span>
               </a>
               @endif
 
@@ -176,7 +137,7 @@
             <div class="menu__tools-item  menu__tools-item--user">
               <a href="/user/cabinet" class="menu__tools-button menu__tools-button_user">
                 <span class="menu__tools-button-icon menu__tools-button-icon--user"></span>
-                <span class="menu__tools-button-text">Профиль</span>
+                <span class="menu__tools-button-text">{{__('userpanel.lc_profile')}}</span>
               </a>
             </div>
           </div>
@@ -266,17 +227,16 @@
               <form class="subscribe-form " action="/subscribe-ajax" method="POST">
                 <div class="subscribe-form__settings" data-platform="mobile" data-crm="PodpiskaIzPodvala" data-source="footer_mobile"></div>
                 <div class="subscribe-form__screen visible" data-name="contacts">
-                  <div class="subscribe-form__title">Узнайте первыми о&nbsp;новинках и&nbsp;скидках</div>
-                  <div class="subscribe-form__field">
-                    <input class="subscribe-form__input" type="text" name="email" maxlength="255" autocomplete="off" placeholder="Адрес эл. почты" />
+                  <div class="subscribe-form__title">{{__('userpanel.subscribe_title')}}
+                    <div class="subscribe-form__field">
+                      <input class="subscribe-form__input" type="text" name="email" maxlength="255" autocomplete="off" placeholder="{{__('userpanel.subscribe_email_placeholder')}}" />
+                    </div>
+                    <div class="subscribe-form__button subscribe-form__button--mail subscribe-form__js-submit">
+                      <span>{{__('userpanel.subscribe_button')}}</span>
+                    </div>
+                    <p class="subscribe-form__privacy">{{__('userpanel.subscribe_alert')}}<a href="/r/privacy_policy">{{__('userpanel.subscribe_link')}}</a>.</p>
                   </div>
-                  <div class="subscribe-form__button subscribe-form__button--mail subscribe-form__js-submit">
-                    <span>Подписаться</span>
-                  </div>
-                  <p class="subscribe-form__privacy">Нажимая на&nbsp;кнопку «Подписаться», я&nbsp;соглашаюсь
-                    на&nbsp;обработку моих персональных данных и&nbsp;ознакомлен(а) с&nbsp;<a href="/r/privacy_policy">условиями конфиденциальности</a>.</p>
                 </div>
-
                 <div class="subscribe-form__screen" data-name="subscriptions">
                   <div class="subscribe-form__title">Какие рассылки <br />вы хотели бы получать?</div>
                   <div class="subscribe-form__field subscribe-form__radioset">
@@ -313,54 +273,34 @@
                   <div class="footer-col__item footer-col-item" data-slug="info">
                     <span class="footer-col-item__title"><i class="arrow-icon"></i>{{__('userpanel.customers')}}</span>
                     <ul class="footer-col-item__list footer-list">
-                      <li class="footer-list__item footer-list-item" data-slug="support" data-rank="">
-                        <a class="footer-list-item__link" href="/support/support">
-                          Вопросы и ответы </a>
+                      @foreach($customer_articles as $c_article)
+                      <li class="footer-list__item footer-list-item">
+                        <a class="footer-list-item__link" href="{{LaravelLocalization::localizeUrl(route('user.article', [
+                        'slug' => $c_article->slug,
+                        ]))}}">
+                          {{$c_article->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a>
                       </li>
-                      <li class="footer-list__item footer-list-item" data-slug="vozvrattovar" data-rank="3">
-                        <a class="footer-list-item__link" href="/info/vozvrattovar">
-                          Возврат </a>
-                      </li>
-                      <li class="footer-list__item footer-list-item" data-slug="dostavka" data-rank="5">
-                        <a class="footer-list-item__link" href="/info/dostavka">
-                          Доставка </a>
-                      </li>
-                      <li class="footer-list__item footer-list-item" data-slug="dostavka" data-rank="5">
-                        <a class="footer-list-item__link" href="/info/dostavka">
-                          Отзывы </a>
-                      </li>
-                      <li class="footer-list__item footer-list-item" data-slug="dostavka" data-rank="5">
-                        <a class="footer-list-item__link" href="/info/dostavka">
-                          Мы на YouTube </a>
-                      </li>
-                      <li class="footer-list__item footer-list-item" data-slug="dostavka" data-rank="5">
-                        <a class="footer-list-item__link" href="/info/dostavka">
-                          Оптовые продажи </a>
-                      </li>
+                      @endforeach
                     </ul>
                   </div>
                   <div class="footer-col__item footer-col-item" data-slug="about">
                     <span class="footer-col-item__title"><i class="arrow-icon"></i>{{__('userpanel.company')}}</span>
                     <ul class="footer-col-item__list footer-list">
-                      <li class="footer-list__item footer-list-item" data-slug="brand" data-rank="12">
-                        <a class="footer-list-item__link" href="/about/brand">
-                          О нас </a>
+                      @foreach($company_articles as $article)
+                      <li class="footer-list__item footer-list-item">
+                        <a class="footer-list-item__link" href="{{LaravelLocalization::localizeUrl(route('user.article', [
+                        'slug' => $article->slug,
+                        ]))}}">
+                          {{$article->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a>
                       </li>
-                      <li class="footer-list__item footer-list-item" data-slug="office" data-rank="13">
-                        <a class="footer-list-item__link" href="/about/office">
-                          Офис </a>
-                      </li>
-                      <li class="footer-list__item footer-list-item" data-slug="contacts" data-rank="14">
-                        <a class="footer-list-item__link" href="/about/contacts">
-                          Контакты </a>
-                      </li>
+                      @endforeach
                     </ul>
                   </div>
                 </div>
 
                 <div class="footer-col">
                   <div class="footer-col__item footer-col-item footer-col-item--connect">
-                    <span class="footer-col-item__title"><i class="arrow-icon"></i>{{__('userpanel.question')}}</span>
+                    <span class="footer-col-item__title"><i class="arrow-icon"></i></span>
                     <ul class="footer-col-item__list footer-list">
                       <li class="footer-list__item footer-list-item">
                         <a class="footer-list-item__link footer-list-item__link-social footer-list-item__link--wa" target="_blank" href="https://api.whatsapp.com/send?phone=79126156257">
@@ -369,7 +309,7 @@
                       </li>
                       <li class="footer-list__item footer-list-item">
                         <a class="footer-list-item__link footer-list-item__link-social footer-list-item__link--email" target="_blank" href="mailto:info@domnadereve.com">
-                          Эл. почта </a>
+                          {{__('userpanel.email')}} </a>
                       </li>
                       <li class="footer-list__item footer-list-item">
                         <a class="footer-list-item__link footer-list-item__link-social footer-list-item__link--telegram" target="_blank" href="tg://resolve?domain=twelvestoreez_bot">
@@ -379,19 +319,19 @@
                     </ul>
                   </div>
                   <div class="footer-col__item footer-col-item">
-                    <a href="/user/cabinet" class="footer-col-item__title"><i class="arrow-icon"></i>Мой кабинет</a>
+                    <a href="/user/cabinet" class="footer-col-item__title"><i class="arrow-icon"></i>{{__('userpanel.lc')}}</a>
                     <ul class="footer-col-item__list footer-list">
                       <li class="footer-list__item footer-list-item">
                         <a class="footer-list-item__link" href="/user/cabinet">
-                          Профиль </a>
+                          {{__('userpanel.lc_profile')}} </a>
                       </li>
                       <li class="footer-list__item footer-list-item">
                         <a class="footer-list-item__link" href="/user/orders">
-                          Мои заказы </a>
+                          {{__('userpanel.lc_orders')}} </a>
                       </li>
                       <li class="footer-list__item footer-list-item">
                         <a class="footer-list-item__link" href="/user/subscribe">
-                          Мои подписки </a>
+                          {{__('userpanel.lc_subscribtions')}} </a>
                       </li>
                       <li class="footer-list__item footer-list-item">
                         <a class="footer-list-item__link" href="/user/wishlist">
@@ -407,15 +347,14 @@
                     <form class="subscribe-form " action="/subscribe-ajax" method="POST">
                       <div class="subscribe-form__settings" data-platform="desktop" data-crm="PodpiskaIzPodvala" data-source="footer_desktop"></div>
                       <div class="subscribe-form__screen visible" data-name="contacts">
-                        <div class="subscribe-form__title">Узнайте первыми о&nbsp;новинках и&nbsp;скидках</div>
+                        <div class="subscribe-form__title">{{__('userpanel.subscribe_title')}}</div>
                         <div class="subscribe-form__field">
-                          <input class="subscribe-form__input" type="text" name="email" maxlength="255" autocomplete="off" placeholder="Адрес эл. почты" />
+                          <input class="subscribe-form__input" type="text" name="email" maxlength="255" autocomplete="off" placeholder="{{__('userpanel.subscribe_email_placeholder')}}" />
                         </div>
                         <div class="subscribe-form__button subscribe-form__button--mail subscribe-form__js-submit">
-                          <span>Подписаться</span>
+                          <span>{{__('userpanel.subscribe_button')}}</span>
                         </div>
-                        <p class="subscribe-form__privacy">Нажимая на&nbsp;кнопку «Подписаться», я&nbsp;соглашаюсь
-                          на&nbsp;обработку моих персональных данных и&nbsp;ознакомлен(а) с&nbsp;<a href="/r/privacy_policy">условиями конфиденциальности</a>.</p>
+                        <p class="subscribe-form__privacy">{{__('userpanel.subscribe_alert')}}<a href="/r/privacy_policy">{{__('userpanel.subscribe_link')}}</a>.</p>
                       </div>
 
                       <div class="subscribe-form__screen" data-name="subscriptions">
@@ -461,18 +400,19 @@
 
                   @if(LaravelLocalization::getCurrentLocale() == 'ru')
                   <div class="reference-tools__item"> <a href="{{ LaravelLocalization::getLocalizedURL('en') }}" class="reference-tools__link en-US">
-                      <i class="reference-tools__icon reference-tools__icon_lang"></i>English version </a>
+                      <i class="reference-tools__icon reference-tools__icon_lang"></i>{{__('userpanel.english')}}</a>
                   </div>
                   @else
                   <div class="reference-tools__item"> <a href="{{ LaravelLocalization::getLocalizedURL('ru') }}" class="reference-tools__link en-US">
-                      <i class="reference-tools__icon reference-tools__icon_lang"></i>Русская версия </a>
+                      <i class="reference-tools__icon reference-tools__icon_lang"></i>{{__('userpanel.russian')}}</a>
                   </div>
                   @endif
                 </div>
               </div>
               <div class="footer-line-inn__center footer-socials">
                 <h4 class="footer-socials__title">
-                  Мы в соцсетях </h4>
+                  {{__('userpanel.socials')}}
+                </h4>
                 <ul class="footer-socials__list footer-socials-list">
                   <li class="footer-socials-list__item footer-socials-list-item">
                     <a class="footer-socials-list-item__link footer-socials-list-item__link--youtube " href="https://www.youtube.com/channel/UCUCmIasCXPKOLreAUXZhHtw/" target="_blank" rel="nofollow"></a>
