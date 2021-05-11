@@ -42,4 +42,9 @@ class ColorVariation extends Model
             return '/icons/noimage.jpg';
         }
     }
+
+    public function wishlists() {
+        return $this->hasMany(Wishlist::class);
+    }
+
 }

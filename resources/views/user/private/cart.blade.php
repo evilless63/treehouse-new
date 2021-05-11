@@ -317,9 +317,11 @@
               <div data-v-ea5ca2c8="" class="sidebar">
                 <div data-v-ea5ca2c8="" class="links">
                   <!---->
-                  <div data-v-ea5ca2c8="" class="link-container"><a data-v-ea5ca2c8="" href="/info/dostavka" target="_blank" class="link">Условия доставки</a></div>
-                  <div data-v-ea5ca2c8="" class="link-container"><a data-v-ea5ca2c8="" href="/info/vozvrattovar" target="_blank" class="link">Условия обмена и возврата</a></div>
-                  <div data-v-ea5ca2c8="" class="link-container"><a data-v-ea5ca2c8="" href="/info/oplata" target="_blank" class="link">Информация об оплате</a></div>
+                  @foreach($customer_articles as $c_article)
+                  <div data-v-ea5ca2c8="" class="link-container"><a data-v-ea5ca2c8="" href="{{LaravelLocalization::localizeUrl(route('user.article', [
+                        'slug' => $c_article->slug,
+                        ]))}}" target="_blank" class="link">{{$c_article->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a></div>
+                  @endforeach
                 </div>
                 <div data-v-ea5ca2c8="" class="total">
                   <div data-v-ea5ca2c8="" class="total-item">

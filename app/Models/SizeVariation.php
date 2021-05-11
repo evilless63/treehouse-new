@@ -23,6 +23,10 @@ class SizeVariation extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function wishlists() {
+        return $this->hasMany(Wishlist::class);
+    }
+
     // public function getMinPrice() {
     //     return $this->sortBy('price')->first()->price;
     // }

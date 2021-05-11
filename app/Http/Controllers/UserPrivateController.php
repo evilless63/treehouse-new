@@ -37,7 +37,7 @@ class UserPrivateController extends Controller
         $this->blog_articles = Article::where('purpose', 'blog')->get();
         $this->customer_articles = Article::where('purpose', 'counteragents')->get();
 
-        if(!Auth::guest()) {
+        if (!Auth::guest()) {
             $this->wishlist = Cart::instance('wishlist')->content();
         } else {
             $this->wishlist = false;
@@ -51,54 +51,43 @@ class UserPrivateController extends Controller
         View::share('customer_articles', $this->customer_articles);
     }
 
-    public function profile() {
+    public function profile()
+    {
         return view('user.private.profile');
     }
 
-    public function editProfile() {
+    public function editProfile()
+    {
         return view('user.private.edit-profile');
     }
 
-    public function orders() {
+    public function orders()
+    {
         return view('user.private.orders');
     }
 
-    public function subscribe() {
+    public function subscribe()
+    {
         return view('user.private.subscribe');
     }
 
-    public function wishlist() {
+    public function wishlist()
+    {
         return view('user.private.wishlist');
     }
 
-    public function cart() {
+    public function cart()
+    {
         return view('user.private.cart')->with([
             'cart' => Cart::instance('shopping')->content()
         ]);
     }
 
-    public function addToWishList($id) {
-//        $product = $this->productRepository->getInfoProduct($id);
-        $product = Product::find($id);
-        try {
-            Auth::user()->attach($product);
-        } catch (\Exception $e) {
 
-        }
-    }
+    
 
-    public function removeFromWishList($id) {
-//        $product = $this->productRepository->getInfoProduct($id);
-        $product = Product::find($id);
-        try {
-            Auth::user()->detach($product);
-        } catch (\Exception $e) {
-
-        }
-    }
-
-
-    public function makeOrderUnpayed() {
+    public function makeOrderUnpayed()
+    {
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'is_closed' => false,
@@ -115,7 +104,7 @@ class UserPrivateController extends Controller
                 'body' => response()->json(Cart::instance('shopping')->content(), 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE)
             ]);
         } catch (RequestException $e) {
-            Log::info($e); 
+            Log::info($e);
             return response('ERROR', 500);
         }
 
@@ -127,7 +116,8 @@ class UserPrivateController extends Controller
         return redirect()->back()->with('success', $stringBody);
     }
 
-    public function postCounteragentRegisterTo1c(Request $request) {
+    public function postCounteragentRegisterTo1c(Request $request)
+    {
 
         $client = new Client();
 
@@ -137,12 +127,12 @@ class UserPrivateController extends Controller
                 'body' => $request
             ]);
         } catch (RequestException $e) {
-            Log::info($e); 
+            Log::info($e);
             return response('ERROR', 500);
         }
 
         $body = $response->getBody()->read(4);
 
-        return $body; 
+        return $body;
     }
 }

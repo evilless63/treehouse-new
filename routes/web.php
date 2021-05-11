@@ -97,6 +97,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('/user/wishlist', [UserPrivateController::class, 'wishlist'])->name('user.wishlist');
         Route::get('/cart', [UserPrivateController::class, 'cart'])->name('user.cart');
         Route::post('/makeorder', [UserPrivateController::class, 'makeOrderUnpayed'])->name('makeorder');
+        Route::post('/add-to-wishlist', [UserPrivateController::class, 'addToWishList'])->name('user.add-to-withlist');
+        Route::post('/remove-from-wishlist', [UserPrivateController::class, 'removeFromWishList'])->name('user.remove-from-withlist');
     });
 
     Route::get('/', [UserPublicController::class, 'index'])->name('user.index');

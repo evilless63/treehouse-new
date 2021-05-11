@@ -773,7 +773,7 @@
       <div class="card-zoom__list js-card-zoom-slider">
         @foreach($images as $image)
         <div class="card-zoom__item">
-          <img src="{{asset($image->path)}}" data-observer-src="{{asset($image->path)}}" class="card-zoom__image" />
+          <img src="{{asset($image->img_path)}}" data-observer-src="{{asset($image->img_path)}}" class="card-zoom__image" />
         </div>
         @endforeach
       </div>
@@ -808,6 +808,9 @@
 <script src="{{asset('assets/js/fast-catalog-item/scripts.js')}}"></script>
 <script src="{{asset('assets/js/jquery-ui.js')}}"></script>
 <script src="{{asset('assets/js/autocomplete.js')}}"></script>
+<script>
+
+</script>
 @endsection
 
 @section('head')
