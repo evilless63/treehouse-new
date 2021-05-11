@@ -165,7 +165,7 @@
 
               <ul class="header-links">
                 @foreach($mainmenu_categories as $main_category)
-                <li class="header-links__item"><a href="{{route('user.category', $main_category->id)}}" class="header-link">{{$main_category->title}}</a></li>
+                <li class="header-links__item"><a href="{{route('user.category', $main_category->id)}}" class="header-link">{{$main_category->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a></li>
                 @endforeach
               </ul>
             </div>
