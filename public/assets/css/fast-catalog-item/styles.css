@@ -12743,6 +12743,14 @@ a.findsize-download:hover {
     .t-profile:not(.t-scroll) .header-links__item a {
         color: #fff
     }
+
+    .t-media-head:not(.t-scroll) .logo__link svg #Page-2 {
+        fill:#fff;
+    }
+
+    .t-media-head.t-scroll .logo__link svg #Page-2{
+        fill:#ad8f60;
+    }
 }
 
 .header-search {
