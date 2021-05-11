@@ -44,54 +44,16 @@
       Выберите размер </h4>
     <div class="card-sizes__list-item">
       <div class="card-sizes card__sizes card-sizes__redesign">
+        @foreach($colorVariation->sizeVariations as $sizeVariation)
         <div class="card-sizes__item">
           <label href="/catalog/item-subscribe/125054" class="card-sizes__label-wrap card-sizes__subscribe">
             <span class="card-sizes__label">
               <span class="card-sizes__title">
-                XXS </span>
+              {{$sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} </span>
             </span>
           </label>
         </div>
-        <div class="card-sizes__item">
-          <label href="/catalog/item-subscribe/125049" class="card-sizes__label-wrap card-sizes__subscribe">
-            <span class="card-sizes__label">
-              <span class="card-sizes__title">
-                XS </span>
-            </span>
-          </label>
-        </div>
-        <div class="card-sizes__item">
-          <label href="/catalog/item-subscribe/125047" class="card-sizes__label-wrap card-sizes__subscribe">
-            <span class="card-sizes__label">
-              <span class="card-sizes__title">
-                S </span>
-            </span>
-          </label>
-        </div>
-        <div class="card-sizes__item">
-          <label href="/catalog/item-subscribe/125046" class="card-sizes__label-wrap card-sizes__subscribe">
-            <span class="card-sizes__label">
-              <span class="card-sizes__title">
-                M </span>
-            </span>
-          </label>
-        </div>
-        <div class="card-sizes__item">
-          <label href="/catalog/item-subscribe/125045" class="card-sizes__label-wrap card-sizes__subscribe">
-            <span class="card-sizes__label">
-              <span class="card-sizes__title">
-                L </span>
-            </span>
-          </label>
-        </div>
-        <div class="card-sizes__item">
-          <label href="/catalog/item-subscribe/125048" class="card-sizes__label-wrap card-sizes__subscribe">
-            <span class="card-sizes__label">
-              <span class="card-sizes__title">
-                XL </span>
-            </span>
-          </label>
-        </div>
+        @endforeach
       </div>
     </div>
   </div>
@@ -101,69 +63,21 @@
       Выберите размер </h4>
     <div class="card-sizes card__sizes card-sizes__redesign">
       <div class="card-sizes__list-item">
-        <div class="card-sizes__item">
-          <input type="radio" name="sizes-popup" id="sp42" data-sid="s42" value="125054" class="card-sizes__input" data-url="/cart/add-item/125054/1" />
-
-          <label for="sp42" href="/catalog/item-subscribe/125054" class="card-sizes__label-wrap  js-label_in_popup">
-            <span class="card-sizes__label  ">
-              <span class="card-sizes__title">
-                XXS </span>
-            </span>
-            <div class="card-sizes__comment">Последний</div>
-          </label>
-        </div>
+        @foreach($colorVariation->sizeVariations as $sizeVariation)
         <div class="card-sizes__item">
           <input type="radio" name="sizes-popup" id="sp45" data-sid="s45" value="125049" class="card-sizes__input" data-url="/cart/add-item/125049/1" />
 
           <label for="sp45" href="/catalog/item-subscribe/125049" class="card-sizes__label-wrap  js-label_in_popup">
             <span class="card-sizes__label  ">
               <span class="card-sizes__title">
-                XS </span>
+                {{$sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
             </span>
+            @if($sizeVariation->stock == 1)
+            <div class="card-sizes__comment">Последний</div>
+            @endif
           </label>
         </div>
-        <div class="card-sizes__item">
-          <input type="radio" name="sizes-popup" id="sp3" data-sid="s3" value="125047" class="card-sizes__input" data-url="/cart/add-item/125047/1" />
-
-          <label for="sp3" href="/catalog/item-subscribe/125047" class="card-sizes__label-wrap  js-label_in_popup">
-            <span class="card-sizes__label  ">
-              <span class="card-sizes__title">
-                S </span>
-            </span>
-          </label>
-        </div>
-        <div class="card-sizes__item">
-          <input type="radio" name="sizes-popup" id="sp4" data-sid="s4" value="125046" class="card-sizes__input" data-url="/cart/add-item/125046/1" />
-
-          <label for="sp4" href="/catalog/item-subscribe/125046" class="card-sizes__label-wrap  js-label_in_popup">
-            <span class="card-sizes__label  ">
-              <span class="card-sizes__title">
-                M </span>
-            </span>
-          </label>
-        </div>
-        <div class="card-sizes__item">
-          <input type="radio" name="sizes-popup" id="sp5" data-sid="s5" value="125045" class="card-sizes__input" data-url="/cart/add-item/125045/1" />
-
-          <label for="sp5" href="/catalog/item-subscribe/125045" class="card-sizes__label-wrap  js-label_in_popup">
-            <span class="card-sizes__label  ">
-              <span class="card-sizes__title">
-                L </span>
-            </span>
-          </label>
-        </div>
-        <div class="card-sizes__item">
-          <input type="radio" name="sizes-popup" id="sp6" data-sid="s6" value="125048" class="card-sizes__input" data-url="/cart/add-item/125048/1" disabled="disabled" />
-
-          <label for="sp6" href="/catalog/item-stocks/125048" class="card-sizes__label-wrap  js-popup-stocks is_stocks ">
-            <span class="card-sizes__label  ">
-              <span class="card-sizes__title">
-                XL </span>
-            </span>
-            <!--Заказать из магазина-->
-            <div class="card-sizes__comment">Подписка</div>
-          </label>
-        </div>
+        @endforeach
       </div>
     </div>
   </div>
@@ -173,62 +87,20 @@
       Выберите размер </h4>
     <div class="card-sizes card__sizes card-sizes__redesign">
       <div class="card-sizes__list-item">
-        <div class="card-sizes__item">
-          <input type="radio" name="wishlist-sizes-popup" id="wsp42" value="125054" class="card-sizes__input" />
-          <label href="/catalog/item-subscribe/125054" for="wsp42" class="card-sizes__label-wrap js-label_in_popup">
-            <span class="card-sizes__label ">
-              <span class="card-sizes__title">
-                XXS </span>
-            </span>
-            <div class="card-sizes__comment">Последний</div>
-          </label>
-        </div>
+        @foreach($colorVariation->sizeVariations as $sizeVariation)
         <div class="card-sizes__item">
           <input type="radio" name="wishlist-sizes-popup" id="wsp45" value="125049" class="card-sizes__input" />
           <label href="/catalog/item-subscribe/125049" for="wsp45" class="card-sizes__label-wrap js-label_in_popup">
             <span class="card-sizes__label ">
               <span class="card-sizes__title">
-                XS </span>
+                {{$sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
             </span>
+            @if($sizeVariation->stock == 1)
+            <div class="card-sizes__comment">Последний</div>
+            @endif
           </label>
         </div>
-        <div class="card-sizes__item">
-          <input type="radio" name="wishlist-sizes-popup" id="wsp3" value="125047" class="card-sizes__input" />
-          <label href="/catalog/item-subscribe/125047" for="wsp3" class="card-sizes__label-wrap js-label_in_popup">
-            <span class="card-sizes__label ">
-              <span class="card-sizes__title">
-                S </span>
-            </span>
-          </label>
-        </div>
-        <div class="card-sizes__item">
-          <input type="radio" name="wishlist-sizes-popup" id="wsp4" value="125046" class="card-sizes__input" />
-          <label href="/catalog/item-subscribe/125046" for="wsp4" class="card-sizes__label-wrap js-label_in_popup">
-            <span class="card-sizes__label ">
-              <span class="card-sizes__title">
-                M </span>
-            </span>
-          </label>
-        </div>
-        <div class="card-sizes__item">
-          <input type="radio" name="wishlist-sizes-popup" id="wsp5" value="125045" class="card-sizes__input" />
-          <label href="/catalog/item-subscribe/125045" for="wsp5" class="card-sizes__label-wrap js-label_in_popup">
-            <span class="card-sizes__label ">
-              <span class="card-sizes__title">
-                L </span>
-            </span>
-          </label>
-        </div>
-        <div class="card-sizes__item">
-          <input type="radio" name="wishlist-sizes-popup" id="wsp6" value="125048" class="card-sizes__input" />
-          <label href="/catalog/item-subscribe/125048" for="wsp6" class="card-sizes__label-wrap js-label_in_popup">
-            <span class="card-sizes__label ">
-              <span class="card-sizes__title">
-                XL </span>
-            </span>
-            <!-- <div class="card-sizes__comment">Подписка</div> -->
-          </label>
-        </div>
+        @endforeach
       </div>
     </div>
   </div>
