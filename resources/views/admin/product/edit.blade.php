@@ -1,6 +1,6 @@
 <x-app-layout>
     @if (\Session::has('success'))
-    <div class="alert alert-success">
+    <div id="alert" class="alert alert-success">
         <ul>
             <li>{!! \Session::get('success') !!}</li>
         </ul>
@@ -8,7 +8,7 @@
     @endif
 
     @if (\Session::has('error'))
-    <div class="alert alert-error">
+    <div id="alert" class="alert alert-error">
         <ul>
             <li>{!! \Session::get('error') !!}</li>
         </ul>
@@ -65,7 +65,7 @@
                         <div x-data="{openTabColor: 1 ,activeClasses: 'border-l border-t border-r rounded-t text-blue-700',inactiveClasses: 'text-blue-500 hover:text-blue-800'}" class="my-6">
                             <ul class="flex border-b">
                                 @foreach($current_product->colorVariations as $colorVariation)
-                                <li @click="openTabColor = {{$loop->index + 1}}" :class="{ '-mb-px': openTabColor === {{$loop->index + 1}} }" class="-mb-px mr-1">
+                                <li @click="openTabColor = {{$loop->index + 1}}" :class="{ '-mb-px': openTabColor === {{$loop->index + 1}} }" class=" -mb-px mr-1">
                                     <span :class="openTabColor === {{$loop->index + 1}} ? activeClasses : inactiveClasses" class="bg-white inline-block py-2 px-4 font-semibold cursor-pointer">
                                         {{$colorVariation->color->getLocalizeTitleRu()}}
                                     </span>
@@ -97,204 +97,116 @@
                                     {{ $category->getLocalizeTitleRu() }} --- <input type="checkbox" name="choosed_categories[{{$colorVariation->id}}][]" value="{{$category->id}}">
                                     @endforeach
                                     @endif
-                                    <div x-data="{openTabColorVariationTabs: 1 ,activeClasses: 'border-l border-t border-r rounded-t text-blue-700',inactiveClasses: 'text-blue-500 hover:text-blue-800'}" class="my-6">
+                                    {{$colorVariation->color->getLocalizeTitleRu()}} -- <input type="color" name="hex" value="{{$colorVariation->color->hex}}" disabled>-- <a href="{{route('colors.edit', $colorVariation->color->id)}}" class="underline" target="_blank">Редактировать параметры цвета</a>
+                                    <div x-data="{openTabColorVariationTabs: 1 ,activeClasses: 'border-l border-t border-r rounded-t text-blue-700',inactiveClasses: 'text-blue-500 hover:text-blue-800'}" class="my-6 changeColorVariationWrapper">
                                         <ul class="flex border-b">
 
                                             <li @click="openTabColorVariationTabs = 1" :class="{ '-mb-px': openTabColorVariationTabs === 1 }" class="-mb-px mr-1">
                                                 <span :class="openTabColorVariationTabs === 1 ? activeClasses : inactiveClasses" class="bg-white inline-block py-2 px-4 font-semibold cursor-pointer">
-                                                    Настройка главного изображения
+                                                    Остатки по размерам (установка скидок на размеры)
                                                 </span>
                                             </li>
-                                            <li @click="openTabColorVariationTabs = 2" :class="{ '-mb-px': openTabColorVariationTabs === 2 }" class="-mb-px mr-1">
+                                            <li @click="openTabColorVariationTabs = 2" :class="{ '-mb-px': openTabColorVariationTabs === 2 }" class="changeColorVariation -mb-px mr-1">
                                                 <span :class="openTabColorVariationTabs === 2 ? activeClasses : inactiveClasses" class="bg-white inline-block py-2 px-4 font-semibold cursor-pointer">
-                                                    Настройка галереи изображений
+                                                    Настройка главного изображения
                                                 </span>
                                             </li>
                                             <li @click="openTabColorVariationTabs = 3" :class="{ '-mb-px': openTabColorVariationTabs === 3 }" class="-mb-px mr-1">
                                                 <span :class="openTabColorVariationTabs === 3 ? activeClasses : inactiveClasses" class="bg-white inline-block py-2 px-4 font-semibold cursor-pointer">
-                                                    Остатки по размерам (установка скидок на размеры)
+                                                    Настройка галереи изображений
                                                 </span>
                                             </li>
-
                                         </ul>
                                         <div class="w-full pt-4">
                                             <div x-show="openTabColorVariationTabs === 1">
-                                                {{$colorVariation->color->getLocalizeTitleRu()}} -- <input type="color" name="hex" value="{{$colorVariation->color->hex}}" disabled>-- <a href="{{route('colors.edit', $colorVariation->color->id)}}" class="underline" target="_blank">Редактировать параметры цвета</a>
+                                                <ul>
+                                                    @foreach($colorVariation->images as $image)
+                                                    <li>{{$image->name}}</li>
+                                                    @endforeach
 
-                                                <h5>Главное изображение товара</h5>
-                                                <input type="file" class="filepond my-4" name="filepond-image-{{$colorVariation->color->slug}}" data-allow-reorder="true" data-max-file-size="3MB">
+                                                </ul>
+
+                                                <table class="table" id="findTable">
+                                                    <tbody>
+                                                        @foreach($colorVariation->sizeVariations as $sizeVariation)
+                                                        <tr class="sizeVariationBlock">
+                                                            <th scope="row">{{$sizeVariation->size->getLocalizeTitleRu()}}</th>
+                                                            <td>{{$sizeVariation->price}} р.</td>
+                                                            <td>{{$sizeVariation->stock}} шт.</td>
+                                                            <td class="currentDiscount">скидка @if(!$sizeVariation->discount) 0 @else {{$sizeVariation->discount}} @endif %</td>
+                                                            <td>
+                                                                <div class="input-group mb-3 discountBlock">
+                                                                    <input type="number" min="0" max="100" step="0.1" class="form-control discount-sum" placeholder="Новая скидка">
+                                                                    <button class="btn btn-primary" type="button" onclick="editDiscount(event)" sizeVariationId="{{$sizeVariation->id}}">изменить</button>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" onchange="changeIsVisible(event)" sizeVariationId="{{$sizeVariation->id}}" type="checkbox" @if($sizeVariation->is_visible) checked @endif @if($sizeVariation->stock <= 0) disabled @endif>
+                                                                        <label class="form-check-label">Доступен на сайте</label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div x-show="openTabColorVariationTabs === 2">
 
                                                 <div class="form-group">
 
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label class="label" data-toggle="tooltip" title="" data-original-title="Кликните для загрузки основного изображения товара">
-                                                                <img class="rounded" id="avatar_{{$colorVariation->color->slug}}" src="{{asset('icons/add_img.png')}}" alt="avatar">
-                                                                <input type="file" class="sr-only" id="input_{{$colorVariation->color->slug}}" name="image" accept="image/*">
+                                                        <div class="col-md-6 cropp_wrapper">
+                                                            <h5>Задать новое главное изображение товара</h5>
+                                                            <label class="label" data-toggle="tooltip" title="" cropper-attr="label" data-original-title="Кликните для загрузки основного изображения товара">
+                                                                <img class="rounded avatar" cropper-attr="avatar" id="avatar_{{$colorVariation->color->slug}}" src="{{asset('icons/add_img.png')}}" alt="avatar">
+                                                                <input type="file" class="sr-only input_cropper" id="input_{{$colorVariation->color->slug}}" name="image" accept="image/*">
                                                             </label>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <h5>Главное изображение товара</h5>
-                                                        </div>
-                                                    </div>
+                                                            <span style="display:none" class="products_slug_cropper">{{$colorVariation->product->slug}}</span>
+                                                            <span style="display:none" class="color_slug_cropper">{{$colorVariation->color->slug}}</span>
+                                                            <span style="display:none" class="color_variation_id_cropper">{{$colorVariation->id}}</span>
 
-
-                                                    <div class="modal fade" id="modal_{{$colorVariation->color->slug}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="modalLabel">Выберите учаток изображения для
-                                                                        загрузки</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">×</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p>Колесом мыши менять масштаб<br> для выбора участка загружаемого
-                                                                        изображения, перетаскивайте активную зону</p>
-                                                                    <div class="img-container">
-                                                                        <img id="image_{{$colorVariation->color->slug}}" src="">
+                                                            <div class="modal fade modal_cropper" cropper-attr="modal" id="modal_{{$colorVariation->color->slug}}" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-lg" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="modalLabel">Выберите учаток изображения для
+                                                                                загрузки</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <p>Колесом мыши менять масштаб<br> для выбора участка загружаемого
+                                                                                изображения, перетаскивайте активную зону</p>
+                                                                            <div class="img-container">
+                                                                                <img cropper-attr="image" class="image_cropper" id="image_{{$colorVariation->color->slug}}" src="">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                                                            <button type="button" class="btn btn-primary crop_cropper" id="crop_{{$colorVariation->color->slug}}">Загрузить</button>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                                                                    <button type="button" class="btn btn-primary" id="crop">Загрузить</button>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="col-md-6">
+                                                            <h5>Текущее главное изображение товара</h5>
+                                                            <a data-index="0" data-fancybox="gallery_main_{{$colorVariation->slug}}" href="{{asset($colorVariation->main_img)}}" style="display:block">
+                                                                <img class="img-fluid delpath" delpath="{{asset($colorVariation->main_img)}}" src="{{asset($colorVariation->main_img)}}" alt="">
+                                                            </a>
+                                                        </div>
                                                     </div>
+
+
+
                                                     <br>
                                                     <input type="hidden" autocomplete="OFF" name="main_image" id="main_image" placeholder="" class="form-control input-sm" value="{{$colorVariation->main_img}}" />
                                                 </div>
 
-                                                <script>
-                                                    //главное изображение
-                                                    window.addEventListener('DOMContentLoaded', function() {
-                                                        var avatar = document.getElementById('avatar_{{$colorVariation->color->slug}}');
-                                                        console.log(avatar);
-                                                        var image = document.getElementById('image_{{$colorVariation->color->slug}}');
-                                                        console.log(image);
-                                                        var input = document.getElementById('input_{{$colorVariation->color->slug}}');
-                                                        console.log(input);
-                                                        var $progress = $('.progress_{{$colorVariation->color->slug}}');
-                                                        console.log($progress);
-                                                        var $progressBar = $('.progress-bar_{{$colorVariation->color->slug}}');
-                                                        console.log($progressBar);
-                                                        var $alert = $('.alert_{{$colorVariation->color->slug}}');
-                                                        var $modal = $('#modal_{{$colorVariation->color->slug}}');
-                                                        var cropper;
-
-                                                        $('[data-toggle="tooltip"]').tooltip();
-
-                                                        if (input == null)
-                                                            return
-
-                                                        input.addEventListener('change', function(e) {
-                                                            var files = e.target.files;
-                                                            var done = function(url) {
-                                                                input.value = '';
-                                                                image.src = url;
-                                                                $alert.hide();
-                                                                $modal.modal('show');
-                                                            };
-                                                            var reader;
-                                                            var file;
-                                                            var url;
-
-                                                            if (files && files.length > 0) {
-                                                                file = files[0];
-
-                                                                if (URL) {
-                                                                    done(URL.createObjectURL(file));
-                                                                } else if (FileReader) {
-                                                                    reader = new FileReader();
-                                                                    reader.onload = function(e) {
-                                                                        done(reader.result);
-                                                                    };
-                                                                    reader.readAsDataURL(file);
-                                                                }
-                                                            }
-                                                        });
-
-                                                        $modal.on('shown.bs.modal', function() {
-                                                            cropper = new Cropper(image, {
-                                                                aspectRatio: 3 / 4,
-                                                                viewMode: 2,
-                                                            });
-                                                        }).on('hidden.bs.modal', function() {
-                                                            cropper.destroy();
-                                                            cropper = null;
-                                                        });
-
-                                                        document.getElementById('crop').addEventListener('click', function() {
-                                                            var initialAvatarURL;
-                                                            var canvas;
-
-                                                            $modal.modal('hide');
-
-                                                            if (cropper) {
-                                                                canvas = cropper.getCroppedCanvas({
-                                                                    width: 1000,
-                                                                    height: 1000,
-                                                                });
-                                                                initialAvatarURL = avatar.src;
-                                                                avatar.src = canvas.toDataURL();
-                                                                $progress.show();
-                                                                $alert.removeClass('alert-success alert-warning');
-                                                                canvas.toBlob(function(blob) {
-                                                                    var formData = new FormData();
-
-                                                                    formData.append('file', blob, 'avatar.jpg');
-                                                                    $.ajax("{{url('/admin/image/upload')}}", {
-                                                                        method: 'POST',
-                                                                        data: formData,
-                                                                        headers: {
-                                                                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                                                        },
-                                                                        processData: false,
-                                                                        contentType: false,
-
-                                                                        xhr: function() {
-                                                                            var xhr = new XMLHttpRequest();
-
-                                                                            xhr.upload.onprogress = function(e) {
-                                                                                var percent = '0';
-                                                                                var percentage = '0%';
-
-                                                                                if (e.lengthComputable) {
-                                                                                    percent = Math.round((e.loaded / e.total) * 100);
-                                                                                    percentage = percent + '%';
-                                                                                    $progressBar.width(percentage).attr('aria-valuenow', percent).text(percentage);
-                                                                                }
-                                                                            };
-
-                                                                            return xhr;
-                                                                        },
-
-                                                                        success: function(file, response) {
-                                                                            $alert.show().addClass('alert-success').text('Upload success');
-                                                                            console.log(response);
-                                                                            $('#main_image_{{$colorVariation->color->slug}}').val(file);
-                                                                        },
-
-                                                                        error: function() {
-                                                                            avatar.src = initialAvatarURL;
-                                                                            $alert.show().addClass('alert-warning').text('Upload error');
-                                                                        },
-
-                                                                        complete: function() {
-                                                                            $progress.hide();
-                                                                        },
-                                                                    });
-                                                                });
-                                                            }
-                                                        });
-                                                    });
-                                                    //главное изображение
-                                                </script>
-
                                             </div>
-                                            <div x-show="openTabColorVariationTabs === 2">
+                                            <div x-show="openTabColorVariationTabs === 3">
                                                 <h5>Галерея изображений</h5>
 
                                                 <div class="form-group">
@@ -397,39 +309,6 @@
                                                 </script>
 
                                             </div>
-                                            <div x-show="openTabColorVariationTabs === 3">
-                                                <ul>
-                                                    @foreach($colorVariation->images as $image)
-                                                    <li>{{$image->name}}</li>
-                                                    @endforeach
-
-                                                </ul>
-
-                                                <table class="table" id="findTable">
-                                                    <tbody>
-                                                        @foreach($colorVariation->sizeVariations as $sizeVariation)
-                                                        <tr class="sizeVariationBlock">
-                                                            <th scope="row">{{$sizeVariation->size->getLocalizeTitleRu()}}</th>
-                                                            <td>{{$sizeVariation->price}} р.</td>
-                                                            <td>{{$sizeVariation->stock}} шт.</td>
-                                                            <td class="currentDiscount">скидка @if(!$sizeVariation->discount) 0 @else {{$sizeVariation->discount}} @endif %</td>
-                                                            <td>
-                                                                <div class="input-group mb-3 discountBlock">
-                                                                    <input type="number" min="0" max="100" step="0.1" class="form-control discount-sum" placeholder="Новая скидка">
-                                                                    <button class="btn btn-primary" type="button" onclick="editDiscount(event)" sizeVariationId="{{$sizeVariation->id}}">изменить</button>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" onchange="changeIsVisible(event)" sizeVariationId="{{$sizeVariation->id}}" type="checkbox" @if($sizeVariation->is_visible) checked @endif @if($sizeVariation->stock <= 0) disabled @endif>
-                                                                        <label class="form-check-label">Доступен на сайте</label>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -443,30 +322,39 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js" integrity="sha512-E+gDQcIvNXE60SjCS38ysf1mGh4ObBpKcUOp0oEaHQHQAdaN2p7GelOpgEdpTuCLoIJyLkNXiqFZbyD9Ak/Ygw==" crossorigin="anonymous"></script> -->
+    <script src="{{ asset('js/cropper.js') }}"></script>
+    <script src="{{asset('assets/owl/owl.carousel.min.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            $(".owl-carousel").owlCarousel({
-                loop: true,
-                responsiveClass: true,
-                nav: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                        nav: true
-                    },
-                    400: {
-                        items: 2,
-                        nav: false
-                    },
-                    800: {
-                        items: 5,
-                        nav: true,
-                        loop: false
+        try {
+            $(document).ready(function() {
+                $(".owl-carousel").owlCarousel({
+                    loop: true,
+                    responsiveClass: true,
+                    nav: true,
+                    responsive: {
+                        0: {
+                            items: 1,
+                            nav: true
+                        },
+                        400: {
+                            items: 2,
+                            nav: false
+                        },
+                        800: {
+                            items: 5,
+                            nav: true,
+                            loop: false
+                        }
                     }
-                }
+                });
             });
-        });
+        } catch (e) {
+            // инструкции для обработки ошибок
+        }
+
 
         function deleteImagesAttached(event) {
             var imageId = $(event.target).attr('imageId');
@@ -551,5 +439,271 @@
                 },
             });
         }
+
+        // //главное изображение анкеты
+        // window.addEventListener('DOMContentLoaded', function() {
+        //     var avatar = document.getElementById('avatar_{{$colorVariation->color->slug}}');
+        //     console.log(parent)
+        //     var image = document.getElementById('image_{{$colorVariation->color->slug}}');
+        //     console.log(image)
+        //     var input = document.getElementById('input_{{$colorVariation->color->slug}}');
+        //     console.log(input)
+        //     var $progress = $('.progress_{{$colorVariation->color->slug}}');
+        //     var $progressBar = $('.progress-bar_{{$colorVariation->color->slug}}');
+        //     var $alert = $('.alert');
+        //     var $modal = $('#modal_{{$colorVariation->color->slug}}');
+        //     var cropper;
+
+        //     $('[data-toggle="tooltip"]').tooltip();
+
+        //     if (input == null)
+        //         return
+
+        //     input.addEventListener('change', function(e) {
+        //         var files = e.target.files;
+        //         var done = function(url) {
+        //             input.value = '';
+        //             image.src = url;
+        //             $alert.hide();
+        //             $modal.modal('show');
+        //         };
+        //         var reader;
+        //         var file;
+        //         var url;
+
+        //         if (files && files.length > 0) {
+        //             file = files[0];
+
+        //             if (URL) {
+        //                 done(URL.createObjectURL(file));
+        //             } else if (FileReader) {
+        //                 reader = new FileReader();
+        //                 reader.onload = function(e) {
+        //                     done(reader.result);
+        //                 };
+        //                 reader.readAsDataURL(file);
+        //             }
+        //         }
+        //     });
+
+        //     $modal.on('shown.bs.modal', function() {
+        //         console.log(image)
+        //         cropper = new Cropper(image, {
+        //             aspectRatio: 275 / 390,
+        //             viewMode: 2,
+        //         });
+        //     }).on('hidden.bs.modal', function() {
+        //         cropper.destroy();
+        //         cropper = null;
+        //     });
+
+        //     document.getElementById('crop_{{$colorVariation->color->slug}}').addEventListener('click', function() {
+        //         var initialAvatarURL;
+        //         var canvas;
+
+        //         $modal.modal('hide');
+
+        //         if (cropper) {
+        //             canvas = cropper.getCroppedCanvas({
+        //                 width: 400,
+        //                 height: 400,
+        //             });
+        //             initialAvatarURL = avatar.src;
+        //             avatar.src = canvas.toDataURL();
+        //             $progress.show();
+        //             $alert.removeClass('alert-success alert-warning');
+        //             canvas.toBlob(function(blob) {
+        //                 var formData = new FormData();
+
+        //                 formData.append('image', blob, 'main_image_{{$colorVariation->product->slug}}_{{$colorVariation->color->slug}}.jpg');
+        //                 formData.append('color_variation_id', '{{$colorVariation->id}}');
+        //                 $.ajax("{{url('/admin/main-image/upload')}}", {
+        //                     method: 'POST',
+        //                     data: formData,
+        //                     headers: {
+        //                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //                     },
+        //                     processData: false,
+        //                     contentType: false,
+
+        //                     xhr: function() {
+        //                         var xhr = new XMLHttpRequest();
+
+        //                         xhr.upload.onprogress = function(e) {
+        //                             var percent = '0';
+        //                             var percentage = '0%';
+
+        //                             if (e.lengthComputable) {
+        //                                 percent = Math.round((e.loaded / e.total) * 100);
+        //                                 percentage = percent + '%';
+        //                                 $progressBar.width(percentage).attr('aria-valuenow', percent).text(percentage);
+        //                             }
+        //                         };
+
+        //                         return xhr;
+        //                     },
+
+        //                     success: function(file, response) {
+        //                         $alert.show().addClass('alert-success').text('Upload success');
+        //                         console.log(response);
+        //                         $('#main_image').val(file);
+        //                     },
+
+        //                     error: function() {
+        //                         avatar.src = initialAvatarURL;
+        //                         $alert.show().addClass('alert-warning').text('Upload error');
+        //                     },
+
+        //                     complete: function() {
+        //                         $progress.hide();
+        //                     },
+        //                 });
+        //             });
+        //         }
+        //     });
+        // });
+        // //главное изображение анкеты
+
+        //главное изображение
+        $('.changeColorVariation').on('click', function(event) {
+            // function loadMainImage(event) {
+            //     console.log(event.target)
+            // window.addEventListener('DOMContentLoaded', function() {
+            // var avatar = document.getElementById('avatar_{{$colorVariation->color->slug}}');
+            var parent = $(event.target).closest('.changeColorVariationWrapper')[0]
+            console.log(parent)
+            var avatar = $(parent).find(".avatar")[0]
+            // var image = document.getElementById('image_{{$colorVariation->color->slug}}');
+            var image = $(parent).find(".image_cropper")[0]
+            console.log(image)
+            // var input = document.getElementById('input_{{$colorVariation->color->slug}}');
+            var input = $(parent).find(".input_cropper")
+            console.log(input)
+            var $progress = $('.progress_{{$colorVariation->color->slug}}');
+            var $progressBar = $('.progress-bar_{{$colorVariation->color->slug}}');
+            var $alert = $('.alert');
+            // var $modal = $('#modal_{{$colorVariation->color->slug}}');
+            var $modal = $(parent).find(".modal_cropper")
+            // var modal = document.getElementById('modal_{{$colorVariation->color->slug}}');
+            var cropper;
+            var products_slug = $(parent).find(".products_slug_cropper").text();
+            console.log(products_slug)
+            var color_slug = $(parent).find(".color_slug_cropper").text();
+            console.log(color_slug)
+            var color_variation_id = $(parent).find(".color_variation_id_cropper").text();
+            console.log(color_variation_id)
+            $('[data-toggle="tooltip"]').tooltip();
+
+            if (input == null)
+                return
+
+            input.on('change', function(e) {
+                var files = e.target.files;
+                console.log(image)
+                var done = function(url) {
+                    console.log(image)
+                    input.value = '';
+                    image.src = url;
+                    $alert.hide();
+                    $modal.modal('show');
+                };
+                var reader;
+                var file;
+                var url;
+
+                if (files && files.length > 0) {
+                    file = files[0];
+
+                    if (URL) {
+                        done(URL.createObjectURL(file));
+                    } else if (FileReader) {
+                        reader = new FileReader();
+                        reader.onload = function(e) {
+                            done(reader.result);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+
+            $modal.on('shown.bs.modal', function() {
+                console.log(image)
+                cropper = new Cropper(image, {
+                    aspectRatio: 3 / 4,
+                    viewMode: 2,
+                });
+
+                console.log(cropper)
+            }).on('hidden.bs.modal', function() {
+                cropper.destroy();
+                cropper = null;
+            });
+
+            $(parent).find('.crop_cropper').on('click', function() {
+
+                var initialAvatarURL;
+                var canvas;
+                $modal.modal('hide');
+
+                if (cropper) {
+                    canvas = cropper.getCroppedCanvas({
+                        width: 1000,
+                        height: 1000,
+                    });
+                    initialAvatarURL = avatar.src;
+                    avatar.src = canvas.toDataURL();
+                    $progress.show();
+                    $alert.removeClass('alert-success alert-warning');
+                    canvas.toBlob(function(blob) {
+                        var formData = new FormData();
+
+                        formData.append('image', blob, 'main_image_' + products_slug + '_' + color_slug + '.jpg');
+                        formData.append('color_variation_id', color_variation_id);
+                        $.ajax("{{url('/admin/main-image/upload')}}", {
+                            method: 'POST',
+                            data: formData,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            processData: false,
+                            contentType: false,
+
+                            xhr: function() {
+                                var xhr = new XMLHttpRequest();
+
+                                xhr.upload.onprogress = function(e) {
+                                    var percent = '0';
+                                    var percentage = '0%';
+
+                                    if (e.lengthComputable) {
+                                        percent = Math.round((e.loaded / e.total) * 100);
+                                        percentage = percent + '%';
+                                        $progressBar.width(percentage).attr('aria-valuenow', percent).text(percentage);
+                                    }
+                                };
+
+                                return xhr;
+                            },
+
+                            success: function(file, response) {
+                                $alert.show().addClass('alert-success').text('Upload success');
+                                console.log(response);
+                                $('#main_image_{{$colorVariation->color->slug}}').val(file);
+                            },
+
+                            error: function() {
+                                avatar.src = initialAvatarURL;
+                                $alert.show().addClass('alert-warning').text('Upload error');
+                            },
+
+                            complete: function() {
+                                $progress.hide();
+                            },
+                        });
+                    });
+                }
+            });
+            // });
+        });
     </script>
 </x-app-layout>

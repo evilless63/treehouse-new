@@ -134,15 +134,16 @@ class UserPublicController extends Controller
         $product = Product::where('slug', $product_slug)->first();
         $color = Color::where('slug', $color_slug)->first();
         $colorVariation = ColorVariation::where('product_id', $product->id)->where('color_id', $color->id)->first();
+        
         $productLangFields = $product->localization()
         ->where('lang', LaravelLocalization::getCurrentLocale())
         ->first();
-
+        
         // $related_products = $this->productRepository->getRelatedProducts($id);
         $related_products = collect();
         foreach($colorVariation->categories()->get() as $category) {
-            foreach($category->colorVariations()->get() as $colorVariation)
-            $related_products->push($colorVariation); 
+            foreach($category->colorVariations()->get() as $colorVariationCat)
+            $related_products->push($colorVariationCat); 
         }
         $related_products = $related_products->shuffle();
         // $images = $this->productRepository->getGallery($id);

@@ -75,6 +75,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     Route::post('/image/upload', [UploadController::class, 'imageUpload']);
     Route::post('/image/delete', [UploadController::class, 'imageDelete']);
+    Route::post('/main-image/upload', [UploadController::class, 'mainImageUpload']);
     Route::post('/image/delete-from-gallery', [UploadController::class, 'deleteImageFromGallery']);
 
     Route::post('/product/change-discount', [ProductController::class, 'changeDiscount']);

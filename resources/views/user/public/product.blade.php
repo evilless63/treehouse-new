@@ -192,8 +192,6 @@
               <div class="card-info card__info card-info__top">
                 <div class="card-info__holder">
 
-
-
                   <ul class="card-info__tags">
 
                     @if($colorVariation->is_bestseller)
@@ -676,8 +674,8 @@
 
                   <!-- Цвета -->
                   <ul class="catalog-list__colors catalog-list-colors">
-                    @foreach($recently_viewed_product->product->colorVariations as $colorVariation)
-                    <li class="catalog-list-colors__color " title="{{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" style="background:{{$colorVariation->color->hex}}">
+                    @foreach($recently_viewed_product->product->colorVariations as $recently_colorVariation)
+                    <li class="catalog-list-colors__color " title="{{$recently_colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" style="background:{{$recently_colorVariation->color->hex}}">
                     </li>
                     @endforeach
                   </ul>
@@ -709,7 +707,7 @@
                       <div class="catalog-list__preview catalog-list__preview--round">
                         <span class="catalog-list__fav catalog-list__fav__in js-rem-fav"></span>
                         <span class="catalog-list__fav js-add-fav" style="display:none"></span>
-                        <img src="{{ asset('/uploads/single/' . $wish_product->img) }}" alt="{{$wish_product->title}}" data-observer-src="{{ asset('/uploads/single/' . $wish_product->img) }}" class="catalog-list__image" />
+                        <img src="{{ asset($wish_product->img) }}" alt="{{$wish_product->title}}" data-observer-src="{{ asset($wish_product->img) }}" class="catalog-list__image" />
                       </div>
 
                       <div class="catalog-list__box">

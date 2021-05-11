@@ -65,7 +65,7 @@
               'color' => $new_product->color->slug,
               ]))}}" class="catalog-list__item slider-news__item new-on-week-item-link home-slider__item" data-id="105559">
           <div class="catalog-list__preview">
-            <img src="{{ asset('uploads/single/' . $new_product->main_img) }}" data-observer-src="{{ asset('uploads//single/' . $new_product->main_img) }}" alt="{{$new_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
+            <img src="{{ asset($new_product->main_img) }}" data-observer-src="{{ asset($new_product->main_img) }}" alt="{{$new_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
             <div class="page-preloader__loading news-loader"></div>
           </div>
           <div class="catalog-list__box slider-news__box">
@@ -159,7 +159,7 @@
               'color' => $bestseller->color->slug,
               ]))}}" class="catalog-list__item slider-news__item new-on-week-item-link home-slider__item" data-id="105546">
           <div class="catalog-list__preview">
-            <img src="{{ asset('uploads/single/' . $bestseller->main_img) }}" data-observer-src="{{ asset('uploads//single/' . $bestseller->main_img) }}" alt="{{$bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
+            <img src="{{ asset($bestseller->main_img) }}" data-observer-src="{{ asset($bestseller->main_img) }}" alt="{{$bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
             <div class="page-preloader__loading news-loader"></div>
           </div>
           <div class="catalog-list__box slider-news__box">
