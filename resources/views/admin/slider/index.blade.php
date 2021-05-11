@@ -25,13 +25,13 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <a class="btn btn-primary" href="{{route('sliders.create')}}">Создать слайдер</a>
-                    </div>
+                    </div> -->
 
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <input type="text" class="form-control" class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
-                    </div>
+                    </div> -->
 
                     <table class="table" id="findTable">
                         <tbody>

@@ -87,7 +87,7 @@
                         <div class="catalog-list__preview">
                           <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" style="display:none"></span>
                           <span class="catalog-list__fav js-add-fav"></span>
-                          <img src="{{asset($product_by_category->main_img)}}" alt="{{$product_by_category->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
+                          <img src="{{asset($product_by_category->main_img())}}" alt="{{$product_by_category->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
                         </div>
                       </a>
                       <div class="catalog-list__box">
@@ -174,7 +174,7 @@
                       <div class="catalog-list__preview catalog-list__preview--round">
                         <span class="catalog-list__fav catalog-list__fav__in js-rem-fav"></span>
                         <span class="catalog-list__fav js-add-fav" style="display:none"></span>
-                        <img src="{{asset($recently_viewed_product->main_img)}}" alt="{{$recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset($recently_viewed_product->main_img)}}" class="catalog-list__image" />
+                        <img src="{{asset($recently_viewed_product->main_img())}}" alt="{{$recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset($recently_viewed_product->main_img())}}" class="catalog-list__image" />
                       </div>
 
                       <div class="catalog-list__box">

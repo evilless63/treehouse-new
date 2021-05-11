@@ -25,7 +25,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <form method="POST" action="{{route('sliders.update', $current_slider->id)}}">
+                    <form method="POST" action="{{route('sliders.update', $current_slider->id)}}"  enctype="multipart/form-data">
                         @csrf
                         @method('patch')
 
@@ -54,11 +54,11 @@
                         <input type="text" class="form-control"placeholder="ссылка" name="link" value="{{$current_slider->link}}">
                         <a href="{{$current_slider->link}}">Посмотреть ссылку</a>
 
-                        <label>Изображение</label>
-                        <input type="file" class="filepond my-4" name="source_path" value="{{$current_slider->source_path}}">
+                        <label>Видео</label>
+                        <input type="file" class="filepond my-4" name="source_path">
 
-                        <label>Ссылка на ресурс (youtube)</label>
-                        <input type="text" class="form-control"class="filepond my-4" name="source_path" value="{{$current_slider->source_path}}">
+                        <!-- <label>Ссылка на ресурс (youtube)</label>
+                        <input type="text" class="form-control"class="filepond my-4" name="source_path" value="{{$current_slider->source_path}}"> -->
 
                         <label>Использовать на сайте</label>
                         <input type="checkbox" name="is_active" value="{{old('is_active')}}">

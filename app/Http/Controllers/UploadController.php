@@ -20,7 +20,7 @@ class UploadController extends Controller
         }
         
         $time = time();
-        $imageName = $time . $request->file('image')->getClientOriginalName();
+        $imageName = $time . '_' . $request->file('image')->getClientOriginalName();
         $request->image->move(public_path('images' . $folder),  $imageName);
 
         $image = new ImageGallery;
@@ -41,7 +41,7 @@ class UploadController extends Controller
         }
         
         $time = time();
-        $imageName = $time . $request->file('image')->getClientOriginalName();
+        $imageName = $time . '_' . $request->file('image')->getClientOriginalName();
         $request->image->move(public_path('images' . $folder),  $imageName);
 
         $colorVariation->main_img = 'images' . $folder . "/" . $imageName;

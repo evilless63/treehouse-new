@@ -24,7 +24,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form method="POST" action="{{route('sliders.store')}}">
+                    <form method="POST" action="{{route('sliders.store')}}" enctype="multipart/form-data">
                         @csrf
 
                         <div x-data="{openTab: 1 ,activeClasses: 'border-l border-t border-r rounded-t text-blue-700',inactiveClasses: 'text-blue-500 hover:text-blue-800'}" class="my-6">
@@ -52,11 +52,11 @@
                         <label>Ссылка</label>
                         <input type="text" class="form-control"placeholder="ссылка" name="link" value="{{old('link')}}">
 
-                        <label>Изображение</label>
+                        <label>Видео</label>
                         <input type="file" class="filepond my-4" name="source_path" value="{{old('source_path')}}">
 
-                        <label>Ссылка на ресурс (youtube)</label>
-                        <input type="text" class="form-control"class="filepond my-4" name="source_path" value="{{old('source_path')}}">
+                        <!-- <label>Ссылка на ресурс (youtube)</label>
+                        <input type="text" class="form-control"class="filepond my-4" name="source_path" value="{{old('source_path')}}"> -->
 
                         <label>Использовать на сайте</label>
                         <input type="checkbox" name="is_active" value="{{old('is_active')}}">

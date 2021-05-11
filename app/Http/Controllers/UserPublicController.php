@@ -18,6 +18,7 @@ use App\Models\Article;
 // use App\Repositories\CategoryRepository;
 // use Phpfastcache\Helper\Psr16Adapter;
 use App\Models\InstagramPost;
+use App\Models\Slider;
 
 class UserPublicController extends Controller
 {
@@ -65,9 +66,10 @@ class UserPublicController extends Controller
         $topRightBanner = Banner::where('banner_position', 'TOP-RIGHT')->first();
         $downLeftBanner = Banner::where('banner_position', 'DOWN_LEFT')->first();
         $downRightBanner = Banner::where('banner_position', 'DOWN_RIGHT')->first();
+        $videoBanner = Slider::first();
         // $instagram_posts = InstagramPost::all();
         $instagram_posts = collect([]); //TODO treehouse
-        return view('user.public.index', compact('new_products', 'bestseller_products', 'instagram_posts', 'topLeftBanner', 'topRightBanner', 'downLeftBanner', 'downRightBanner'));
+        return view('user.public.index', compact('new_products', 'bestseller_products', 'instagram_posts', 'topLeftBanner', 'topRightBanner', 'downLeftBanner', 'downRightBanner','videoBanner'));
     }
 
     public function category($slug = null)

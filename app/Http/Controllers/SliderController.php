@@ -47,6 +47,18 @@ class SliderController extends Controller
         }
         $data['slug'] = str_slug(request()->get('localization')['ru']['title']);
 
+
+        if ($request->hasFile('source_path')) {
+            $folder = 'videos' . '/' . $data['slug'];
+
+            $time = time();
+            $imageName = $time . '_' . $request->file('source_path')->getClientOriginalName();
+            $request->source_path->move(public_path('videos/' . $folder),  $imageName);
+
+            $data['source_path'] = 'videos/' . $folder .  $imageName;
+            
+        }
+
         $banner = Slider::create($data);
         foreach ($request->input('localization', []) as $k => $i) {
             $local = $banner->localizations()
@@ -111,6 +123,17 @@ class SliderController extends Controller
         } else {
             $data['is_active'] = 0;
         }
+
+        if ($request->hasFile('source_path')) {
+            $folder = 'banners' . '/' . $slider->slug;
+
+            $time = time();
+            $imageName = $time . '_' . $request->file('source_path')->getClientOriginalName();
+            $request->source_path->move(public_path('videos/' . $folder),  $imageName);
+            $data['source_path'] = 'videos/' . $folder .  $imageName;
+            
+        }
+
         $haveBeenUpdated = $slider->update($data);
         foreach ($request->input('localization', []) as $k => $i) {
             $locale = $slider->localizations()->where('lang', $k)

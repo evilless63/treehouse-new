@@ -326,7 +326,7 @@
                           {{__('userpanel.lc_profile')}} </a>
                       </li>
                       <li class="footer-list__item footer-list-item">
-                        <a class="{{LaravelLocalization::localizeUrl('footer-list-item__link" href="/user/orders')}}">
+                        <a class="footer-list-item__link" href="{{LaravelLocalization::localizeUrl('/user/orders')}}">
                           {{__('userpanel.lc_orders')}} </a>
                       </li>
                       <li class="footer-list__item footer-list-item">

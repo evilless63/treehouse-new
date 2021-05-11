@@ -42,6 +42,17 @@ class BannerController extends Controller
         $data = $request->all();
         $data['slug'] = str_slug(request()->get('localization')['ru']['title']);
 
+        if ($request->hasFile('img_path')) {
+            $folder = 'banners' . '/' . $data['slug'];
+
+            $time = time();
+            $imageName = $time . '_' . $request->file('img_path')->getClientOriginalName();
+            $request->img_path->move(public_path('images/' . $folder),  $imageName);
+
+            $data['img_path'] = 'images/' . $folder .  $imageName;
+            
+        }
+
         $banner = Banner::create($data);
         foreach ($request->input('localization', []) as $k => $i) {
             $local = $banner->localizations()
@@ -100,8 +111,18 @@ class BannerController extends Controller
     public function update(Request $request, $id)
     {
         $banner = Banner::find($id);
+        $data = $request->all();
+        if ($request->hasFile('img_path')) {
+            $folder = 'banners' . '/' . $banner->slug;
 
-        $haveBeenUpdated = $banner->update($request->all());
+            $time = time();
+            $imageName = $time . '_' . $request->file('img_path')->getClientOriginalName();
+            $request->img_path->move(public_path('images/' . $folder),  $imageName);
+            $data['img_path'] = 'images/' . $folder .  $imageName;
+            
+        }
+
+        $haveBeenUpdated = $banner->update($data);
         foreach ($request->input('localization', []) as $k => $i) {
             $locale = $banner->localizations()->where('lang', $k)
                 ->update($i + ['lang' => $k]);

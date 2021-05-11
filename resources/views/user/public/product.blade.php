@@ -49,7 +49,7 @@
           <label href="/catalog/item-subscribe/125054" class="card-sizes__label-wrap card-sizes__subscribe">
             <span class="card-sizes__label">
               <span class="card-sizes__title">
-              {{$sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} </span>
+                {{$sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} </span>
             </span>
           </label>
         </div>
@@ -107,7 +107,7 @@
 
   <div id="popup-sizesinfo" class="popupify-inner">
     <h4 class="popupify-inner__title">{{__('userpanel.size_table_header')}}</h4>
-    {{$productLangFields->size_table}}
+    {!!$productLangFields->size_table!!}
   </div>
 
   <div id="measurements">
@@ -140,12 +140,17 @@
               <div class="card-media card__media">
                 <div class="card-media__thumbs">
                   <div class="card-media__thumbs-list js-media-thumbs">
+                    @if($images->count() == 0)
+                    <button class="card-media__thumbs-item">
+                      <img src="{{asset('icons/noimage.jpg')}}" alt="{{$product->title}}" class="card-media__thumbs-image" style="width: 58px" />
+                    </button>
+                    @else
                     @foreach($images as $image)
                     <button class="card-media__thumbs-item">
                       <img src="{{asset($image->img_path)}}" alt="{{$product->title}}" class="card-media__thumbs-image" style="width: 58px" />
                     </button>
                     @endforeach
-
+                    @endif
                   </div>
                 </div>
 
@@ -160,6 +165,13 @@
                 <div class="card-media__list-wrapper">
                   <div class="card-media__list-scroll">
                     <div class="card-media__list js-card-media-slider">
+                      @if($images->count() == 0)
+                      <div class="card-media__item" style="z-index: 7" data-ga-index="1" data-type="image">
+                        <div class="card-media__item-inner">
+                          <img src="{{asset('icons/noimage.jpg')}}" data-observer-src="{{asset('icons/noimage.jpg')}}" alt="{{$product->title}}" data-zoom-src="{{asset('icons/noimage.jpg')}}" class="card-media__image" />
+                        </div>
+                      </div>
+                      @else
                       @foreach($images as $image)
                       <div class="card-media__item" style="z-index: 7" data-ga-index="{{$loop->iteration}}" data-type="image">
                         <div class="card-media__item-inner">
@@ -167,6 +179,7 @@
                         </div>
                       </div>
                       @endforeach
+                      @endif
                     </div>
                   </div>
                 </div>
@@ -353,12 +366,12 @@
                             {{__('userpanel.product_measurements')}}
                           </h4>
                           <p class="card-features__text-sizes">
-                            {{$productLangFields->details}}
+                            {!!$productLangFields->details!!}
                           </p>
                           <h4 class="card-features__text-title">
                             {{__('userpanel.product_desc')}}
                           </h4>
-                          <p>{{$productLangFields->content}}</p>
+                          <p>{!!$productLangFields->content!!}</p>
                         </div>
                       </div>
                     </div>
@@ -374,7 +387,7 @@
                       </div>
                       <div class="accordion__box card-features__box">
                         <div class="card-features__text">
-                          {{$productLangFields->care}}
+                          {!!$productLangFields->care!!}
                         </div>
                       </div>
                     </div>
@@ -443,13 +456,13 @@
                         {{__('userpanel.product_measurements')}}
                       </h4>
                       <p class="card-features__text-sizes">
-                        {{$productLangFields->details}}
+                        {!!$productLangFields->details!!}
                       </p>
                       <h4 class="card-features__text-title">
                         {{__('userpanel.product_desc')}}
                       </h4>
                       <p>
-                        {{$productLangFields->content}}
+                        {!!$productLangFields->content!!}
                       </p>
                     </div>
                   </div>
@@ -466,7 +479,7 @@
                   </div>
                   <div class="accordion__box card-features__box">
                     <div class="card-features__text">
-                      {{$productLangFields->care}}
+                      {!!$productLangFields->care!!}
                     </div>
                   </div>
                 </div>
@@ -513,7 +526,7 @@
                       <div class="catalog-list__preview catalog-list__preview--round">
                         <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" style="display:none"></span>
                         <span class="catalog-list__fav js-add-fav"></span>
-                        <img src="{{asset('$related_product->main_img')}}" alt="{{$related_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$related_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset('$related_product->main_img')}}" class="catalog-list__image" />
+                        <img src="{{asset($related_product->main_img())}}" alt="{{$related_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$related_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset($related_product->main_img())}}" class="catalog-list__image" />
                       </div>
 
                       <div class="catalog-list__box">
@@ -638,7 +651,7 @@
                     <div class="catalog-list__preview catalog-list__preview--round">
                       <span class="catalog-list__fav catalog-list__fav__in js-rem-fav"></span>
                       <span class="catalog-list__fav js-add-fav" style="display:none"></span>
-                      <img src="{{asset('$recently_viewed_product->main_img')}}" alt="{{$recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset('$recently_viewed_product->main_img')}}" class="catalog-list__image" />
+                      <img src="{{asset($recently_viewed_product->main_img())}}" alt="{{$recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset($recently_viewed_product->main_img())}}" class="catalog-list__image" />
                     </div>
 
                     <div class="catalog-list__box">

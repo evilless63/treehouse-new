@@ -34,4 +34,12 @@ class ColorVariation extends Model
     public function categories() {
         return $this->belongsToMany(Category::class, "category_color_variaton", "color_variation_id", "category_id");
     }
+
+    public function main_img() {
+        if(!empty($this->main_img)) {
+            return $this->main_img;
+        } else {
+            return '/icons/noimage.jpg';
+        }
+    }
 }

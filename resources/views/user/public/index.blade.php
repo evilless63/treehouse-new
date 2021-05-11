@@ -5,12 +5,12 @@
 
   <div class="hero__media hero__image-wrapper">
     <video autoplay muted loop id="myVideo">
-      <source src="https://player.vimeo.com/external/544892571.hd.mp4?s=9d8268d66d314fa52cac019d19365c52196b0fec&profile_id=175" type="video/mp4">
+      <source src="{{asset($videoBanner->source_path)}}" type="video/mp4">
     </video>
   </div>
 
-  <a href="{{LaravelLocalization::localizeUrl(route('user.category', 6))}}" class="hero__holder">
-    <span class="hero__button">Приветственный текст Дом на дереве (для акций и тд и тп)</span>
+  <a href="{{LaravelLocalization::localizeUrl(url($videoBanner->link))}}" class="hero__holder">
+    <span class="hero__button">{{$videoBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
   </a>
 </div>
 
@@ -18,9 +18,9 @@
   <div class="categories-cards categories-cards_with-only-mobile-element">
     <div class="categories-cards__holder">
       <div class="categories-cards__list">
-        <div class="categories-card categories-card_mobile" data-title="Приветственный текст Дом на дереве (для акций и тд и тп)">
+        <div class="categories-card categories-card_mobile" data-title="{{$videoBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}">
           <div class="categories-card__head">
-            <div class="categories-card__title">Приветственный текст Дом на дереве (для акций и тд и тп)</div>
+            <div class="categories-card__title">{{$videoBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</div>
             <a href="{{LaravelLocalization::localizeUrl(route('user.category', 3))}}" class="categories-card__href">Перейти</a>
           </div>
           <a href="{{LaravelLocalization::localizeUrl(route('user.category', 3))}}" class="categories-card__link">
@@ -33,7 +33,7 @@
             <a href="{{LaravelLocalization::localizeUrl(url($topLeftBanner->link))}}" class="categories-card__href">Перейти</a>
           </div>
           <a href="{{LaravelLocalization::localizeUrl(url($topLeftBanner->link))}}" class="categories-card__link">
-            <img src="{{asset('$topLeftBanner->img_path')}}" class="categories-card__image" />
+            <img src="{{asset($topLeftBanner->img_path)}}" class="categories-card__image" />
           </a>
         </div>
         <div class="categories-card" data-title="{{$topRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}">
@@ -42,7 +42,7 @@
             <a href="{{LaravelLocalization::localizeUrl(url($topRightBanner->link))}}" class="categories-card__href">Перейти</a>
           </div>
           <a href="{{LaravelLocalization::localizeUrl(url($topRightBanner->link))}}" class="categories-card__link">
-            <img src="{{asset('$topRightBanner->img_path')}}" class="categories-card__image" />
+            <img src="{{asset($topRightBanner->img_path)}}" class="categories-card__image" />
           </a>
         </div>
       </div>
@@ -65,7 +65,7 @@
               'color' => $new_product->color->slug,
               ]))}}" class="catalog-list__item slider-news__item new-on-week-item-link home-slider__item" data-id="105559">
           <div class="catalog-list__preview">
-            <img src="{{ asset($new_product->main_img) }}" data-observer-src="{{ asset($new_product->main_img) }}" alt="{{$new_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
+            <img src="{{ asset($new_product->main_img()) }}" data-observer-src="{{ asset($new_product->main_img()) }}" alt="{{$new_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
             <div class="page-preloader__loading news-loader"></div>
           </div>
           <div class="catalog-list__box slider-news__box">
@@ -125,7 +125,7 @@
             <a href="{{LaravelLocalization::localizeUrl(url($downLeftBanner->link))}}" class="categories-card__href">Перейти</a>
           </div>
           <a href="{{LaravelLocalization::localizeUrl(url($downLeftBanner->link))}}" class="categories-card__link">
-            <img src="{{asset('$downLeftBanner->img_path')}}" class="categories-card__image" />
+            <img src="{{asset($downLeftBanner->img_path)}}" class="categories-card__image" />
           </a>
         </div>
 
@@ -135,7 +135,7 @@
             <a href="{{LaravelLocalization::localizeUrl(url($downRightBanner->link))}}" class="categories-card__href">Перейти</a>
           </div>
           <a href="{{LaravelLocalization::localizeUrl(url($downRightBanner->link))}}" class="categories-card__link">
-            <img src="{{asset('$downRightBanner->img_path')}}" class="categories-card__image" />
+            <img src="{{asset($downRightBanner->img_path)}}" class="categories-card__image" />
           </a>
         </div>
       </div>
@@ -159,7 +159,7 @@
               'color' => $bestseller->color->slug,
               ]))}}" class="catalog-list__item slider-news__item new-on-week-item-link home-slider__item" data-id="105546">
           <div class="catalog-list__preview">
-            <img src="{{ asset($bestseller->main_img) }}" data-observer-src="{{ asset($bestseller->main_img) }}" alt="{{$bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
+            <img src="{{ asset($bestseller->main_img()) }}" data-observer-src="{{ asset($bestseller->main_img()) }}" alt="{{$bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
             <div class="page-preloader__loading news-loader"></div>
           </div>
           <div class="catalog-list__box slider-news__box">

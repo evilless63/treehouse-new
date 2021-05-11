@@ -25,7 +25,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <form method="POST" action="{{route('banners.update', $current_banner->id)}}">
+                    <form method="POST" action="{{route('banners.update', $current_banner->id)}}"  enctype="multipart/form-data">
                         @csrf
                         @method('patch')
 
@@ -65,7 +65,13 @@
                             @endforeach
                         </select>
                         <label>Изображение</label>
-                        <input type="file" class="filepond my-4" name="img_path" value="{{$current_banner->img_path}}">
+                        <h5>Текущее изображение</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="{{asset($current_banner->img_path)}}" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                        <input type="file" class="filepond my-4" name="img_path">
                         <input type="submit" class="btn btn-primary"value="{{__('adminpanel.edit')}}">
 
                     </form>
