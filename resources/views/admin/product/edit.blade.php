@@ -75,29 +75,51 @@
                             <div class="w-full pt-4">
                                 @foreach($current_product->colorVariations as $colorVariation)
                                 <div x-show="openTabColor === {{$loop->index + 1}}">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" onchange="changeIsNew(event)" colorVariationId="{{$colorVariation->id}}" type="checkbox" @if($colorVariation->is_new) checked @endif>
-                                        <label class="form-check-label">Новинка</label>
+                                    <div class="mb-3">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" onchange="changeIsNew(event)" colorVariationId="{{$colorVariation->id}}" type="checkbox" @if($colorVariation->is_new) checked @endif>
+                                            <label class="form-check-label">Новинка</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" onchange="changeIsBestseller(event)" colorVariationId="{{$colorVariation->id}}" type="checkbox" @if($colorVariation->is_bestseller) checked @endif>
+                                            <label class="form-check-label">Бестселлер</label>
+                                        </div>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" onchange="changeIsBestseller(event)" colorVariationId="{{$colorVariation->id}}" type="checkbox" @if($colorVariation->is_bestseller) checked @endif>
-                                        <label class="form-check-label">Бестселлер</label>
+                                    <div class="mb-3">
+                                        <label>{{__('adminpanel.categories_for_product')}}: </label>
+                                        @if($colorVariation->categories->count() > 0)
+                                        @foreach($categories as $category)
+                                        @if($colorVariation->categories->contains($category))
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="choosed_categories[{{$colorVariation->id}}][]" value="{{$category->id}}" type="checkbox" checked>
+                                            <label class="form-check-label">{{ $category->getLocalizeTitleRu() }}</label>
+                                        </div>
+                                        @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="choosed_categories[{{$colorVariation->id}}][]" value="{{$category->id}}" type="checkbox">
+                                            <label class="form-check-label">{{ $category->getLocalizeTitleRu() }}</label>
+                                        </div>
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        @foreach($categories as $category)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" name="choosed_categories[{{$colorVariation->id}}][]" value="{{$category->id}}" type="checkbox" checked>
+                                            <label class="form-check-label">{{ $category->getLocalizeTitleRu() }}</label>
+                                        </div>
+                                        @endforeach
+                                        @endif
                                     </div>
-                                    <label>{{__('adminpanel.categories_for_product')}}</label>
-                                    @if($colorVariation->categories->count() > 0)
-                                    @foreach($categories as $category)
-                                    @if($colorVariation->categories->contains($category))
-                                    {{ $category->getLocalizeTitleRu() }} --- <input type="checkbox" name="choosed_categories[{{$colorVariation->id}}][]" value="{{$category->id}}" checked>
-                                    @else
-                                    {{ $category->getLocalizeTitleRu() }} --- <input type="checkbox" name="choosed_categories[{{$colorVariation->id}}][]" value="{{$category->id}}">
-                                    @endif
-                                    @endforeach
-                                    @else
-                                    @foreach($categories as $category)
-                                    {{ $category->getLocalizeTitleRu() }} --- <input type="checkbox" name="choosed_categories[{{$colorVariation->id}}][]" value="{{$category->id}}">
-                                    @endforeach
-                                    @endif
-                                    {{$colorVariation->color->getLocalizeTitleRu()}} -- <input type="color" name="hex" value="{{$colorVariation->color->hex}}" disabled>-- <a href="{{route('colors.edit', $colorVariation->color->id)}}" class="underline" target="_blank">Редактировать параметры цвета</a>
+                                    <div class="mb-3">
+                                        Отображаемый цвет: <div title="Желтый сатин" style="background:{{$colorVariation->color->hex}};     border-radius: 50%;
+    box-sizing: border-box;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    margin-bottom: -6px;
+    margin-left: 4px;
+    margin-right: 6px;"></div> <a href="{{route('colors.edit', $colorVariation->color->id)}}" class="underline" target="_blank">Редактировать параметры цвета</a>
+                                    </div>
                                     <div x-data="{openTabColorVariationTabs: 1 ,activeClasses: 'border-l border-t border-r rounded-t text-blue-700',inactiveClasses: 'text-blue-500 hover:text-blue-800'}" class="my-6 changeColorVariationWrapper">
                                         <ul class="flex border-b">
 
