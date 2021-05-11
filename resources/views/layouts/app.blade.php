@@ -78,6 +78,29 @@
             }
         }
 
+        function findInTableSku() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("findInputSku");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("findTable");
+            tr = table.getElementsByTagName("tr");
+            console.log(tr);
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                th = tr[i].getElementsByTagName("th")[1];
+                if (th) {
+                    txtValue = th.textContent || th.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
         try {
             var phoneMask = IMask(
             document.getElementById('phone'), {

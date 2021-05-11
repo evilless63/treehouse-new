@@ -25,13 +25,21 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="mb-3">
-                        <input type="text" class="form-control"class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" class="form-control" id="findInputSku" onkeyup="findInTableSku()" placeholder="Поиск по коду 1с">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
+                            </div>
+                        </div>
                     </div>
                     <table class="table" id="findTable">
                         <tbody>
                             @foreach($products as $product)
                             <tr>
                                 <th scope="row">{{{ $product->getLocalizeTitleRu() }}}</th>
+                                <th scope="row">{{{ $product->code }}}</th>
                                 <td><a href="{{route('products.edit', $product->id)}}">{{__('adminpanel.edit')}}</a></td>
                             </tr>
                             @endforeach
