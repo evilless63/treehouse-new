@@ -135,7 +135,7 @@
             </div>
 
             <div class="menu__tools-item  menu__tools-item--user">
-              <a href="/user/cabinet" class="menu__tools-button menu__tools-button_user">
+              <a href="{{LaravelLocalization::localizeUrl('/user/cabinet')}}" class="menu__tools-button menu__tools-button_user">
                 <span class="menu__tools-button-icon menu__tools-button-icon--user"></span>
                 <span class="menu__tools-button-text">{{__('userpanel.lc_profile')}}</span>
               </a>
@@ -187,18 +187,18 @@
             <!-- <div data-url="" data-uptitle="вверх" class="header__title js-scroll-top">^</div> -->
             <div class="header__right-panel">
 
-              <a href="/catalog?search=" class="header-search header-search--right">
+              <a href="{{LaravelLocalization::localizeUrl('/catalog?search=')}}" class="header-search header-search--right">
                 <i class="header-search__icon"></i>
               </a>
-              <a href="/user/wishlist" class="favorite-button">
+              <a href="{{LaravelLocalization::localizeUrl('/user/wishlist')}}" class="favorite-button">
                 <i class="favorite-button__icon">
                   <span class="favorite-button__count" data-dkey="wishlist" style="display: none"></span>
                 </i>
               </a>
-              <a href="/user/cabinet" class="header-user">
+              <a href="{{LaravelLocalization::localizeUrl('/user/cabinet')}}" class="header-user">
                 <i class="header-user__icon"></i>
               </a>
-              <a href="/cart" class="basket-button">
+              <a href="{{LaravelLocalization::localizeUrl('/cart')}}" class="basket-button">
                 <i class="basket-button__icon" data-ga-action="Bag icon click" data-ga-category="Checkout" data-ga-label="Пользователь залогинен">
                   <span class="basket-button__count" data-dkey="cart" style="display: none"></span>
                 </i>
@@ -322,19 +322,19 @@
                     <a href="/user/cabinet" class="footer-col-item__title"><i class="arrow-icon"></i>{{__('userpanel.lc')}}</a>
                     <ul class="footer-col-item__list footer-list">
                       <li class="footer-list__item footer-list-item">
-                        <a class="footer-list-item__link" href="/user/cabinet">
+                        <a class="footer-list-item__link" href="{{LaravelLocalization::localizeUrl('/user/cabinet')}}">
                           {{__('userpanel.lc_profile')}} </a>
                       </li>
                       <li class="footer-list__item footer-list-item">
-                        <a class="footer-list-item__link" href="/user/orders">
+                        <a class="{{LaravelLocalization::localizeUrl('footer-list-item__link" href="/user/orders')}}">
                           {{__('userpanel.lc_orders')}} </a>
                       </li>
                       <li class="footer-list__item footer-list-item">
-                        <a class="footer-list-item__link" href="/user/subscribe">
+                        <a class="footer-list-item__link" href="{{LaravelLocalization::localizeUrl('/user/subscribe')}}">
                           {{__('userpanel.lc_subscribtions')}} </a>
                       </li>
                       <li class="footer-list__item footer-list-item">
-                        <a class="footer-list-item__link" href="/user/wishlist">
+                        <a class="footer-list-item__link" href="{{LaravelLocalization::localizeUrl('/user/wishlist')}}">
                           Wishlist </a>
                       </li>
                     </ul>
@@ -354,7 +354,7 @@
                         <div class="subscribe-form__button subscribe-form__button--mail subscribe-form__js-submit">
                           <span>{{__('userpanel.subscribe_button')}}</span>
                         </div>
-                        <p class="subscribe-form__privacy">{{__('userpanel.subscribe_alert')}}<a href="/r/privacy_policy">{{__('userpanel.subscribe_link')}}</a>.</p>
+                        <p class="subscribe-form__privacy">{{__('userpanel.subscribe_alert')}}<a href="{{LaravelLocalization::localizeUrl('/r/privacy_policy')}}">{{__('userpanel.subscribe_link')}}</a>.</p>
                       </div>
 
                       <div class="subscribe-form__screen" data-name="subscriptions">

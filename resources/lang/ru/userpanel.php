@@ -49,4 +49,6 @@ return [
     'subscribe_email_placeholder' => 'Адрес эл. почты',
     'backspace_link' => 'Назад',
     'find_on_site_placeholder' => 'найти на сайте',
+    'logout' => 'Выход',
+    'my_lc_title' => 'Мой кабинет',
 ];

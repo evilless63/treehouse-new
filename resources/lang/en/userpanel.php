@@ -49,4 +49,6 @@ return [
     'subscribe_email_placeholder' => 'Email address',
     'backspace_link' => 'Back',
     'find_on_site_placeholder' => 'find on the site',
+    'logout' => 'Logout',
+    'my_lc_title' => 'My account',
 ];
