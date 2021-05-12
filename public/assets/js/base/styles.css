@@ -7981,6 +7981,10 @@ body.hide_one_click .button_one_click {
     overflow: hidden
 }
 
+.logo__link svg #Page-2{
+    fill:#ad8f60;
+}
+
 @media (min-width:1280px) {
     .t-zoom .card-zoom {
         height: auto;

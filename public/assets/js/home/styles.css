@@ -12679,6 +12679,10 @@ a.findsize-download:hover {
     display: none
 }
 
+.logo__link svg #Page-2{
+    fill:#ad8f60;
+}
+
 @media (min-width:1400px) {
     .header-links {
         display: flex
