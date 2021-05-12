@@ -415,7 +415,7 @@
                 </h4>
                 <ul class="footer-socials__list footer-socials-list">
                   <li class="footer-socials-list__item footer-socials-list-item">
-                    <a class="footer-socials-list-item__link footer-socials-list-item__link--youtube " href="https://www.youtube.com/channel/UCUCmIasCXPKOLreAUXZhHtw/" target="_blank" rel="nofollow"></a>
+                    <a class="footer-socials-list-item__link footer-socials-list-item__link--youtube " href="https://www.youtube.com/channel/UCryN_G-kFyzq8k2XQdgAx4w" target="_blank" rel="nofollow"></a>
                   </li>
                   <li class="footer-socials-list__item footer-socials-list-item">
                     <a class="footer-socials-list-item__link footer-socials-list-item__link--facebook " href="https://www.facebook.com/domnadereve" target="_blank" rel="nofollow"></a>
