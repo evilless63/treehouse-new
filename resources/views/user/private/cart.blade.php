@@ -4,9 +4,9 @@
 
 @if (\Session::has('success'))
 <div class="alert alert-success">
-    <ul>
-        <li>{!! \Session::get('success') !!}</li>
-    </ul>
+  <ul>
+    <li>{!! \Session::get('success') !!}</li>
+  </ul>
 </div>
 @endif
 
@@ -24,11 +24,20 @@
           <!---->
           <div data-v-1b2b3207="" data-v-cfe42f2e="" class="basket order-list order__list">
             @foreach($cart as $cartItem)
-            <div data-v-1b2b3207="" class="order-list__item">
+            <div data-v-1b2b3207="" class="order-list__item" row-id="{{$cartItem->rowId}}">
               <div data-v-1b2b3207="" class="goods goods_edit order-list__goods">
-                <div data-v-1b2b3207="" class="goods__preview"><a data-v-1b2b3207="" href="#" class="goods__link"><img data-v-1b2b3207="" src="#" alt="{{$cartItem->name}}" class="goods__image"></a></div>
+                <div data-v-1b2b3207="" class="goods__preview"><a data-v-1b2b3207="" href="
+                {{LaravelLocalization::localizeUrl(route('user.product', [
+              'product' => $cartItem->options->product_slug,
+              'color' => $cartItem->options->color,
+              ]))}}
+                " class="goods__link"><img data-v-1b2b3207="" src="{{asset($cartItem->options->image)}}" alt="{{$cartItem->name}}" class="goods__image"></a></div>
                 <div data-v-1b2b3207="" class="goods__box">
-                  <div data-v-1b2b3207="" class="goods__spec"><a data-v-1b2b3207="" href="#" class="goods__head">
+                  <div data-v-1b2b3207="" class="goods__spec"><a data-v-1b2b3207="" href="
+                  {{LaravelLocalization::localizeUrl(route('user.product', [
+              'product' => $cartItem->options->product_slug,
+              'color' => $cartItem->options->color,
+              ]))}}" class="goods__head">
                       <div data-v-1b2b3207="" class="goods__code">{{$cartItem->options->code}}</div>
                       <div data-v-1b2b3207="" class="goods__title">{{$cartItem->name}}</div>
                     </a>
@@ -44,29 +53,29 @@
                       <div data-v-1b2b3207="" class="goods-edit__handle js-order-item-handle"><i data-v-1b2b3207="" class="goods-edit__handle-icon"></i></div>
                       <div data-v-1b2b3207="" class="goods-edit__box">
                         <div data-v-1b2b3207="" class="goods-edit__row">
-                          <div data-v-1b2b3207="" class="goods-edit__size">
+                          <!-- <div data-v-1b2b3207="" class="goods-edit__size">
                             <div data-v-60e4b156="" data-v-1b2b3207="" class="select">
                               <div data-v-60e4b156="" class="select-container">
                                 <div data-v-c585f9a4="" data-v-60e4b156="" tabindex="0" class="select-base">
                                   <div data-v-c585f9a4="" class="select-control"><span data-v-c585f9a4="" class="select-text">
                                       S
-                                    </span></div>
-                                  <!---->
-                                </div>
+                                    </span></div> -->
+                          <!---->
+                          <!-- </div>
                                 <div data-v-70b16c7e="" data-v-60e4b156="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
                           <div data-v-1b2b3207="" class="goods-edit__count">
                             <div data-v-1b2b3207="" class="quantity-input">
-                              <div class="button-plus"></div>
+                              <div class="button-plus" onclick="changeCount(event)" count-changer="1"></div>
                               <div class="input">
-                                <div class="input-container"><input autocomplete="on" type="text" class="input-control">
+                                <div class="input-container"><input autocomplete="on" type="text" class="input-control" value="{{$cartItem->qty}}" disabled>
                                   <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span>
                                   </div>
                                 </div>
                               </div>
-                              <div class="button-minus"></div>
+                              <div class="button-minus" onclick="changeCount(event)" count-changer="-1"></div>
                             </div>
                           </div>
                         </div> <button data-v-1b2b3207="" class="goods-edit__remove"></button>
@@ -324,16 +333,16 @@
                   @endforeach
                 </div>
                 <div data-v-ea5ca2c8="" class="total">
-                  <div data-v-ea5ca2c8="" class="total-item">
+                  <!-- <div data-v-ea5ca2c8="" class="total-item">
                     <div data-v-ea5ca2c8="" class="total-label">Доставка:</div>
                     <div data-v-ea5ca2c8="" class="total-value">490&nbsp;{{__('userpanel.currency')}}</div>
-                  </div>
+                  </div> -->
                   <!---->
                   <!---->
                   <!---->
                   <div data-v-ea5ca2c8="" class="total-item">
-                    <div data-v-ea5ca2c8="" class="total-label">Итого:</div>
-                    <div data-v-ea5ca2c8="" class="total-value big-text">60&nbsp;370&nbsp;{{__('userpanel.currency')}}</div>
+                    <div data-v-ea5ca2c8="" class="total-label">{{__('userpanel.total')}}:</div>
+                    <div data-v-ea5ca2c8="" class="total-value big-text">{{$subtotal}} {{__('userpanel.currency')}}</div>
                   </div>
                   <!---->
                 </div>
@@ -369,6 +378,35 @@
     </div>
   </div>
 </form>
+
+<script>
+  function changeCount(event) { 
+     var row_id = $(event.target).closest('.order-list__item').attr('row-id')
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "{{url('/card/change-count')}}",
+      type: "post",
+      data: {
+        row_id: row_id,
+        count: $(event.target).attr('count-changer'),
+      },
+      success: function(response) {
+        console.log(response)
+        
+        var input = $(event.target).closest('.order-list__item').find('input')[0]
+        console.log(input)
+        input.value = response.qty
+        var price = $(event.target).closest('.order-list__item').find('.goods__price')[0]
+        price.innerText = response.total + ' {{__("userpanel.currency")}}'
+
+        var total = $('.total-value')[0]
+        total.innerText = response.subtotal + ' {{__("userpanel.currency")}}'
+      }
+    })
+  }
+</script>
 @endsection
 
 @section('scripts')
@@ -387,6 +425,7 @@
 <title>Корзина</title>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0, minimal-ui">
 
 <link rel="stylesheet" href="{{asset('assets/css/applepay.css')}}">

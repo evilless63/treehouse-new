@@ -3332,7 +3332,7 @@
                     T = w.dataset.action,
                     L = w.dataset.urlToCart,
                     O = w.dataset.warningPopup;
-                a.innerHTML = "Размер ".concat(x, " ").concat(j), u = {
+                a.innerHTML = "".concat(x, " ").concat(j), u = {
                     sizeId: k,
                     sizeText: x,
                     sizeCommentInn: C,
@@ -3555,7 +3555,7 @@
                         onClosed: function () {
                             var n = i,
                                 o = "" !== n.comment ? '<span class="card-new-sizes__title_comment">'.concat(n.comment, "</span>") : "";
-                            a.innerHTML = "Размер ".concat(n.text, " ").concat(o), document.querySelector(".product-to-cart").style.display = "none", l.style.display = "block", l.classList.remove("disabled"), "subscribe" === n.state || "in-stock" === n.state ? l.innerHTML = t(g) : "subscribed" === n.state ? (l.innerHTML = t(y), l.classList.add("disabled")) : "buy" === n.state && (e ? (document.querySelector(".product-to-cart").style.display = "block", l.style.display = "none") : l.innerHTML = h ? t(b) : v)
+                            a.innerHTML = "".concat(n.text, " ").concat(o), document.querySelector(".product-to-cart").style.display = "none", l.style.display = "block", l.classList.remove("disabled"), "subscribe" === n.state || "in-stock" === n.state ? l.innerHTML = t(g) : "subscribed" === n.state ? (l.innerHTML = t(y), l.classList.add("disabled")) : "buy" === n.state && (e ? (document.querySelector(".product-to-cart").style.display = "block", l.style.display = "none") : l.innerHTML = h ? t(b) : v)
                         }
                     })
                 },

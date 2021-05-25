@@ -27,6 +27,7 @@ return [
     'product_desc' => 'Description',
     'product_care' => 'Composition and care',
     'add_to_cart' => 'Add to cart',
+    'go_to_cart' => 'Go to cart',
     'size_table_header' => 'Size table',
     'you_may_like' => 'You may like',
     'you_recently_viewed' => 'You recently viewed',
@@ -51,4 +52,19 @@ return [
     'find_on_site_placeholder' => 'find on the site',
     'logout' => 'Logout',
     'my_lc_title' => 'My account',
+
+    'personal_data' => 'Personal data',
+    'name' => 'Name',
+    'surname' => 'Surname',
+    'patronymic' => 'Patronymic',
+    'phone' => 'Phone',
+
+    'change_accert' => 'I agree to the processing of my personal data and I am familiar with',
+    'save_changes_button_text' => 'Save changes',
+
+    'color' => 'color',
+    'size' => 'size',
+
+    'choose_size' => 'Choose size',
+    'total' => 'Total',
 ];

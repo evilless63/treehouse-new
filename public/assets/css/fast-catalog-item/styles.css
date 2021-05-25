@@ -7384,7 +7384,7 @@ body.hide_one_click .button_one_click {
     position: absolute;
     top: 0;
     width: 100%;
-    border-radius: 15px;
+    border-radius: 4px;
 }
 
 @media (min-width:1024px) {
@@ -9262,7 +9262,7 @@ a.findsize-download:hover {
     background: #c4beb3;
     overflow: hidden;
     margin-bottom: 14px;
-    border-radius: 10px;
+    border-radius: 4px;
 }
 
 .catalog-list__preview--round {
@@ -9820,7 +9820,7 @@ a.findsize-download:hover {
 .categories-card__image {
     display: block;
     width: 100%;
-    border-radius: 15px;
+    border-radius: 4px;
 }
 
 .categories-cards {
@@ -11264,7 +11264,7 @@ a.findsize-download:hover {
     transition: .2s;
     text-decoration: none;
     color: #c5a995;
-    font-size: 13px;
+    font-size: 16px;
     position: relative
 }
 

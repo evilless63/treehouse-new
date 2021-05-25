@@ -51,8 +51,16 @@
                                 <td scope="row">{{{ $user->name }}}</td>
                                 <td scope="row">{{{ $user->patronymic }}}</td>
 
-                                <td scope="row">@if($user->is_admin) ✓ @endif</td>
-                                <td scope="row">@if($user->is_active) ✓ @endif</td>
+                                <td scope="row">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" onchange="changeIsAdmin(event)" user-id="{{$user->id}}" type="checkbox" @if($user->is_admin) checked @endif>
+                                    </div>
+                                </td>
+                                <td scope="row">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" onchange="changeIsActive(event)" user-id="{{$user->id}}" type="checkbox" @if($user->is_active) checked @endif>
+                                    </div>
+                                </td>
                                 <td>
                                     <form method="POST" action="{{route('users.destroy', $user->id)}}">
                                         @csrf
@@ -73,4 +81,36 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function changeIsActive() {
+            var id = $(event.target).attr('user-id');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{url('/admin/user/change-is-active')}}",
+                type: "post",
+                data: {
+                    id: id,
+                    is_active: event.target.checked,
+                },
+            });
+        }
+
+        function changeIsAdmin() {
+            var id = $(event.target).attr('user-id');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{url('/admin/user/change-is-admin')}}",
+                type: "post",
+                data: {
+                    id: id,
+                    is_admin: event.target.checked,
+                },
+            });
+        }
+    </script>
 </x-app-layout>

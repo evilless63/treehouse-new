@@ -39,18 +39,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $data = $request->all();
 
-        if($request->has('is_admin')){
+        if ($request->has('is_admin')) {
             $data['is_admin'] = true;
-        }else{
+        } else {
             $data['is_admin'] = false;
         }
 
-        if($request->has('is_active')){
+        if ($request->has('is_active')) {
             $data['is_active'] = true;
-        }else{
+        } else {
             $data['is_active'] = false;
         }
 
@@ -102,10 +102,16 @@ class UserController extends Controller
         $haveBeenUpdated = $User->update($request->all());
 
         if ($haveBeenUpdated) {
-            return redirect()->route('users.index')->with('success', __('adminpanel.action_success'));
+            return redirect()->route('user.edit_profile')->with('success', __('adminpanel.action_success'));
         } else {
-            return redirect()->route('users.index')->with('error', __('adminpanel.action_error'));
+            return redirect()->route('user.edit_profile')->with('error', __('adminpanel.action_error'));
         }
+
+        // if ($haveBeenUpdated) {
+        //     return redirect()->route('users.index')->with('success', __('adminpanel.action_success'));
+        // } else {
+        //     return redirect()->route('users.index')->with('error', __('adminpanel.action_error'));
+        // }
     }
 
     /**
@@ -124,13 +130,13 @@ class UserController extends Controller
     public function replicate($id)
     {
         $User = User::with('localizations')->find($id);
-        $newUser = $User->replicate(); 
+        $newUser = $User->replicate();
         // $replicatedCategory = $newCategory->push();
         $replicatedUser = User::create($newUser->toArray());
 
         foreach ($User->localizations as $localization) {
             $locArray = $localization->toArray();
-            if($locArray['lang'] == 'ru') {
+            if ($locArray['lang'] == 'ru') {
                 $locArray['title'] = $locArray['title'] . ' - копия';
             } else {
                 $locArray['title'] = $locArray['title'] . ' - copy';
@@ -139,10 +145,32 @@ class UserController extends Controller
                 ->create($locArray);
         }
 
-        if($replicatedUser) {
+        if ($replicatedUser) {
             return redirect()->route('users.index')->with('error', __('adminpanel.action_error'));
         } else {
             return redirect()->route('users.index')->with('success', __('adminpanel.action_success'));
         }
+    }
+
+    public function toggleIsAdmin() {
+        if(request()->is_admin == 'false') {
+            $is_admin = 0;
+        } else {
+            $is_admin = 1;
+        }
+        $user = User::where('id', request()->id)->first();
+        $user->is_admin = $is_admin;
+        $user->update();
+    }
+
+    public function toggleIsActive() {
+        if(request()->is_active == 'false') {
+            $is_active = 0;
+        } else {
+            $is_active = 1;
+        }
+        $user = User::where('id', request()->id)->first();
+        $user->is_active = $is_active;
+        $user->update();
     }
 }

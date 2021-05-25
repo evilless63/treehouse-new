@@ -143,8 +143,6 @@
   </div>
 </div>
 
-
-
 <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers" data-key="homeSliderBestsellers">
   <div class="slider-news__holder">
     <div class="slider-news__wrapper">

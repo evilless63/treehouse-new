@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Color;
+use App\Models\ColorVariation;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\SizeVariation;
@@ -14,7 +15,7 @@ class CartController extends Controller
 {
     public function addToCard(Request $request)
     {
-       
+
         $sizeVariation =  SizeVariation::where('id', $request->size_variation_id)->first();
 
         if($sizeVariation->stock < $request->qty) {
@@ -24,22 +25,26 @@ class CartController extends Controller
         $product = Product::where('id', $request->product_id)->first();
         $color = Color::where('id', $request->color_id)->first();
         $size = Size::where('id', $sizeVariation->size->id)->first();
+
+        $imagePath = ColorVariation::where('color_id', $color->id)->where('product_id', $product->id)->first()->main_img;
+
         Cart::instance('shopping')->add(
             $product->id,
-            $product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) . ", цвет: " 
-            . $color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) . ", размер: " 
+            $product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) . ", " . __('userpanel.color') . ": " 
+            . $color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) . ", " . __('userpanel.size') . ": " 
             . $size->getLocalizeTitle(LaravelLocalization::getCurrentLocale()),
             $request->qty,
             $sizeVariation->price,
             [
                 'size' => $size->slug,
                 'color' => $color->slug,
+                'product_slug' => $product->slug,
                 'hex' => $color->hex,
-                'code' => $product->code
+                'code' => $product->code,
+                'image' => $imagePath,
             ]
         );
-
-        return redirect()->back()->with('success', __('adminpanel.action_success'));
+        return;
     }
 
     public function getCartContent(){
@@ -50,8 +55,25 @@ class CartController extends Controller
         // ]);
     }
 
+    public function changeCount() {
+        $currentRow = Cart::instance('shopping')->get(request()->row_id);
+        if($currentRow->qty + request()->count == 0) {
+            return;
+        }
+        Cart::instance('shopping')->update(request()->row_id, [
+            'qty' => $currentRow->qty + request()->count
+        ]);
+
+
+        return [
+            'qty' => Cart::instance('shopping')->get(request()->row_id)->qty, 
+            'total' => Cart::instance('shopping')->get(request()->row_id)->total,
+            'subtotal' => Cart::instance('shopping')->subtotal()
+        ];
+    }
+
     public function destroy() {
         Cart::instance('shopping')->destroy();
-        return redirect()->back()->with('success', __('adminpanel.action_success'));
+        // return redirect()->back()->with('success', __('adminpanel.action_success'));
     }
 }

@@ -58,7 +58,9 @@ class UserPrivateController extends Controller
 
     public function editProfile()
     {
-        return view('user.private.edit-profile');
+        return view('user.private.edit-profile')->with([
+            'user' => Auth()->user(),
+        ]);
     }
 
     public function orders()
@@ -79,7 +81,8 @@ class UserPrivateController extends Controller
     public function cart()
     {
         return view('user.private.cart')->with([
-            'cart' => Cart::instance('shopping')->content()
+            'cart' => Cart::instance('shopping')->content(),
+            'subtotal' => Cart::instance('shopping')->subtotal(),
         ]);
     }
 

@@ -15,6 +15,7 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CKEditorController;
 use App\Models\Order;
 
 /*
@@ -49,7 +50,7 @@ Route::get('/', function () {
 // Route::post('/make-order', 'App\Http\Controllers\DemoController@postOrderTo1c')->name('make-order');
 // Route::post('/register-counteragent', 'App\Http\Controllers\DemoController@postCounteragentRegisterTo1c')->name('register-counteragent');
 
-Route::prefix('admin')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth'])->name('dashboard');
@@ -82,16 +83,21 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::post('/product/change-is-visible', [ProductController::class, 'changeIsVisibleSizeVariation']);
     Route::post('/product/change-is-new', [ProductController::class, 'changeIsNewColorVariation']);
     Route::post('/product/change-is-bestseller', [ProductController::class, 'changeIsBestsellerColorVariation']);
+
+    Route::post('/user/change-is-active', [UserController::class, 'toggleIsActive']);
+    Route::post('/user/change-is-admin', [UserController::class, 'toggleIsAdmin']);
 });
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     App::setLocale(LaravelLocalization::setLocale());
     Route::middleware('auth')->group(function () {
         Route::post('/card/add', [CartController::class, 'addToCard'])->name('cart.add');
+        Route::post('/card/change-count', [CartController::class, 'changeCount'])->name('cart.add');
         Route::get('/cart', [CartController::class, 'getCartContent'])->name('cart.content');
         Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
         Route::get('/user/cabinet', [UserPrivateController::class, 'profile'])->name('user.profile');
         Route::get('/user/edit', [UserPrivateController::class, 'editProfile'])->name('user.edit_profile');
+        Route::patch('/user/update_profile/{id}', [UserController::class, 'update'])->name('user.update_profile');
         Route::get('/user/orders', [UserPrivateController::class, 'orders'])->name('user.orders');
         Route::get('/user/subscribe', [UserPrivateController::class, 'subscribe'])->name('user.subscribe');
         Route::get('/user/wishlist', [UserPrivateController::class, 'wishlist'])->name('user.wishlist');
@@ -110,5 +116,5 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/info/{slug}', [UserPublicController::class, 'info'])->name('user.info');
     Route::get('/home', [UserPublicController::class, 'index'])->name('home');
 
-    Route::post('ckeditor/image_upload', 'CKEditorController@upload')->name('upload');
+    Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
 });

@@ -39,9 +39,22 @@
     </div>
   </div>
 
+  <div id="add_item-error-size-not-founded" class="popup popupify-inner">
+    <h4 class="popupify-inner__title">
+      Ошибка! </h4>
+    <p>
+      Выберите размер. </p>
+
+    <div class="login__recover">
+      <a href="#" class="login__recover-link login__recover-link--redesign">
+        Ок </a>
+    </div>
+  </div>
+
   <div id="select_subscribe_size" class="popup popupify-inner">
     <h4 class="popupify-inner__title">
-      Выберите размер </h4>
+      {{__('userpanel.choose_size')}}
+    </h4>
     <div class="card-sizes__list-item">
       <div class="card-sizes card__sizes card-sizes__redesign">
         @foreach($colorVariation->sizeVariations as $sizeVariation)
@@ -60,7 +73,8 @@
 
   <div id="select_size" class="popup popupify-inner">
     <h4 class="popupify-inner__title">
-      Выберите размер </h4>
+      {{__('userpanel.choose_size')}}
+    </h4>
     <div class="card-sizes card__sizes card-sizes__redesign">
       <div class="card-sizes__list-item">
         @foreach($colorVariation->sizeVariations as $sizeVariation)
@@ -84,7 +98,8 @@
 
   <div id="popup-sizes-wishlist" class="popupify-inner">
     <h4 class="popupify-inner__title">
-      Выберите размер </h4>
+      {{__('userpanel.choose_size')}}
+    </h4>
     <div class="card-sizes card__sizes card-sizes__redesign">
       <div class="card-sizes__list-item">
         @foreach($colorVariation->sizeVariations as $sizeVariation)
@@ -259,15 +274,15 @@
 
               <!-- Размеры NEW -->
               <div class="sizes-selector">
-                <div class="sizes-selector__title">
+                <div class="sizes-selector__title" data-size="">
                   {{__('userpanel.choose_size')}}
                 </div>
                 <ul class="sizes-selector__list">
 
                   @foreach($colorVariation->sizeVariations as $sizeVariation)
-                  <li class="sizes-selector__item " data-id="125048" data-url-to-cart="/cart/add-item/125048/1">
+                  <li class="sizes-selector__item " onclick="changeColorVariationSelected(event)" data-id="{{$sizeVariation->id}}" data-url-to-cart="{{$sizeVariation->id}}">
 
-                    <span class="sizes-selector__size">{{$sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
+                    <span class="sizes-selector__size" onclick="changeColorVariationSelected(event)" data-id="{{$sizeVariation->id}}">{{$sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
 
                     <!-- <span class="sizes-selector__comment">Подписка</span> -->
                   </li>
@@ -289,13 +304,13 @@
               <div class="product-controls product-description__section">
                 <div class="product-controls__row">
 
-                  <div class="product-button js-product__cart product-button--main">
+                  <div class="product-button js-product__cart product-button--main" onclick="addToCartAjax()" id="AddToCartButton">
                     <span class="product-button__label css-hide-mobile css-hide-tablet">{{__('userpanel.add_to_cart')}}</span>
-                    <span class="product-button__label css-hide-desktop">В корзину, {{$product->price}} {{__('userpanel.currency')}}</span>
+                    <span class="product-button__label css-hide-desktop" >{{__('userpanel.add_to_cart')}}, {{$product->price}} {{__('userpanel.currency')}}</span>
                   </div>
 
-                  <a class="product-button product-to-cart" href="/cart">
-                    <span class="product-button__label">Перейти в корзину</span>
+                  <a class="product-button product-to-cart"  id="goToCartAfterAdded" href="/cart">
+                    <span class="product-button__label">{{__('userpanel.go_to_cart')}}</span>
                   </a>
 
                   <input type="checkbox" class="product-favorite" id="wish-2" />
@@ -405,7 +420,8 @@
               <div class="card-sizes-choose-mobile">
                 <div class="popupify-inner mobile-sizes-popup">
                   <h4 class="popupify-inner__title">
-                    Выберите размер </h4>
+                    {{__('userpanel.choose_size')}}
+                  </h4>
                   <div id="wheel-selector" class="date-selector">
                   </div>
                   <div class="mobile-sizes-popup__sizes-guide">
@@ -786,9 +802,9 @@
   <input type="hidden" class="card-button-locale--preorder" value="Оформить предзаказ">
   <div style="display:none" class="card-button-locale--add-to-cart">
     <span class="product-button__label css-hide-mobile css-hide-tablet">{{__('userpanel.add_to_cart')}}</span>
-    <span class="product-button__label css-hide-desktop">В корзину, 5 980 {{__('userpanel.currency')}}</span>
+    <span class="product-button__label css-hide-desktop">{{__('userpanel.add_to_cart')}}, {{$product->price}} {{__('userpanel.currency')}}</span>
   </div>
-  <input type="hidden" class="card-button-locale--size" value="Размер">
+  <input type="hidden" class="card-button-locale--size" value="">
   <!-- Локализация для js размеров END -->
 
   <!-- Локализация для аб теста SITEDEV-2658 -->
@@ -796,8 +812,101 @@
   <input type="hidden" class="thanks-popup-ab__locale-some" value="экземпляра">
   <input type="hidden" class="thanks-popup-ab__locale-many" value="экземпляров">
   <!-- Локализация для аб теста SITEDEV-2658 end -->
-
+  
 </div>
+
+<script>
+    function changeColorVariationSelected(event) {
+      var dataSize = event.target.getAttribute('data-id')
+      console.log(dataSize)
+      var sizetitles = document.getElementsByClassName('sizes-selector__title')
+      console.log(sizetitles)
+      sizetitles.forEach(function(item, i, arr) {
+        item.setAttribute('data-size', dataSize)
+      })
+    }
+
+    function addToCartAjax() {
+
+        var dataSize = 999999999
+        sizetitles = document.getElementsByClassName('sizes-selector__title')
+        sizetitles.forEach(function(item, i, arr) {
+          console.log(item.getAttribute('data-size'))
+          dataSize = item.getAttribute('data-size')
+        })
+
+        if (dataSize == 999999999) {
+          new window.basePopup({
+                context: {
+                    content: document.querySelector("#add_item-error-size-not-founded").outerHTML
+                },
+                onOpened: function () {
+                    var e = this;
+                    $(".login__recover-link").off("click").on("click", (function (t) {
+                        t.preventDefault(), e.close()
+                    }))
+                }
+            })
+
+            return
+        }
+
+        var dataColor = {{$colorVariation->color->id}}
+        var dataProduct = {{$product->id}}
+        var qty = 1
+
+        $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "{{url('/card/add')}}",
+          type: "post",
+          data: {
+            size_variation_id: dataSize,
+            qty: qty,
+            product_id: dataProduct,
+            color_id: dataColor,
+          },
+          success: function(response) {
+            document.getElementById('AddToCartButton').style.display = "none"
+            document.getElementById('goToCartAfterAdded').style.display = "block"
+
+            new window.basePopup({
+              context: {
+                  content: document.querySelector("#add_item").outerHTML
+              },
+              onOpened: function () {
+                  var e, t = this;
+                  if ($(".login__recover-link").on("click", (function (e) {
+                          e.preventDefault(), t.close()
+                      })), o < 10 && $(".thanks-popup-ab").length > 0) {
+                      var n = ["one", "some", "many"][(e = o) % 100 > 4 && e % 100 < 20 ? 2 : [2, 0, 1, 1, 1, 2][e % 10 < 5 ? e % 10 : 5]],
+                          i = $(".thanks-popup-ab__locale-".concat(n)).val();
+                      $(".popupify-inner__thanks-b-copies").show().find(".copies")[1].innerText = "".concat(o, " ").concat(i)
+                  }
+              },
+              onClosed: function () {
+                  $(".popupify-inner__thanks-b-copies").hide()
+              }
+            })
+          },
+          error: function(response) {
+            new window.basePopup({
+                context: {
+                    content: document.querySelector("#add_item-error").outerHTML
+                },
+                onOpened: function () {
+                    var e = this;
+                    $(".login__recover-link").off("click").on("click", (function (t) {
+                        t.preventDefault(), e.close()
+                    }))
+                }
+            })
+          } 
+        })
+      }
+
+</script>
 @endsection
 
 @section('scripts')
@@ -808,9 +917,7 @@
 <script src="{{asset('assets/js/fast-catalog-item/scripts.js')}}"></script>
 <script src="{{asset('assets/js/jquery-ui.js')}}"></script>
 <script src="{{asset('assets/js/autocomplete.js')}}"></script>
-<script>
 
-</script>
 @endsection
 
 @section('head')
@@ -818,6 +925,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0, minimal-ui">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="description" content="{{$product->title}} - от Дом на дереве за {{$product->price}} {{__('userpanel.currency')}}">
 <link rel="stylesheet" href="{{asset('assets/css/fast-catalog-item/styles.css')}}">
 <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
