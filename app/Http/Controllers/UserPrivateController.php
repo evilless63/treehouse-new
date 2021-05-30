@@ -80,6 +80,7 @@ class UserPrivateController extends Controller
 
     public function cart()
     {
+        dd(Cart::instance('shopping')->content());
         return view('user.private.cart')->with([
             'cart' => Cart::instance('shopping')->content(),
             'subtotal' => Cart::instance('shopping')->subtotal(),
