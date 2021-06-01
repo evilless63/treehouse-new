@@ -174,7 +174,7 @@
                         <div class="column">
                         @foreach($categories as $main_category)
                         
-                        <a href="{{route('user.category', $main_category->slug)}}" class="header-link">{{$main_category->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a>
+                        <a href="{{LaravelLocalization::localizeUrl(route('user.category', $main_category->slug))}}" class="header-link">{{$main_category->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a>
                         @if($loop->iteration % 5 == 0 && !$loop->last)
                         </div>
                         <div class="column">
