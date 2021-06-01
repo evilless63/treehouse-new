@@ -73,7 +73,7 @@ class UserPublicController extends Controller
         
         // $instagram_posts = InstagramPost::all();
         $instagram_posts = collect([]); //TODO treehouse
-        return view('user.public.index', compact('new_products', 'bestseller_products', 'instagram_posts', 'topLeftBanner', 'topRightBanner', 'downLeftBanner', 'downRightBanner','videoBanner', 'categories'));
+        return view('user.public.index', compact('new_products', 'bestseller_products', 'instagram_posts', 'topLeftBanner', 'topRightBanner', 'downLeftBanner', 'downRightBanner','videoBanner'));
     }
 
     public function category($slug = null)
