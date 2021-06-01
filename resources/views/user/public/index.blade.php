@@ -244,15 +244,6 @@
           </div>
           <div class="catalog-list__box slider-news__box">
 
-            <div class="catalog-list__info catalog-list__info_head">
-
-
-
-
-              <div class="catalog-list__tag catalog-list__new">Bestseller</div>
-
-            </div>
-
             <!-- Заголовок товара -->
             <div class="catalog-list__title">
               <div class="catalog-list__title-inn">
