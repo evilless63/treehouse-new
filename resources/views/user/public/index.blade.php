@@ -229,7 +229,7 @@
   <div class="slider-news__holder">
     <div class="slider-news__wrapper">
       <div class="slider-news__head">
-        <a href="{{LaravelLocalization::localizeUrl(route('user.category', $main_category->slug))}}"  class="slider-news__title">{{$category->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a>
+        <a href="{{LaravelLocalization::localizeUrl(route('user.category', $category->slug))}}"  class="slider-news__title">{{$category->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a>
         <div class="slider-news__controls"> <button type="button" class="slider-news__arrow slider-news__arrow_prev">Prev</button> <button type="button" class="slider-news__arrow slider-news__arrow_next">Next</button> </div>
       </div>
       <div class="slider-news__list js-slider-news new-on-week-block home-slider__list">
