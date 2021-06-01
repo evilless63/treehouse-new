@@ -27,7 +27,7 @@ class UserPrivateController extends Controller
     public $company_articles;
     public $blog_articles;
     public $customer_articles;
-
+    public $categories;
 
     public function __construct()
     {
@@ -40,6 +40,7 @@ class UserPrivateController extends Controller
         $this->company_articles = Article::where('purpose', 'about')->get();
         $this->blog_articles = Article::where('purpose', 'blog')->get();
         $this->customer_articles = Article::where('purpose', 'counteragents')->get();
+        $this->categories = Category::all();
 
         if (!Auth::guest()) {
             $this->wishlist = Cart::instance('wishlist')->content();
@@ -53,6 +54,7 @@ class UserPrivateController extends Controller
         View::share('company_articles', $this->company_articles);
         View::share('blog_articles', $this->blog_articles);
         View::share('customer_articles', $this->customer_articles);
+        View::share('categories', $this->categories);
     }
 
     public function profile()

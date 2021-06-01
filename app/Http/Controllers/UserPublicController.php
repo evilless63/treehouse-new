@@ -31,6 +31,7 @@ class UserPublicController extends Controller
     public $company_articles;
     public $blog_articles;
     public $customer_articles;
+    public $categories;
 
     public function __construct()
     {
@@ -42,6 +43,7 @@ class UserPublicController extends Controller
         $this->company_articles = Article::where('purpose', 'about')->get();
         $this->blog_articles = Article::where('purpose', 'blog')->get();
         $this->customer_articles = Article::where('purpose', 'counteragents')->get();
+        $this->categories = Category::all();
 
         if (!Auth::guest()) {
             $this->wishlist = Cart::instance('wishlist')->content();
@@ -55,6 +57,7 @@ class UserPublicController extends Controller
         View::share('company_articles', $this->company_articles);
         View::share('blog_articles', $this->blog_articles);
         View::share('customer_articles', $this->customer_articles);
+        View::share('categories', $this->categories);
     }
 
     public function index()
@@ -67,7 +70,7 @@ class UserPublicController extends Controller
         $downLeftBanner = Banner::where('banner_position', 'DOWN_LEFT')->first();
         $downRightBanner = Banner::where('banner_position', 'DOWN_RIGHT')->first();
         $videoBanner = Slider::first();
-        $categories = Category::all();
+        
         // $instagram_posts = InstagramPost::all();
         $instagram_posts = collect([]); //TODO treehouse
         return view('user.public.index', compact('new_products', 'bestseller_products', 'instagram_posts', 'topLeftBanner', 'topRightBanner', 'downLeftBanner', 'downRightBanner','videoBanner', 'categories'));
