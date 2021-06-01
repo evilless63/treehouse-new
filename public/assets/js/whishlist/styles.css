@@ -21756,7 +21756,7 @@ html:not(.t-main):not(.t-404) .page {
     display: flex;
     position: relative;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-right: 5rem;
   }
 

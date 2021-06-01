@@ -24015,7 +24015,7 @@ button[data-v-8155e174] {
     display: flex;
     position: relative;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-right: 5rem;
   }
 
