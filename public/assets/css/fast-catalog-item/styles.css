@@ -5748,7 +5748,9 @@ div.simplebar-vertical .simplebar-scrollbar {
 }
 
 .blog-post__content {
+    margin-bottom: 50px;
     flex-shrink: 0
+    
 }
 
 .blog-post__media-overlay {
