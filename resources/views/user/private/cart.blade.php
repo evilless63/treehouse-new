@@ -78,7 +78,7 @@
                               <div class="button-minus" onclick="changeCount(event)" count-changer="-1"></div>
                             </div>
                           </div>
-                        </div> <button data-v-1b2b3207="" class="goods-edit__remove"></button>
+                        </div> <button data-v-1b2b3207="" class="goods-edit__remove" onclick="removeCartItem(event)"></button>
                       </div>
                     </div>
                     <div data-v-1b2b3207="" class="goods__total">
@@ -154,7 +154,7 @@
                 <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="email" class="form-item-title">E-mail</label>
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="input" data-v-b31126bc="">
-                      <div class="input-container"><input name="email" id="email" autocomplete="on" trim="true" type="text" class="input-control">
+                      <div class="input-container"><input name="email" id="email" autocomplete="on" trim="true" type="text" class="input-control" value="{{$user->email}}">
                         <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                       </div>
                     </div>
@@ -165,7 +165,7 @@
                 <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="name" class="form-item-title">Имя</label>
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="input" data-v-b31126bc="">
-                      <div class="input-container"><input name="name" id="name" autocomplete="on" trim="true" type="text" class="input-control">
+                      <div class="input-container"><input name="name" id="name" autocomplete="on" trim="true" type="text" class="input-control" value="{{$user->name}}">
                         <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                       </div>
                     </div>
@@ -176,7 +176,18 @@
                 <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="surname" class="form-item-title">Фамилия</label>
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="input" data-v-b31126bc="">
-                      <div class="input-container"><input name="surname" id="surname" autocomplete="on" trim="true" type="text" class="input-control">
+                      <div class="input-container"><input name="surname" id="surname" autocomplete="on" trim="true" type="text" class="input-control" value="{{$user->surname}}">
+                        <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
+                      </div>
+                    </div>
+                    <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
+                    </div>
+                  </div>
+                </div>
+                <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="patronymic" class="form-item-title">Отчество</label>
+                  <div data-v-b31126bc="" class="field">
+                    <div data-v-684b9f47="" class="input" data-v-b31126bc="">
+                      <div class="input-container"><input name="patronymic" id="patronymic" autocomplete="on" trim="true" type="text" class="input-control" value="{{$user->patronymic}}">
                         <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                       </div>
                     </div>
@@ -187,7 +198,7 @@
                 <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="phone" class="form-item-title">Телефон</label>
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="input margin-s" data-v-b31126bc="">
-                      <div class="input-container"><input name="phone" autocomplete="off" type="tel" class="input-control">
+                      <div class="input-container"><input name="phone" autocomplete="off" type="tel" class="input-control" value="{{$user->phone}}">
                         <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                       </div>
                     </div>
@@ -196,11 +207,26 @@
                   </div>
                 </div>
               </div>
+              <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="country" class="form-item-title">Страна</label>
+                <div data-v-b31126bc="" class="field">
+                  <div data-v-e57b8756="" data-v-684b9f47="" class="city-autocomplete" id="country" data-v-b31126bc="">
+                    <div data-v-e57b8756="" class="input">
+                      <div class="input-container"><input name="country" autocomplete="off" trim="true" type="text" class="input-control" value="{{$adress->country}}">
+                        <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
+                      </div>
+                    </div>
+                    <!---->
+                    <!---->
+                  </div>
+                  <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
+                  </div>
+                </div>
+              </div>
               <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="city" class="form-item-title">Населенный пункт</label>
                 <div data-v-b31126bc="" class="field">
                   <div data-v-e57b8756="" data-v-684b9f47="" class="city-autocomplete" id="city" data-v-b31126bc="">
                     <div data-v-e57b8756="" class="input">
-                      <div class="input-container"><input name="city" autocomplete="off" trim="true" type="text" class="input-control">
+                      <div class="input-container"><input name="city" autocomplete="off" trim="true" type="text" class="input-control"  value="{{$adress->city}}">
                         <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                       </div>
                     </div>
@@ -252,7 +278,7 @@
                 <div data-v-b31126bc="" class="field">
                   <div data-v-4f53bb6a="" data-v-684b9f47="" class="street-autocomplete margin-m" id="street" data-v-b31126bc="">
                     <div data-v-4f53bb6a="" class="input">
-                      <div class="input-container"><input name="street" autocomplete="off" trim="true" type="text" class="input-control">
+                      <div class="input-container"><input name="street" autocomplete="off" trim="true" type="text" class="input-control"  value="{{$adress->street}}">
                         <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                       </div>
                     </div>
@@ -262,20 +288,35 @@
                   <div data-v-684b9f47="" data-v-b31126bc="" class="sub-fields-container sb margin-m">
                     <div data-v-684b9f47="" data-v-b31126bc="" class="sub-field"><label data-v-684b9f47="" data-v-b31126bc="" for="house" class="sub-field-label">Дом</label>
                       <div data-v-684b9f47="" class="input" data-v-b31126bc="">
-                        <div class="input-container"><input name="house" id="house" autocomplete="on" trim="true" type="text" class="input-control">
+                        <div class="input-container"><input name="house" id="house" autocomplete="on" trim="true" type="text" class="input-control"  value="{{$adress->house}}">
                           <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                         </div>
                       </div>
                     </div>
                     <div data-v-684b9f47="" data-v-b31126bc="" class="sub-field"><label data-v-684b9f47="" data-v-b31126bc="" for="apartment" class="sub-field-label">Квартира/офис</label>
                       <div data-v-684b9f47="" class="input" data-v-b31126bc="">
-                        <div class="input-container"><input name="apartment" id="apartment" autocomplete="on" trim="true" type="text" class="input-control">
+                        <div class="input-container"><input name="room" id="room" autocomplete="on" trim="true" type="text" class="input-control"  value="{{$adress->room}}">
                           <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <!---->
+                  <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
+                  </div>
+                </div>
+              </div>
+              <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="zipcode" class="form-item-title">Почтовый индекс</label>
+                <div data-v-b31126bc="" class="field">
+                  <div data-v-e57b8756="" data-v-684b9f47="" class="city-autocomplete" id="zipcode" data-v-b31126bc="">
+                    <div data-v-e57b8756="" class="input">
+                      <div class="input-container"><input name="zipcode" autocomplete="off" trim="true" type="text" class="input-control"  value="{{$adress->zipcode}}">
+                        <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
+                      </div>
+                    </div>
+                    <!---->
+                    <!---->
+                  </div>
                   <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
                   </div>
                 </div>
@@ -381,7 +422,7 @@
 
 <script>
   function changeCount(event) { 
-     var row_id = $(event.target).closest('.order-list__item').attr('row-id')
+    var row_id = $(event.target).closest('.order-list__item').attr('row-id')
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -401,6 +442,26 @@
         var price = $(event.target).closest('.order-list__item').find('.goods__price')[0]
         price.innerText = response.total + ' {{__("userpanel.currency")}}'
 
+        var total = $('.total-value')[0]
+        total.innerText = response.subtotal + ' {{__("userpanel.currency")}}'
+      }
+    })
+  }
+
+  function removeCartItem(event) {
+    var row_id = $(event.target).closest('.order-list__item').attr('row-id')
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "{{url('/card/remove-item')}}",
+      type: "post",
+      data: {
+        row_id: row_id,
+      },
+      success: function(response) {
+        console.log(response)
+        $(event.target).closest('.order-list__item').remove()
         var total = $('.total-value')[0]
         total.innerText = response.subtotal + ' {{__("userpanel.currency")}}'
       }

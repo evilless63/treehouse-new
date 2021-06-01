@@ -2780,8 +2780,8 @@
                 responsive: [{
                     breakpoint: 980,
                     settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 4
+                        slidesToShow: 5,
+                        slidesToScroll: 5
                     }
                 }]
             }), n(s), s.slick(a)

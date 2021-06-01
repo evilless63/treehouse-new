@@ -149,29 +149,68 @@
         <div class="header__holder">
           <div class="header__line">
             <div class="header__left-panel">
-              <a href="javascript:history.back()" class="back-button">
+              {{-- <a href="javascript:history.back()" class="back-button">
                 <div class="back-button__holder"><i class="back-button__icon"></i></div>
-              </a>
+              </a> --}}
 
-              <div class="menu-button js-menu-button-second">
+              {{-- <div class="menu-button js-menu-button-second">
                 <div class="menu-button__holder">
                   <div class="menu-button__line menu-button__line_top"></div>
                   <div class="menu-button__line menu-button__line_middle"></div>
                   <div class="menu-button__line menu-button__line_bottom"></div>
                 </div>
-              </div>
+              </div> --}}
 
               <a href="/catalog?search=" class="header-search header-search--left"><i class="header-search__icon"></i></a>
 
-              <ul class="header-links">
-                @foreach($mainmenu_categories as $main_category)
-                <li class="header-links__item"><a href="{{route('user.category', $main_category->slug)}}" class="header-link">{{$main_category->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a></li>
-                @endforeach
+              <ul class="header-links navbar" >
+                <li class="header-links__item"><a class="header-link" href="#home">Новинки</a></li>
+                <li class="header-links__item">
+                  <div class="dropdown"> 
+                    <a class="dropbtn header-link">Одежда и обувь
+                    </a>
+                    <div class="dropdown-content">
+                      <div class="row">
+                        <div class="column">
+                        @foreach($mainmenu_categories as $main_category)
+                        
+                        <a href="{{route('user.category', $main_category->slug)}}" class="header-link">{{$main_category->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a>
+                        @if($loop->iteration % 3 == 0 && !$loop->last)
+                        </div>
+                        <div class="column">
+                        @endif
+                        @endforeach
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="header-links__item">
+                  <div class="dropdown"> 
+                    <a class="dropbtn header-link">Покупателям
+                    </a>
+                    <div class="dropdown-content">
+                      <div class="row">
+                        <div class="column">
+                        @foreach($customer_articles as $c_article)
+                        
+                        <a href="{{LaravelLocalization::localizeUrl(route('user.article', [
+                          'slug' => $c_article->slug,
+                          ]))}}" class="header-link">{{$c_article->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a>
+                        @if($loop->iteration % 3 == 0 && !$loop->last)
+                        </div>
+                        <div class="column">
+                        @endif
+                        @endforeach
+                      </div>
+                    </div>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="logo ">
               <a href="{{LaravelLocalization::localizeUrl('/')}}" class="logo__link">
-                <svg style="width: 60%;" viewBox="0 0 510 221" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg style="width: 53%; padding-top: 0.5rem" viewBox="0 0 510 221" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <title>Дом на дереве</title>
                   <g id="Page-2" stroke="none" stroke-width="1"  fill-rule="evenodd">
                     <g id="Artboard-Copy-43" transform="translate(-543.000000, -887.000000)"  fill-rule="nonzero">
@@ -186,7 +225,15 @@
             </div>
             <!-- <div data-url="" data-uptitle="вверх" class="header__title js-scroll-top">^</div> -->
             <div class="header__right-panel">
-
+                @if(LaravelLocalization::getCurrentLocale() == 'ru')
+                <a href="{{ LaravelLocalization::getLocalizedURL('en') }}" class="reference-tools__link en-US header-search--right">
+                    <i class="reference-tools__icon reference-tools__icon_lang"></i>{{__('userpanel.english')}}</a>
+                
+                @else
+                <a href="{{ LaravelLocalization::getLocalizedURL('ru') }}" class="reference-tools__link en-US header-search--right">
+                    <i class="reference-tools__icon reference-tools__icon_lang"></i>{{__('userpanel.russian')}}</a>
+                
+                @endif
               <a href="{{LaravelLocalization::localizeUrl('/catalog?search=')}}" class="header-search header-search--right">
                 <i class="header-search__icon"></i>
               </a>
@@ -283,6 +330,9 @@
                       @endforeach
                     </ul>
                   </div>
+                  
+                </div>
+                <div class="footer-col">
                   <div class="footer-col__item footer-col-item" data-slug="about">
                     <span class="footer-col-item__title"><i class="arrow-icon"></i>{{__('userpanel.company')}}</span>
                     <ul class="footer-col-item__list footer-list">
@@ -297,9 +347,8 @@
                     </ul>
                   </div>
                 </div>
-
                 <div class="footer-col">
-                  <div class="footer-col__item footer-col-item footer-col-item--connect">
+                  {{-- <div class="footer-col__item footer-col-item footer-col-item--connect">
                     <span class="footer-col-item__title"><i class="arrow-icon"></i></span>
                     <ul class="footer-col-item__list footer-list">
                       <li class="footer-list__item footer-list-item">
@@ -317,7 +366,7 @@
                         </a>
                       </li>
                     </ul>
-                  </div>
+                  </div> --}}
                   <div class="footer-col__item footer-col-item">
                     <a href="/user/cabinet" class="footer-col-item__title"><i class="arrow-icon"></i>{{__('userpanel.lc')}}</a>
                     <ul class="footer-col-item__list footer-list">
@@ -438,6 +487,20 @@
 
   @yield('scripts', '<script></script>')
 
+  <script>
+    $( document ).ready(function() {
+      $('.header__holder').mouseover(function(){
+        if(!$('html').hasClass("t-scroll")) {
+          $('html').addClass( "t-scroll" )
+        }
+      }).mouseout(function() {
+        if($('html').hasClass("t-scroll") && window.pageYOffset < 50) {
+          $('html').removeClass( "t-scroll" )
+        }
+      })
+    });
+    
+  </script>
 </body>
 
 </html>

@@ -9,52 +9,54 @@
     
       <div class="page__middle">
         <div class="profile-edit profile__edit">
-          <form id="dynamic-form" class="form profile-edit__form" action="{{route('user.update_profile', $user->id)}}" method="post" autocomplete="off">
+          <form id="dynamic-form" class="form profile-edit__form" action="{{route('user.update-adress', $adress->id)}}" method="post" autocomplete="off">
             @csrf
             @method('patch')
             <div class="profile-edit__row">
               <div class="profile-edit__column">
                 <div class="profile-edit__item">
                   <div class="profile-edit__holder">
-                    <h2 class="profile-edit__title">{{__('userpanel.personal_data')}}</h2>
+                    <h2 class="profile-edit__title">Редактирование адреса доставки</h2>
 
-                    <div class="form__item field-user-email required">
-                      <label class="form__label" for="user-email">{{__('userpanel.email')}}</label>
-                      <div class="form__field"><input type="text" class="form__input" id="user-email" class="form__input" name="email" value="{{$user->email}}" disabled="" maxlength="255" aria-required="true">
-                        <p class="form__error-message"></p>
-                      </div>
-                    </div>
-                    <div class="form__item">
-                      <label for="pass" class="form__label">Пароль</label>
-                      <div class="form__field"><a href="/reset-password" class="link ">сменить пароль</a></div>
-                    </div>
 
                     <div class="form__item field-user-name">
-                      <label class="form__label" for="user-name">{{__('userpanel.name')}}</label>
-                      <div class="form__field"><input type="text" class="form__input" id="user-name" class="form__input" name="name" maxlength="255" value="{{$user->name}}">
+                      <label class="form__label" for="user-name">Страна</label>
+                      <div class="form__field"><input type="text" class="form__input" id="user-name" class="form__input" name="country" maxlength="255" value="{{$adress->country}}">
                         <p class="form__error-message"></p>
                       </div>
                     </div>
                     <div class="form__item no-surname-hide field-user-surname">
-                      <label class="form__label" for="user-surname">{{__('userpanel.surname')}}</label>
-                      <div class="form__field"><input type="text" class="form__input" id="user-surname" class="form__input" name="surname" maxlength="255" value="{{$user->surname}}">
+                      <label class="form__label" for="user-surname">Город</label>
+                      <div class="form__field"><input type="text" class="form__input" id="user-surname" class="form__input" name="city" maxlength="255" value="{{$adress->city}}">
                         <p class="form__error-message"></p>
                       </div>
                     </div>
                     <div class="form__item no-surname-hide field-user-surname">
-                      <label class="form__label" for="user-surname">{{__('userpanel.patronymic')}}</label>
-                      <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="patronymic" maxlength="255" value="{{$user->patronymic}}">
+                      <label class="form__label" for="user-surname">Улица</label>
+                      <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="street" maxlength="255" value="{{$adress->street}}">
                         <p class="form__error-message"></p>
                       </div>
                     </div>
-                    <div class="form__item field-user-number">
-                      <label class="form__label" for="user-number">{{__('userpanel.phone')}}</label>
-                      <div class="form__field">
-                        <input type="tel" id="user-number" disabled="" class="form__input" name="phone" autocomplete="off" placeholder="+7" value="{{$user->phone}}">
+                    <div class="form__item no-surname-hide field-user-surname">
+                      <label class="form__label" for="user-surname">Дом</label>
+                      <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="house" maxlength="255" value="{{$adress->house}}">
                         <p class="form__error-message"></p>
                       </div>
                     </div>
-
+                    <div class="form__item no-surname-hide field-user-surname">
+                      <label class="form__label" for="user-surname">Квартира/офис</label>
+                      <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="room" maxlength="255" value="{{$adress->room}}">
+                        <p class="form__error-message"></p>
+                      </div>
+                    </div>
+                    <div class="form__item no-surname-hide field-user-surname">
+                      <label class="form__label" for="user-surname">Почтовый индекс</label>
+                      <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="zipcode" maxlength="255" value="{{$adress->zipcode}}">
+                        <p class="form__error-message"></p>
+                      </div>
+                    </div>
+                    <label>Использовать по умолчанию</label>
+                        <input type="checkbox" name="is_default"  @if($adress->is_default) checked @endif>
                   </div>
                 </div>
               </div>

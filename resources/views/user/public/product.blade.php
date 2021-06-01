@@ -51,6 +51,18 @@
     </div>
   </div>
 
+  <div id="add_item-error-client-null" class="popup popupify-inner">
+    <h4 class="popupify-inner__title">
+      Ошибка! </h4>
+    <p>
+      Для добавления позиции в wishlist необходимо авторизоваться или зарегистрироваться. </p>
+
+    <div class="login__recover">
+      <a href="#" class="login__recover-link login__recover-link--redesign">
+        Ок </a>
+    </div>
+  </div>
+
   <div id="select_subscribe_size" class="popup popupify-inner">
     <h4 class="popupify-inner__title">
       {{__('userpanel.choose_size')}}
@@ -58,10 +70,10 @@
     <div class="card-sizes__list-item">
       <div class="card-sizes card__sizes card-sizes__redesign">
         @foreach($colorVariation->sizeVariations as $sizeVariation)
-        <div class="card-sizes__item">
-          <label href="/catalog/item-subscribe/125054" class="card-sizes__label-wrap card-sizes__subscribe">
+        <div class="card-sizes__item" size-id="{{$sizeVariation->id}}" color-variation-id="{{$colorVariation->id}}" onclick="addToWishList()">
+          <label class="card-sizes__label-wrap card-sizes__subscribe">
             <span class="card-sizes__label">
-              <span class="card-sizes__title">
+              <span class="card-sizes__title" >
                 {{$sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} </span>
             </span>
           </label>
@@ -255,9 +267,9 @@
                     <a @if($colorVariationSample->id <> $colorVariation->id)
 
                         href="{{route('user.product', [
-              'product' => $colorVariationSample->product->slug,
-              'color' => $colorVariationSample->color->slug,
-              ])}}"
+                        'product' => $colorVariationSample->product->slug,
+                        'color' => $colorVariationSample->color->slug,
+                        ])}}"
 
                         @endif title="{{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="card-colors__link
                         @if($colorVariationSample->id == $colorVariation->id) card-colors__link--active @endif ">
@@ -347,8 +359,7 @@
                 <h4 class="card-product-details__title">
                   Есть вопросы? </h4>
                 <ul class="contact-links card-contact-links">
-                  <li class="card-contact-links__item media-query-show_tablet"><a href="tel:88005004611" data-ga-label="Phone"><span class="contact-links__icon callback"></span><span>Обратный
-                        звонок</span></a></li>
+                  <li class="card-contact-links__item media-query-show_tablet"><a href="tel:88005004611" data-ga-label="Phone"><span class="contact-links__icon callback"></span><span>Обратный звонок</span></a></li>
                   <li class="card-contact-links__item media-query-show_mobile"><a href="https://api.whatsapp.com/send?phone=79126156257" target="_blank" data-ga-label="WhatsApp"><span class="contact-links__icon whatsapp"></span><span>WhatsApp</span></a></li>
                   <li class="card-contact-links__item media-query-show_mobile"><a href="mailto:info@domnadereve.com" data-ga-label="Email"><span class="contact-links__icon email"></span><span>Эл. почта</span></a></li>
                   <li class="card-contact-links__item media-query-show_mobile"><a href="tg://resolve?domain=twelvestoreez_bot" target="_blank" data-ga-label="Telegram"><span class="contact-links__icon telegram"></span><span>Telegram</span></a></li>
@@ -823,6 +834,36 @@
       console.log(sizetitles)
       sizetitles.forEach(function(item, i, arr) {
         item.setAttribute('data-size', dataSize)
+      })
+    }
+
+    function addToWishList(event){
+      var clientId = {{Auth::user() == null ? null : Auth::user()->id}}
+      console.log(clientId)
+      if(clientId == null) {
+        new window.basePopup({
+              context: {
+                  content: document.querySelector("#add_item-error-client-null").outerHTML
+              },
+              onOpened: function () {
+                  var e = this;
+                  $(".login__recover-link").off("click").on("click", (function (t) {
+                      t.preventDefault(), e.close()
+                  }))
+              }
+          })
+      }
+      $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "{{url('/add-to-wishlist')}}",
+          type: "post",
+          data: {
+            color_variation_id: $(event.target).attr('color-variation-id'),
+            size_id: $(event.target).attr('size-id'),
+            user_id: clientId,
+          },
       })
     }
 

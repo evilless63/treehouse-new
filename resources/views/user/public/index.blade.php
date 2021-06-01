@@ -224,6 +224,69 @@
   </div>
 </div>
 @endif
+@foreach($categories as $category)
+<div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers" data-key="homeSliderBestsellers">
+  <div class="slider-news__holder">
+    <div class="slider-news__wrapper">
+      <div class="slider-news__head">
+        <div class="slider-news__title">{{$category->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</div>
+        <div class="slider-news__controls"> <button type="button" class="slider-news__arrow slider-news__arrow_prev">Prev</button> <button type="button" class="slider-news__arrow slider-news__arrow_next">Next</button> </div>
+      </div>
+      <div class="slider-news__list js-slider-news new-on-week-block home-slider__list">
+        @foreach($category->colorVariations()->take(10)->get() as $bestseller)
+        <a href="{{LaravelLocalization::localizeUrl(route('user.product', [
+              'product' => $bestseller->product->slug,
+              'color' => $bestseller->color->slug,
+              ]))}}" class="catalog-list__item slider-news__item new-on-week-item-link home-slider__item" data-id="105546">
+          <div class="catalog-list__preview">
+            <img src="{{ asset($bestseller->main_img()) }}" data-observer-src="{{ asset($bestseller->main_img()) }}" alt="{{$bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
+            <div class="page-preloader__loading news-loader"></div>
+          </div>
+          <div class="catalog-list__box slider-news__box">
+
+            <div class="catalog-list__info catalog-list__info_head">
+
+
+
+
+              <div class="catalog-list__tag catalog-list__new">Bestseller</div>
+
+            </div>
+
+            <!-- Заголовок товара -->
+            <div class="catalog-list__title">
+              <div class="catalog-list__title-inn">
+                <span>{{$bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$bestseller->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
+              </div>
+            </div>
+            <!-- Заголовок товара END -->
+
+            <!-- Цена и скидка товара -->
+            <div class="catalog-list__price">
+              @if($bestseller->sizeVariations->sortBy('price')->first()->price == $bestseller->sizeVariations->sortByDesc('price')->first()->price)
+              {{$bestseller->sizeVariations->sortBy('price')->first()->price}}
+              @else
+              {{$bestseller->sizeVariations->sortBy('price')->first()->price}} - {{$bestseller->sizeVariations->sortByDesc('price')->first()->price}}
+              @endif {{__('userpanel.currency')}}
+            </div>
+            <!-- Цена и скидка товара END -->
+
+            <!-- Цвета -->
+            <ul class="catalog-list__colors catalog-list-colors">
+              @foreach($bestseller->product->colorVariations as $colorVariation)
+              <li class="catalog-list-colors__color " title="{{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" style="background:{{$colorVariation->color->hex}}">
+              </li>
+              @endforeach
+            </ul>
+            <!-- Цвета END -->
+          </div>
+        </a>
+        @endforeach
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
 @endsection
 
 @section('scripts')

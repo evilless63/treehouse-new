@@ -33,7 +33,7 @@ class NewPasswordController extends Controller
     {
         $request->validate([
             'token' => 'required',
-            'email' => 'required|email',
+            'phone' => 'required|phone',
             'password' => 'required|string|confirmed|min:8',
         ]);
 
@@ -58,6 +58,6 @@ class NewPasswordController extends Controller
         return $status == Password::PASSWORD_RESET
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+                            ->withErrors(['phone' => __($status)]);
     }
 }

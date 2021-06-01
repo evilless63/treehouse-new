@@ -3,12 +3,21 @@
 @section('content')
 <div class="login">
         <div class="login__holder">
+          @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
           <p class="popup__head">Вход</p>
           <form id="login-form" class="form login__form" action="{{ route('login') }}" method="post">
           @csrf
             <div class="form__item field-loginform-username">
-              <label class="form__label form__label_full" for="loginform-username">Е-mail или телефон</label><input
-                type="text" id="loginform-username" class="form__input"  type="email" name="email" :value="old('email')">
+              <label class="form__label form__label_full" for="loginform-username">Телефон</label><input
+                type="text" id="loginform-username" class="form__input"  type="phone" name="phone" :value="old('phone')">
               <p class="form__error-message"></p>
             </div>
             <div class="form__item field-loginform-password required">
@@ -18,14 +27,13 @@
                                 required autocomplete="current-password" aria-required="true">
               <p class="form__error-message"></p>
             </div>
-            <div class="login__recover">
-              <a href="/user/reset-password" class="login__recover-link js-popup">Восстановить пароль</a>
-            </div>
-
             <button type="submit" class="button button_powdery login__button">Войти</button>
           </form>
           <div class="login__reg">
-            <a href="/user/registration" class="login__reg-link js-popup">Зарегистрироваться</a>
+            <a href="/register" class="login__reg-link">Зарегистрироваться</a>
+          </div>
+          <div class="login__recover">
+            <a href="/reset-password" class="login__recover-link">Восстановить пароль</a>
           </div>
 
         </div>

@@ -15671,7 +15671,8 @@
                     staticClass: "goods-edit__remove",
                     on: {
                         click: function (n) {
-                            return e.showRemovePopup(t)
+                            // return e.showRemovePopup(t)
+                            return false
                         }
                     }
                 })])]), e._v(" "), n("div", {

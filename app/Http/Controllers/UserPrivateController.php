@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Article;
+use App\Models\Wishlist;
 use Auth;
 use View;
 use Cart;
+use App\Models\User;
 use App\Repositories\ProductRepository;
 use App\Repositories\CategoryRepository;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Hash;
 
 class UserPrivateController extends Controller
 {
@@ -78,12 +82,38 @@ class UserPrivateController extends Controller
         return view('user.private.wishlist');
     }
 
+    public function resetPassword()
+    {
+        return view('user.private.reset-password');
+    }
+
+    public function createNewPassword() {
+        
+        $curUser = User::where('id', Auth::user()->id)->first();
+        if(Hash::check(request()->old_password, $curUser->password)) {
+            if(request()->password == request()->password_confirmation) {
+                $curUser->password = Hash::make(request()->password);
+                $curUser->save();
+                return back()->with(['success', 'Пароль успешно изменен']);
+            } else {
+                return back()->withErrors('Пароли не совпадают');
+            }
+        } else {
+            return back()->withErrors('Старый пароль указан неверно');
+        }
+    }
+
     public function cart()
     {
-        dd(Cart::instance('shopping')->content());
+        $currentDefaultAdress = Auth::user()->addresses()->where('is_default', 1)->first();
+        if($currentDefaultAdress == null) {
+            $currentDefaultAdress = new Address();
+        }
         return view('user.private.cart')->with([
             'cart' => Cart::instance('shopping')->content(),
             'subtotal' => Cart::instance('shopping')->subtotal(),
+            'adress' => $currentDefaultAdress,
+            'user' => Auth::user(),
         ]);
     }
 
@@ -138,5 +168,21 @@ class UserPrivateController extends Controller
         $body = $response->getBody()->read(4);
 
         return $body;
+    }
+
+    public function addToWishList() {
+        $newItem = new Wishlist();
+        $newItem->user_id = request()->user_id;
+        $newItem->color_variation_id = request()->color_variation_id;
+        $newItem->size_id = request()->size_id;
+        $newItem->save();
+    }
+
+    public function removeFromWishList() {
+        $findedItem = Wishlist::where('user_id', request()->user_id)
+        ->where('color_variation_id',request()
+        ->color_variation_id)->where('size_id', request()->size_id)->first();
+
+        $findedItem->destroy();
     }
 }

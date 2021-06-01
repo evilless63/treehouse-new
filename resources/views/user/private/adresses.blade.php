@@ -10,50 +10,31 @@
 
             <div class="page__middle">
                 <div class="profile-edit profile__edit">
-                    <form id="dynamic-form" class="form profile-edit__form" action="{{route('user.update_profile', $user->id)}}" method="post" autocomplete="off">
-                        @csrf
-                        @method('patch')
+                    
                         <div class="profile-edit__row">
                             <div class="profile-edit__column">
                                 <div class="profile-edit__item">
                                     <div class="profile-edit__holder">
-                                        <h2 class="profile-edit__title">{{__('userpanel.personal_data')}}</h2>
+                                        <h2 class="profile-edit__title">Адреса доставки</h2>
 
-                                        <div class="form__item field-user-email required">
-                                            <label class="form__label" for="user-email">{{__('userpanel.email')}}</label>
-                                            <div class="form__field"><input type="text" class="form__input" id="user-email" class="form__input" name="email" value="{{$user->email}}" disabled="" maxlength="255" aria-required="true">
-                                                <p class="form__error-message"></p>
-                                            </div>
-                                        </div>
+                                        @if($adresses->count() == 0)
+                                            <h3>Нет существующих адресов, добавьте новый</h3>
+                                        @endif
+
+                                        @foreach($adresses as $adress)
                                         <div class="form__item">
-                                            <label for="pass" class="form__label">Пароль</label>
-                                            <div class="form__field"><a href="/user/change-password" class="link js-popup">сменить пароль</a></div>
+                                            <label for="pass" class="form__label">{{$adress->country}} {{$adress->city}} {{$adress->street}} @if($adress->is_default) - используется по умолчанию @endif</label>
+                                            <div class="form__field"><a href="{{route('user.edit-adress', $adress->id)}}" class="link ">Редактировать</a></div>
+                                            <form method="post" action="{{route('user.delete-adress', $adress->id)}}">
+                                                @csrf
+                                                @method('delete')
+                                                <div class="form__field"><button class="link ">Удалить адрес доставки</button></div>
+                                            </form>
                                         </div>
+                                        @endforeach
 
-                                        <div class="form__item field-user-name">
-                                            <label class="form__label" for="user-name">{{__('userpanel.name')}}</label>
-                                            <div class="form__field"><input type="text" class="form__input" id="user-name" class="form__input" name="name" maxlength="255" value="{{$user->name}}">
-                                                <p class="form__error-message"></p>
-                                            </div>
-                                        </div>
-                                        <div class="form__item no-surname-hide field-user-surname">
-                                            <label class="form__label" for="user-surname">{{__('userpanel.surname')}}</label>
-                                            <div class="form__field"><input type="text" class="form__input" id="user-surname" class="form__input" name="surname" maxlength="255" value="{{$user->surname}}">
-                                                <p class="form__error-message"></p>
-                                            </div>
-                                        </div>
-                                        <div class="form__item no-surname-hide field-user-surname">
-                                            <label class="form__label" for="user-surname">{{__('userpanel.patronymic')}}</label>
-                                            <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="patronymic" maxlength="255" value="{{$user->patronymic}}">
-                                                <p class="form__error-message"></p>
-                                            </div>
-                                        </div>
-                                        <div class="form__item field-user-number">
-                                            <label class="form__label" for="user-number">{{__('userpanel.phone')}}</label>
-                                            <div class="form__field">
-                                                <input type="tel" id="user-number" class="form__input" name="phone" autocomplete="off" placeholder="+7" value="{{$user->phone}}">
-                                                <p class="form__error-message"></p>
-                                            </div>
+                                        <div class="form__item">
+                                            <div class="form__field"><a href="{{route('user.create-adress')}}" class="link ">Добавить новый адрес доставки</a></div>
                                         </div>
 
                                     </div>
@@ -64,14 +45,7 @@
 
                 </div>
 
-                <div class="profile-edit__confirm">
-                    <div class="checkbox form__checkbox field-user-accept">
-                        <input type="hidden" value="0"><input type="checkbox" id="user-accept" class="checkbox__input" value="1"><label class="checkbox__label" for="user-accept"><span class="checkbox__label-text">{{__('userpanel.change_accert')}}<a href="/r/privacy_policy" class="checkbox__link" target="_blank">{{__('userpanel.subscribe_link')}}</a></span></label>
-                        <p class="form__error-message"></p>
-                    </div>
-                </div>
-                <button type="submit" class="button button_powdery button_fixed profile-edit__button card__button_with-spaces save">{{__('userpanel.save_changes_button_text')}}</button>
-                </form>
+                
 
 
             </div>

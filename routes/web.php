@@ -16,6 +16,8 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CKEditorController;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\Order;
 
 /*
@@ -93,6 +95,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::middleware('auth')->group(function () {
         Route::post('/card/add', [CartController::class, 'addToCard'])->name('cart.add');
         Route::post('/card/change-count', [CartController::class, 'changeCount'])->name('cart.add');
+        Route::post('/card/remove-item', [CartController::class, 'removeItem'])->name('cart.removeItem');
         Route::get('/cart', [CartController::class, 'getCartContent'])->name('cart.content');
         Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
         Route::get('/user/cabinet', [UserPrivateController::class, 'profile'])->name('user.profile');
@@ -100,16 +103,28 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::patch('/user/update_profile/{id}', [UserController::class, 'update'])->name('user.update_profile');
         Route::get('/user/orders', [UserPrivateController::class, 'orders'])->name('user.orders');
         Route::get('/user/subscribe', [UserPrivateController::class, 'subscribe'])->name('user.subscribe');
+
+        Route::get('/user/adresses', [AddressController::class, 'index'])->name('user.adresses');
+        Route::get('/user/create-adress', [AddressController::class, 'create'])->name('user.create-adress');
+        Route::post('/user/create-adress', [AddressController::class, 'store'])->name('user.store-adress');
+        Route::get('/user/edit-adress/{id}', [AddressController::class, 'edit'])->name('user.edit-adress');
+        Route::patch('/user/edit-adress/{id}', [AddressController::class, 'update'])->name('user.update-adress');
+        Route::delete('/user/delete-adress/{id}', [AddressController::class, 'destroy'])->name('user.delete-adress');
+
+
         Route::get('/user/wishlist', [UserPrivateController::class, 'wishlist'])->name('user.wishlist');
         Route::get('/cart', [UserPrivateController::class, 'cart'])->name('user.cart');
         Route::post('/makeorder', [UserPrivateController::class, 'makeOrderUnpayed'])->name('makeorder');
         Route::post('/add-to-wishlist', [UserPrivateController::class, 'addToWishList'])->name('user.add-to-withlist');
         Route::post('/remove-from-wishlist', [UserPrivateController::class, 'removeFromWishList'])->name('user.remove-from-withlist');
+        Route::get('/reset-password', [UserPrivateController::class, 'resetPassword'])->name('reset-password');
+        Route::post('/reset-password', [UserPrivateController::class,'createNewPassword'])->name('password.reset');
     });
 
     Route::get('/', [UserPublicController::class, 'index'])->name('user.index');
     Route::get('/shop/{category?}', [UserPublicController::class, 'category'])->name('user.category');
     Route::get('/login', [UserPublicController::class, 'login'])->name('login');
+    Route::get('/register', [UserPublicController::class, 'register'])->name('register');
     Route::get('/shop/{product}/{color}', [UserPublicController::class, 'product'])->name('user.product');
     Route::get('/articles', [UserPublicController::class, 'articles'])->name('user.articles');
     Route::get('/articles/{slug}', [UserPublicController::class, 'article'])->name('user.article');
@@ -118,3 +133,4 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
     Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
 });
+

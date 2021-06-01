@@ -13,6 +13,17 @@ use Exception;
 class ImportController extends Controller
 {
 
+
+    public function checkIsVisible() {
+        $variations = SizeVariation::all();
+        foreach($variations as $var) {
+            if($var->stock < 1 && $var->is_expected == 0) {
+                $var->is_visible = false;
+                $var->save();
+            } 
+        }
+    }
+
     public function ImportColorsFrom1c(Request $request)
     {
         $stack = $request->toArray();
