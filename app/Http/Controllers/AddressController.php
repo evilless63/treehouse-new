@@ -11,6 +11,8 @@ use View;
 
 class AddressController extends Controller
 {
+
+    public $categories;
     public function __construct()
     {
         $this->middleware('auth');
@@ -22,6 +24,7 @@ class AddressController extends Controller
         $this->company_articles = Article::where('purpose', 'about')->get();
         $this->blog_articles = Article::where('purpose', 'blog')->get();
         $this->customer_articles = Article::where('purpose', 'counteragents')->get();
+        $this->categories = Category::all();
 
         if (!Auth::guest()) {
             $this->wishlist = Cart::instance('wishlist')->content();
@@ -35,6 +38,7 @@ class AddressController extends Controller
         View::share('company_articles', $this->company_articles);
         View::share('blog_articles', $this->blog_articles);
         View::share('customer_articles', $this->customer_articles);
+        View::share('categories', $this->categories);
     }
     /**
      * Display a listing of the resource.
