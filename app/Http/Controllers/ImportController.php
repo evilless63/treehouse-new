@@ -161,7 +161,7 @@ class ImportController extends Controller
                 ]);
 
                 $sizeVariation = SizeVariation::where('size_id', $size->id)->where('color_variation_id', $colorVariation->id)->first();
-                if($productSetItem['stock'] = 0 ) {
+                if($productSetItem['stock'] >= 0 ) {
                     $is_visible = 0;         
                 } else {
                     $is_visible = 1;

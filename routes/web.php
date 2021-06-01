@@ -72,10 +72,6 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::any('/categories/{id}/replicate', [CategoryController::class, 'replicate'])->name('categories.replicate');
     Route::any('/articles/{id}/replicate', [ArticleController::class, 'replicate'])->name('articles.replicate');
 
-    Route::post('/api/v1/importdata/colors', [ImportController::class, 'ImportColorsFrom1c']);
-    Route::post('/api/v1/importdata/sizes', [ImportController::class, 'ImportSizesFrom1c']);
-    Route::post('/api/v1/importdata/products', [ImportController::class, 'ImportProductsFrom1c']);
-
     Route::post('/image/upload', [UploadController::class, 'imageUpload']);
     Route::post('/image/delete', [UploadController::class, 'imageDelete']);
     Route::post('/main-image/upload', [UploadController::class, 'mainImageUpload']);
@@ -89,6 +85,10 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/user/change-is-active', [UserController::class, 'toggleIsActive']);
     Route::post('/user/change-is-admin', [UserController::class, 'toggleIsAdmin']);
 });
+
+Route::post('/api/v1/importdata/colors', [ImportController::class, 'ImportColorsFrom1c']);
+Route::post('/api/v1/importdata/sizes', [ImportController::class, 'ImportSizesFrom1c']);
+Route::post('/api/v1/importdata/products', [ImportController::class, 'ImportProductsFrom1c']);
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     App::setLocale(LaravelLocalization::setLocale());
