@@ -164,7 +164,7 @@
               <a href="/catalog?search=" class="header-search header-search--left"><i class="header-search__icon"></i></a>
 
               <ul class="header-links navbar" >
-                <li class="header-links__item"><a class="header-link" href="#home">Новинки</a></li>
+                <li class="header-links__item"><a class="header-link" href="{{route('user.category', 'vodolazki')}}">Новинки</a></li>
                 <li class="header-links__item">
                   <div class="dropdown"> 
                     <a class="dropbtn header-link">Одежда и обувь
@@ -172,7 +172,7 @@
                     <div class="dropdown-content">
                       <div class="row">
                         <div class="column">
-                        @foreach($mainmenu_categories as $main_category)
+                        @foreach($categories as $main_category)
                         
                         <a href="{{route('user.category', $main_category->slug)}}" class="header-link">{{$main_category->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</a>
                         @if($loop->iteration % 3 == 0 && !$loop->last)
