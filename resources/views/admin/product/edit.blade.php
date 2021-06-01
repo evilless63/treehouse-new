@@ -468,22 +468,17 @@
             // function loadMainImage(event) {
             //     console.log(event.target)
             // window.addEventListener('DOMContentLoaded', function() {
-            // var avatar = document.getElementById('avatar_{{$colorVariation->color->slug}}');
             var parent = $(event.target).closest('.changeColorVariationWrapper')[0]
             console.log(parent)
             var avatar = $(parent).find(".avatar")[0]
-            // var image = document.getElementById('image_{{$colorVariation->color->slug}}');
             var image = $(parent).find(".image_cropper")[0]
             console.log(image)
-            // var input = document.getElementById('input_{{$colorVariation->color->slug}}');
             var input = $(parent).find(".input_cropper")
             console.log(input)
             var $progress = $('.progress_{{$colorVariation->color->slug}}');
             var $progressBar = $('.progress-bar_{{$colorVariation->color->slug}}');
             var $alert = $('.alert');
-            // var $modal = $('#modal_{{$colorVariation->color->slug}}');
             var $modal = $(parent).find(".modal_cropper")
-            // var modal = document.getElementById('modal_{{$colorVariation->color->slug}}');
             var cropper;
             var products_slug = $(parent).find(".products_slug_cropper").text();
             console.log(products_slug)
