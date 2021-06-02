@@ -203,13 +203,13 @@
                                                         <!-- Цвета END -->
 
                                                         <!-- Размеры в наличии  -->
-                                                        <ul class="catalog-list-sizes" data-one-size="">
+                                                        {{-- <ul class="catalog-list-sizes" data-one-size="">
                                                             @foreach ($colorVariation->sizeVariations as $sizeVariation)
                                                                 <li class="catalog-list-sizes__item">
                                                                     {{ $sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
                                                                 </li>
                                                             @endforeach
-                                                        </ul>
+                                                        </ul> --}}
                                                         <!-- Размеры в наличии END  -->
                                                     </div>
                                                 </div>
