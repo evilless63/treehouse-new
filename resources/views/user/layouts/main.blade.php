@@ -186,7 +186,7 @@
                                         href="{{ route('user.category', 'vodolazki') }}">Новинки</a></li>
                                 <li class="header-links__item">
                                     <div class="dropdown">
-                                        <a class="dropbtn header-link">Одежда и обувь
+                                        <a class="dropbtn header-link">Одежда и декор
                                         </a>
                                         <div class="dropdown-content">
                                             <div class="row">
