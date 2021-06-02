@@ -44,13 +44,13 @@
                     <p class="form__error-message"></p>
                 </div>
                 <div class="form__item field-loginform-password required">
-                    <label class="form__label form__label_full" for="loginform-password">Пароль*</label><input
+                    <label class="form__label form__label_full" for="loginform-password">Пароль (минимум 8 символов) *</label><input
                         type="password" id="loginform-password" class="form__input" type="password" name="password" required
                         autocomplete="current-password" aria-required="true">
                     <p class="form__error-message"></p>
                 </div>
                 <div class="form__item field-loginform-password required">
-                    <label class="form__label form__label_full" for="loginform-password">Подтвердите пароль*</label><input
+                    <label class="form__label form__label_full" for="loginform-password">Подтвердите пароль (минимум 8 символов) *</label><input
                         type="password" id="loginform-password" class="form__input" type="password"
                         name="password_confirmation" required autocomplete="current-password" aria-required="true">
                     <p class="form__error-message"></p>
