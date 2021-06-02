@@ -620,10 +620,14 @@
                 $('.field__placeholder').children('span').text("Поиск")
             })
 
-            $(window).scroll(function(){
-              console.log($(".field:first"))
-              $(this).scrollTop() > 0 ? $(".field:first").removeClass("field--white") : $(".field:first").addClass("field--white")
-            })  
+            $(window).scroll(function() {
+                if ($('html').hasClass('t-media-head')) {
+                    $(this).scrollTop() > 0 ? $(".field:first").removeClass("field--white") : $(
+                        ".field:first").addClass("field--white")
+                    $(this).scrollTop() > 0 ? $(".icon:first").removeClass("icon--white") : $(
+                        ".icon:first").addClass("icon--white")
+                }
+            })
         });
 
     </script>
