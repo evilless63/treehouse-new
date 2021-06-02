@@ -14,7 +14,7 @@
   </a>
 </div>
 
-<div class="ab-2592 ab-2592-a">
+{{-- <div class="ab-2592 ab-2592-a">
   <div class="categories-cards categories-cards_with-only-mobile-element">
     <div class="categories-cards__holder">
       <div class="categories-cards__list">
@@ -48,7 +48,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 
 <div class="slider-news home-slider" data-name="Новое на этой неделе" data-ga-name="New this week" data-key="homeSliderNewOnWeek">
   <div class="slider-news__holder">
