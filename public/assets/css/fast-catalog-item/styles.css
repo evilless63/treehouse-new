@@ -6831,7 +6831,7 @@ body.hide_one_click .button_one_click {
 }
 
 .card-features__text-title {
-    font-weight: 500;
+    font-weight: bold;
     font-size: 16px;
     line-height: 16px;
     margin: 0 0 17px
@@ -8909,7 +8909,7 @@ body.use-mindbox-accompaniments .card__item_mindbox-accompaniments {
 }
 
 .card-product-details__title {
-    font-weight: 500;
+    font-weight: bold;
     font-size: 16px;
     line-height: 16px;
     color: #887568;
