@@ -13040,16 +13040,16 @@ a.findsize-download:hover {
         /* padding-top: 0.2rem; */
     padding-bottom: 1.3rem;
     border-bottom: #ebe6e1 1px solid;
-    padding-bottom: 3rem !important;
-    padding-top: 2rem;
+    padding-bottom: 1.5rem !important;
+    padding-top: 1rem;
     }
 }
 
 @media (min-width:1280px) {
     .header__holder {
         /* padding-bottom: 1.4rem; */
-        padding-bottom: 2rem;
-        padding-top: 2rem;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
     }
 }
 
