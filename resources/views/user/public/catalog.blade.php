@@ -20,15 +20,6 @@
 
 
                             <div class="filter js-fixed-filter-block">
-                              <div class="filter__top">
-                                <div class="filter__head" style="font-size: 20px;">
-                                  <!-- Выберите размер  -->
-                                  {{$category_name}}
-                                  <!-- <span class="count" style="display: none;"></span>
-                                        <i class="arrow"></i> -->
-                                </div>
-                                <div class="filter__clear" data-ga-action="Clean filter click">Сбросить</div>
-                              </div>
                                 <div class="filter__top css-hide-mobile css-hide-tablet">
                                     <div class="filter__head">
                                         Выберите размер <span class="count" style="display: none;">2</span>
