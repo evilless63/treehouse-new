@@ -13047,7 +13047,9 @@ a.findsize-download:hover {
 
 @media (min-width:1280px) {
     .header__holder {
-        padding-bottom: 1.4rem;
+        /* padding-bottom: 1.4rem; */
+        padding-bottom: 2rem;
+        padding-top: 2rem;
     }
 }
 
