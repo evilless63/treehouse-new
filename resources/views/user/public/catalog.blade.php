@@ -9,9 +9,9 @@
                     <div class="categories catalog__categories">
                         @include('user.includes.sidebar_categories', ['items'=>$categories_menu->roots()])
                         <!-- <div class="categories__item ">
-                      <a href="/catalog/skidki/mencollection" class="categories__link categories__link--red">Sale до
-                        -50%</a>
-                    </div> -->
+                              <a href="/catalog/skidki/mencollection" class="categories__link categories__link--red">Sale до
+                                -50%</a>
+                            </div> -->
                     </div>
                 </div>
                 <div class="page__middle page__middle--catalog">
@@ -26,6 +26,7 @@
                                         <i class="arrow toggled"></i>
                                     </div>
                                     <div class="filter__clear" data-ga-action="Clean filter click">Сбросить</div>
+
                                 </div>
                                 <div class="filter__top filter__top--justify css-hide-desktop">
                                     <div class="filter__top-title">Новинки</div>
@@ -198,13 +199,17 @@
                                                                 </li>
                                                             @endforeach
                                                         </ul>
+
                                                         <!-- Цвета END -->
 
                                                         <!-- Размеры в наличии  -->
-                                                        <!-- <ul class="catalog-list-sizes" data-one-size="">
-                                    <li class="catalog-list-sizes__item">XL</li>
-                                    <li class="catalog-list-sizes__item">XXL</li>
-                                  </ul> -->
+                                                        <ul class="catalog-list-sizes" data-one-size="">
+                                                            @foreach ($colorVariation->sizeVariations as $sizeVariation)
+                                                                <li class="catalog-list-sizes__item">
+                                                                    {{ $sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
                                                         <!-- Размеры в наличии END  -->
                                                     </div>
                                                 </div>
@@ -293,6 +298,8 @@
                                                         </li>
                                                     @endforeach
                                                 </ul>
+
+
                                                 <!-- Цвета END -->
 
                                             </div>
@@ -353,7 +360,8 @@
 
                                                             <!-- Цена и скидка товара -->
                                                             <div class="catalog-list__price">
-                                                                {{ $wish_product->price }} {{ __('userpanel.currency') }}
+                                                                {{ $wish_product->price }}
+                                                                {{ __('userpanel.currency') }}
                                                                 <!-- <s class="catalog-list__price-old">{{ $wish_product->price }} {{ __('userpanel.currency') }}</s> -->
                                                             </div>
                                                             <!-- Цена и скидка товара END -->
@@ -363,9 +371,9 @@
 
                                                     <!-- Цвета -->
                                                     <!-- <ul class="catalog-list__colors catalog-list-colors">
-                              <li class="catalog-list-colors__color " title="Желтый" style="background: #ffd552">
-                              </li>
-                            </ul> -->
+                                      <li class="catalog-list-colors__color " title="Желтый" style="background: #ffd552">
+                                      </li>
+                                    </ul> -->
                                                     <!-- Цвета END -->
                                                 </div>
                                             @endforeach
