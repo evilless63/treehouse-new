@@ -22355,3 +22355,7 @@ html:not(.t-main):not(.t-404) .page {
     display: table;
     clear: both;
   }
+
+  .card-features__box p {
+    line-height: 18px;
+  }
