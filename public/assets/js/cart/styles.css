@@ -7243,7 +7243,6 @@ body.hide_one_click .button_one_click {
 .card-info__price {
     font-size: 16px;
     font-weight: bold;
-    font-weight: 500
 }
 
 @media (min-width:1024px) {
