@@ -16842,9 +16842,15 @@ html:not(.t-main):not(.t-404) .page {
     }
 }
 
-@media (min-width:1280px) {
+/* @media (min-width:1280px) {
     .page {
         padding-top: 5rem
+    }
+} */
+
+@media (min-width:1280px) {
+    .page {
+        padding-top: 3rem;
     }
 }
 
