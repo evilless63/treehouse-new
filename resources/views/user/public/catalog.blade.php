@@ -20,6 +20,15 @@
 
 
                             <div class="filter js-fixed-filter-block">
+                              <div class="filter__top">
+                                <div class="filter__head" style="font-size: 20px;">
+                                  <!-- Выберите размер  -->
+                                  {{$category_name}}
+                                  <!-- <span class="count" style="display: none;"></span>
+                                        <i class="arrow"></i> -->
+                                </div>
+                                <div class="filter__clear" data-ga-action="Clean filter click">Сбросить</div>
+                              </div>
                                 <div class="filter__top css-hide-mobile css-hide-tablet">
                                     <div class="filter__head">
                                         Выберите размер <span class="count" style="display: none;">2</span>
@@ -37,8 +46,6 @@
                                 </div>
                                 <div class="filter__list filter__list_visible">
                                     <div class="filter__item">
-                                        <div class="filter__title">Одежда</div>
-
                                         <div class="filter__controls">
 
                                             <div class="filter__field">
@@ -48,7 +55,7 @@
                                                         data-hash="e7e2348470f3216841d083b92380e9d1" name="size-42"
                                                         id="size-42" class="checkbox__input">
                                                     <label for="size-42" class="checkbox__label"><span
-                                                            class="checkbox__label-text">XXS</span></label>
+                                                            class="checkbox__label-text">3-6мес (62-68см)</span></label>
                                                 </div>
                                             </div>
                                             <div class="filter__field">
@@ -58,7 +65,7 @@
                                                         data-hash="3585c8971b12a571eadab51bd26ddd0e" name="size-45"
                                                         id="size-45" class="checkbox__input">
                                                     <label for="size-45" class="checkbox__label"><span
-                                                            class="checkbox__label-text">XS</span></label>
+                                                            class="checkbox__label-text">3-6мес (62-68см)</span></label>
                                                 </div>
                                             </div>
                                             <div class="filter__field">
@@ -68,7 +75,7 @@
                                                         data-hash="df58f1953c9c5e0c80b57d6fe30982bf" name="size-3"
                                                         id="size-3" class="checkbox__input">
                                                     <label for="size-3" class="checkbox__label"><span
-                                                            class="checkbox__label-text">S</span></label>
+                                                            class="checkbox__label-text">3-6мес (62-68см)</span></label>
                                                 </div>
                                             </div>
                                             <div class="filter__field">
@@ -78,7 +85,7 @@
                                                         data-hash="98a9f9b162faf9afae72cd99c3e1ec0a" name="size-4"
                                                         id="size-4" class="checkbox__input">
                                                     <label for="size-4" class="checkbox__label"><span
-                                                            class="checkbox__label-text">M</span></label>
+                                                            class="checkbox__label-text">3-6мес (62-68см)</span></label>
                                                 </div>
                                             </div>
                                             <div class="filter__field">
@@ -88,7 +95,7 @@
                                                         data-hash="a6ec03210fbca0914375c863c5b6a237" name="size-5"
                                                         id="size-5" class="checkbox__input">
                                                     <label for="size-5" class="checkbox__label"><span
-                                                            class="checkbox__label-text">L</span></label>
+                                                            class="checkbox__label-text">3-6мес (62-68см)</span></label>
                                                 </div>
                                             </div>
                                             <div class="filter__field">
@@ -98,7 +105,7 @@
                                                         data-hash="5a0e6f2208f8d272ce151a71fc7e6b20" name="size-6"
                                                         id="size-6" class="checkbox__input">
                                                     <label for="size-6" class="checkbox__label"><span
-                                                            class="checkbox__label-text">XL</span></label>
+                                                            class="checkbox__label-text">3-6мес (62-68см)</span></label>
                                                 </div>
                                             </div>
                                             <div class="filter__field">
