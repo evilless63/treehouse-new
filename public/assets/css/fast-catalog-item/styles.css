@@ -13037,9 +13037,11 @@ a.findsize-download:hover {
     .t-scroll:not(.t-main) .header__holder {
         /* padding-top: 1.64286rem;
         padding-bottom: 1.92857rem */
-        padding-top: 0.2rem;
+        /* padding-top: 0.2rem; */
     padding-bottom: 1.3rem;
     border-bottom: #ebe6e1 1px solid;
+    padding-bottom: 3rem !important;
+    padding-top: 2rem;
     }
 }
 
