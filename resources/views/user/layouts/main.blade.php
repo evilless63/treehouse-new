@@ -273,13 +273,13 @@
                 <i class="header-search__icon"></i>
               </a> --}}
                             <div data-v-38163b6a="" data-v-92ab12e2="" class="search">
-                                <div data-v-88ff0f44="" data-v-38163b6a="" class="field field--white">
+                                <div data-v-88ff0f44="" data-v-38163b6a="" class="field">
                                     <div data-v-88ff0f44="" class="field__background"></div>
                                     <div data-v-88ff0f44="" class="field__container">
                                         <div data-v-88ff0f44="" class="field__icon field__icon--left"><svg
                                                 data-v-c4f273e2="" data-v-88ff0f44="" width="17" height="17"
                                                 viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg"
-                                                class="icon icon--white"
+                                                class="icon"
                                                 style="height: 16px; width: 16px; left: 50%; margin-left: -8px; margin-top: -8px; position: absolute; top: 50%;">
                                                 <path data-v-c4f273e2="" fill-rule="evenodd" clip-rule="evenodd"
                                                     d="M11.5074 12.3559C10.2896 13.3818 8.71698 14 7 14C3.13401 14 0 10.866 0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 8.71698 13.3818 10.2896 12.3559 11.5074L16.4243 15.5757L15.5757 16.4243L11.5074 12.3559ZM12.8 7C12.8 10.2033 10.2033 12.8 7 12.8C3.79675 12.8 1.2 10.2033 1.2 7C1.2 3.79675 3.79675 1.2 7 1.2C10.2033 1.2 12.8 3.79675 12.8 7Z">
@@ -619,6 +619,13 @@
             $("input.field__input").focusout(function() {
                 $('.field__placeholder').children('span').text("Поиск")
             })
+
+
+              !$('html').hasClass('t-media-head') ? $(".field:first").removeClass("field--white") : $(
+                        ".field:first").addClass("field--white")
+                        !$('html').hasClass('t-media-head') ? $(".icon:first").removeClass("icon--white") : $(
+                        ".icon:first").addClass("icon--white")
+
 
             $(window).scroll(function() {
                 if ($('html').hasClass('t-media-head')) {
