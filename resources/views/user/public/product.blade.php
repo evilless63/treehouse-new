@@ -70,7 +70,7 @@
     <div class="card-sizes__list-item">
       <div class="card-sizes card__sizes card-sizes__redesign">
         @foreach($colorVariation->sizeVariations as $sizeVariation)
-        <div class="card-sizes__item" size-id="{{$sizeVariation->id}}" color-variation-id="{{$colorVariation->id}}" onclick="addToWishList()">
+        <div class="card-sizes__item" size-id="{{$sizeVariation->id}}">
           <label class="card-sizes__label-wrap card-sizes__subscribe">
             <span class="card-sizes__label">
               <span class="card-sizes__title" >
@@ -325,8 +325,14 @@
                     <span class="product-button__label">{{__('userpanel.go_to_cart')}}</span>
                   </a>
 
-                  <input type="checkbox" class="product-favorite" id="wish-2" />
-                  <label for="wish-2" class="product-button product-favorite__label  js-product__wishlist">
+                  <input type="checkbox" class="product-favorite" id="wish-2" 
+                  @if ($wishlist->count() > 0)
+                    @if($wishlist->where('id', $colorVariation->id)->count() > 0)
+                      checked
+                    @endif
+                  @endif
+                  color-variation-id="{{$colorVariation->id}}" onclick="addToWishList(event)" />
+                  <label for="wish-2" class="product-button product-favorite__label  js-product__wishlist" >
                     <span class="svg-icon svg-heart-stroke--brown-light">
                     </span><span class="svg-icon svg-heart-fill--brown-light"></span>
                   </label>
@@ -551,8 +557,8 @@
               'color' => $related_product->color->slug,
               ])}}" class="catalog-list__link accompaniment-link" data-id="{{$related_product->id}}" data-type="accompaniment">
                       <div class="catalog-list__preview catalog-list__preview--round">
-                        <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" style="display:none"></span>
-                        <span class="catalog-list__fav js-add-fav"></span>
+                        <span class="catalog-list__fav js-add-fav" @if($wishlist->where('id', $related_product->id)->count() > 0) style="display:none" @endif color-variation-id="{{$related_product->id}}"></span>
+                        <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" @if($wishlist->where('id', $related_product->id)->count() == 0)  style="display:none" @endif color-variation-id="{{$related_product->id}}"></span>
                         <img src="{{asset($related_product->main_img())}}" alt="{{$related_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$related_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset($related_product->main_img())}}" class="catalog-list__image" />
                       </div>
 
@@ -676,8 +682,12 @@
               'color' => $recently_viewed_product->color->slug,
               ])}}" class="catalog-list__link last-view-link" data-type="last_view" data-id="105294" data-category="product_card" data-action="recommendations" data-label="click_last_view">
                     <div class="catalog-list__preview catalog-list__preview--round">
-                      <span class="catalog-list__fav catalog-list__fav__in js-rem-fav"></span>
-                      <span class="catalog-list__fav js-add-fav" style="display:none"></span>
+
+                        <span class="catalog-list__fav js-add-fav" @if($wishlist->where('id', $recently_viewed_product->id)->count() > 0) style="display:none" @endif color-variation-id="{{$recently_viewed_product->id}}"></span>
+                        <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" @if($wishlist->where('id', $recently_viewed_product->id)->count() == 0)  style="display:none" @endif color-variation-id="{{$recently_viewed_product->id}}"></span>
+
+                      
+                      
                       <img src="{{asset($recently_viewed_product->main_img())}}" alt="{{$recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" data-observer-src="{{asset($recently_viewed_product->main_img())}}" class="catalog-list__image" />
                     </div>
 
@@ -728,7 +738,7 @@
           </div>
         </div>
 
-        @if (!Auth::guest() && $wishlist <> false )
+        @if ($wishlist->count() > 0)
           <div class="card__item card__item_wishlist">
 
             <div class="card__item_head">
@@ -742,36 +752,37 @@
               <div class="catalog-list__holder">
                 <div class="catalog-list__row">
                   @foreach($wishlist as $wish_product)
-                  <div class="catalog-list__item wishlist-item" data-id="105294">
-                    <a href="/catalog/verhnaa-odezda/suba-iz-eko-meha-korotkaa-zeltyj" class="catalog-list__link wishlist-link" data-id="105294" data-type="wishlist-item">
+                  <div class="catalog-list__item accompaniment-item">
+
+                    <a href="{{route('user.product', [
+              'product' => $wish_product->product->slug,
+              'color' => $wish_product->color->slug,
+              ])}}" class="catalog-list__link accompaniment-link">
                       <div class="catalog-list__preview catalog-list__preview--round">
-                        <span class="catalog-list__fav catalog-list__fav__in js-rem-fav"></span>
-                        <span class="catalog-list__fav js-add-fav" style="display:none"></span>
-                        <img src="{{ asset($wish_product->img) }}" alt="{{$wish_product->title}}" data-observer-src="{{ asset($wish_product->img) }}" class="catalog-list__image" />
+                        <span class="catalog-list__fav js-add-fav" @if($wishlist->where('id', $wish_product->id)->count() > 0) style="display:none" @endif color-variation-id="{{$wish_product->id}}"></span>
+                        <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" @if($wishlist->where('id', $wish_product->id)->count() == 0)  style="display:none" @endif color-variation-id="{{$wish_product->id}}"></span>
+                        <img src="{{asset($wish_product->main_img)}}" alt="{{$wish_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" class="catalog-list__image" />
                       </div>
 
                       <div class="catalog-list__box">
-
                         <div class="catalog-list__info catalog-list__info_head">
-
-
-
-
-
                         </div>
 
                         <!-- Заголовок товара -->
                         <div class="catalog-list__title">
                           <div class="catalog-list__title-inn">
-                            <span>{{$wish_product->title}}</span>
+                            <span>{{$wish_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
                           </div>
                         </div>
                         <!-- Заголовок товара END -->
 
                         <!-- Цена и скидка товара -->
                         <div class="catalog-list__price">
-                          {{$wish_product->price}} {{__('userpanel.currency')}}
-                          <!-- <s class="catalog-list__price-old">{{$wish_product->price}} {{__('userpanel.currency')}}</s> -->
+                          @if($wish_product->sizeVariations->sortBy('price')->first()->price == $wish_product->sizeVariations->sortByDesc('price')->first()->price)
+                          {{$wish_product->sizeVariations->sortBy('price')->first()->price}}
+                          @else
+                          {{$wish_product->sizeVariations->sortBy('price')->first()->price}} - {{$wish_product->sizeVariations->sortByDesc('price')->first()->price}}
+                          @endif {{__('userpanel.currency')}}
                         </div>
                         <!-- Цена и скидка товара END -->
 
@@ -779,10 +790,10 @@
                     </a>
 
                     <!-- Цвета -->
-                    <!-- <ul class="catalog-list__colors catalog-list-colors">
-                          <li class="catalog-list-colors__color " title="Желтый" style="background: #ffd552">
-                          </li>
-                        </ul> -->
+                    <ul class="catalog-list__colors catalog-list-colors">
+                      <li class="catalog-list-colors__color " title="{{$wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}" style="background: {{$wish_product->color->hex}}">
+                      </li>
+                    </ul>
                     <!-- Цвета END -->
                   </div>
                   @endforeach
@@ -825,129 +836,6 @@
   <!-- Локализация для аб теста SITEDEV-2658 end -->
   
 </div>
-
-<script>
-    function changeColorVariationSelected(event) {
-      var dataSize = event.target.getAttribute('data-id')
-      console.log(dataSize)
-      var sizetitles = document.getElementsByClassName('sizes-selector__title')
-      console.log(sizetitles)
-      sizetitles.forEach(function(item, i, arr) {
-        item.setAttribute('data-size', dataSize)
-      })
-    }
-
-    function addToWishList(event){
-      var clientId = {{Auth::user() == null ? null : Auth::user()->id}}
-      console.log(clientId)
-      if(clientId == null) {
-        new window.basePopup({
-              context: {
-                  content: document.querySelector("#add_item-error-client-null").outerHTML
-              },
-              onOpened: function () {
-                  var e = this;
-                  $(".login__recover-link").off("click").on("click", (function (t) {
-                      t.preventDefault(), e.close()
-                  }))
-              }
-          })
-      }
-      $.ajax({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          url: "{{url('/add-to-wishlist')}}",
-          type: "post",
-          data: {
-            color_variation_id: $(event.target).attr('color-variation-id'),
-            size_id: $(event.target).attr('size-id'),
-            user_id: clientId,
-          },
-      })
-    }
-
-    function addToCartAjax() {
-
-        var dataSize = 999999999
-        sizetitles = document.getElementsByClassName('sizes-selector__title')
-        sizetitles.forEach(function(item, i, arr) {
-          console.log(item.getAttribute('data-size'))
-          dataSize = item.getAttribute('data-size')
-        })
-
-        if (dataSize == 999999999) {
-          new window.basePopup({
-                context: {
-                    content: document.querySelector("#add_item-error-size-not-founded").outerHTML
-                },
-                onOpened: function () {
-                    var e = this;
-                    $(".login__recover-link").off("click").on("click", (function (t) {
-                        t.preventDefault(), e.close()
-                    }))
-                }
-            })
-
-            return
-        }
-
-        var dataColor = {{$colorVariation->color->id}}
-        var dataProduct = {{$product->id}}
-        var qty = 1
-
-        $.ajax({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          url: "{{url('/card/add')}}",
-          type: "post",
-          data: {
-            size_variation_id: dataSize,
-            qty: qty,
-            product_id: dataProduct,
-            color_id: dataColor,
-          },
-          success: function(response) {
-            document.getElementById('AddToCartButton').style.display = "none"
-            document.getElementById('goToCartAfterAdded').style.display = "block"
-
-            new window.basePopup({
-              context: {
-                  content: document.querySelector("#add_item").outerHTML
-              },
-              onOpened: function () {
-                  var e, t = this;
-                  if ($(".login__recover-link").on("click", (function (e) {
-                          e.preventDefault(), t.close()
-                      })), o < 10 && $(".thanks-popup-ab").length > 0) {
-                      var n = ["one", "some", "many"][(e = o) % 100 > 4 && e % 100 < 20 ? 2 : [2, 0, 1, 1, 1, 2][e % 10 < 5 ? e % 10 : 5]],
-                          i = $(".thanks-popup-ab__locale-".concat(n)).val();
-                      $(".popupify-inner__thanks-b-copies").show().find(".copies")[1].innerText = "".concat(o, " ").concat(i)
-                  }
-              },
-              onClosed: function () {
-                  $(".popupify-inner__thanks-b-copies").hide()
-              }
-            })
-          },
-          error: function(response) {
-            new window.basePopup({
-                context: {
-                    content: document.querySelector("#add_item-error").outerHTML
-                },
-                onOpened: function () {
-                    var e = this;
-                    $(".login__recover-link").off("click").on("click", (function (t) {
-                        t.preventDefault(), e.close()
-                    }))
-                }
-            })
-          } 
-        })
-      }
-
-</script>
 @endsection
 
 @section('scripts')
@@ -959,6 +847,144 @@
 <script src="{{asset('assets/js/jquery-ui.js')}}"></script>
 <script src="{{asset('assets/js/autocomplete.js')}}"></script>
 
+
+<script>
+  function changeColorVariationSelected(event) {
+    var dataSize = event.target.getAttribute('data-id')
+    console.log(dataSize)
+    var sizetitles = document.getElementsByClassName('sizes-selector__title')
+    console.log(sizetitles)
+    sizetitles.forEach(function(item, i, arr) {
+      item.setAttribute('data-size', dataSize)
+    })
+  }
+
+  $('body').on('click', '.js-add-fav', function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    addToWishList(e)
+    $(".js-rem-fav", $(e.target).closest(".catalog-list__link")).show(), $(".js-add-fav", $(e.target).closest(".catalog-list__link")).hide()       
+  })
+
+  $('body').on('click', '.js-rem-fav', function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    addToWishList(e)
+    $(".js-add-fav", $(e.target).closest(".catalog-list__link")).show(), $(".js-rem-fav", $(e.target).closest(".catalog-list__link")).hide()
+  })
+
+  function addToWishList(event){
+    var clientId = {{Auth::user() == null ? null : Auth::user()->id}}
+    console.log(clientId)
+    console.log(event.target)
+    if(clientId == null) {
+      new window.basePopup({
+            context: {
+                content: document.querySelector("#add_item-error-client-null").outerHTML
+            },
+            onOpened: function () {
+                var e = this;
+                $(".login__recover-link").off("click").on("click", (function (t) {
+                    t.preventDefault(), e.close()
+                }))
+            }
+        })
+    }
+    $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "{{url('/add-to-wishlist')}}",
+        type: "post",
+        data: {
+          color_variation_id: $(event.target).attr('color-variation-id'),
+          // size_id: $(event.target).attr('size-id'),
+          user_id: clientId,
+        },
+    })
+  }
+
+  function addToCartAjax() {
+
+      var dataSize = 999999999
+      sizetitles = document.getElementsByClassName('sizes-selector__title')
+      sizetitles.forEach(function(item, i, arr) {
+        console.log(item.getAttribute('data-size'))
+        dataSize = item.getAttribute('data-size')
+      })
+
+      if (dataSize == 999999999) {
+        new window.basePopup({
+              context: {
+                  content: document.querySelector("#add_item-error-size-not-founded").outerHTML
+              },
+              onOpened: function () {
+                  var e = this;
+                  $(".login__recover-link").off("click").on("click", (function (t) {
+                      t.preventDefault(), e.close()
+                  }))
+              }
+          })
+
+          return
+      }
+
+      var dataColor = {{$colorVariation->color->id}}
+      var dataProduct = {{$product->id}}
+      var qty = 1
+
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "{{url('/card/add')}}",
+        type: "post",
+        data: {
+          size_variation_id: dataSize,
+          qty: qty,
+          product_id: dataProduct,
+          color_id: dataColor,
+        },
+        success: function(response) {
+          document.getElementById('AddToCartButton').style.display = "none"
+          document.getElementById('goToCartAfterAdded').style.display = "block"
+
+          new window.basePopup({
+            context: {
+                content: document.querySelector("#add_item").outerHTML
+            },
+            onOpened: function () {
+                var e, t = this;
+                if ($(".login__recover-link").on("click", (function (e) {
+                        e.preventDefault(), t.close()
+                    })), o < 10 && $(".thanks-popup-ab").length > 0) {
+                    var n = ["one", "some", "many"][(e = o) % 100 > 4 && e % 100 < 20 ? 2 : [2, 0, 1, 1, 1, 2][e % 10 < 5 ? e % 10 : 5]],
+                        i = $(".thanks-popup-ab__locale-".concat(n)).val();
+                    $(".popupify-inner__thanks-b-copies").show().find(".copies")[1].innerText = "".concat(o, " ").concat(i)
+                }
+            },
+            onClosed: function () {
+                $(".popupify-inner__thanks-b-copies").hide()
+            }
+          })
+        },
+        error: function(response) {
+          new window.basePopup({
+              context: {
+                  content: document.querySelector("#add_item-error").outerHTML
+              },
+              onOpened: function () {
+                  var e = this;
+                  $(".login__recover-link").off("click").on("click", (function (t) {
+                      t.preventDefault(), e.close()
+                  }))
+              }
+          })
+        } 
+      })
+    }
+
+</script>
 @endsection
 
 @section('head')

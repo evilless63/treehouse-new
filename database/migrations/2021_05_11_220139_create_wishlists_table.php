@@ -16,7 +16,7 @@ class CreateWishlistsTable extends Migration
         Schema::create('wishlists', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('size_id');
+            $table->integer('size_id')->nullable();
             $table->integer('color_variation_id');
             $table->integer('user_id');
         });

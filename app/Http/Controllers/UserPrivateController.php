@@ -15,6 +15,7 @@ use Cart;
 use App\Models\User;
 use App\Repositories\ProductRepository;
 use App\Repositories\CategoryRepository;
+use Database\Seeders\ColorVariationSeeder;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
 
@@ -42,14 +43,7 @@ class UserPrivateController extends Controller
         $this->customer_articles = Article::where('purpose', 'counteragents')->get();
         $this->categories = Category::all();
 
-        if (!Auth::guest()) {
-            $this->wishlist = Cart::instance('wishlist')->content();
-        } else {
-            $this->wishlist = false;
-        }
-
         View::share('mainmenu_categories', $this->mainmenu_categories);
-        View::share('wishlist', $this->wishlist);
         View::share('categories_menu', $this->categories_menu);
         View::share('company_articles', $this->company_articles);
         View::share('blog_articles', $this->blog_articles);
@@ -89,11 +83,12 @@ class UserPrivateController extends Controller
         return view('user.private.reset-password');
     }
 
-    public function createNewPassword() {
-        
+    public function createNewPassword()
+    {
+
         $curUser = User::where('id', Auth::user()->id)->first();
-        if(Hash::check(request()->old_password, $curUser->password)) {
-            if(request()->password == request()->password_confirmation) {
+        if (Hash::check(request()->old_password, $curUser->password)) {
+            if (request()->password == request()->password_confirmation) {
                 $curUser->password = Hash::make(request()->password);
                 $curUser->save();
                 return back()->with(['success', 'Пароль успешно изменен']);
@@ -108,7 +103,7 @@ class UserPrivateController extends Controller
     public function cart()
     {
         $currentDefaultAdress = Auth::user()->addresses()->where('is_default', 1)->first();
-        if($currentDefaultAdress == null) {
+        if ($currentDefaultAdress == null) {
             $currentDefaultAdress = new Address();
         }
         return view('user.private.cart')->with([
@@ -120,7 +115,7 @@ class UserPrivateController extends Controller
     }
 
 
-    
+
 
     public function makeOrderUnpayed()
     {
@@ -172,19 +167,21 @@ class UserPrivateController extends Controller
         return $body;
     }
 
-    public function addToWishList() {
-        $newItem = new Wishlist();
-        $newItem->user_id = request()->user_id;
-        $newItem->color_variation_id = request()->color_variation_id;
-        $newItem->size_id = request()->size_id;
-        $newItem->save();
-    }
-
-    public function removeFromWishList() {
+    public function addToWishList()
+    {
         $findedItem = Wishlist::where('user_id', request()->user_id)
-        ->where('color_variation_id',request()
-        ->color_variation_id)->where('size_id', request()->size_id)->first();
+            ->where('color_variation_id', request()
+                ->color_variation_id)->first();
 
-        $findedItem->destroy();
+        if ($findedItem !== null) {
+            $findedItem->delete();
+        } else {
+            $newItem = new Wishlist();
+            $newItem->user_id = request()->user_id;
+            $newItem->color_variation_id = request()->color_variation_id;
+            // $newItem->size_id = request()->size_id;
+            $newItem->save();
+        }
     }
+
 }

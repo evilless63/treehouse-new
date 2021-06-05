@@ -7527,35 +7527,35 @@
             e.mindbox && directCrm("performOperation", e.mindbox), e.ga_data && gaSendEvent(e.new_status ? "AddToWishlist" : "RemoveFromWishlist", [e.ga_data.id, e.ga_data.size, e.ga_data.available].join(", "))
         }), "json")
     }
-    $(".card").length > 0 && $(".catalog-list__preview").on("click", ".js-add-fav, .js-rem-fav", (function (e) {
-        e.stopImmediatePropagation(), e.stopPropagation(), e.preventDefault();
-        var t = $(e.target).closest(".catalog-list__link"),
-            n = t.data("id");
-        if ($(e.target).is(".js-add-fav"))
-            if (1 === $("input[name=wishlist-sizes-popup]", t).length) {
-                r(n, $("input[name=wishlist-sizes-popup]", t).first().val()), $(".js-add-fav", t).hide(), $(".js-rem-fav", t).show()
-            } else {
-                var a = window.location.origin + "/fast/fast-catalog/wishlist-sizes?product_id=" + n;
-                $.get(a, (function (e) {
-                    new i.a({
-                        context: {
-                            content: e
-                        },
-                        popupClass: "sizes-popup-mod",
-                        onOpened: function () {
-                            var e = this;
-                            $(document).off("click", ".card-sizes .js-label_in_popup").on("click", ".card-sizes .js-label_in_popup", (function (t) {
-                                t.preventDefault();
-                                var n = $(this).closest(".popupify-inner"),
-                                    i = n.data("key");
-                                r(i, $(this).closest(".card-sizes__item").find(".card-sizes__input").val()), e.close(), n = $(".catalog-list__link[data-id=" + i + "]"), $(".js-add-fav", n).hide(), $(".js-rem-fav", n).show()
-                            }))
-                        }
-                    })
-                }))
-            }
-        else r(n, null), $(".js-add-fav", t).show(), $(".js-rem-fav", t).hide()
-    }))
+    // $(".card").length > 0 && $(".catalog-list__preview").on("click", ".js-add-fav, .js-rem-fav", (function (e) {
+    //     e.stopImmediatePropagation(), e.stopPropagation(), e.preventDefault();
+    //     var t = $(e.target).closest(".catalog-list__link"),
+    //         n = t.data("id");
+    //     if ($(e.target).is(".js-add-fav"))
+    //         if (1 === $("input[name=wishlist-sizes-popup]", t).length) {
+    //             r(n, $("input[name=wishlist-sizes-popup]", t).first().val()), $(".js-add-fav", t).hide(), $(".js-rem-fav", t).show()
+    //         } else {
+    //             var a = window.location.origin + "/fast/fast-catalog/wishlist-sizes?product_id=" + n;
+    //             $.get(a, (function (e) {
+    //                 new i.a({
+    //                     context: {
+    //                         content: e
+    //                     },
+    //                     popupClass: "sizes-popup-mod",
+    //                     onOpened: function () {
+    //                         var e = this;
+    //                         $(document).off("click", ".card-sizes .js-label_in_popup").on("click", ".card-sizes .js-label_in_popup", (function (t) {
+    //                             t.preventDefault();
+    //                             var n = $(this).closest(".popupify-inner"),
+    //                                 i = n.data("key");
+    //                             r(i, $(this).closest(".card-sizes__item").find(".card-sizes__input").val()), e.close(), n = $(".catalog-list__link[data-id=" + i + "]"), $(".js-add-fav", n).hide(), $(".js-rem-fav", n).show()
+    //                         }))
+    //                     }
+    //                 })
+    //             }))
+    //         }
+    //     else r(n, null), $(".js-add-fav", t).show(), $(".js-rem-fav", t).hide()
+    // }))
 }, function (e, t, n) {
     "use strict";
     n.r(t);
@@ -7606,27 +7606,27 @@
     "use strict";
     n.r(t);
     var i = n(0);
-    if ($("#wish-1, #wish-2").length > 0) {
-        var r = document.querySelectorAll(".sizes-selector__item"),
-            a = 1 === r.length;
-        $("#wish-1, #wish-2").change((function (e) {
-            if ($(this).is(":checked")) return a ? $("#wish-1, #wish-2").prop("checked", !0) : $("#wish-1, #wish-2").prop("checked", !1), a ? sendWishlistItemsCard(r[0].getAttribute("data-id")) : new i.a({
-                context: {
-                    content: document.getElementById("popup-sizes-wishlist").outerHTML
-                },
-                popupClass: "sizes-popup-mod",
-                onOpened: function () {
-                    var e = this;
-                    $(document).off("click", "#popup-sizes-wishlist .js-label_in_popup").on("click", "#popup-sizes-wishlist .js-label_in_popup", (function () {
-                        e.close()
-                    })), $(document).off("change", "input[name=wishlist-sizes-popup]").on("change", "input[name=wishlist-sizes-popup]", (function () {
-                        $("#wish-1, #wish-2").prop("checked", !0), sendWishlistItemsCard(), e.close()
-                    }))
-                }
-            }), !1;
-            $("#wish-1, #wish-2").prop("checked", !1), sendWishlistItemsCard()
-        }))
-    }
+    // if ($("#wish-1, #wish-2").length > 0) {
+    //     var r = document.querySelectorAll(".sizes-selector__item"),
+    //         a = 1 === r.length;
+    //     $("#wish-1, #wish-2").change((function (e) {
+    //         if ($(this).is(":checked")) return a ? $("#wish-1, #wish-2").prop("checked", !0) : $("#wish-1, #wish-2").prop("checked", !1), a ? sendWishlistItemsCard(r[0].getAttribute("data-id")) : new i.a({
+    //             context: {
+    //                 content: document.getElementById("popup-sizes-wishlist").outerHTML
+    //             },
+    //             popupClass: "sizes-popup-mod",
+    //             onOpened: function () {
+    //                 var e = this;
+    //                 $(document).off("click", "#popup-sizes-wishlist .js-label_in_popup").on("click", "#popup-sizes-wishlist .js-label_in_popup", (function () {
+    //                     e.close()
+    //                 })), $(document).off("change", "input[name=wishlist-sizes-popup]").on("change", "input[name=wishlist-sizes-popup]", (function () {
+    //                     $("#wish-1, #wish-2").prop("checked", !0), sendWishlistItemsCard(), e.close()
+    //                 }))
+    //             }
+    //         }), !1;
+    //         $("#wish-1, #wish-2").prop("checked", !1), sendWishlistItemsCard()
+    //     }))
+    // }
 }, function (e, t) {
     $((function () {
         var e = document.querySelector(".card");
@@ -7694,59 +7694,59 @@
         }), "json")
     }
     $("#catalog-list, #lookbook-list").length > 0 && $(document).on("touchend click", ".js-add-fav, .js-rem-fav", (function (e) {
-        e.stopImmediatePropagation(), e.stopPropagation(), e.preventDefault();
-        var t = $(this).closest(".catalog-list__item"),
-            n = t.data("key");
-        if (0 === $(this).closest(".js-catalog-list-slider").length)
-            if ($(this).is(".js-add-fav")) {
-                var a = window.location.origin + "/fast/fast-catalog/wishlist-sizes?product_id=" + n,
-                    o = t.find(".catalog-list-sizes").data("one-size");
-                0 !== o.length ? (r(n, o), $(".js-add-fav", t).hide(), $(".js-rem-fav", t).show()) : $.get(a, (function (e) {
-                    new i.a({
-                        context: {
-                            content: e || "Ошибка"
-                        },
-                        popupClass: "sizes-popup-mod",
-                        onOpened: function () {
-                            var e = this;
-                            $(".card-sizes .js-label_in_popup").on("click", (function (t) {
-                                t.preventDefault();
-                                var n = $(this).closest(".popupify-inner"),
-                                    i = n.data("key");
-                                r(i, $(this).closest(".card-sizes__item").find(".card-sizes__input").val()), e.close(), n = $(".catalog-list__item[data-key=" + i + "]"), $(".js-add-fav", n).hide(), $(".js-rem-fav", n).show()
-                            }))
-                        }
-                    })
-                }))
-            } else r(n, null), $(".js-add-fav", t).show(), $(".js-rem-fav", t).hide();
-        else {
-            var s = $(e.target).closest(".catalog-list__link"),
-                c = s.data("id");
-            if ($(e.target).is(".js-add-fav"))
-                if (1 === $("input[name=wishlist-sizes-popup]", s).length) {
-                    r(c, $("input[name=wishlist-sizes-popup]", s).first().val()), $(".js-add-fav", s).hide(), $(".js-rem-fav", s).show()
-                } else {
-                    var l = window.location.origin + "/fast/fast-catalog/wishlist-sizes?product_id=" + c;
-                    $.get(l, (function (e) {
-                        new i.a({
-                            context: {
-                                content: e
-                            },
-                            popupClass: "sizes-popup-mod",
-                            onOpened: function () {
-                                var e = this;
-                                $(document).off("click", ".card-sizes .js-label_in_popup").on("click", ".card-sizes .js-label_in_popup", (function (t) {
-                                    t.preventDefault();
-                                    var n = $(this).closest(".popupify-inner"),
-                                        i = n.data("key");
-                                    r(i, $(this).closest(".card-sizes__item").find(".card-sizes__input").val()), e.close(), n = $(".catalog-list__link[data-id=" + i + "]"), $(".js-add-fav", n).hide(), $(".js-rem-fav", n).show()
-                                }))
-                            }
-                        })
-                    }))
-                }
-            else r(c, null), $(".js-add-fav", s).show(), $(".js-rem-fav", s).hide()
-        }
+        // e.stopImmediatePropagation(), e.stopPropagation(), e.preventDefault();
+        // var t = $(this).closest(".catalog-list__item"),
+        //     n = t.data("key");
+        // if (0 === $(this).closest(".js-catalog-list-slider").length)
+        //     if ($(this).is(".js-add-fav")) {
+        //         var a = window.location.origin + "/fast/fast-catalog/wishlist-sizes?product_id=" + n,
+        //             o = t.find(".catalog-list-sizes").data("one-size");
+        //         0 !== o.length ? (r(n, o), $(".js-add-fav", t).hide(), $(".js-rem-fav", t).show()) : $.get(a, (function (e) {
+        //             new i.a({
+        //                 context: {
+        //                     content: e || "Ошибка"
+        //                 },
+        //                 popupClass: "sizes-popup-mod",
+        //                 onOpened: function () {
+        //                     var e = this;
+        //                     $(".card-sizes .js-label_in_popup").on("click", (function (t) {
+        //                         t.preventDefault();
+        //                         var n = $(this).closest(".popupify-inner"),
+        //                             i = n.data("key");
+        //                         r(i, $(this).closest(".card-sizes__item").find(".card-sizes__input").val()), e.close(), n = $(".catalog-list__item[data-key=" + i + "]"), $(".js-add-fav", n).hide(), $(".js-rem-fav", n).show()
+        //                     }))
+        //                 }
+        //             })
+        //         }))
+        //     } else r(n, null), $(".js-add-fav", t).show(), $(".js-rem-fav", t).hide();
+        // else {
+        //     var s = $(e.target).closest(".catalog-list__link"),
+        //         c = s.data("id");
+        //     if ($(e.target).is(".js-add-fav"))
+        //         if (1 === $("input[name=wishlist-sizes-popup]", s).length) {
+        //             r(c, $("input[name=wishlist-sizes-popup]", s).first().val()), $(".js-add-fav", s).hide(), $(".js-rem-fav", s).show()
+        //         } else {
+        //             var l = window.location.origin + "/fast/fast-catalog/wishlist-sizes?product_id=" + c;
+        //             $.get(l, (function (e) {
+        //                 new i.a({
+        //                     context: {
+        //                         content: e
+        //                     },
+        //                     popupClass: "sizes-popup-mod",
+        //                     onOpened: function () {
+        //                         var e = this;
+        //                         $(document).off("click", ".card-sizes .js-label_in_popup").on("click", ".card-sizes .js-label_in_popup", (function (t) {
+        //                             t.preventDefault();
+        //                             var n = $(this).closest(".popupify-inner"),
+        //                                 i = n.data("key");
+        //                             r(i, $(this).closest(".card-sizes__item").find(".card-sizes__input").val()), e.close(), n = $(".catalog-list__link[data-id=" + i + "]"), $(".js-add-fav", n).hide(), $(".js-rem-fav", n).show()
+        //                         }))
+        //                     }
+        //                 })
+        //             }))
+        //         }
+        //     else r(c, null), $(".js-add-fav", s).show(), $(".js-rem-fav", s).hide()
+        // }
     }))
 }, function (e, t) {}, function (e, t) {
     $((function () {

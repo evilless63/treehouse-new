@@ -19,6 +19,7 @@ use App\Models\Article;
 // use Phpfastcache\Helper\Psr16Adapter;
 use App\Models\InstagramPost;
 use App\Models\Slider;
+use App\Models\Wishlist;
 
 class UserPublicController extends Controller
 {
@@ -27,11 +28,11 @@ class UserPublicController extends Controller
     private $productRepository;
     public $mainmenu_categories;
     public $categories_menu;
-    public $wishlist;
     public $company_articles;
     public $blog_articles;
     public $customer_articles;
     public $categories;
+    public $wishlist;
 
     public function __construct()
     {
@@ -45,14 +46,7 @@ class UserPublicController extends Controller
         $this->customer_articles = Article::where('purpose', 'counteragents')->get();
         $this->categories = Category::all();
 
-        if (!Auth::guest()) {
-            $this->wishlist = Cart::instance('wishlist')->content();
-        } else {
-            $this->wishlist = false;
-        }
-
         View::share('mainmenu_categories', $this->mainmenu_categories);
-        View::share('wishlist', $this->wishlist);
         View::share('categories_menu', $this->categories_menu);
         View::share('company_articles', $this->company_articles);
         View::share('blog_articles', $this->blog_articles);
@@ -70,16 +64,14 @@ class UserPublicController extends Controller
         $downLeftBanner = Banner::where('banner_position', 'DOWN_LEFT')->first();
         $downRightBanner = Banner::where('banner_position', 'DOWN_RIGHT')->first();
         $videoBanner = Slider::first();
-        
+
         // $instagram_posts = InstagramPost::all();
         $instagram_posts = collect([]); //TODO treehouse
-        return view('user.public.index', compact('new_products', 'bestseller_products', 'instagram_posts', 'topLeftBanner', 'topRightBanner', 'downLeftBanner', 'downRightBanner','videoBanner'));
+        return view('user.public.index', compact('new_products', 'bestseller_products', 'instagram_posts', 'topLeftBanner', 'topRightBanner', 'downLeftBanner', 'downRightBanner', 'videoBanner'));
     }
 
     public function category($slug = null)
     {
-
-        $wishlist = false;
 
         if ($slug == null) {
             $category = Category::where('id', 1)->first();
@@ -120,7 +112,7 @@ class UserPublicController extends Controller
         session()->put('recently_viewed_ids', $recently_viewed_ids);
         $recently_viewed_products = ColorVariation::whereIn('id', $recently_viewed_ids)->get();
 
-        return view('user.public.catalog', compact('all_categories', 'wishlist', 'products_by_category', 'recently_viewed_products', 'category_name'));
+        return view('user.public.catalog', compact('all_categories', 'products_by_category', 'recently_viewed_products', 'category_name'));
     }
 
     public function login()
@@ -135,26 +127,31 @@ class UserPublicController extends Controller
 
     public function product($product_slug, $color_slug)
     {
-        // dd(geoip(request()->ip()));
 
-        // if(!Auth::guest()) {
-        //     $wishlist = Auth::user()->wishlists();
-        // } else {
-        $wishlist = false;
-        // }
+        $wishlistCollection = collect();
+        if (Auth::guest() == false) {
+            $dbWishlistPositions = Wishlist::where('user_id', Auth::user()->id)->get();
+            foreach ($dbWishlistPositions as $position) {
+                $wishlistCollection->push(ColorVariation::where('id', $position->color_variation_id)->first());
+            }
+            $this->wishlist = $wishlistCollection->unique();
+        } else {
+            $this->wishlist = $wishlistCollection;
+        }
+        $wishlist = $this->wishlist;
         $product = Product::where('slug', $product_slug)->first();
         $color = Color::where('slug', $color_slug)->first();
         $colorVariation = ColorVariation::where('product_id', $product->id)->where('color_id', $color->id)->first();
-        
+
         $productLangFields = $product->localization()
-        ->where('lang', LaravelLocalization::getCurrentLocale())
-        ->first();
-        
+            ->where('lang', LaravelLocalization::getCurrentLocale())
+            ->first();
+
         // $related_products = $this->productRepository->getRelatedProducts($id);
         $related_products = collect();
-        foreach($colorVariation->categories()->get() as $category) {
-            foreach($category->colorVariations()->get() as $colorVariationCat)
-            $related_products->push($colorVariationCat); 
+        foreach ($colorVariation->categories()->get() as $category) {
+            foreach ($category->colorVariations()->get() as $colorVariationCat)
+                $related_products->push($colorVariationCat);
         }
         $related_products = $related_products->shuffle();
         // $images = $this->productRepository->getGallery($id);
@@ -172,7 +169,7 @@ class UserPublicController extends Controller
         session()->put('recently_viewed_ids', $recently_viewed_ids);
         $recently_viewed_products = ColorVariation::whereIn('id', $recently_viewed_ids)->get();
 
-        return view('user.public.product', compact('wishlist', 'related_products', 'images', 'product', 'recently_viewed_products', 'colorVariation', 'productLangFields'));
+        return view('user.public.product', compact('related_products', 'images', 'product', 'recently_viewed_products', 'colorVariation', 'productLangFields', 'wishlist'));
     }
 
     public function articles()
@@ -184,8 +181,8 @@ class UserPublicController extends Controller
     {
         $article = Article::where('slug', $slug)->first();
         $articleLangFields = $article->localization()
-        ->where('lang', LaravelLocalization::getCurrentLocale())
-        ->first();
+            ->where('lang', LaravelLocalization::getCurrentLocale())
+            ->first();
         return view('user.public.blog_page')->with([
             'article' => $article,
             'articleLangFields' => $articleLangFields
