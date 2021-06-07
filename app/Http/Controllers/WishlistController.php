@@ -18,6 +18,8 @@ class WishlistController extends Controller
 
         $wishlist->create();
 
+        return Auth::user() !== null ? Wishlist::where('user_id', Auth::user()->id)->get() : 0;
+
     }
 
     public function removeFromWishList($request)
@@ -27,5 +29,7 @@ class WishlistController extends Controller
         ->where('size_variation_id', $request->size_variation_id);
 
         $wishlist->delete();
+
+        return Auth::user() !== null ? Wishlist::where('user_id', Auth::user()->id)->get() : 0;
     }
 }

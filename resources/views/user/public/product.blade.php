@@ -246,7 +246,14 @@
 
                   <h1 class="card-info__title" data-id="105561" data-category="Трикотаж">
                     {{$colorVariation->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}
+                    
+                    @if(!$colorVariation->hasSizesInStock())
+                    <br>
+                    <br>
+                    Товар закончился!
+                    @endif
                   </h1>
+                  @if($colorVariation->hasSizesInStock())
                   <div class="card-info__price">
                     {{-- @if($colorVariation->sizeVariations->sortBy('price')->first()->price == $colorVariation->sizeVariations->sortByDesc('price')->first()->price)
                     {{$colorVariation->sizeVariations->sortBy('price')->first()->price}}
@@ -255,6 +262,7 @@
                     @endif {{__('userpanel.currency')}} --}}
                     {{$colorVariation->sizeVariations->where('stock','>',0)->first()->price}} {{__('userpanel.currency')}}
                   </div>
+                  @endif
                 </div>
               </div>
               <!-- Тэги, заголовок, цена END -->
@@ -286,6 +294,7 @@
               <!-- Цвета END -->
 
               <!-- Размеры NEW -->
+              @if($colorVariation->hasSizesInStock())
               <div class="sizes-selector">
                 {{-- <div class="sizes-selector__title" data-size="">
                   {{__('userpanel.choose_size')}}
@@ -307,6 +316,7 @@
                   @endforeach
                 </ul>
               </div>
+              @endif
               <!-- Размеры NEW END -->
 
               <!-- Таблица размеров и обмеров -->
@@ -318,10 +328,10 @@
               <!-- Таблица размеров и обмеров END -->
 
               <!---------- Кнопки ----------->
-
+              
               <div class="product-controls product-description__section">
                 <div class="product-controls__row">
-
+                  @if($colorVariation->hasSizesInStock())
                   <div class="product-button js-product__cart product-button--main" onclick="addToCartAjax()" id="AddToCartButton">
                     <span class="product-button__label css-hide-mobile css-hide-tablet">{{__('userpanel.add_to_cart')}}</span>
                     <span class="product-button__label css-hide-desktop" >{{__('userpanel.add_to_cart')}}, {{$product->price}} {{__('userpanel.currency')}}</span>
@@ -330,7 +340,7 @@
                   <a class="product-button product-to-cart"  id="goToCartAfterAdded" href="/cart">
                     <span class="product-button__label">{{__('userpanel.go_to_cart')}}</span>
                   </a>
-
+                  @endif
                   <input type="checkbox" class="product-favorite" id="wish-2" 
                   @if ($wishlist->count() > 0)
                     @if($wishlist->where('id', $colorVariation->id)->count() > 0)
@@ -346,7 +356,7 @@
 
 
               </div>
-
+              
 
               <div class="card-product-details">
                 <h4 class="card-product-details__title">{{__('userpanel.product_details')}}</h4>
@@ -913,6 +923,16 @@
           // size_id: $(event.target).attr('size-id'),
           user_id: clientId,
         },
+        success: function(response) {
+          console.log(response)
+          var wishlistCount = document.getElementById('wishlist-count')
+          if(response > 0) {
+            wishlistCount.style.display = "block"            
+          } else {
+            wishlistCount.style.display = "none"
+          }
+          wishlistCount.innerHTML = response
+        }
     })
   }
 

@@ -1171,61 +1171,61 @@
             e.mindbox && directCrm("performOperation", e.mindbox), e.ga_data && gaSendEvent(e.new_status ? "AddToWishlist" : "RemoveFromWishlist", [e.ga_data.id, e.ga_data.size, e.ga_data.available].join(", "))
         }), "json")
     }
-    $("#catalog-list, #lookbook-list").length > 0 && $(document).on("touchend click", ".js-add-fav, .js-rem-fav", (function (e) {
-        e.stopImmediatePropagation(), e.stopPropagation(), e.preventDefault();
-        var t = $(this).closest(".catalog-list__item"),
-            n = t.data("key");
-        if (0 === $(this).closest(".js-catalog-list-slider").length)
-            if ($(this).is(".js-add-fav")) {
-                var s = window.location.origin + "/fast/fast-catalog/wishlist-sizes?product_id=" + n,
-                    a = t.find(".catalog-list-sizes").data("one-size");
-                0 !== a.length ? (o(n, a), $(".js-add-fav", t).hide(), $(".js-rem-fav", t).show()) : $.get(s, (function (e) {
-                    new i.a({
-                        context: {
-                            content: e || "Ошибка"
-                        },
-                        popupClass: "sizes-popup-mod",
-                        onOpened: function () {
-                            var e = this;
-                            $(".card-sizes .js-label_in_popup").on("click", (function (t) {
-                                t.preventDefault();
-                                var n = $(this).closest(".popupify-inner"),
-                                    i = n.data("key");
-                                o(i, $(this).closest(".card-sizes__item").find(".card-sizes__input").val()), e.close(), n = $(".catalog-list__item[data-key=" + i + "]"), $(".js-add-fav", n).hide(), $(".js-rem-fav", n).show()
-                            }))
-                        }
-                    })
-                }))
-            } else o(n, null), $(".js-add-fav", t).show(), $(".js-rem-fav", t).hide();
-        else {
-            var r = $(e.target).closest(".catalog-list__link"),
-                c = r.data("id");
-            if ($(e.target).is(".js-add-fav"))
-                if (1 === $("input[name=wishlist-sizes-popup]", r).length) {
-                    o(c, $("input[name=wishlist-sizes-popup]", r).first().val()), $(".js-add-fav", r).hide(), $(".js-rem-fav", r).show()
-                } else {
-                    var l = window.location.origin + "/fast/fast-catalog/wishlist-sizes?product_id=" + c;
-                    $.get(l, (function (e) {
-                        new i.a({
-                            context: {
-                                content: e
-                            },
-                            popupClass: "sizes-popup-mod",
-                            onOpened: function () {
-                                var e = this;
-                                $(document).off("click", ".card-sizes .js-label_in_popup").on("click", ".card-sizes .js-label_in_popup", (function (t) {
-                                    t.preventDefault();
-                                    var n = $(this).closest(".popupify-inner"),
-                                        i = n.data("key");
-                                    o(i, $(this).closest(".card-sizes__item").find(".card-sizes__input").val()), e.close(), n = $(".catalog-list__link[data-id=" + i + "]"), $(".js-add-fav", n).hide(), $(".js-rem-fav", n).show()
-                                }))
-                            }
-                        })
-                    }))
-                }
-            else o(c, null), $(".js-add-fav", r).show(), $(".js-rem-fav", r).hide()
-        }
-    }))
+    // $("#catalog-list, #lookbook-list").length > 0 && $(document).on("touchend click", ".js-add-fav, .js-rem-fav", (function (e) {
+    //     e.stopImmediatePropagation(), e.stopPropagation(), e.preventDefault();
+    //     var t = $(this).closest(".catalog-list__item"),
+    //         n = t.data("key");
+    //     if (0 === $(this).closest(".js-catalog-list-slider").length)
+    //         if ($(this).is(".js-add-fav")) {
+    //             var s = window.location.origin + "/fast/fast-catalog/wishlist-sizes?product_id=" + n,
+    //                 a = t.find(".catalog-list-sizes").data("one-size");
+    //             0 !== a.length ? (o(n, a), $(".js-add-fav", t).hide(), $(".js-rem-fav", t).show()) : $.get(s, (function (e) {
+    //                 new i.a({
+    //                     context: {
+    //                         content: e || "Ошибка"
+    //                     },
+    //                     popupClass: "sizes-popup-mod",
+    //                     onOpened: function () {
+    //                         var e = this;
+    //                         $(".card-sizes .js-label_in_popup").on("click", (function (t) {
+    //                             t.preventDefault();
+    //                             var n = $(this).closest(".popupify-inner"),
+    //                                 i = n.data("key");
+    //                             o(i, $(this).closest(".card-sizes__item").find(".card-sizes__input").val()), e.close(), n = $(".catalog-list__item[data-key=" + i + "]"), $(".js-add-fav", n).hide(), $(".js-rem-fav", n).show()
+    //                         }))
+    //                     }
+    //                 })
+    //             }))
+    //         } else o(n, null), $(".js-add-fav", t).show(), $(".js-rem-fav", t).hide();
+    //     else {
+    //         var r = $(e.target).closest(".catalog-list__link"),
+    //             c = r.data("id");
+    //         if ($(e.target).is(".js-add-fav"))
+    //             if (1 === $("input[name=wishlist-sizes-popup]", r).length) {
+    //                 o(c, $("input[name=wishlist-sizes-popup]", r).first().val()), $(".js-add-fav", r).hide(), $(".js-rem-fav", r).show()
+    //             } else {
+    //                 var l = window.location.origin + "/fast/fast-catalog/wishlist-sizes?product_id=" + c;
+    //                 $.get(l, (function (e) {
+    //                     new i.a({
+    //                         context: {
+    //                             content: e
+    //                         },
+    //                         popupClass: "sizes-popup-mod",
+    //                         onOpened: function () {
+    //                             var e = this;
+    //                             $(document).off("click", ".card-sizes .js-label_in_popup").on("click", ".card-sizes .js-label_in_popup", (function (t) {
+    //                                 t.preventDefault();
+    //                                 var n = $(this).closest(".popupify-inner"),
+    //                                     i = n.data("key");
+    //                                 o(i, $(this).closest(".card-sizes__item").find(".card-sizes__input").val()), e.close(), n = $(".catalog-list__link[data-id=" + i + "]"), $(".js-add-fav", n).hide(), $(".js-rem-fav", n).show()
+    //                             }))
+    //                         }
+    //                     })
+    //                 }))
+    //             }
+    //         else o(c, null), $(".js-add-fav", r).show(), $(".js-rem-fav", r).hide()
+    //     }
+    // }))
 }, function (e, t) {}, function (e, t) {
     $((function () {
         var e = $(".city-button__button"),

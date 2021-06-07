@@ -298,7 +298,7 @@
                             <a href="{{ LaravelLocalization::localizeUrl('/user/wishlist') }}"
                                 class="favorite-button">
                                 <i class="favorite-button__icon">
-                                    <span class="favorite-button__count" data-dkey="wishlist"
+                                    <span class="favorite-button__count" id="wishlist-count" data-dkey="wishlist"
                                     @if($wishlist->count() == 0) style="display: none" @endif>{{$wishlist->count()}}</span>
                                 </i>
                             </a>

@@ -222,5 +222,7 @@ class UserPrivateController extends Controller
             // $newItem->size_id = request()->size_id;
             $newItem->save();
         }
+
+        return Auth::user() !== null ? Wishlist::where('user_id', Auth::user()->id)->get()->count() : 0;
     }
 }

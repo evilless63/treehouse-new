@@ -84,7 +84,21 @@ class UserPublicController extends Controller
     {
         // $new_products = Product::where('is_visible','1')->where('is_new', '1')->get();
         $new_products = ColorVariation::where('is_new', '1')->get();
+        foreach($new_products as $k => $v) {
+            if(!$v->hasSizesInStock()) {
+                $new_products->forget($k);
+            }
+        }
+
         $bestseller_products = ColorVariation::where('is_bestseller', '1')->get();
+        foreach($new_products as $k => $v) {
+            if(!$v->hasSizesInStock()) {
+                $new_products->forget($k);
+            }
+        }
+        // dd(ColorVariation::where('is_bestseller', '1')->with(['sizeVariations' => function ($query) {
+        //     $query->where('stock', '>', '0');
+        //   }])->get());
         $topLeftBanner = Banner::where('banner_position', 'TOP-LEFT')->first();
         $topRightBanner = Banner::where('banner_position', 'TOP-RIGHT')->first();
         $downLeftBanner = Banner::where('banner_position', 'DOWN_LEFT')->first();
@@ -112,31 +126,26 @@ class UserPublicController extends Controller
         }
 
         $all_categories = Category::all();
-        // if(!$id) {
-        //     // $products_by_category = $this->productRepository->getProductsByCategoryId(1);
-        //     $products_by_category = $category->products();
-        // } else {
-        //     // $products_by_category = $this->productRepository->getProductsByCategoryId($id);
-        // }
-        // $products_by_category = $category->colorVariations()->get();
-        // $collectionColorsVariations = collect();
-        // foreach ($products_by_category as $product) {
-        //     foreach ($product->colorVariations as $colorVariation) {
-        //         $collectionColorsVariations->push($colorVariation);
-        //     }
-        // }
-
-        // $products_by_category = $collectionColorsVariations->shuffle();
 
         $products_by_category = $category->colorVariations()->get()->shuffle();
+        foreach($products_by_category as $k => $v) {
+            if(!$v->hasSizesInStock()) {
+                $products_by_category->forget($k);
+            }
+        }
+
         $recently_viewed_ids = session()->get('recently_viewed_ids');
         if (!$recently_viewed_ids) {
             $recently_viewed_ids = [];
         }
 
-        // array_push($recently_viewed_ids, $id);
         session()->put('recently_viewed_ids', $recently_viewed_ids);
         $recently_viewed_products = ColorVariation::whereIn('id', $recently_viewed_ids)->get();
+        foreach($recently_viewed_products as $k => $v) {
+            if(!$v->hasSizesInStock()) {
+                $recently_viewed_products->forget($k);
+            }
+        }
 
         return view('user.public.catalog', compact('all_categories', 'products_by_category', 'recently_viewed_products', 'category_name'));
     }
@@ -179,6 +188,11 @@ class UserPublicController extends Controller
                 $related_products->push($colorVariationCat);
         }
         $related_products = $related_products->shuffle();
+        foreach($related_products as $k => $v) {
+            if(!$v->hasSizesInStock()) {
+                $related_products->forget($k);
+            }
+        }
         // $images = $this->productRepository->getGallery($id);
         $images = $colorVariation->images; //TODO treehouse
         // $product = Product::find($id);
@@ -193,7 +207,11 @@ class UserPublicController extends Controller
         array_push($recently_viewed_ids, $colorVariation->id);
         session()->put('recently_viewed_ids', $recently_viewed_ids);
         $recently_viewed_products = ColorVariation::whereIn('id', $recently_viewed_ids)->get();
-
+        foreach($recently_viewed_products as $k => $v) {
+            if(!$v->hasSizesInStock()) {
+                $recently_viewed_products->forget($k);
+            }
+        }
         return view('user.public.product', compact('related_products', 'images', 'product', 'recently_viewed_products', 'colorVariation', 'productLangFields', 'wishlist'));
     }
 

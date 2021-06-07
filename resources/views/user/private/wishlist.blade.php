@@ -93,7 +93,7 @@
                                                         </div>
                                                     </a><a href="#" class="card-sizes__guide">справочник по размерам</a>
                                                 </div>
-                                                @if($wishlist_item->inStock())
+                                                @if($wishlist_item->hasSizesInStock())
                                                 <div class="card__button-wrapper">
                                                     <button href="#sizes-1503358_105669" data-model-id="1503358_105669"
                                                         type="button"

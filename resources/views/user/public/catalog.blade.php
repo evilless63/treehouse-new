@@ -1,6 +1,19 @@
 @extends('user.layouts.main')
 
 @section('content')
+    <div style="display:none">
+        <div id="add_item-error-client-null" class="popup popupify-inner">
+            <h4 class="popupify-inner__title">
+                Ошибка! </h4>
+            <p>
+                Для добавления позиции в wishlist необходимо авторизоваться или зарегистрироваться. </p>
+
+            <div class="login__recover">
+                <a href="#" class="login__recover-link login__recover-link--redesign">
+                    Ок </a>
+            </div>
+        </div>
+    </div>
     <div class="catalog">
         <div class="catalog__holder">
             <div class="page__row">
@@ -9,9 +22,9 @@
                     <div class="categories catalog__categories">
                         @include('user.includes.sidebar_categories', ['items'=>$categories_menu->roots()])
                         <!-- <div class="categories__item ">
-                              <a href="/catalog/skidki/mencollection" class="categories__link categories__link--red">Sale до
-                                -50%</a>
-                            </div> -->
+                                                  <a href="/catalog/skidki/mencollection" class="categories__link categories__link--red">Sale до
+                                                    -50%</a>
+                                                </div> -->
                     </div>
                 </div>
                 <div class="page__middle page__middle--catalog">
@@ -137,9 +150,11 @@
 ]) }}"
                                                         class="catalog-list__link" data-pjax="0">
                                                         <div class="catalog-list__preview">
+                                                            <span class="catalog-list__fav js-add-fav" @if ($wishlist->where('id', $product_by_category->id)->count() > 0) style="display:none" @endif
+                                                                color-variation-id="{{ $product_by_category->id }}"></span>
                                                             <span class="catalog-list__fav catalog-list__fav__in js-rem-fav"
-                                                                style="display:none"></span>
-                                                            <span class="catalog-list__fav js-add-fav"></span>
+                                                                @if ($wishlist->where('id', $product_by_category->id)->count() == 0) style="display:none" @endif
+                                                                color-variation-id="{{ $product_by_category->id }}"></span>
                                                             <img src="{{ asset($product_by_category->main_img()) }}"
                                                                 alt="{{ $product_by_category->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
                                                                 class="catalog-list__image" />
@@ -245,10 +260,10 @@
                                                     data-id="105294" data-category="product_card"
                                                     data-action="recommendations" data-label="click_last_view">
                                                     <div class="catalog-list__preview catalog-list__preview--round">
-                                                        <span
-                                                            class="catalog-list__fav catalog-list__fav__in js-rem-fav"></span>
-                                                        <span class="catalog-list__fav js-add-fav"
-                                                            style="display:none"></span>
+                                                        <span class="catalog-list__fav js-add-fav" @if ($wishlist->where('id', $recently_viewed_product->id)->count() > 0) style="display:none" @endif
+                                                            color-variation-id="{{ $recently_viewed_product->id }}"></span>
+                                                        <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" @if ($wishlist->where('id', $recently_viewed_product->id)->count() == 0) style="display:none" @endif
+                                                            color-variation-id="{{ $recently_viewed_product->id }}"></span>
                                                         <img src="{{ asset($recently_viewed_product->main_img()) }}"
                                                             alt="{{ $recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
                                                             data-observer-src="{{ asset($recently_viewed_product->main_img()) }}"
@@ -310,7 +325,7 @@
                         </div>
 
 
-                        @if (!Auth::guest() && $wishlist != false)
+                        @if ($wishlist->count() > 0)
                             <div class="card__item card__item_wishlist">
 
                                 <div class="card__item_head">
@@ -325,44 +340,47 @@
                                     <div class="catalog-list__holder">
                                         <div class="catalog-list__row">
                                             @foreach ($wishlist as $wish_product)
-                                                <div class="catalog-list__item wishlist-item" data-id="105294">
-                                                    <a href="/catalog/verhnaa-odezda/suba-iz-eko-meha-korotkaa-zeltyj"
-                                                        class="catalog-list__link wishlist-link" data-id="105294"
-                                                        data-type="wishlist-item">
+                                                <div class="catalog-list__item accompaniment-item">
+
+                                                    <a href="{{ route('user.product', [
+    'product' => $wish_product->product->slug,
+    'color' => $wish_product->color->slug,
+]) }}"
+                                                        class="catalog-list__link accompaniment-link">
                                                         <div class="catalog-list__preview catalog-list__preview--round">
-                                                            <span
-                                                                class="catalog-list__fav catalog-list__fav__in js-rem-fav"></span>
-                                                            <span class="catalog-list__fav js-add-fav"
-                                                                style="display:none"></span>
-                                                            <img src="{{ asset($wish_product->img) }}"
-                                                                alt="{{ $wish_product->title }}"
-                                                                data-observer-src="{{ asset($wish_product->img) }}"
+                                                            <span class="catalog-list__fav js-add-fav" @if ($wishlist->where('id', $wish_product->id)->count() > 0) style="display:none" @endif
+                                                                color-variation-id="{{ $wish_product->id }}"></span>
+                                                            <span class="catalog-list__fav catalog-list__fav__in js-rem-fav"
+                                                                @if ($wishlist->where('id', $wish_product->id)->count() == 0) style="display:none" @endif
+                                                                color-variation-id="{{ $wish_product->id }}"></span>
+                                                            <img src="{{ asset($wish_product->main_img) }}"
+                                                                alt="{{ $wish_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }} {{ $wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
                                                                 class="catalog-list__image" />
                                                         </div>
 
                                                         <div class="catalog-list__box">
-
                                                             <div class="catalog-list__info catalog-list__info_head">
-
-
-
-
-
                                                             </div>
 
                                                             <!-- Заголовок товара -->
                                                             <div class="catalog-list__title">
                                                                 <div class="catalog-list__title-inn">
-                                                                    <span>{{ $wish_product->title }}</span>
+                                                                    <span>{{ $wish_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
+                                                                        {{ $wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</span>
                                                                 </div>
                                                             </div>
                                                             <!-- Заголовок товара END -->
 
                                                             <!-- Цена и скидка товара -->
                                                             <div class="catalog-list__price">
-                                                                {{ $wish_product->price }}
+                                                                @if ($wish_product->sizeVariations->sortBy('price')->first()->price == $wish_product->sizeVariations->sortByDesc('price')->first()->price)
+                                                                    {{ $wish_product->sizeVariations->sortBy('price')->first()->price }}
+                                                                @else
+                                                                    {{ $wish_product->sizeVariations->sortBy('price')->first()->price }}
+                                                                    -
+                                                                    {{ $wish_product->sizeVariations->sortByDesc('price')->first()->price }}
+                                                                @endif
                                                                 {{ __('userpanel.currency') }}
-                                                                <!-- <s class="catalog-list__price-old">{{ $wish_product->price }} {{ __('userpanel.currency') }}</s> -->
                                                             </div>
                                                             <!-- Цена и скидка товара END -->
 
@@ -370,10 +388,12 @@
                                                     </a>
 
                                                     <!-- Цвета -->
-                                                    <!-- <ul class="catalog-list__colors catalog-list-colors">
-                                      <li class="catalog-list-colors__color " title="Желтый" style="background: #ffd552">
-                                      </li>
-                                    </ul> -->
+                                                    <ul class="catalog-list__colors catalog-list-colors">
+                                                        <li class="catalog-list-colors__color "
+                                                            title="{{ $wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
+                                                            style="background: {{ $wish_product->color->hex }}">
+                                                        </li>
+                                                    </ul>
                                                     <!-- Цвета END -->
                                                 </div>
                                             @endforeach
@@ -415,12 +435,73 @@
     <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
     <script src="{{ asset('assets/js/autocomplete.js') }}"></script>
     <script src="{{ asset('assets/js/home/scripts.js') }}"></script>
+
+    <script>
+        $('body').on('click', '.js-add-fav', function(e) {
+            e.preventDefault()
+            e.stopPropagation()
+            addToWishList(e)
+            $(".js-rem-fav", $(e.target).closest(".catalog-list__link")).show(), $(".js-add-fav", $(e.target)
+                .closest(".catalog-list__link")).hide()
+        })
+
+        $('body').on('click', '.js-rem-fav', function(e) {
+            e.preventDefault()
+            e.stopPropagation()
+            addToWishList(e)
+            $(".js-add-fav", $(e.target).closest(".catalog-list__link")).show(), $(".js-rem-fav", $(e.target)
+                .closest(".catalog-list__link")).hide()
+        })
+
+        function addToWishList(event) {
+            var clientId = {{ Auth::user() == null ? null : Auth::user()->id }}
+            console.log(clientId)
+            console.log(event.target)
+            if (clientId == null) {
+                new window.basePopup({
+                    context: {
+                        content: document.querySelector("#add_item-error-client-null").outerHTML
+                    },
+                    onOpened: function() {
+                        var e = this;
+                        $(".login__recover-link").off("click").on("click", (function(t) {
+                            t.preventDefault(), e.close()
+                        }))
+                    }
+                })
+            }
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{ url('/add-to-wishlist') }}",
+                type: "post",
+                data: {
+                    color_variation_id: $(event.target).attr('color-variation-id'),
+                    // size_id: $(event.target).attr('size-id'),
+                    user_id: clientId,
+                },
+                success: function(response) {
+                    console.log(response)
+                    var wishlistCount = document.getElementById('wishlist-count')
+                    if (response > 0) {
+                        wishlistCount.style.display = "block"
+                    } else {
+                        wishlistCount.style.display = "none"
+                    }
+                    wishlistCount.innerHTML = response
+                }
+            })
+        }
+
+    </script>
 @endsection
 
 @section('head')
     <title>{{ $category_name }} в интернет-магазине — Дом на дереве</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport"
         content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0, minimal-ui">
     <meta name="description"
