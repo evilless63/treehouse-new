@@ -288,7 +288,8 @@
                                         <div data-v-88ff0f44="" class="field__inner">
                                             <div data-v-88ff0f44="" class="field__placeholder"><span
                                                     data-v-88ff0f44="">Поиск</span></div> <input data-v-88ff0f44=""
-                                                name="search" autocomplete="off" class="field__input">
+                                                name="search" autocomplete="off" class="field__input" id="quick-search-input">
+                                                <div id="quick-search-result"></div>
                                         </div>
                                         <!---->
                                     </div>
@@ -614,11 +615,13 @@
 
 
             $("input.field__input").focus(function() {
-                $('.field__placeholder').children('span').text("Категория, товар или артикул")
+                $('.field__placeholder').children('span').text("")
             })
 
             $("input.field__input").focusout(function() {
-                $('.field__placeholder').children('span').text("Поиск")
+                if($('#quick-search-input').val = '') {
+                    $('.field__placeholder').children('span').text("Поиск")
+                }
             })
 
 
@@ -636,7 +639,55 @@
                         ".icon:first").addClass("icon--white")
                 }
             })
+
+            var result = $('#quick-search-result');
+            $('#quick-search-input').on('keyup', function(){
+                var search = $(this).val();
+                if ((search != '') && (search.length > 3)){
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: "POST",
+                        url: "/quick-search",
+                        data: {'search': search},
+                        success: function(msg){
+                            console.log(result)
+                            result.html(msg);
+                            if(msg != ''){	
+                                result.fadeIn(100);
+                            } else {
+                                result.fadeOut(100);
+                            }
+                        }
+                    });
+                } else {
+                    result.html('');
+                    result.fadeOut(100);
+                }
+            });
+
+            $('#quick-search-input').focusout(function() {
+                $('#quick-search-result').fadeOut(100)
+            })
+
+            $('#quick-search-input').focus(function() {
+                if(($('#quick-search-input').val() != '') && ($('#quick-search-input').val().length > 3)) {
+                    $('#quick-search-result').fadeIn(100)
+                }   
+            })
+        
+            // $(document).on('click', function(e){
+            //     if (!$(e.target).closest('.search').length){
+
+            //         $result.html('');
+            //         $result.fadeOut(100);
+            //     }
+            // });
+
         });
+
+
 
     </script>
 </body>

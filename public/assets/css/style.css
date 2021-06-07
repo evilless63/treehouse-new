@@ -121,7 +121,7 @@
 .field[data-v-88ff0f44] {
   box-sizing: border-box;
   height: 36px;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
   width: 100%;
 }
@@ -219,4 +219,18 @@
 
 .icon--white[data-v-c4f273e2] {
   fill: #fff;
+}
+
+
+.search_result {
+	position: absolute;
+	top: 100%;
+	left: -55px;
+	border: 1px solid #ddd;
+	background: #fff;
+	padding: 10px;
+	z-index: 9999;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  max-height: 300px;
+  overflow: auto;
 }

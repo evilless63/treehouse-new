@@ -136,6 +136,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/articles/{slug}', [UserPublicController::class, 'article'])->name('user.article');
     Route::get('/info/{slug}', [UserPublicController::class, 'info'])->name('user.info');
     Route::get('/home', [UserPublicController::class, 'index'])->name('home');
-
+    Route::post('/quick-search', [UserPublicController::class, 'quickSearch'])->name('quick-search');
     Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
 });

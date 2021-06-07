@@ -44,7 +44,7 @@
                                                 <div class="catalog-list__image-container">
                                                     <img class="catalog-list__image loading loaded"
                                                         src="{{ asset($wishlist_item->main_img) }}"
-                                                        alt="{{ $wishlist_item->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }} {{ $wishlist_item->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
+                                                        alt="{{ $wishlist_item->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }} {{ @if($wishlist_item->color->id !== 76)$wishlist_item->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())@endif }}">
                                                 </div>
                                             </a>
                                             <div class="card-speed-buy"><a
@@ -147,7 +147,7 @@
                                             <div class="catalog-list__title">
                                                 <div class="catalog-list__title-inn">
                                                     <span>{{ $wishlist_item->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
-                                                        {{ $wishlist_item->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</span>
+                                                        @if($wishlist_item->color->id !== 76){{ $wishlist_item->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
                                                 </div>
                                             </div>
                                             <!-- Заголовок товара END -->

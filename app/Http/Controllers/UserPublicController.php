@@ -18,6 +18,7 @@ use App\Models\Article;
 // use App\Repositories\CategoryRepository;
 // use Phpfastcache\Helper\Psr16Adapter;
 use App\Models\InstagramPost;
+use App\Models\ProductLocalization;
 use App\Models\Slider;
 use App\Models\Wishlist;
 
@@ -83,15 +84,15 @@ class UserPublicController extends Controller
     {
         // $new_products = Product::where('is_visible','1')->where('is_new', '1')->get();
         $new_products = ColorVariation::where('is_new', '1')->get();
-        foreach($new_products as $k => $v) {
-            if(!$v->hasSizesInStock()) {
+        foreach ($new_products as $k => $v) {
+            if (!$v->hasSizesInStock()) {
                 $new_products->forget($k);
             }
         }
 
         $bestseller_products = ColorVariation::where('is_bestseller', '1')->get();
-        foreach($new_products as $k => $v) {
-            if(!$v->hasSizesInStock()) {
+        foreach ($new_products as $k => $v) {
+            if (!$v->hasSizesInStock()) {
                 $new_products->forget($k);
             }
         }
@@ -127,8 +128,8 @@ class UserPublicController extends Controller
         $all_categories = Category::all();
 
         $products_by_category = $category->colorVariations()->get()->shuffle();
-        foreach($products_by_category as $k => $v) {
-            if(!$v->hasSizesInStock()) {
+        foreach ($products_by_category as $k => $v) {
+            if (!$v->hasSizesInStock()) {
                 $products_by_category->forget($k);
             }
         }
@@ -140,8 +141,8 @@ class UserPublicController extends Controller
 
         session()->put('recently_viewed_ids', $recently_viewed_ids);
         $recently_viewed_products = ColorVariation::whereIn('id', $recently_viewed_ids)->get();
-        foreach($recently_viewed_products as $k => $v) {
-            if(!$v->hasSizesInStock()) {
+        foreach ($recently_viewed_products as $k => $v) {
+            if (!$v->hasSizesInStock()) {
                 $recently_viewed_products->forget($k);
             }
         }
@@ -187,13 +188,13 @@ class UserPublicController extends Controller
                 $related_products->push($colorVariationCat);
         }
         $related_products = $related_products->shuffle();
-        foreach($related_products as $k => $v) {
-            if(!$v->hasSizesInStock()) {
+        foreach ($related_products as $k => $v) {
+            if (!$v->hasSizesInStock()) {
                 $related_products->forget($k);
             }
         }
         // $images = $this->productRepository->getGallery($id);
-        $images = $colorVariation->images()->orderBy('sort_order','asc')->get(); //TODO treehouse
+        $images = $colorVariation->images()->orderBy('sort_order', 'asc')->get(); //TODO treehouse
         // $product = Product::find($id);
         // $product = Product::where('slug', $product_slug)->first();
 
@@ -206,8 +207,8 @@ class UserPublicController extends Controller
         array_push($recently_viewed_ids, $colorVariation->id);
         session()->put('recently_viewed_ids', $recently_viewed_ids);
         $recently_viewed_products = ColorVariation::whereIn('id', $recently_viewed_ids)->get();
-        foreach($recently_viewed_products as $k => $v) {
-            if(!$v->hasSizesInStock()) {
+        foreach ($recently_viewed_products as $k => $v) {
+            if (!$v->hasSizesInStock()) {
                 $recently_viewed_products->forget($k);
             }
         }
@@ -229,5 +230,30 @@ class UserPublicController extends Controller
             'article' => $article,
             'articleLangFields' => $articleLangFields
         ]);
+    }
+
+    public function quickSearch()
+    {
+        $searchString = request()->search;
+
+        $result = collect();
+        $items = ProductLocalization::where('title', 'LIKE', "%{$searchString}%")->get();
+
+        if ($items !== null) {
+            foreach ($items as $item) {
+                $colorVariationsStack = $item->product->colorVariations->all();
+                foreach ($colorVariationsStack as $colorVariation) {
+                    $result->push($colorVariation);
+                }
+            }
+        }
+
+        if ($result->count() > 0) {
+            $html = view('user.includes.search_result', compact('result'))->render();
+        } else {
+            $html = view('user.includes.search_result_failed')->render();
+        }
+
+        return $html;
     }
 }

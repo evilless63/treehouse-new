@@ -245,7 +245,7 @@
 
 
                   <h1 class="card-info__title" data-id="105561" data-category="Трикотаж">
-                    {{$colorVariation->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}
+                    {{$colorVariation->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} @if($colorVariation->color->id !== 76){{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}@endif
                     
                     @if(!$colorVariation->hasSizesInStock())
                     <br>
@@ -288,7 +288,7 @@
                   </div>
                 </div>
                 <div class="card-colors__wrapper-title">
-                  {{__('userpanel.color')}}: <span>{{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
+                  {{__('userpanel.color')}}: <span>@if($colorVariation->color->id !== 76){{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}@else Базовый @endif</span>
                 </div>
               </div>
               <!-- Цвета END -->
@@ -720,7 +720,7 @@
                       <!-- Заголовок товара -->
                       <div class="catalog-list__title">
                         <div class="catalog-list__title-inn">
-                          <span>{{$recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$recently_viewed_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
+                          <span>{{$recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} @if($colorVariation->color->id !== 76){{$recently_viewed_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}@endif</span>
                         </div>
                       </div>
                       <!-- Заголовок товара END -->
@@ -787,7 +787,7 @@
                         <!-- Заголовок товара -->
                         <div class="catalog-list__title">
                           <div class="catalog-list__title-inn">
-                            <span>{{$wish_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
+                            <span>{{$wish_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} @if($wish_product->color->id !== 76){{$wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}@endif</span>
                           </div>
                         </div>
                         <!-- Заголовок товара END -->

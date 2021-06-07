@@ -98,7 +98,7 @@
                                 <div class="catalog-list__title">
                                     <div class="catalog-list__title-inn">
                                         <span>{{ $new_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
-                                            {{ $new_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</span>
+                                            @if($new_product->color->id !== 76){{ $new_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
                                     </div>
                                 </div>
                                 <!-- Заголовок товара END -->
@@ -218,7 +218,7 @@
                                 <div class="catalog-list__title">
                                     <div class="catalog-list__title-inn">
                                         <span>{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
-                                            {{ $bestseller->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</span>
+                                            @if($bestseller->color->id !== 76){{ $bestseller->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
                                     </div>
                                 </div>
                                 <!-- Заголовок товара END -->
@@ -316,7 +316,7 @@
                                     <div class="catalog-list__title">
                                         <div class="catalog-list__title-inn">
                                             <span>{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
-                                                {{ $bestseller->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</span>
+                                                @if($bestseller->color->id !== 76){{ $bestseller->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
                                         </div>
                                     </div>
                                     <!-- Заголовок товара END -->

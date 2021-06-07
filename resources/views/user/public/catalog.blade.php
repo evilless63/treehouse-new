@@ -191,7 +191,7 @@
                                                             <div class="catalog-list__title">
                                                                 <div class="catalog-list__title-inn">
                                                                     <span>{{ $product_by_category->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
-                                                                        {{ $product_by_category->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</span>
+                                                                        @if($product_by_category->color->id !== 76){{ $product_by_category->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
                                                                 </div>
                                                             </div>
                                                             <!-- Заголовок товара END -->
@@ -291,7 +291,7 @@
                                                         <div class="catalog-list__title">
                                                             <div class="catalog-list__title-inn">
                                                                 <span>{{ $recently_viewed_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
-                                                                    {{ $recently_viewed_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</span>
+                                                                    @if($recently_viewed_product->color->id !== 76){{ $recently_viewed_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
                                                             </div>
                                                         </div>
                                                         <!-- Заголовок товара END -->
@@ -361,7 +361,7 @@
                                                                 @if ($wishlist->where('id', $wish_product->id)->count() == 0) style="display:none" @endif
                                                                 color-variation-id="{{ $wish_product->id }}"></span>
                                                             <img src="{{ asset($wish_product->main_img) }}"
-                                                                alt="{{ $wish_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }} {{ $wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
+                                                                alt="{{ $wish_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }} @if($wish_product->color->id !== 76){{ $wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif"
                                                                 class="catalog-list__image" />
                                                         </div>
 
@@ -373,7 +373,7 @@
                                                             <div class="catalog-list__title">
                                                                 <div class="catalog-list__title-inn">
                                                                     <span>{{ $wish_product->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
-                                                                        {{ $wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</span>
+                                                                        @if($wish_product->color->id !== 76){{ $wish_product->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
                                                                 </div>
                                                             </div>
                                                             <!-- Заголовок товара END -->
