@@ -24,6 +24,7 @@ class CreateSizesTable extends Migration
             $table->unsignedBigInteger('size_id')->unsigned()->index();
             $table->string('lang', 2);
             $table->string('title',255);
+            $table->string('short_title', 255);
             $table->foreign('size_id')->references('id')->on('sizes')->onDelete('cascade');
         });
     }
