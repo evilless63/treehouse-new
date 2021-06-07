@@ -299,7 +299,7 @@
                                 class="favorite-button">
                                 <i class="favorite-button__icon">
                                     <span class="favorite-button__count" data-dkey="wishlist"
-                                        style="display: none"></span>
+                                    @if($wishlist->count() == 0) style="display: none" @endif>{{$wishlist->count()}}</span>
                                 </i>
                             </a>
                             <a href="{{ LaravelLocalization::localizeUrl('/user/cabinet') }}" class="header-user">
@@ -308,7 +308,8 @@
                             <a href="{{ LaravelLocalization::localizeUrl('/cart') }}" class="basket-button">
                                 <i class="basket-button__icon" data-ga-action="Bag icon click"
                                     data-ga-category="Checkout" data-ga-label="Пользователь залогинен">
-                                    <span class="basket-button__count" data-dkey="cart" style="display: none"></span>
+                                    <span class="basket-button__count" id="basket-count" data-dkey="cart" 
+                                    @if($cartItemsCount == 0) style="display: none" @endif>{{$cartItemsCount}}</span>
                                 </i>
                             </a>
                         </div>

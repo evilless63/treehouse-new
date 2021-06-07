@@ -33,6 +33,7 @@ class UserPublicController extends Controller
     public $customer_articles;
     public $categories;
     public $wishlist;
+    public $cartItemsCount;
 
     public function __construct()
     {
@@ -45,6 +46,31 @@ class UserPublicController extends Controller
         $this->blog_articles = Article::where('purpose', 'blog')->get();
         $this->customer_articles = Article::where('purpose', 'counteragents')->get();
         $this->categories = Category::all();
+
+        $this->middleware(function ($request, $next) {
+            $wishlistCollection = collect();
+            if (Auth::guest() == false) {
+                $dbWishlistPositions = Wishlist::where('user_id', Auth::user()->id)->get();
+                foreach ($dbWishlistPositions as $position) {
+                    $wishlistCollection->push(ColorVariation::where('id', $position->color_variation_id)->first());
+                }
+                $this->wishlist = $wishlistCollection->unique();
+            } else {
+                $this->wishlist = $wishlistCollection;
+            }
+            View::share('wishlist', $this->wishlist);
+            return $next($request);
+        });
+
+        $this->middleware(function ($request, $next) {
+            if (Auth::guest() == false) {
+                $this->cartItemsCount = Cart::instance('shopping')->content()->count();
+            } else {
+                $this->cartItemsCount = 0;
+            }
+            View::share('cartItemsCount', $this->cartItemsCount);
+            return $next($request);
+        });
 
         View::share('mainmenu_categories', $this->mainmenu_categories);
         View::share('categories_menu', $this->categories_menu);
