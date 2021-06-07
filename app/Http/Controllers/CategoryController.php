@@ -173,4 +173,17 @@ class CategoryController extends Controller
             return redirect()->route('categories.index')->with('success', __('adminpanel.action_success'));
         }
     }
+
+    public function updateOrder(Request $request){
+        if($request->has('ids')){
+            $arr = explode(',',$request->input('ids'));
+            
+            foreach($arr as $sortOrder => $id){
+                $menu = Category::find($id);
+                $menu->sort_order = $sortOrder;
+                $menu->save();
+            }
+            return ['success'=>true,'message'=>'Updated'];
+        }
+    }
 }

@@ -22,12 +22,19 @@
                     <div class="categories catalog__categories">
                         @include('user.includes.sidebar_categories', ['items'=>$categories_menu->roots()])
                         <!-- <div class="categories__item ">
-                                                  <a href="/catalog/skidki/mencollection" class="categories__link categories__link--red">Sale до
-                                                    -50%</a>
-                                                </div> -->
+                                                      <a href="/catalog/skidki/mencollection" class="categories__link categories__link--red">Sale до
+                                                        -50%</a>
+                                                    </div> -->
                     </div>
                 </div>
                 <div class="page__middle page__middle--catalog">
+                    <div class="catalog__category-header">
+                        <div class="catalog__category-title">{{$category_name}}</div>
+                        
+                        {{-- <div class="catalog__category-description">Сертифицированный хлопок, выращенный бережным способом
+                            без пестицидов и химических удобрений: сохраняет чистоту воды и здоровье почвы, лучше для
+                            фермеров </div> --}}
+                    </div>
                     <div class="catalog-list ">
                         <div class="catalog-list__holder">
 
@@ -49,7 +56,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="filter__list filter__list_visible">
+                                <div class="filter__list">
                                     <div class="filter__item">
                                         <div class="filter__controls">
 

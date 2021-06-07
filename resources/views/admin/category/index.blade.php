@@ -34,7 +34,7 @@
                     <table class="table" id="findTable">
                         <tbody id="sortable-categories">
                             @foreach($categories as $category)
-                            <tr>
+                            <tr data-id="{{$category->id}}">
                                 <th scope="row">{{{ $category->getLocalizeTitleRu() }}}</th>
                                 <td><a href="{{route('categories.edit', $category->id)}}">{{__('adminpanel.edit')}}</a></td>
                                 <td><a href="{{route('categories.replicate', $category->id)}}">Скопировать</a></td>
@@ -58,7 +58,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $( "#sortable-categories" ).sortable();
-        $( "#sortable-categories" ).disableSelection();
+
+        function updateToDatabaseCategory(idString) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            });
+
+            $.ajax({
+                url: '{{ url("/admin/category/update-order") }}',
+                method: 'POST',
+                data: {
+                    ids: idString
+                }
+            })
+        }
+
+        var targetGallery = $('#sortable-categories')
+        targetGallery.sortable({
+            update: function(e, ui) {
+                var sortData = targetGallery.sortable('toArray', {
+                    attribute: 'data-id'
+                })
+                updateToDatabaseCategory(sortData.join(','))
+            }
+        })
+
     </script>
 </x-app-layout>

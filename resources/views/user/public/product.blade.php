@@ -304,7 +304,7 @@
                 </div>
                 <ul class="sizes-selector__list">
 
-                  @foreach($colorVariation->sizeVariations as $sizeVariation)
+                  @foreach($colorVariation->sizeVariations()->orderBy('sort_order','asc')->get() as $sizeVariation)
                   @if($sizeVariation->stock > 0 )
                   <li class="sizes-selector__item " onclick="changeColorVariationSelected(event)" data-price="{{$sizeVariation->price}}" data-id="{{$sizeVariation->id}}" data-url-to-cart="{{$sizeVariation->id}}">
 

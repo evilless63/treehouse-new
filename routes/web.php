@@ -17,6 +17,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\SizeVariationController;
+use App\Http\Controllers\ImageGalleryController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\Order;
 
@@ -84,6 +86,10 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
 
     Route::post('/user/change-is-active', [UserController::class, 'toggleIsActive']);
     Route::post('/user/change-is-admin', [UserController::class, 'toggleIsAdmin']);
+
+    Route::post('/size-variation/update-order', [SizeVariationController::class, 'updateOrder']);
+    Route::post('/gallery/update-order', [ImageGalleryController::class, 'updateOrder']);
+    Route::post('/category/update-order', [CategoryController::class, 'updateOrder']);
 });
 
 Route::post('/api/v1/importdata/colors', [ImportController::class, 'ImportColorsFrom1c']);
@@ -118,7 +124,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::post('/add-to-wishlist', [UserPrivateController::class, 'addToWishList'])->name('user.add-to-withlist');
         Route::post('/remove-from-wishlist', [UserPrivateController::class, 'removeFromWishList'])->name('user.remove-from-withlist');
         Route::get('/reset-password', [UserPrivateController::class, 'resetPassword'])->name('reset-password');
-        Route::post('/reset-password', [UserPrivateController::class,'createNewPassword'])->name('password.reset');
+        Route::post('/reset-password', [UserPrivateController::class, 'createNewPassword'])->name('password.reset');
     });
 
     Route::get('/', [UserPublicController::class, 'index'])->name('user.index');
@@ -133,4 +139,3 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
     Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
 });
-

@@ -41,11 +41,10 @@ class UserPublicController extends Controller
         // $this->productRepository = app(ProductRepository::class);
         // $this->categoryRepository = app(CategoryRepository::class);
         $this->mainmenu_categories = Category::where('in_header', '1')->get();
-        $this->categories_menu = Category::buildMenu(Category::all());
+        $this->categories_menu = Category::buildMenu($this->categories);
         $this->company_articles = Article::where('purpose', 'about')->get();
         $this->blog_articles = Article::where('purpose', 'blog')->get();
         $this->customer_articles = Article::where('purpose', 'counteragents')->get();
-        $this->categories = Category::all();
 
         $this->middleware(function ($request, $next) {
             $wishlistCollection = collect();
@@ -194,7 +193,7 @@ class UserPublicController extends Controller
             }
         }
         // $images = $this->productRepository->getGallery($id);
-        $images = $colorVariation->images; //TODO treehouse
+        $images = $colorVariation->images()->orderBy('sort_order','asc')->get(); //TODO treehouse
         // $product = Product::find($id);
         // $product = Product::where('slug', $product_slug)->first();
 

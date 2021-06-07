@@ -22369,3 +22369,32 @@ html:not(.t-main):not(.t-404) .page {
   .card-features__box p {
     line-height: 18px;
   }
+
+  .catalog__category-title {
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.catalog__category-description {
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 16px;
+}
+
+@media (min-width: 1024px) {
+.catalog__category-description {
+    margin-top: 24px;
+}
+}
+
+@media (min-width: 1024px) {
+.catalog__category-header {
+    margin: 0 0 28px;
+}
+}
+
+.catalog__category-header {
+    
+    max-width: 824px;
+    position: relative;
+}

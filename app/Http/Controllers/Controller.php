@@ -34,7 +34,7 @@ class Controller extends BaseController
     protected $users;
     function __construct()
     {
-        $this->categories = Category::all();  
+        $this->categories = Category::orderBy('sort_order','asc')->get();  
         $this->products = Product::all(); 
         $this->locales = LaravelLocalization::getSupportedLanguagesKeys(); 
         $this->colors = Color::all();

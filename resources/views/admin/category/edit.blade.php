@@ -39,7 +39,7 @@
 
                         @endforeach
 
-                        <label>{{__('adminpanel.parent_category')}}</label>
+                        {{-- <label>{{__('adminpanel.parent_category')}}</label>
                         <select name="parent_id">
                             @if($selected_category == null)
                             <option selected value="0">{{__('adminpanel.without_category')}}</option>
@@ -49,7 +49,7 @@
                             @foreach($categories as $category)
                             <option value="{{$category->id}}">{{$category->getLocalizeTitleRu()}}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
 
                         <label>Использовать в шапке сайта</label>
                         <input type="checkbox" name="in_header"  @if($current_category->in_header) checked @endif>
