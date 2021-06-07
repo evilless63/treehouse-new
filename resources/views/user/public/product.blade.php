@@ -962,12 +962,12 @@
           document.getElementById('AddToCartButton').style.display = "none"
           document.getElementById('goToCartAfterAdded').style.display = "block"
           var cartCount = document.getElementById('basket-count')
-          // if(response->count() > 0) {
-          //   cartCount.style.display = "block"            
-          // } else {
-          //   cartCount.style.display = "none"
-          // }
-          // cartCount.innerHTML = {{Cart::instance('shopping')->content()->count()}}
+          if(response > 0) {
+            cartCount.style.display = "block"            
+          } else {
+            cartCount.style.display = "none"
+          }
+          cartCount.innerHTML = response
           new window.basePopup({
             context: {
                 content: document.querySelector("#add_item").outerHTML

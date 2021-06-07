@@ -450,14 +450,7 @@
 
   function removeCartItem(event) {
     var row_id = $(event.target).closest('.order-list__item').attr('row-id')
-    var cartCount = document.getElementById('basket-count')
-
-    if({{Cart::instance('shopping')->content()->count()}} > 0) {
-      cartCount.style.display = "block"            
-    } else {
-      cartCount.style.display = "none"
-    }
-    cartCount.innerHTML = {{Cart::instance('shopping')->content()->count()}}
+    
 
     $.ajax({
       headers: {
@@ -469,7 +462,14 @@
         row_id: row_id,
       },
       success: function(response) {
+        var cartCount = document.getElementById('basket-count')
         console.log(response)
+        if(response.count > 0) {
+          cartCount.style.display = "block"            
+        } else {
+          cartCount.style.display = "none"
+        }
+        cartCount.innerHTML = response.count
         $(event.target).closest('.order-list__item').remove()
         var total = $('.total-value')[0]
         total.innerText = response.subtotal + ' {{__("userpanel.currency")}}'

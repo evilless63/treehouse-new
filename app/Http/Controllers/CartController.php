@@ -44,7 +44,7 @@ class CartController extends Controller
                 'image' => $imagePath,
             ]
         );
-        return Cart::instance('shopping')->content();
+        return Cart::instance('shopping')->content()->count();
     }
 
     public function getCartContent(){
@@ -98,7 +98,8 @@ class CartController extends Controller
     public function removeItem() {
         Cart::instance('shopping')->remove(request()->row_id);
         return [
-            'subtotal' => Cart::instance('shopping')->subtotal()
+            'subtotal' => Cart::instance('shopping')->subtotal(),
+            'count' => Cart::instance('shopping')->count(),
         ];
     }
 }
