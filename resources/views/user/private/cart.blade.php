@@ -111,19 +111,19 @@
           <!---->
           <div data-v-cfe42f2e="" class="promo-block">
             <div data-v-131ebcb5="" data-v-cfe42f2e="" class="promo-form">
-              <div data-v-131ebcb5="" class="title">Ввести промокод</div>
-              <div data-v-131ebcb5="" class="wrapper collapsed">
-                <form data-v-131ebcb5="" class="form">
+              <div data-v-131ebcb5="" class="title" id="promocode_button">Ввести промокод</div>
+              <div data-v-131ebcb5="" class="wrapper collapsed" id="promocode_input">
+                
                   <div data-v-131ebcb5="" class="form-inner">
                     <div data-v-131ebcb5="" class="input input">
                       <div class="input-container"><input autocomplete="on" type="text" class="input-control">
                         <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                       </div>
-                    </div> <button data-v-6352a6b4="" data-v-131ebcb5="" class="button">OK</button>
+                    </div> <div data-v-6352a6b4="" data-v-131ebcb5="" class="button promocode-button">OK</div>
                     <!---->
                   </div>
                   <!---->
-                </form>
+                
               </div>
               <div data-v-131ebcb5="" role="modal" class="simplert">
                 <div class="simplert__content">
@@ -148,7 +148,7 @@
           <div data-v-cfe42f2e="" class="bordered-block hidden">
             <!---->
             <div data-v-cfe42f2e="" class="cart__back">{{__('userpanel.backspace_link')}}</div>
-            <form data-v-684b9f47="" data-v-cfe42f2e="" class="form">
+            <div data-v-684b9f47="" data-v-cfe42f2e="" class="form">
               <h2 data-v-684b9f47="" class="title">Оформление заказа</h2>
               <div data-v-684b9f47="" class="observer">
                 <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="email" class="form-item-title">E-mail</label>
@@ -362,7 +362,7 @@
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
             <div data-v-ea5ca2c8="" data-v-cfe42f2e="" class="sidebar-container">
               <div data-v-ea5ca2c8="" class="sidebar">
                 <div data-v-ea5ca2c8="" class="links">
@@ -420,6 +420,20 @@
   </div>
 </form>
 
+
+@endsection
+
+@section('scripts')
+<script src="{{asset('assets/js/jquery.js')}}"></script>
+<script src="{{asset('assets/js/applepay.js')}}"></script>
+<script src="{{asset('assets/js/cart.js')}}"></script>
+<script src="{{asset('assets/js/yii.js')}}"></script>
+{{-- <script src="{{asset('assets/js/chunks/vendor.js')}}"></script> --}}
+{{-- <script src="{{asset('assets/js/chunks/layout-base.js')}}"></script> --}}
+<script src="{{asset('assets/js/cart/scripts.js')}}"></script>
+<script src="{{asset('assets/js/jquery-ui.js')}}"></script>
+<script src="{{asset('assets/js/autocomplete.js')}}"></script>
+
 <script>
   function changeCount(event) { 
     var row_id = $(event.target).closest('.order-list__item').attr('row-id')
@@ -476,19 +490,11 @@
       }
     })
   }
-</script>
-@endsection
 
-@section('scripts')
-<script src="{{asset('assets/js/jquery.js')}}"></script>
-<script src="{{asset('assets/js/applepay.js')}}"></script>
-<script src="{{asset('assets/js/cart.js')}}"></script>
-<script src="{{asset('assets/js/yii.js')}}"></script>
-<script src="{{asset('assets/js/chunks/vendor.js')}}"></script>
-<script src="{{asset('assets/js/chunks/layout-base.js')}}"></script>
-<script src="{{asset('assets/js/cart/scripts.js')}}"></script>
-<script src="{{asset('assets/js/jquery-ui.js')}}"></script>
-<script src="{{asset('assets/js/autocomplete.js')}}"></script>
+  $('#promocode_button').on('click', function(){
+    $('#promocode_input').toggleClass('collapsed')
+  })
+</script>
 @endsection
 
 @section('head')

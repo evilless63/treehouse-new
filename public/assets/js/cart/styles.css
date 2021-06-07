@@ -24047,3 +24047,26 @@ button[data-v-8155e174] {
     display: table;
     clear: both;
   }
+
+  .form-inner {
+    padding-bottom: 25px;
+    padding-top: 10px;
+}
+
+.promocode-button {
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    padding: .85714rem 1.42857rem;
+    text-decoration: none;
+    letter-spacing: .12em;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    background: hsla(0, 0%, 100%, .1);
+    color: #c5a995;
+    border: 1px solid #c5a995;
+    overflow: visible;
+    transition: opacity .2s;
+}

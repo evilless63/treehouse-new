@@ -25,6 +25,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
+                    <form action="{{route('cart.destroy')}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit">Очистить корзину</button>
+                    </form>
                     <div class="mb-3">
                         <input type="text" class="form-control" class="form-control" id="findInput" onkeyup="findInTable()" placeholder="Поиск по наименованию">
                     </div>

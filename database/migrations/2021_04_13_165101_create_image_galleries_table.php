@@ -19,6 +19,7 @@ class CreateImageGalleriesTable extends Migration
             $table->string('img_path')->nullable();
             $table->string('slug',255)->unique();
             $table->integer('color_variation_id');
+            $table->integer('sort_order')->default(0);
         });
 
         Schema::create('image_gallery_localizations', function (Blueprint $table) {

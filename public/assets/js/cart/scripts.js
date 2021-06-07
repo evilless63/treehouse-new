@@ -20898,24 +20898,7 @@
                     t.trigger("resize.cart")
                 })), t.trigger("resize.cart")
             },
-            mounted: function () {
-                var e = this;
-                e.getData().then((function (t) {
-                    var n, i;
-                    e.loading = !1, m.c.sendCheckout(1, {
-                        products: e.$store.state.ecommerceProducts,
-                        preorder: e.$store.state.isPreorder,
-                        not_available: (n = t.cartItems || [], i = Boolean((t.messages || []).filter((function (e) {
-                            return "removeUnavailable" == e.key
-                        })).length), !n.length && i)
-                    }), m.b.cartLoaded(e.$store.state.ecommerceProducts)
-                })).catch((function (t) {
-                    e.loading = !1, console.error(t)
-                }))
-            },
-            destroyed: function () {
-                $(window).off(".cart")
-            },
+            
             methods: {
                 basketUpdate: function () {
                     this.$refs.basket.update(), this.$refs.form.loadDeliveryData(this.$store.state.deliveryLocation)
