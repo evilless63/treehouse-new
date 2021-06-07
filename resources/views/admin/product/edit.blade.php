@@ -149,7 +149,7 @@
                                                 </ul>
 
                                                 <table class="table" id="findTable">
-                                                    <tbody>
+                                                    <tbody id="sortable-size-variations">
                                                         @foreach($colorVariation->sizeVariations as $sizeVariation)
                                                         <tr class="sizeVariationBlock">
                                                             <th scope="row">{{$sizeVariation->size->getLocalizeTitleRu()}}</th>
@@ -239,7 +239,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row align-items-center">
-                                                    <div class="col-md-10 owl-carousel owl-theme">
+                                                    <div class="col-md-10 owl-carousel owl-theme" id="sortable-gallery">
                                                         @foreach($colorVariation->images as $image)
                                                         <div class="col-md-12 imageContainer item">
                                                             <a data-index="0" data-fancybox="gallery1" href="{{asset($image->img_path)}}" style="display:block">
@@ -349,7 +349,24 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js" integrity="sha512-E+gDQcIvNXE60SjCS38ysf1mGh4ObBpKcUOp0oEaHQHQAdaN2p7GelOpgEdpTuCLoIJyLkNXiqFZbyD9Ak/Ygw==" crossorigin="anonymous"></script> -->
     <script src="{{ asset('js/cropper.js') }}"></script>
     <script src="{{asset('assets/owl/owl.carousel.min.js')}}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+
+        $( "#sortable-size-variations" ).sortable({
+            change: function( event, ui ) {
+                console.log(ui.item)
+            },
+            activate: function( event, ui ) {
+                console.log(ui.item)
+            }
+        });
+
+        $( "#sortable-size-variations" ).disableSelection();
+
+        // $( "#sortable-gallery" ).sortable();
+        // $( "#sortable-gallery" ).disableSelection();
+
+
         try {
             $(document).ready(function() {
                 $(".owl-carousel").owlCarousel({

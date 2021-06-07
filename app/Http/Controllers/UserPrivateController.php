@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Article;
 use App\Models\Wishlist;
+use App\Models\ColorVariation;
 use Auth;
 use View;
 use Cart;
@@ -75,7 +76,20 @@ class UserPrivateController extends Controller
 
     public function wishlist()
     {
-        return view('user.private.wishlist');
+        $wishlistCollection = collect();
+        if (Auth::guest() == false) {
+            $dbWishlistPositions = Wishlist::where('user_id', Auth::user()->id)->get();
+            foreach ($dbWishlistPositions as $position) {
+                $wishlistCollection->push(ColorVariation::where('id', $position->color_variation_id)->first());
+            }
+            $this->wishlist = $wishlistCollection->unique();
+        } else {
+            $this->wishlist = $wishlistCollection;
+        }
+        $wishlist = $this->wishlist;
+        return view('user.private.wishlist')->with([
+            'wishlist' => $wishlist,
+        ]);
     }
 
     public function resetPassword()

@@ -142,7 +142,6 @@ class UserPublicController extends Controller
         $product = Product::where('slug', $product_slug)->first();
         $color = Color::where('slug', $color_slug)->first();
         $colorVariation = ColorVariation::where('product_id', $product->id)->where('color_id', $color->id)->first();
-
         $productLangFields = $product->localization()
             ->where('lang', LaravelLocalization::getCurrentLocale())
             ->first();

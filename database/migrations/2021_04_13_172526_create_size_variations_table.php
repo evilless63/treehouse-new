@@ -23,6 +23,7 @@ class CreateSizeVariationsTable extends Migration
             $table->integer('stock');
             $table->boolean('is_visible')->default(false);
             $table->boolean('is_expected')->default(false);
+            $table->integer('sort_order')->default(0);
         });
     }
 

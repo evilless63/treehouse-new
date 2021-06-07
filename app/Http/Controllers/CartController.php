@@ -58,8 +58,26 @@ class CartController extends Controller
     public function changeCount() {
         $currentRow = Cart::instance('shopping')->get(request()->row_id);
         if($currentRow->qty + request()->count == 0) {
-            return;
+            return [
+                'qty' => Cart::instance('shopping')->get(request()->row_id)->qty, 
+                'total' => Cart::instance('shopping')->get(request()->row_id)->total,
+                'subtotal' => Cart::instance('shopping')->subtotal()
+            ];
         }
+
+        $color = Color::where('slug', $currentRow->options->color)->first();
+        $size = Size::where('slug', $currentRow->options->size)->first();
+        $product = Product::where('slug', $currentRow->options->product_slug)->first();
+        $colorVariation = ColorVariation::where('color_id', $color->id)->where('product_id', $product->id)->first();
+        $sizeVariation = SizeVariation::where('size_id', $size->id)->where('color_variation_id', $colorVariation->id)->first();
+        if($currentRow->qty + request()->count > $sizeVariation->stock) {
+            return [
+                'qty' => Cart::instance('shopping')->get(request()->row_id)->qty, 
+                'total' => Cart::instance('shopping')->get(request()->row_id)->total,
+                'subtotal' => Cart::instance('shopping')->subtotal()
+            ];
+        }
+
         Cart::instance('shopping')->update(request()->row_id, [
             'qty' => $currentRow->qty + request()->count
         ]);

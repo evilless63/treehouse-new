@@ -32,7 +32,7 @@
                     </div>
 
                     <table class="table" id="findTable">
-                        <tbody>
+                        <tbody id="sortable-categories">
                             @foreach($categories as $category)
                             <tr>
                                 <th scope="row">{{{ $category->getLocalizeTitleRu() }}}</th>
@@ -54,4 +54,11 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( "#sortable-categories" ).sortable();
+        $( "#sortable-categories" ).disableSelection();
+    </script>
 </x-app-layout>

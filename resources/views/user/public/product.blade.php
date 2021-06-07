@@ -248,11 +248,12 @@
                     {{$colorVariation->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}} {{$colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}
                   </h1>
                   <div class="card-info__price">
-                    @if($colorVariation->sizeVariations->sortBy('price')->first()->price == $colorVariation->sizeVariations->sortByDesc('price')->first()->price)
+                    {{-- @if($colorVariation->sizeVariations->sortBy('price')->first()->price == $colorVariation->sizeVariations->sortByDesc('price')->first()->price)
                     {{$colorVariation->sizeVariations->sortBy('price')->first()->price}}
                     @else
                     {{$colorVariation->sizeVariations->sortBy('price')->first()->price}} - {{$colorVariation->sizeVariations->sortByDesc('price')->first()->price}}
-                    @endif {{__('userpanel.currency')}}
+                    @endif {{__('userpanel.currency')}} --}}
+                    {{$colorVariation->sizeVariations->where('stock','>',0)->first()->price}} {{__('userpanel.currency')}}
                   </div>
                 </div>
               </div>
@@ -286,18 +287,23 @@
 
               <!-- Размеры NEW -->
               <div class="sizes-selector">
-                <div class="sizes-selector__title" data-size="">
+                {{-- <div class="sizes-selector__title" data-size="">
                   {{__('userpanel.choose_size')}}
+                </div> --}}
+                <div class="sizes-selector__title" data-size="{{$colorVariation->sizeVariations->where('stock','>','0')->first()->id}}">
+                  {{$colorVariation->sizeVariations->where('stock','>',0)->first()->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}
                 </div>
                 <ul class="sizes-selector__list">
 
                   @foreach($colorVariation->sizeVariations as $sizeVariation)
-                  <li class="sizes-selector__item " onclick="changeColorVariationSelected(event)" data-id="{{$sizeVariation->id}}" data-url-to-cart="{{$sizeVariation->id}}">
+                  @if($sizeVariation->stock > 0 )
+                  <li class="sizes-selector__item " onclick="changeColorVariationSelected(event)" data-price="{{$sizeVariation->price}}" data-id="{{$sizeVariation->id}}" data-url-to-cart="{{$sizeVariation->id}}">
 
-                    <span class="sizes-selector__size" onclick="changeColorVariationSelected(event)" data-id="{{$sizeVariation->id}}">{{$sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
+                    <span class="sizes-selector__size" onclick="changeColorVariationSelected(event)" data-price="{{$sizeVariation->price}}" data-id="{{$sizeVariation->id}}">{{$sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</span>
 
                     <!-- <span class="sizes-selector__comment">Подписка</span> -->
                   </li>
+                  @endif
                   @endforeach
                 </ul>
               </div>
@@ -851,11 +857,17 @@
 <script>
   function changeColorVariationSelected(event) {
     var dataSize = event.target.getAttribute('data-id')
+    var dataPrice = event.target.getAttribute('data-price')
     console.log(dataSize)
     var sizetitles = document.getElementsByClassName('sizes-selector__title')
     console.log(sizetitles)
     sizetitles.forEach(function(item, i, arr) {
       item.setAttribute('data-size', dataSize)
+    })
+
+    var cardPrice = document.getElementsByClassName('card-info__price')
+    cardPrice.forEach(function(item, i, arr) {
+      item.innerHTML = dataPrice + " {{__('userpanel.currency')}}"
     })
   }
 

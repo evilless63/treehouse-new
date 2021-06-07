@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug',255)->unique();
             $table->string('parent_id')->nullable();       
             $table->boolean('in_header')->default(false);   
+            $table->integer('sort_order')->default(0);
         });
 
         Schema::create('category_localizations', function(Blueprint $table) {

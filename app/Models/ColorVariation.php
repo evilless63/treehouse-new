@@ -47,4 +47,14 @@ class ColorVariation extends Model
         return $this->hasMany(Wishlist::class);
     }
 
+    public function inStock() {
+        $count = 0;
+        foreach($this->sizeVariations as $sv){
+            if($sv->stock >= 0) {
+                $count += $sv->stock;
+            }
+        }
+        return $count > 0 ? true : false;
+    }
+
 }
