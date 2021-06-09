@@ -1305,7 +1305,8 @@
                     var n = $(t).data("hash"),
                         i = $(t).data("id");
                     r.push(n), c.push(i)
-                })), sessionStorage.setItem("filters" + sizesFilterUrl.hashCode(), r), window.sizesFilterUrl) {
+                })), 
+                window.sizesFilterUrl) {
                 $("#catalog-models").empty();
                 var l = "?filters=";
                 c.forEach((function (e, t) {

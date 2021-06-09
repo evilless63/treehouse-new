@@ -10787,9 +10787,9 @@ a.findsize-download:hover {
     font-size: 12px
 }
 
-.filter__item {
+/* .filter__item {
     margin-top: 35px
-}
+} */
 
 @media (max-width:1024px) {
     .filter__item {
@@ -10813,8 +10813,10 @@ a.findsize-download:hover {
     margin-right: 34px;
     min-width: 85px;
     display: flex;
+    margin-top: 12px;
     align-items: center
 }
+
 
 @media (min-width:1024px) {
     .filter__field {

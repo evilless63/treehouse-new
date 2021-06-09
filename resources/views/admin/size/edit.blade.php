@@ -35,6 +35,10 @@
                         @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
+                        <label>Короткий заголовок (для фильтра в каталоге)</label>
+                        <input type="text" class="form-control"placeholder="Короткий заголовок (для фильтра в каталоге)" name="localization[{{$lang_field_set->lang}}][short_title]" class="@error('short_title') is-invalid @enderror" value="{{$lang_field_set->short_title}}">
+                        
+                        
                         @endforeach
 
                         <input type="submit" class="btn btn-primary"value="{{__('adminpanel.edit')}}">

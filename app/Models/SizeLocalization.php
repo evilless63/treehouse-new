@@ -10,7 +10,7 @@ class SizeLocalization extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['lang', 'title'];
+    protected $fillable = ['lang', 'title', 'short_title'];
     /**
      * @return BelongsTo
      */

@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\ColorVariation;
 use App\Models\Banner;
 use App\Models\Color;
+use App\Models\Size;
 use View;
 use Auth;
 use Cart;
@@ -134,6 +135,14 @@ class UserPublicController extends Controller
             }
         }
 
+        $sizes = collect();
+        foreach($products_by_category as $p) {
+            foreach($p->sizeVariations as $v){
+                $sizes->push($v->size);
+            }
+        }
+        $sizes = $sizes->unique();
+
         $recently_viewed_ids = session()->get('recently_viewed_ids');
         if (!$recently_viewed_ids) {
             $recently_viewed_ids = [];
@@ -147,7 +156,45 @@ class UserPublicController extends Controller
             }
         }
 
-        return view('user.public.catalog', compact('all_categories', 'products_by_category', 'recently_viewed_products', 'category_name'));
+        return view('user.public.catalog', compact('all_categories', 'products_by_category', 'recently_viewed_products', 'category_name', 'sizes', 'category'));
+    }
+
+    public function filterCategoryProductsBySize() {
+        $category = Category::where('id', request()->category_id)->first();
+        $productsUnfiltered = $category->colorVariations()->get();
+
+        $products_by_category = collect();
+        if(request()->has('ids')){
+            $arr = explode(',',request()->input('ids'));
+            $sizes = collect();
+            foreach($arr as $sizeId){
+                $currentSize = Size::where('id', $sizeId)->first();
+                if($currentSize !== null) {
+                    foreach($currentSize->sizeVariations as $sizeVariation){
+
+                        if($productsUnfiltered->contains('id', $sizeVariation->color_variation_id)){
+                            $products_by_category->push($sizeVariation->colorVariation);
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($products_by_category as $k => $v) {
+            if (!$v->hasSizesInStock()) {
+                $products_by_category->forget($k);
+            }
+        }
+        $products_by_category = $products_by_category->unique();
+        $products_by_category = $products_by_category->shuffle();
+
+        if ($products_by_category->count() > 0) {
+            $html = view('user.includes.catalog_grid', compact('products_by_category'))->render();
+        } else {
+            $html = view('user.includes.search_result_failed')->render();
+        }
+
+        return $html;
     }
 
     public function login()

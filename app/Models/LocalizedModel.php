@@ -76,6 +76,12 @@ class LocalizedModel extends Model
         ->first()->title;
     }
 
+    public function getLocalizeShortTitle($currentLocale) { //using in sizes
+        return $this->localization()
+        ->where('lang', $currentLocale)
+        ->first()->short_title;
+    }
+
     public function sluggable(): array
     {
         return [
