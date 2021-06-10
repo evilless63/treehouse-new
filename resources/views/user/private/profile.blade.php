@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div class="profile__holder">
+  {{-- <div class="profile__holder">
     <div class="page__row">
       <div class="page__middle">
 
@@ -119,8 +119,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <a href="/user/logout" class="button button_transparent profile__exit-button">Выход</a>
+  </div> --}}
+  {{-- <a href="/user/logout" class="button button_transparent profile__exit-button">Выход</a> --}}
 </div>
 @endsection
 
