@@ -100,6 +100,7 @@
     <meta name="description"
         content="Большой выбор женской одежды, платья, рубашки, костюмы, верхняя одежда, аксессуары. Доставка.">
     <link rel="stylesheet" href="{{ asset('assets/js/base/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/fast-catalog-item/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/intellinput.css') }}">
