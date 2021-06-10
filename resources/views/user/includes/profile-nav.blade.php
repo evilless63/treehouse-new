@@ -3,7 +3,7 @@
     <div class="categories">
         <div class="categories__item"><a href="{{LaravelLocalization::localizeUrl('/user/cabinet')}}" class="categories__link">{{__('userpanel.lc_profile')}}</a></div>
         <div class="categories__item"><a href="{{LaravelLocalization::localizeUrl('/user/orders')}}" class="categories__link">{{__('userpanel.lc_orders')}}</a></div>
-        <div class="categories__item"><a href="{{LaravelLocalization::localizeUrl('/user/subscribe')}}" class="categories__link">{{__('userpanel.lc_subscribtions')}}</a></div>
+        {{-- <div class="categories__item"><a href="{{LaravelLocalization::localizeUrl('/user/subscribe')}}" class="categories__link">{{__('userpanel.lc_subscribtions')}}</a></div> --}}
         <div class="categories__item"><a href="{{LaravelLocalization::localizeUrl('/user/wishlist')}}" class="categories__link">Wishlist</a></div>
         <div class="categories__item"><a href="{{LaravelLocalization::localizeUrl('/user/adresses')}}" class="categories__link">{{__('userpanel.lc_adresses')}}</a></div>
         <div class="categories__item">

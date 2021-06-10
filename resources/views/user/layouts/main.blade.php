@@ -461,11 +461,11 @@
                                                     href="{{ LaravelLocalization::localizeUrl('/user/orders') }}">
                                                     {{ __('userpanel.lc_orders') }} </a>
                                             </li>
-                                            <li class="footer-list__item footer-list-item">
+                                            {{-- <li class="footer-list__item footer-list-item">
                                                 <a class="footer-list-item__link"
                                                     href="{{ LaravelLocalization::localizeUrl('/user/subscribe') }}">
                                                     {{ __('userpanel.lc_subscribtions') }} </a>
-                                            </li>
+                                            </li> --}}
                                             <li class="footer-list__item footer-list-item">
                                                 <a class="footer-list-item__link"
                                                     href="{{ LaravelLocalization::localizeUrl('/user/wishlist') }}">
