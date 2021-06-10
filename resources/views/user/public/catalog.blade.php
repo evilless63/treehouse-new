@@ -101,6 +101,7 @@
 
 
                         <!-- SITEDEV-2634 -->
+                        @if($recently_viewed_products->count() > 0)
                         <div class="card__item card__item_lastview card__item--slider">
 
                             <div class="card__item_head card__item_head--catalog">
@@ -190,7 +191,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        @endif
 
                         @if ($wishlist->count() > 0)
                             <div class="card__item card__item_wishlist">
