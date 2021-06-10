@@ -8,11 +8,14 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Auth;
 use View;
+use App\Models\Wishlist;
+use Cart;
 
 class AddressController extends Controller
 {
 
     public $categories;
+    public $wishlist;
     public function __construct()
     {
         $this->middleware('auth');
@@ -26,12 +29,30 @@ class AddressController extends Controller
         $this->customer_articles = Article::where('purpose', 'counteragents')->get();
         $this->categories = Category::all();
 
-        if (!Auth::guest()) {
-            $this->wishlist = Cart::instance('wishlist')->content();
-        } else {
-            $this->wishlist = false;
-        }
+        $this->middleware(function ($request, $next) {
+            $wishlistCollection = collect();
+            if (Auth::guest() == false) {
+                $dbWishlistPositions = Wishlist::where('user_id', Auth::user()->id)->get();
+                foreach ($dbWishlistPositions as $position) {
+                    $wishlistCollection->push(ColorVariation::where('id', $position->color_variation_id)->first());
+                }
+                $this->wishlist = $wishlistCollection->unique();
+            } else {
+                $this->wishlist = $wishlistCollection;
+            }
+            View::share('wishlist', $this->wishlist);
+            return $next($request);
+        });
 
+        $this->middleware(function ($request, $next) {
+            if (Auth::guest() == false) {
+                $this->cartItemsCount = Cart::instance('shopping')->count();
+            } else {
+                $this->cartItemsCount = 0;
+            }
+            View::share('cartItemsCount', $this->cartItemsCount);
+            return $next($request);
+        });
         View::share('mainmenu_categories', $this->mainmenu_categories);
         View::share('wishlist', $this->wishlist);
         View::share('categories_menu', $this->categories_menu);
@@ -73,7 +94,7 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        if(Address::all()->count() == 0) {
+        if (Address::all()->count() == 0) {
             $data['is_default'] = 1;
         }
         $data['user_id'] = Auth::user()->id;
@@ -119,11 +140,11 @@ class AddressController extends Controller
     {
         $adress = Address::where('id', $id)->first();
         $data = $request->all();
-        
+
         if ($request->has('is_default')) {
             $data['is_default'] = 1;
             $currentDefaultAdress = Auth::user()->addresses()->where('is_default', 1)->first();
-            if($currentDefaultAdress != null) {
+            if ($currentDefaultAdress != null) {
                 $currentDefaultAdress->is_default = 0;
                 $currentDefaultAdress->save();
             }
@@ -144,9 +165,9 @@ class AddressController extends Controller
     public function destroy($id)
     {
         $adress = Address::where('id', $id)->first();
-        if($adress->is_default == 1) {
+        if ($adress->is_default == 1) {
             $currentDefaultAdress = Auth::user()->addresses()->first();
-            if($currentDefaultAdress != null) {
+            if ($currentDefaultAdress != null) {
                 $currentDefaultAdress->is_default = 1;
                 $currentDefaultAdress->save();
             }
