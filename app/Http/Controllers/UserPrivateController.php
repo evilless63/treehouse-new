@@ -80,7 +80,10 @@ class UserPrivateController extends Controller
 
     public function profile()
     {
-        return view('user.private.profile');
+        return view('user.private.profile')->with([
+            'user' => Auth::user(),
+            'default_adress' => Auth::user()->addresses()->where('is_default', 1)->first(),
+        ]);
     }
 
     public function editProfile()

@@ -27,14 +27,15 @@
                                 required autocomplete="current-password" aria-required="true">
               <p class="form__error-message"></p>
             </div>
+            <div class="login__recover">
+              <a href="/reset-password" class="login__recover-link">Восстановить пароль</a>
+            </div>
             <button type="submit" class="button button_powdery login__button">Войти</button>
           </form>
           <div class="login__reg">
             <a href="/register" class="login__reg-link">Зарегистрироваться</a>
           </div>
-          <div class="login__recover">
-            <a href="/reset-password" class="login__recover-link">Восстановить пароль</a>
-          </div>
+          
 
         </div>
       </div>

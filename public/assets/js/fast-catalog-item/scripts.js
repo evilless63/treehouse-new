@@ -3462,37 +3462,37 @@
                     })
                 },
                 z = function (e, t, i) {
-                    new s.a({
-                        context: {
-                            content: document.querySelector("#select_size").outerHTML
-                        },
-                        popupClass: "sizes-popup-mod",
-                        onOpened: function () {
-                            var e = this;
-                            document.querySelectorAll(".popupify__inner .card-sizes__item").forEach((function (i) {
-                                var o = e;
-                                i.addEventListener("click", (function (e) {
-                                    this.querySelector(".card-sizes__input").getAttribute("value");
-                                    var i = this.querySelector(".card-sizes__input").dataset.url,
-                                        a = this.querySelector(".card-sizes__label-wrap").getAttribute("href"),
-                                        r = this.querySelector(".is_stocks"),
-                                        c = this.querySelector(".is_subscribe"),
-                                        l = this.querySelector(".card-sizes__title").innerText,
-                                        u = this.querySelector(".card-sizes__comment") ? this.querySelector(".card-sizes__comment").innerText : "",
-                                        d = this.querySelector(".card-sizes__comment") ? '<span class="sizes-selector__title_comment">'.concat(u, "</span>") : "";
-                                    D(l, u, r, c), null !== r || null !== c ? $.get(a, (function (e) {
-                                        o.close(), new s.a({
-                                            context: {
-                                                content: e
-                                            }
-                                        })
-                                    })) : (n(!0), $.get(i, (function (e) {
-                                        n(!1), q(e, o), t.innerHTML = "".concat(document.querySelector(".card-button-locale--size").value, " ").concat(l, " ").concat(d)
-                                    })))
-                                }))
-                            }))
-                        }
-                    })
+                    // new s.a({
+                    //     context: {
+                    //         content: document.querySelector("#select_size").outerHTML
+                    //     },
+                    //     popupClass: "sizes-popup-mod",
+                    //     onOpened: function () {
+                    //         var e = this;
+                    //         document.querySelectorAll(".popupify__inner .card-sizes__item").forEach((function (i) {
+                    //             var o = e;
+                    //             i.addEventListener("click", (function (e) {
+                    //                 this.querySelector(".card-sizes__input").getAttribute("value");
+                    //                 var i = this.querySelector(".card-sizes__input").dataset.url,
+                    //                     a = this.querySelector(".card-sizes__label-wrap").getAttribute("href"),
+                    //                     r = this.querySelector(".is_stocks"),
+                    //                     c = this.querySelector(".is_subscribe"),
+                    //                     l = this.querySelector(".card-sizes__title").innerText,
+                    //                     u = this.querySelector(".card-sizes__comment") ? this.querySelector(".card-sizes__comment").innerText : "",
+                    //                     d = this.querySelector(".card-sizes__comment") ? '<span class="sizes-selector__title_comment">'.concat(u, "</span>") : "";
+                    //                 D(l, u, r, c), null !== r || null !== c ? $.get(a, (function (e) {
+                    //                     o.close(), new s.a({
+                    //                         context: {
+                    //                             content: e
+                    //                         }
+                    //                     })
+                    //                 })) : (n(!0), $.get(i, (function (e) {
+                    //                     n(!1), q(e, o), t.innerHTML = "".concat(document.querySelector(".card-button-locale--size").value, " ").concat(l, " ").concat(d)
+                    //                 })))
+                    //             }))
+                    //         }))
+                    //     }
+                    // })
                 },
                 I = function () {
                     var e = !1;

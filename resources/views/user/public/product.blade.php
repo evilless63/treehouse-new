@@ -39,6 +39,18 @@
     </div>
   </div>
 
+  <div id="add_item-error-unauthenticated" class="popup popupify-inner">
+    <h4 class="popupify-inner__title">
+      Ошибка! </h4>
+    <p>
+      Для добавления позиции в корзину необходимо необходимо авторизоваться или зарегистрироваться.</p>
+
+    <div class="login__recover">
+      <a href="#" class="login__recover-link login__recover-link--redesign">
+        Ок </a>
+    </div>
+  </div>
+
   <div id="add_item-error-size-not-founded" class="popup popupify-inner">
     <h4 class="popupify-inner__title">
       Ошибка! </h4>
@@ -55,7 +67,7 @@
     <h4 class="popupify-inner__title">
       Ошибка! </h4>
     <p>
-      Для добавления позиции в wishlist необходимо авторизоваться или зарегистрироваться. </p>
+      Для добавления позиции в wishlist необходимо авторизоваться или зарегистрироваться.</p>
 
     <div class="login__recover">
       <a href="#" class="login__recover-link login__recover-link--redesign">
@@ -411,15 +423,16 @@
                       <div class="accordion__box card-features__box">
                         <div class="card-features__text">
                           <h4 class="card-features__text-title">
-                            {{__('userpanel.product_measurements')}}
-                          </h4>
-                          <p class="card-features__text-sizes">
-                            {!!$productLangFields->details!!}
-                          </p>
-                          <h4 class="card-features__text-title">
                             {{__('userpanel.product_desc')}}
                           </h4>
                           <p>{!!$productLangFields->content!!}</p>
+                          {{-- <h4 class="card-features__text-title">
+                            {{__('userpanel.product_measurements')}}
+                          </h4> --}}
+                          <p class="card-features__text-sizes">
+                            {!!$productLangFields->details!!}
+                          </p>
+                          
                         </div>
                       </div>
                     </div>
@@ -1008,7 +1021,20 @@
           })
         },
         error: function(response) {
-          new window.basePopup({
+          if(response.statusText == 'Unauthorized') {
+            new window.basePopup({
+              context: {
+                  content: document.querySelector("#add_item-error-unauthenticated").outerHTML
+              },
+              onOpened: function () {
+                  var e = this;
+                  $(".login__recover-link").off("click").on("click", (function (t) {
+                      t.preventDefault(), e.close()
+                  }))
+              }
+          })
+          } else {
+            new window.basePopup({
               context: {
                   content: document.querySelector("#add_item-error").outerHTML
               },
@@ -1019,6 +1045,9 @@
                   }))
               }
           })
+          }
+          
+          
         } 
       })
     }

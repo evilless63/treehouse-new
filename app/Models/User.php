@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\PromocodeController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -50,5 +51,9 @@ class User extends Authenticatable
 
     public function wishlists() {
         return $this->hasMany(Wishlist::class);
+    }
+
+    public function promocodes() {
+        return $this->belongsToMany(Promocode::class);
     }
 }

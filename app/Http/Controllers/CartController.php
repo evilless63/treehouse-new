@@ -15,7 +15,7 @@ class CartController extends Controller
 {
     public function addToCard(Request $request)
     {
-
+        
         $sizeVariation =  SizeVariation::where('id', $request->size_variation_id)->first();
 
         if($sizeVariation->stock < $request->qty) {
@@ -27,7 +27,7 @@ class CartController extends Controller
         $size = Size::where('id', $sizeVariation->size->id)->first();
 
         $imagePath = ColorVariation::where('color_id', $color->id)->where('product_id', $product->id)->first()->main_img;
-
+        
         Cart::instance('shopping')->add(
             $product->id,
             $product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) . ", " . __('userpanel.color') . ": " 

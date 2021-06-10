@@ -19,31 +19,19 @@
               <div class="profile-info profile-head__info">
                 <div class="profile-info__background"></div>
                 <div class="profile-info__list">
-                  <div class="profile-info__item">a@a.com</div>
+                  <div class="profile-info__item">{{$user->email}}</div>
                   <div class="profile-info__item"></div>
                   <div class="profile-info__item"></div>
                 </div>
                 <div class="profile-info__detail">
                   <div class="profile-info__detail-column profile-info__detail-column_3">
                     <div class="profile-info__detail-title">контактная информация</div>
-                    <div class="profile-info__detail-item">a@a.com</div>
-                    <div class="profile-info__detail-item">не задан</div>
+                    <div class="profile-info__detail-item">{{$user->email}}</div>
+                    <div class="profile-info__detail-item">{{$user->phone}}</div>
                   </div>
                   <div class="profile-info__detail-column profile-info__detail-column_3">
                     <div class="profile-info__detail-title">основной адрес доставки</div>
-                    <div class="profile-info__detail-item">не задан</div>
-                  </div>
-                  <div class="profile-info__detail-column profile-info__detail-column_3">
-                    <div class="profile-info__detail-title">Дата рождения</div>
-                    <div class="profile-info__detail-item">не задан</div>
-                  </div>
-                  <div class="profile-info__detail-column profile-info__detail-column_3">
-                    <div class="profile-info__detail-title">размер одежды</div>
-                    <div class="profile-info__detail-item">не задан</div>
-                  </div>
-                  <div class="profile-info__detail-column profile-info__detail-column_3">
-                    <div class="profile-info__detail-title">размер обуви</div>
-                    <div class="profile-info__detail-item">не задан</div>
+                    <div class="profile-info__detail-item">{{$default_adress == null ? 'Не задан' : $default_adress}}</div>
                   </div>
                 </div>
               </div>

@@ -20,6 +20,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\SizeVariationController;
 use App\Http\Controllers\ImageGalleryController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\PromocodeController;
 use App\Models\Order;
 
 /*
@@ -69,6 +70,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
         'banners' => BannerController::class,
         'orders' => OrderController::class,
         'users' => UserController::class,
+        'promocodes' => PromocodeController::class,
     ]);
 
     Route::any('/categories/{id}/replicate', [CategoryController::class, 'replicate'])->name('categories.replicate');

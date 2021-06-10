@@ -1,6 +1,81 @@
 @extends('user.layouts.main')
 
 @section('content')
+    <div style="display: none">
+        <div id="add_item" class="popup popupify-inner">
+            <h4 class="popupify-inner__title">
+                <span class="popupify-inner__title-a">
+                    Спасибо! </span>
+                <span class="popupify-inner__title-b">
+                    Товар у вас в корзине! </span>
+            </h4>
+
+            <div class="popupify-inner__thanks-a">
+                <p>Товар успешно добавлен в корзину.</p>
+            </div>
+            <div class="popupify-inner__thanks-b">
+                <p>Пожалуйста, учтите: при добавлении в корзину товары не бронируются.</p>
+                <p class="popupify-inner__thanks-b-copies">У нас осталось <span class="copies">3 экземпляра</span> этого
+                    размера.</p>
+            </div>
+
+            <a href="/cart" class="popupify__button popupify__button--fix" data-ga-category="Checkout"
+                data-ga-action="Checkout click popup" data-ga-label="Пользователь залогинен">
+                Оформить заказ </a>
+
+            <div class="login__recover">
+                <a href="#" class="login__recover-link login__recover-link--redesign">Продолжить покупки</a>
+            </div>
+        </div>
+
+        <div id="add_item-error" class="popup popupify-inner">
+            <h4 class="popupify-inner__title">
+                Ошибка! </h4>
+            <p>
+                К сожалению товара нет в наличии. </p>
+
+            <div class="login__recover">
+                <a href="#" class="login__recover-link login__recover-link--redesign">
+                    Ок </a>
+            </div>
+        </div>
+
+        <div id="add_item-error-unauthenticated" class="popup popupify-inner">
+            <h4 class="popupify-inner__title">
+                Ошибка! </h4>
+            <p>
+                Для добавления позиции в корзину необходимо необходимо авторизоваться или зарегистрироваться.</p>
+
+            <div class="login__recover">
+                <a href="#" class="login__recover-link login__recover-link--redesign">
+                    Ок </a>
+            </div>
+        </div>
+
+        <div id="add_item-error-size-not-founded" class="popup popupify-inner">
+            <h4 class="popupify-inner__title">
+                Ошибка! </h4>
+            <p>
+                Выберите размер. </p>
+
+            <div class="login__recover">
+                <a href="#" class="login__recover-link login__recover-link--redesign">
+                    Ок </a>
+            </div>
+        </div>
+
+        <div id="add_item-error-client-null" class="popup popupify-inner">
+            <h4 class="popupify-inner__title">
+                Ошибка! </h4>
+            <p>
+                Для добавления позиции в wishlist необходимо авторизоваться или зарегистрироваться.</p>
+
+            <div class="login__recover">
+                <a href="#" class="login__recover-link login__recover-link--redesign">
+                    Ок </a>
+            </div>
+        </div>
+    </div>
     <div class="catalog">
         <div class="catalog__holder">
             <div class="page__row">
@@ -43,8 +118,10 @@
                                                 class="catalog-list__link lookbook-link">
                                                 <div class="catalog-list__image-container">
                                                     <img class="catalog-list__image loading loaded"
-                                                        src="{{ asset($wishlist_item->main_img) }}"
-                                                        alt="{{ $wishlist_item->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }} {{ @if($wishlist_item->color->id !== 76)$wishlist_item->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale())@endif }}">
+                                                        src="{{ asset($wishlist_item->main_img) }}" alt="
+                                                                {{ $wishlist_item->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }} 
+                                                                @if ($wishlist_item->color_id !==
+                                                    76) {{ $wishlist_item->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }} @endif">
                                                 </div>
                                             </a>
                                             <div class="card-speed-buy"><a
@@ -71,8 +148,7 @@
                                                                 @foreach ($wishlist_item->sizeVariations as $sizeVariation)
                                                                     @if ($sizeVariation->stock > 0)
                                                                         <div class="card-sizes__item">
-                                                                            <input
-                                                                                size_variation_id="{{ $sizeVariation->id }}"
+                                                                            <input data-size="{{ $sizeVariation->id }}"
                                                                                 type="radio"
                                                                                 name="size_variation_id[{{ $sizeVariation->id }}]"
                                                                                 id="size_variation_{{ $sizeVariation->id }}"
@@ -81,7 +157,8 @@
                                                                             <label
                                                                                 for="size_variation_{{ $sizeVariation->id }}"
                                                                                 href="#" class="card-sizes__label-wrap ">
-                                                                                <span class="card-sizes__label js-label_in_popup">
+                                                                                <span
+                                                                                    class="card-sizes__label js-label_in_popup">
                                                                                     <span class="card-sizes__title">
                                                                                         {{ $sizeVariation->size->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
                                                                                     </span>
@@ -109,8 +186,8 @@
                                                                 type="button"
                                                                 class="button button_powdery card__button buy_button js-card-button"
                                                                 style="visibility: visible; opacity: 1;"
-                                                                onclick="addToCartAjax(event)"
-                                                                data-color_variation="{{ $wishlist_item->id }}"
+                                                                {{-- onclick="addToCartAjax(event)" --}}
+                                                                data-color_variation="{{ $wishlist_item->color->id }}"
                                                                 data-product="{{ $wishlist_item->product->id }}">
                                                                 Добавить в корзину </button>
                                                         </div>
@@ -147,7 +224,10 @@
                                             <div class="catalog-list__title">
                                                 <div class="catalog-list__title-inn">
                                                     <span>{{ $wishlist_item->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
-                                                        @if($wishlist_item->color->id !== 76){{ $wishlist_item->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
+                                                        @if ($wishlist_item->color->id !== 76)
+                                                            {{ $wishlist_item->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
+                                                        @endif
+                                                    </span>
                                                 </div>
                                             </div>
                                             <!-- Заголовок товара END -->
@@ -157,7 +237,8 @@
                                                 @if ($wishlist_item->sizeVariations->sortBy('price')->first()->price == $wishlist_item->sizeVariations->sortByDesc('price')->first()->price)
                                                     {{ $wishlist_item->sizeVariations->sortBy('price')->first()->price }}
                                                 @else
-                                                    {{ $wishlist_item->sizeVariations->sortBy('price')->first()->price }} -
+                                                    {{ $wishlist_item->sizeVariations->sortBy('price')->first()->price }}
+                                                    -
                                                     {{ $wishlist_item->sizeVariations->sortByDesc('price')->first()->price }}
                                                 @endif {{ __('userpanel.currency') }}
                                             </div>
@@ -230,7 +311,7 @@
                         wishlistCount.style.display = "none"
                     }
 
-                    if(wishlistCount.innerHTML < response) {
+                    if (wishlistCount.innerHTML < response) {
                         $(event.target).closest('div').find('span')[0].innerText = "Убрать из Wishlist'а"
                     } else {
                         $(event.target).closest('div').find('span')[0].innerText = "Добавить в Wishlist"
@@ -240,15 +321,16 @@
             })
         }
 
-        function addToCartAjax(event) {
+        $('.js-card-button').click(function(){
 
+            var itemBlock = $(this).closest('.catalog-list__item')
             var dataSize = 999999999
-            sizetitles = document.getElementsByClassName('sizes-selector__title')
-            sizetitles.forEach(function(item, i, arr) {
-                console.log(item.getAttribute('data-size'))
-                dataSize = item.getAttribute('data-size')
+            itemBlock.find('.card-sizes__input').each(function(e){
+                if($(this).is(':checked')) {
+                    dataSize = $(this).attr('data-size')
+                }
             })
-
+            
             if (dataSize == 999999999) {
                 new window.basePopup({
                     context: {
@@ -265,8 +347,8 @@
                 return
             }
 
-            var dataColor = $(event.target).attr('data-color_variation')
-            var dataProduct = $(event.target).attr('data-product')
+            var dataColor = $(this).attr('data-color_variation')
+            var dataProduct = $(this).attr('data-product')
             var qty = 1
 
             $.ajax({
@@ -282,9 +364,7 @@
                     color_id: dataColor,
                 },
                 success: function(response) {
-                    document.getElementById('AddToCartButton').style.display = "none"
-                    document.getElementById('goToCartAfterAdded').style.display = "block"
-
+                    console.log(response)
                     new window.basePopup({
                         context: {
                             content: document.querySelector("#add_item").outerHTML
@@ -308,6 +388,7 @@
                     })
                 },
                 error: function(response) {
+                    console.log(response)
                     new window.basePopup({
                         context: {
                             content: document.querySelector("#add_item-error").outerHTML
@@ -321,7 +402,19 @@
                     })
                 }
             })
-        }
+        })
+
+        $('.card-sizes__item').click(function() {
+            $(this).closest('.card-sizes__list').find('.card-sizes__item').each(function(e) {
+                $(this).find('.card-sizes__input').each(function(i) {
+                    $(this).prop("checked", false)
+                })
+            })
+
+            $(this).find('.card-sizes__input').each(function(i) {
+                $(this).prop("checked", true)
+            })
+        })
 
     </script>
 @endsection

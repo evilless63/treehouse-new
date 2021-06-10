@@ -10972,7 +10972,7 @@ a.findsize-download:hover {
 
 @media (min-width:1024px) {
     .footer {
-        margin-top: 0
+        margin-top: 48px;
     }
 }
 
@@ -14169,7 +14169,7 @@ a.findsize-download:hover {
     transition: border-color .2s;
     text-decoration: none;
     text-transform: uppercase;
-    /* margin-bottom: 3.07143rem */
+    margin-bottom: 3.07143rem
 }
 
 .login__reg-link:hover {
@@ -22399,4 +22399,129 @@ html:not(.t-main):not(.t-404) .page {
     
     max-width: 824px;
     position: relative;
+}
+
+.search[data-v-38163b6a] {
+    margin-top: -12px;
+    position: absolute;
+    right: 152px;
+    top: 50%;
+    width: 296px;
+}
+
+.field[data-v-88ff0f44] {
+  box-sizing: border-box;
+  height: 36px;
+  /* overflow: hidden; */
+  position: relative;
+  width: 100%;
+}
+
+.field--white .field__background[data-v-88ff0f44] {
+  background-color: hsla(0,0%,100%,.24);
+}
+
+.field__background[data-v-88ff0f44] {
+  background-color: rgba(245,243,243,.64);
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: background-color .3s linear,border-color .3s linear;
+  width: 100%;
+}
+
+.field__container[data-v-88ff0f44] {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  padding: 0 16px;
+  position: relative;
+}
+
+.field__icon--left[data-v-88ff0f44] {
+  margin-left: -6px;
+}
+
+.field__icon[data-v-88ff0f44] {
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 24px;
+  margin: 0 8px;
+  position: relative;
+  width: 24px;
+}
+
+.field__inner[data-v-88ff0f44] {
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+  position: relative;
+}
+
+.field--white .field__placeholder[data-v-88ff0f44] {
+  color: #fff;
+}
+
+.field--white .field__placeholder[data-v-88ff0f44] {
+    color: #fff;
+}
+.field__placeholder[data-v-88ff0f44] {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  box-sizing: border-box;
+  color: #b8b8b8;
+  height: 100%;
+  /* left: -88px; */
+  overflow: hidden;
+  padding: 6px 0;
+  position: absolute;
+  text-overflow: ellipsis;
+  top: 0;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.field--white .field__input[data-v-88ff0f44] {
+  color: #fff;
+}
+
+.field__input[data-v-88ff0f44] {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  color: #887569;
+  display: block;
+  font-family: inherit;
+  height: 100%;
+  outline: none;
+  padding: 6px 0;
+  position: relative;
+  transition: color .3s linear;
+  width: 100%;
+}
+
+.icon--white[data-v-c4f273e2] {
+  fill: #fff;
+}
+
+
+.search_result {
+	position: absolute;
+	top: 100%;
+	left: -55px;
+	border: 1px solid #ddd;
+	background: #fff;
+	padding: 10px;
+	z-index: 9999;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  max-height: 300px;
+  overflow: auto;
 }

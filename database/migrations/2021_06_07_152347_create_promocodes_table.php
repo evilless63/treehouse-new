@@ -16,6 +16,15 @@ class CreatePromocodesTable extends Migration
         Schema::create('promocodes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
+            $table->integer('usable_count')->nullable();
+            $table->string('promocode_type');
+            $table->boolean('without_sales')->nullable();
+            $table->dateTimeTz('from')->nullable();
+            $table->dateTimeTz('to')->nullable();
+            $table->float('discount')->nullable();
+            $table->string('rule_type');
+            $table->float('min_subtotal')->nullable();
         });
     }
 

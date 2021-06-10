@@ -55,14 +55,15 @@
                         name="password_confirmation" required autocomplete="current-password" aria-required="true">
                     <p class="form__error-message"></p>
                 </div>
+                <div class="login__recover">
+                    <a href="/reset-password" class="login__recover-link">Восстановить пароль</a>
+                </div>
                 <button type="submit" class="button button_powdery login__button">Зарегистрироваться</button>
             </form>
             <div class="login__reg">
                 <a href="/login" class="login__reg-link">Войти</a>
             </div>
-            <div class="login__recover">
-                <a href="/reset-password" class="login__recover-link">Восстановить пароль</a>
-            </div>
+            
 
         </div>
     </div>
