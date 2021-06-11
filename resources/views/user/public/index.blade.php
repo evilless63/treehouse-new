@@ -321,7 +321,7 @@ route('user.product', [
         </div>
     </div>
 
-    @foreach ($categories->skip(6)->take(3) as $category)
+    @foreach ($categories->skip(6)->take(4) as $category)
     <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
         data-key="homeSliderBestsellers">
         <div class="slider-news__holder">
@@ -433,7 +433,7 @@ route('user.product', [
         </div>
     </div>
 
-    @foreach ($categories->skip(9) as $category)
+    @foreach ($categories->skip(10) as $category)
     <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
         data-key="homeSliderBestsellers">
         <div class="slider-news__holder">
