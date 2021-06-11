@@ -15,43 +15,7 @@
         </a>
     </div>
 
-    {{-- <div class="ab-2592 ab-2592-a">
-  <div class="categories-cards categories-cards_with-only-mobile-element">
-    <div class="categories-cards__holder">
-      <div class="categories-cards__list">
-        <div class="categories-card categories-card_mobile" data-title="{{$videoBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}">
-          <div class="categories-card__head">
-            <div class="categories-card__title">{{$videoBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</div>
-            <a href="{{LaravelLocalization::localizeUrl(route('user.category', 3))}}" class="categories-card__href">Перейти</a>
-          </div>
-          <a href="{{LaravelLocalization::localizeUrl(route('user.category', 3))}}" class="categories-card__link">
-            <img src="{{asset('/uploads/banners_media/banner_info.jpg')}}" class="categories-card__image" />
-          </a>
-        </div>
-        <div class="categories-card" data-title="{{$topLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}">
-          <div class="categories-card__head">
-            <div class="categories-card__title">{{$topLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</div>
-            <a href="{{LaravelLocalization::localizeUrl(url($topLeftBanner->link))}}" class="categories-card__href">Перейти</a>
-          </div>
-          <a href="{{LaravelLocalization::localizeUrl(url($topLeftBanner->link))}}" class="categories-card__link">
-            <img src="{{asset($topLeftBanner->img_path)}}" class="categories-card__image" />
-          </a>
-        </div>
-        <div class="categories-card" data-title="{{$topRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}">
-          <div class="categories-card__head">
-            <div class="categories-card__title">{{$topRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</div>
-            <a href="{{LaravelLocalization::localizeUrl(url($topRightBanner->link))}}" class="categories-card__href">Перейти</a>
-          </div>
-          <a href="{{LaravelLocalization::localizeUrl(url($topRightBanner->link))}}" class="categories-card__link">
-            <img src="{{asset($topRightBanner->img_path)}}" class="categories-card__image" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> --}}
-
-    <div class="slider-news home-slider" data-name="Новое на этой неделе" data-ga-name="New this week"
+    {{-- <div class="slider-news home-slider" data-name="Новое на этой неделе" data-ga-name="New this week"
         data-key="homeSliderNewOnWeek">
         <div class="slider-news__holder">
             <div class="slider-news__wrapper">
@@ -131,10 +95,195 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+    @foreach ($categories->take(3) as $category)
+    <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
+        data-key="homeSliderBestsellers">
+        <div class="slider-news__holder">
+            <div class="slider-news__wrapper">
+                <div class="slider-news__head">
+                    <a href="{{ LaravelLocalization::localizeUrl(route('user.category', $category->slug)) }}"
+                        style="    color: #887568;text-decoration:none;"
+                        class="slider-news__title">{{ $category->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</a>
+                    <div class="slider-news__controls"> <button type="button"
+                            class="slider-news__arrow slider-news__arrow_prev">Prev</button> <button type="button"
+                            class="slider-news__arrow slider-news__arrow_next">Next</button> </div>
+                </div>
+                <div class="slider-news__list js-slider-news new-on-week-block home-slider__list">
+                    @foreach ($category->colorVariations()->take(10)->get()
+    as $bestseller)
+                        <a href="{{ LaravelLocalization::localizeUrl(
+route('user.product', [
+    'product' => $bestseller->product->slug,
+    'color' => $bestseller->color->slug,
+]),
+) }}"
+                            class="catalog-list__item slider-news__item new-on-week-item-link home-slider__item"
+                            data-id="105546">
+                            <div class="catalog-list__preview">
+                                <span class="catalog-list__fav js-add-fav" @if ($wishlist->where('id', $bestseller->id)->count() > 0) style="display:none" @endif
+                                    color-variation-id="{{ $bestseller->id }}"></span>
+                                <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" @if ($wishlist->where('id', $bestseller->id)->count() == 0) style="display:none" @endif
+                                    color-variation-id="{{ $bestseller->id }}"></span>
+                                <img src="{{ asset($bestseller->main_img()) }}"
+                                    data-observer-src="{{ asset($bestseller->main_img()) }}"
+                                    alt="{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
+                                    class="catalog-list__image" />
+                                <div class="page-preloader__loading news-loader"></div>
+                            </div>
+                            <div class="catalog-list__box slider-news__box">
+
+                                <!-- Заголовок товара -->
+                                <div class="catalog-list__title">
+                                    <div class="catalog-list__title-inn">
+                                        <span>{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
+                                            @if($bestseller->color->id !== 76){{ $bestseller->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
+                                    </div>
+                                </div>
+                                <!-- Заголовок товара END -->
+
+                                <!-- Цена и скидка товара -->
+                                <div class="catalog-list__price">
+                                    @if ($bestseller->sizeVariations->sortBy('price')->first()->price == $bestseller->sizeVariations->sortByDesc('price')->first()->price)
+                                        {{ $bestseller->sizeVariations->sortBy('price')->first()->price }}
+                                    @else
+                                        {{ $bestseller->sizeVariations->sortBy('price')->first()->price }} -
+                                        {{ $bestseller->sizeVariations->sortByDesc('price')->first()->price }}
+                                    @endif {{ __('userpanel.currency') }}
+                                </div>
+                                <!-- Цена и скидка товара END -->
+
+                                <!-- Цвета -->
+                                <ul class="catalog-list__colors catalog-list-colors">
+                                    @foreach ($bestseller->product->colorVariations as $colorVariation)
+                                        <li class="catalog-list-colors__color "
+                                            title="{{ $colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
+                                            style="background:{{ $colorVariation->color->hex }}">
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <!-- Цвета END -->
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
+@endforeach
 
+<div class="ab-2592 ab-2592-a">
+    <div class="categories-cards categories-cards_with-only-mobile-element">
+      <div class="categories-cards__holder">
+        <div class="categories-cards__list">
+          <div class="categories-card categories-card_mobile" data-title="{{$videoBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}">
+            <div class="categories-card__head">
+              <div class="categories-card__title">{{$videoBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</div>
+              <a href="{{LaravelLocalization::localizeUrl(route('user.category', 3))}}" class="categories-card__href">Перейти</a>
+            </div>
+            <a href="{{LaravelLocalization::localizeUrl(route('user.category', 3))}}" class="categories-card__link">
+              <img src="{{asset('/uploads/banners_media/banner_info.jpg')}}" class="categories-card__image" />
+            </a>
+          </div>
+          <div class="categories-card" data-title="{{$topLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}">
+            <div class="categories-card__head">
+              <div class="categories-card__title">{{$topLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</div>
+              <a href="{{LaravelLocalization::localizeUrl(url($topLeftBanner->link))}}" class="categories-card__href">Перейти</a>
+            </div>
+            <a href="{{LaravelLocalization::localizeUrl(url($topLeftBanner->link))}}" class="categories-card__link">
+              <img src="{{asset($topLeftBanner->img_path)}}" class="categories-card__image" />
+            </a>
+          </div>
+          <div class="categories-card" data-title="{{$topRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}">
+            <div class="categories-card__head">
+              <div class="categories-card__title">{{$topRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</div>
+              <a href="{{LaravelLocalization::localizeUrl(url($topRightBanner->link))}}" class="categories-card__href">Перейти</a>
+            </div>
+            <a href="{{LaravelLocalization::localizeUrl(url($topRightBanner->link))}}" class="categories-card__link">
+              <img src="{{asset($topRightBanner->img_path)}}" class="categories-card__image" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  @foreach ($categories->skip(3)->take(3) as $category)
+    <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
+        data-key="homeSliderBestsellers">
+        <div class="slider-news__holder">
+            <div class="slider-news__wrapper">
+                <div class="slider-news__head">
+                    <a href="{{ LaravelLocalization::localizeUrl(route('user.category', $category->slug)) }}"
+                        style="    color: #887568;text-decoration:none;"
+                        class="slider-news__title">{{ $category->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</a>
+                    <div class="slider-news__controls"> <button type="button"
+                            class="slider-news__arrow slider-news__arrow_prev">Prev</button> <button type="button"
+                            class="slider-news__arrow slider-news__arrow_next">Next</button> </div>
+                </div>
+                <div class="slider-news__list js-slider-news new-on-week-block home-slider__list">
+                    @foreach ($category->colorVariations()->take(10)->get()
+    as $bestseller)
+                        <a href="{{ LaravelLocalization::localizeUrl(
+route('user.product', [
+    'product' => $bestseller->product->slug,
+    'color' => $bestseller->color->slug,
+]),
+) }}"
+                            class="catalog-list__item slider-news__item new-on-week-item-link home-slider__item"
+                            data-id="105546">
+                            <div class="catalog-list__preview">
+                                <span class="catalog-list__fav js-add-fav" @if ($wishlist->where('id', $bestseller->id)->count() > 0) style="display:none" @endif
+                                    color-variation-id="{{ $bestseller->id }}"></span>
+                                <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" @if ($wishlist->where('id', $bestseller->id)->count() == 0) style="display:none" @endif
+                                    color-variation-id="{{ $bestseller->id }}"></span>
+                                <img src="{{ asset($bestseller->main_img()) }}"
+                                    data-observer-src="{{ asset($bestseller->main_img()) }}"
+                                    alt="{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
+                                    class="catalog-list__image" />
+                                <div class="page-preloader__loading news-loader"></div>
+                            </div>
+                            <div class="catalog-list__box slider-news__box">
 
+                                <!-- Заголовок товара -->
+                                <div class="catalog-list__title">
+                                    <div class="catalog-list__title-inn">
+                                        <span>{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
+                                            @if($bestseller->color->id !== 76){{ $bestseller->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
+                                    </div>
+                                </div>
+                                <!-- Заголовок товара END -->
+
+                                <!-- Цена и скидка товара -->
+                                <div class="catalog-list__price">
+                                    @if ($bestseller->sizeVariations->sortBy('price')->first()->price == $bestseller->sizeVariations->sortByDesc('price')->first()->price)
+                                        {{ $bestseller->sizeVariations->sortBy('price')->first()->price }}
+                                    @else
+                                        {{ $bestseller->sizeVariations->sortBy('price')->first()->price }} -
+                                        {{ $bestseller->sizeVariations->sortByDesc('price')->first()->price }}
+                                    @endif {{ __('userpanel.currency') }}
+                                </div>
+                                <!-- Цена и скидка товара END -->
+
+                                <!-- Цвета -->
+                                <ul class="catalog-list__colors catalog-list-colors">
+                                    @foreach ($bestseller->product->colorVariations as $colorVariation)
+                                        <li class="catalog-list-colors__color "
+                                            title="{{ $colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
+                                            style="background:{{ $colorVariation->color->hex }}">
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <!-- Цвета END -->
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
     <div class="ab-2592 ab-2592-a">
         <div class="categories-cards">
             <div class="categories-cards__holder">
@@ -172,7 +321,194 @@
         </div>
     </div>
 
+    @foreach ($categories->skip(6)->take(3) as $category)
     <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
+        data-key="homeSliderBestsellers">
+        <div class="slider-news__holder">
+            <div class="slider-news__wrapper">
+                <div class="slider-news__head">
+                    <a href="{{ LaravelLocalization::localizeUrl(route('user.category', $category->slug)) }}"
+                        style="    color: #887568;text-decoration:none;"
+                        class="slider-news__title">{{ $category->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</a>
+                    <div class="slider-news__controls"> <button type="button"
+                            class="slider-news__arrow slider-news__arrow_prev">Prev</button> <button type="button"
+                            class="slider-news__arrow slider-news__arrow_next">Next</button> </div>
+                </div>
+                <div class="slider-news__list js-slider-news new-on-week-block home-slider__list">
+                    @foreach ($category->colorVariations()->take(10)->get()
+    as $bestseller)
+                        <a href="{{ LaravelLocalization::localizeUrl(
+route('user.product', [
+    'product' => $bestseller->product->slug,
+    'color' => $bestseller->color->slug,
+]),
+) }}"
+                            class="catalog-list__item slider-news__item new-on-week-item-link home-slider__item"
+                            data-id="105546">
+                            <div class="catalog-list__preview">
+                                <span class="catalog-list__fav js-add-fav" @if ($wishlist->where('id', $bestseller->id)->count() > 0) style="display:none" @endif
+                                    color-variation-id="{{ $bestseller->id }}"></span>
+                                <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" @if ($wishlist->where('id', $bestseller->id)->count() == 0) style="display:none" @endif
+                                    color-variation-id="{{ $bestseller->id }}"></span>
+                                <img src="{{ asset($bestseller->main_img()) }}"
+                                    data-observer-src="{{ asset($bestseller->main_img()) }}"
+                                    alt="{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
+                                    class="catalog-list__image" />
+                                <div class="page-preloader__loading news-loader"></div>
+                            </div>
+                            <div class="catalog-list__box slider-news__box">
+
+                                <!-- Заголовок товара -->
+                                <div class="catalog-list__title">
+                                    <div class="catalog-list__title-inn">
+                                        <span>{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
+                                            @if($bestseller->color->id !== 76){{ $bestseller->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
+                                    </div>
+                                </div>
+                                <!-- Заголовок товара END -->
+
+                                <!-- Цена и скидка товара -->
+                                <div class="catalog-list__price">
+                                    @if ($bestseller->sizeVariations->sortBy('price')->first()->price == $bestseller->sizeVariations->sortByDesc('price')->first()->price)
+                                        {{ $bestseller->sizeVariations->sortBy('price')->first()->price }}
+                                    @else
+                                        {{ $bestseller->sizeVariations->sortBy('price')->first()->price }} -
+                                        {{ $bestseller->sizeVariations->sortByDesc('price')->first()->price }}
+                                    @endif {{ __('userpanel.currency') }}
+                                </div>
+                                <!-- Цена и скидка товара END -->
+
+                                <!-- Цвета -->
+                                <ul class="catalog-list__colors catalog-list-colors">
+                                    @foreach ($bestseller->product->colorVariations as $colorVariation)
+                                        <li class="catalog-list-colors__color "
+                                            title="{{ $colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
+                                            style="background:{{ $colorVariation->color->hex }}">
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <!-- Цвета END -->
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+    <div class="ab-2592 ab-2592-a">
+        <div class="categories-cards">
+            <div class="categories-cards__holder">
+                <div class="categories-cards__list">
+
+                    <div class="categories-card"
+                        data-title="{{ $secondDownLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
+                        <div class="categories-card__head">
+                            <div class="categories-card__title">
+                                {{ $secondDownLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</div>
+                            <a href="{{ LaravelLocalization::localizeUrl(url($secondDownLeftBanner->link)) }}"
+                                class="categories-card__href">Перейти</a>
+                        </div>
+                        <a href="{{ LaravelLocalization::localizeUrl(url($downLeftBanner->link)) }}"
+                            class="categories-card__link">
+                            <img src="{{ asset($secondDownLeftBanner->img_path) }}" class="categories-card__image" />
+                        </a>
+                    </div>
+
+                    <div class="categories-card"
+                        data-title="{{ $secondDownRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
+                        <div class="categories-card__head">
+                            <div class="categories-card__title">
+                                {{ $secondDownRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</div>
+                            <a href="{{ LaravelLocalization::localizeUrl(url($secondDownRightBanner->link)) }}"
+                                class="categories-card__href">Перейти</a>
+                        </div>
+                        <a href="{{ LaravelLocalization::localizeUrl(url($secondDownRightBanner->link)) }}"
+                            class="categories-card__link">
+                            <img src="{{ asset($secondDownRightBanner->img_path) }}" class="categories-card__image" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @foreach ($categories->skip(9) as $category)
+    <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
+        data-key="homeSliderBestsellers">
+        <div class="slider-news__holder">
+            <div class="slider-news__wrapper">
+                <div class="slider-news__head">
+                    <a href="{{ LaravelLocalization::localizeUrl(route('user.category', $category->slug)) }}"
+                        style="    color: #887568;text-decoration:none;"
+                        class="slider-news__title">{{ $category->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</a>
+                    <div class="slider-news__controls"> <button type="button"
+                            class="slider-news__arrow slider-news__arrow_prev">Prev</button> <button type="button"
+                            class="slider-news__arrow slider-news__arrow_next">Next</button> </div>
+                </div>
+                <div class="slider-news__list js-slider-news new-on-week-block home-slider__list">
+                    @foreach ($category->colorVariations()->take(10)->get()
+    as $bestseller)
+                        <a href="{{ LaravelLocalization::localizeUrl(
+route('user.product', [
+    'product' => $bestseller->product->slug,
+    'color' => $bestseller->color->slug,
+]),
+) }}"
+                            class="catalog-list__item slider-news__item new-on-week-item-link home-slider__item"
+                            data-id="105546">
+                            <div class="catalog-list__preview">
+                                <span class="catalog-list__fav js-add-fav" @if ($wishlist->where('id', $bestseller->id)->count() > 0) style="display:none" @endif
+                                    color-variation-id="{{ $bestseller->id }}"></span>
+                                <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" @if ($wishlist->where('id', $bestseller->id)->count() == 0) style="display:none" @endif
+                                    color-variation-id="{{ $bestseller->id }}"></span>
+                                <img src="{{ asset($bestseller->main_img()) }}"
+                                    data-observer-src="{{ asset($bestseller->main_img()) }}"
+                                    alt="{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
+                                    class="catalog-list__image" />
+                                <div class="page-preloader__loading news-loader"></div>
+                            </div>
+                            <div class="catalog-list__box slider-news__box">
+
+                                <!-- Заголовок товара -->
+                                <div class="catalog-list__title">
+                                    <div class="catalog-list__title-inn">
+                                        <span>{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
+                                            @if($bestseller->color->id !== 76){{ $bestseller->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
+                                    </div>
+                                </div>
+                                <!-- Заголовок товара END -->
+
+                                <!-- Цена и скидка товара -->
+                                <div class="catalog-list__price">
+                                    @if ($bestseller->sizeVariations->sortBy('price')->first()->price == $bestseller->sizeVariations->sortByDesc('price')->first()->price)
+                                        {{ $bestseller->sizeVariations->sortBy('price')->first()->price }}
+                                    @else
+                                        {{ $bestseller->sizeVariations->sortBy('price')->first()->price }} -
+                                        {{ $bestseller->sizeVariations->sortByDesc('price')->first()->price }}
+                                    @endif {{ __('userpanel.currency') }}
+                                </div>
+                                <!-- Цена и скидка товара END -->
+
+                                <!-- Цвета -->
+                                <ul class="catalog-list__colors catalog-list-colors">
+                                    @foreach ($bestseller->product->colorVariations as $colorVariation)
+                                        <li class="catalog-list-colors__color "
+                                            title="{{ $colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
+                                            style="background:{{ $colorVariation->color->hex }}">
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <!-- Цвета END -->
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+    {{-- <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
         data-key="homeSliderBestsellers">
         <div class="slider-news__holder">
             <div class="slider-news__wrapper">
@@ -250,7 +586,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+
     @if ($instagram_posts->count() > 0)
         <div class="slider-news home-previews-slider" data-ga-name="Stories">
             <div class="slider-news__holder">
@@ -275,81 +612,7 @@
             </div>
         </div>
     @endif
-    @foreach ($categories as $category)
-        <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
-            data-key="homeSliderBestsellers">
-            <div class="slider-news__holder">
-                <div class="slider-news__wrapper">
-                    <div class="slider-news__head">
-                        <a href="{{ LaravelLocalization::localizeUrl(route('user.category', $category->slug)) }}"
-                            style="    color: #887568;text-decoration:none;"
-                            class="slider-news__title">{{ $category->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</a>
-                        <div class="slider-news__controls"> <button type="button"
-                                class="slider-news__arrow slider-news__arrow_prev">Prev</button> <button type="button"
-                                class="slider-news__arrow slider-news__arrow_next">Next</button> </div>
-                    </div>
-                    <div class="slider-news__list js-slider-news new-on-week-block home-slider__list">
-                        @foreach ($category->colorVariations()->take(10)->get()
-        as $bestseller)
-                            <a href="{{ LaravelLocalization::localizeUrl(
-    route('user.product', [
-        'product' => $bestseller->product->slug,
-        'color' => $bestseller->color->slug,
-    ]),
-) }}"
-                                class="catalog-list__item slider-news__item new-on-week-item-link home-slider__item"
-                                data-id="105546">
-                                <div class="catalog-list__preview">
-                                    <span class="catalog-list__fav js-add-fav" @if ($wishlist->where('id', $bestseller->id)->count() > 0) style="display:none" @endif
-                                        color-variation-id="{{ $bestseller->id }}"></span>
-                                    <span class="catalog-list__fav catalog-list__fav__in js-rem-fav" @if ($wishlist->where('id', $bestseller->id)->count() == 0) style="display:none" @endif
-                                        color-variation-id="{{ $bestseller->id }}"></span>
-                                    <img src="{{ asset($bestseller->main_img()) }}"
-                                        data-observer-src="{{ asset($bestseller->main_img()) }}"
-                                        alt="{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
-                                        class="catalog-list__image" />
-                                    <div class="page-preloader__loading news-loader"></div>
-                                </div>
-                                <div class="catalog-list__box slider-news__box">
-
-                                    <!-- Заголовок товара -->
-                                    <div class="catalog-list__title">
-                                        <div class="catalog-list__title-inn">
-                                            <span>{{ $bestseller->product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
-                                                @if($bestseller->color->id !== 76){{ $bestseller->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}@endif</span>
-                                        </div>
-                                    </div>
-                                    <!-- Заголовок товара END -->
-
-                                    <!-- Цена и скидка товара -->
-                                    <div class="catalog-list__price">
-                                        @if ($bestseller->sizeVariations->sortBy('price')->first()->price == $bestseller->sizeVariations->sortByDesc('price')->first()->price)
-                                            {{ $bestseller->sizeVariations->sortBy('price')->first()->price }}
-                                        @else
-                                            {{ $bestseller->sizeVariations->sortBy('price')->first()->price }} -
-                                            {{ $bestseller->sizeVariations->sortByDesc('price')->first()->price }}
-                                        @endif {{ __('userpanel.currency') }}
-                                    </div>
-                                    <!-- Цена и скидка товара END -->
-
-                                    <!-- Цвета -->
-                                    <ul class="catalog-list__colors catalog-list-colors">
-                                        @foreach ($bestseller->product->colorVariations as $colorVariation)
-                                            <li class="catalog-list-colors__color "
-                                                title="{{ $colorVariation->color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}"
-                                                style="background:{{ $colorVariation->color->hex }}">
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                    <!-- Цвета END -->
-                                </div>
-                            </a>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
+    
 @endsection
 
 @section('scripts')

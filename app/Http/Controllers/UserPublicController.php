@@ -104,11 +104,22 @@ class UserPublicController extends Controller
         $topRightBanner = Banner::where('banner_position', 'TOP-RIGHT')->first();
         $downLeftBanner = Banner::where('banner_position', 'DOWN_LEFT')->first();
         $downRightBanner = Banner::where('banner_position', 'DOWN_RIGHT')->first();
+        $secondDownLeftBanner = Banner::where('banner_position', '2DOWN_LEFT')->first();
+        $secondDownRightBanner = Banner::where('banner_position', '2DOWN_RIGHT')->first();
         $videoBanner = Slider::first();
 
         // $instagram_posts = InstagramPost::all();
         $instagram_posts = collect([]); //TODO treehouse
-        return view('user.public.index', compact('new_products', 'bestseller_products', 'instagram_posts', 'topLeftBanner', 'topRightBanner', 'downLeftBanner', 'downRightBanner', 'videoBanner'));
+        return view('user.public.index', 
+        compact('new_products', 
+        'bestseller_products', 
+        'instagram_posts', 'topLeftBanner', 
+        'topRightBanner', 
+        'downLeftBanner', 
+        'downRightBanner', 
+        'secondDownLeftBanner', 
+        'secondDownRightBanner', 
+        'videoBanner'));
     }
 
     public function category($slug = null)
