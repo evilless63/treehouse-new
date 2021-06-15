@@ -65,7 +65,8 @@
                                         <textarea class="form-control pt-4" id="care-{{ $lang_field_set->lang }}"
                                             name="localization[{{ $lang_field_set->lang }}][care]">{{ $lang_field_set->care }}</textarea>
                                         <label class="mt-5">Таблица размеров -- {{ $lang_field_set->lang }}</label>
-                                        <textarea class="form-control pt-4" id="size_table-{{ $lang_field_set->lang }}"
+                                        <textarea class="form-control pt-4"
+                                            id="size_table-{{ $lang_field_set->lang }}"
                                             name="localization[{{ $lang_field_set->lang }}][size_table]">{{ $lang_field_set->size_table }}</textarea>
                                     </div>
                                 @endforeach
@@ -80,7 +81,7 @@
                                 @foreach ($current_product->colorVariations as $colorVariation)
                                     <li @click="openTabColor = {{ $loop->index + 1 }}"
                                         :class="{ '-mb-px': openTabColor === {{ $loop->index + 1 }} }"
-                                        class=" -mb-px mr-1">
+                                        class=" -mb-px mr-1 changeColorVariationSortable">
                                         <span
                                             :class="openTabColor === {{ $loop->index + 1 }} ? activeClasses : inactiveClasses"
                                             class="bg-white inline-block py-2 px-4 font-semibold cursor-pointer">
@@ -91,7 +92,8 @@
                             </ul>
                             <div class="w-full pt-4">
                                 @foreach ($current_product->colorVariations as $colorVariation)
-                                    <div x-show="openTabColor === {{ $loop->index + 1 }}">
+                                    <div x-show="openTabColor === {{ $loop->index + 1 }}"
+                                        class="changeColorVariationSortableTab">
                                         <div class="mb-3">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" onchange="changeIsNew(event)"
@@ -158,7 +160,7 @@
                                                     class="-mb-px mr-1">
                                                     <span
                                                         :class="openTabColorVariationTabs === 1 ? activeClasses : inactiveClasses"
-                                                        class="bg-white inline-block py-2 px-4 font-semibold cursor-pointer">
+                                                        class="changeToSize bg-white inline-block py-2 px-4 font-semibold cursor-pointer">
                                                         Остатки по размерам (установка скидок на размеры)
                                                     </span>
                                                 </li>
@@ -173,7 +175,7 @@
                                                 </li>
                                                 <li @click="openTabColorVariationTabs = 3"
                                                     :class="{ '-mb-px': openTabColorVariationTabs === 3 }"
-                                                    class="-mb-px mr-1">
+                                                    class="changeToGallery -mb-px mr-1">
                                                     <span
                                                         :class="openTabColorVariationTabs === 3 ? activeClasses : inactiveClasses"
                                                         class="bg-white inline-block py-2 px-4 font-semibold cursor-pointer">
@@ -191,9 +193,11 @@
                                                     </ul>
 
                                                     <table class="table" id="findTable">
-                                                        <tbody id="sortable-size-variations">
-                                                            @foreach ($colorVariation->sizeVariations()->orderBy('sort_order','asc')->get() as $sizeVariation)
-                                                                <tr class="sizeVariationBlock" data-id="{{$sizeVariation->id}}">
+                                                        <tbody class="sortable-size-variations">
+                                                            @foreach ($colorVariation->sizeVariations()->orderBy('sort_order', 'asc')->get()
+    as $sizeVariation)
+                                                                <tr class="sizeVariationBlock"
+                                                                    data-id="{{ $sizeVariation->id }}">
                                                                     <span class="handle"></span>
                                                                     <th scope="row">
                                                                         {{ $sizeVariation->size->getLocalizeTitleRu() }}
@@ -291,7 +295,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <h5>Текущее главное изображение товара</h5>
-                                            <a data-index="0" data-fancybox="gallery_main_{{ $colorVariation->slug }}"
+                                            <a data-index="0"
+                                                data-fancybox="gallery_main_{{ $colorVariation->slug }}"
                                                 href="{{ asset($colorVariation->main_img) }}" style="display:block">
                                                 <img class="img-fluid delpath"
                                                     delpath="{{ asset($colorVariation->main_img) }}"
@@ -324,40 +329,30 @@
                                                 не более 3 мб.</span></div>
                                     </div>
                                 </div>
-                                <div class="row align-items-center" id="sortable-gallery">
-                                    {{-- <div class="col-md-10 owl-carousel owl-theme" id="sortable-gallery"> --}}
-                                        @foreach ($colorVariation->images()->orderBy('sort_order','asc')->get() as $image)
-                                            <div class="col-md-3 imageContainer item" data-id="{{$image->id}}">
-                                                <a data-index="0" data-fancybox="gallery1"
-                                                    href="{{ asset($image->img_path) }}" style="display:block">
-                                                    <img class="img-fluid delpath"
-                                                        delpath="{{ asset($image->img_path) }}"
-                                                        src="{{ asset($image->img_path) }}" alt="">
+                                <div class="row align-items-center sortable-gallery">
+                                    @foreach ($colorVariation->images()->orderBy('sort_order', 'asc')->get()
+    as $image)
+                                        <div class="col-md-3 imageContainer item" data-id="{{ $image->id }}">
+                                            <a data-index="0" data-fancybox="gallery1"
+                                                href="{{ asset($image->img_path) }}" style="display:block">
+                                                <img class="img-fluid delpath"
+                                                    delpath="{{ asset($image->img_path) }}"
+                                                    src="{{ asset($image->img_path) }}" alt="">
 
-                                                </a>
+                                            </a>
 
-                                                <div class="deleteImage btn btn-danger"
-                                                    onclick="deleteImagesAttached(event)" imageId="{{ $image->id }}"
-                                                    colorVariationId="{{ $colorVariation->id }}">Удалить
-                                                </div>
+                                            <div class="deleteImage btn btn-danger"
+                                                onclick="deleteImagesAttached(event)" imageId="{{ $image->id }}"
+                                                colorVariationId="{{ $colorVariation->id }}">Удалить
                                             </div>
-                                        @endforeach
-                                    {{-- </div> --}}
-                                    {{-- <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="hidden" autocomplete="OFF" name="item_images" id="item_images"
-                                                placeholder="" class="form-control input-sm" />
-                                            <button type="button" class="btn btn-lg add-image-button"
-                                                data-toggle="modal" data-target="#myModal"><i
-                                                    class="fas fa-plus"></i></button>
                                         </div>
-                                    </div> --}}
+                                    @endforeach
                                 </div>
 
                                 <script>
                                     Dropzone.autoDiscover = false;
                                     var acceptedFileTypes =
-                                    "image/*"; //dropzone requires this param be a comma separated list
+                                        "image/*"; //dropzone requires this param be a comma separated list
                                     // imageDataArray variable to set value in crud form
                                     var imageDataArray = new Array;
                                     var imageDataArrayVer = new Array;
@@ -368,23 +363,23 @@
                                     var iver = 0;
                                     $(function() {
                                         uploader = new Dropzone(
-                                        "#dropzone_{{ $colorVariation->color->slug }}", {
-                                            url: "{{ url('/admin/image/upload') }}",
-                                            paramName: "image",
-                                            params: {
-                                                'color_variation_id': '{{ $colorVariation->id }}'
-                                            },
-                                            uploadMultiple: false,
-                                            acceptedFiles: "image/*",
-                                            headers: {
-                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                                                    'content')
-                                            },
-                                            addRemoveLinks: true,
-                                            forceFallback: false,
-                                            maxFilesize: 3, // Set the maximum file size to 256 MB
-                                            parallelUploads: 100,
-                                        }); //end drop zone
+                                            "#dropzone_{{ $colorVariation->color->slug }}", {
+                                                url: "{{ url('/admin/image/upload') }}",
+                                                paramName: "image",
+                                                params: {
+                                                    'color_variation_id': '{{ $colorVariation->id }}'
+                                                },
+                                                uploadMultiple: false,
+                                                acceptedFiles: "image/*",
+                                                headers: {
+                                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                                        'content')
+                                                },
+                                                addRemoveLinks: true,
+                                                forceFallback: false,
+                                                maxFilesize: 3, // Set the maximum file size to 256 MB
+                                                parallelUploads: 100,
+                                            }); //end drop zone
                                         uploader.on("success", function(file, response) {
                                             imageDataArray.push(response)
                                             fileList[i] = {
@@ -456,6 +451,38 @@
     <script src="{{ asset('assets/owl/owl.carousel.min.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+        var targetSize = $('.sortable-size-variations:first')
+        console.log(targetSize)
+        var targetGallery = $('.sortable-gallery:first')
+        console.log(targetGallery)
+
+        $('.changeColorVariationSortable').on('click', function(event) {
+            setTimeout(() => {
+                var parent = $('.changeColorVariationSortableTab:visible:first')
+                console.log(parent)
+                var targetSize = $(parent).find('.sortable-size-variations:first')
+                console.log(targetSize)
+                targetSize.sortable({
+                    update: function(e, ui) {
+                        var sortData = targetSize.sortable('toArray', {
+                            attribute: 'data-id'
+                        })
+                        updateToDatabaseSize(sortData.join(','))
+                    }
+                })
+
+                var targetGallery = $(parent).find('.sortable-gallery:first')
+                console.log(targetGallery)
+                targetGallery.sortable({
+                    update: function(e, ui) {
+                        var sortData = targetGallery.sortable('toArray', {
+                            attribute: 'data-id'
+                        })
+                        updateToDatabaseGallery(sortData.join(','))
+                    }
+                })
+            }, 500);
+        })
 
         function updateToDatabaseSize(idString) {
             $.ajaxSetup({
@@ -465,7 +492,7 @@
             });
 
             $.ajax({
-                url: '{{ url("/admin/size-variation/update-order") }}',
+                url: '{{ url('/admin/size-variation/update-order') }}',
                 method: 'POST',
                 data: {
                     ids: idString
@@ -473,7 +500,6 @@
             })
         }
 
-        var targetSize = $('#sortable-size-variations')
         targetSize.sortable({
             update: function(e, ui) {
                 var sortData = targetSize.sortable('toArray', {
@@ -491,7 +517,7 @@
             });
 
             $.ajax({
-                url: '{{ url("/admin/gallery/update-order") }}',
+                url: '{{ url('/admin/gallery/update-order') }}',
                 method: 'POST',
                 data: {
                     ids: idString
@@ -499,7 +525,6 @@
             })
         }
 
-        var targetGallery = $('#sortable-gallery')
         targetGallery.sortable({
             update: function(e, ui) {
                 var sortData = targetGallery.sortable('toArray', {
@@ -508,22 +533,6 @@
                 updateToDatabaseGallery(sortData.join(','))
             }
         })
-
-
-        // $("#sortable-size-variations").sortable({
-        //     change: function(event, ui) {
-        //         console.log(ui.item)
-        //     },
-        //     activate: function(event, ui) {
-        //         console.log(ui.item)
-        //     }
-        // });
-
-        $("#sortable-size-variations").disableSelection();
-
-        // $( "#sortable-gallery" ).sortable();
-        // $( "#sortable-gallery" ).disableSelection();
-
 
         try {
             $(document).ready(function() {
@@ -641,9 +650,6 @@
 
         //главное изображение
         $('.changeColorVariation').on('click', function(event) {
-            // function loadMainImage(event) {
-            //     console.log(event.target)
-            // window.addEventListener('DOMContentLoaded', function() {
             var parent = $(event.target).closest('.changeColorVariationWrapper')[0]
             console.log(parent)
             var avatar = $(parent).find(".avatar")[0]
