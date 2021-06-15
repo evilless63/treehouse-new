@@ -51,6 +51,7 @@
                             @foreach($sizes as $size)
                             <tr data-id="{{$size->id}}">
                                 <th scope="row">{{{ $size->getLocalizeTitleRu() }}}</th>
+                                <th scope="row">{{{ $size->getLocalizeShortTitle() }}}</th>
                                 <td><a href="{{route('sizes.edit', $size->id)}}">{{__('adminpanel.edit')}}</a></td>
                             </tr>
                             @endforeach
