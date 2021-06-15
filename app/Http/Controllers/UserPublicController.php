@@ -152,7 +152,7 @@ class UserPublicController extends Controller
                 $sizes->push($v->size);
             }
         }
-        $sizes = $sizes->unique();
+        $sizes = $sizes->unique()->orderBy('sort_order','asc');
 
         $recently_viewed_ids = session()->get('recently_viewed_ids');
         if (!$recently_viewed_ids) {

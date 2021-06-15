@@ -92,6 +92,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/size-variation/update-order', [SizeVariationController::class, 'updateOrder']);
     Route::post('/gallery/update-order', [ImageGalleryController::class, 'updateOrder']);
     Route::post('/category/update-order', [CategoryController::class, 'updateOrder']);
+    Route::post('/size/update-order', [SizeController::class, 'updateOrder']);
 });
 
 Route::post('/api/v1/importdata/colors', [ImportController::class, 'ImportColorsFrom1c']);

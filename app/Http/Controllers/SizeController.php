@@ -105,4 +105,17 @@ class SizeController extends Controller
     {
         //
     }
+
+    public function updateOrder(Request $request){
+        if($request->has('ids')){
+            $arr = explode(',',$request->input('ids'));
+            
+            foreach($arr as $sortOrder => $id){
+                $menu = Size::find($id);
+                $menu->sort_order = $sortOrder;
+                $menu->save();
+            }
+            return ['success'=>true,'message'=>'Updated'];
+        }
+    }
 }

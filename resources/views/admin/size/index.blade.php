@@ -47,9 +47,9 @@
                     </div>
 
                     <table class="table" id="findTable">
-                        <tbody>
+                        <tbody id="sortable-sizes">
                             @foreach($sizes as $size)
-                            <tr>
+                            <tr data-id="{{$size->id}}">
                                 <th scope="row">{{{ $size->getLocalizeTitleRu() }}}</th>
                                 <td><a href="{{route('sizes.edit', $size->id)}}">{{__('adminpanel.edit')}}</a></td>
                             </tr>
@@ -60,4 +60,36 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+        function updateToDatabaseCategory(idString) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            });
+
+            $.ajax({
+                url: '{{ url("/admin/size/update-order") }}',
+                method: 'POST',
+                data: {
+                    ids: idString
+                }
+            })
+        }
+
+        var targetGallery = $('#sortable-sizes')
+        targetGallery.sortable({
+            update: function(e, ui) {
+                var sortData = targetGallery.sortable('toArray', {
+                    attribute: 'data-id'
+                })
+                updateToDatabaseCategory(sortData.join(','))
+            }
+        })
+
+    </script>
 </x-app-layout>

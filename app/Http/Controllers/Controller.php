@@ -38,7 +38,7 @@ class Controller extends BaseController
         $this->products = Product::all(); 
         $this->locales = LaravelLocalization::getSupportedLanguagesKeys(); 
         $this->colors = Color::all();
-        $this->sizes = Size::all();
+        $this->sizes = Size::orderBy('sort_order','asc')->get();
         $this->articles = Article::all();
         $this->sliders = Slider::all();
         $this->banners = Banner::all();

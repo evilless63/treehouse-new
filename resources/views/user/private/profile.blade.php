@@ -31,7 +31,7 @@
                   </div>
                   <div class="profile-info__detail-column profile-info__detail-column_3">
                     <div class="profile-info__detail-title">основной адрес доставки</div>
-                    <div class="profile-info__detail-item">{{$default_adress == null ? 'Не задан' : $default_adress}}</div>
+                    <div class="profile-info__detail-item">@if($default_adress == null) Не задан @else {{$default_adress->country}} {{$default_adress->city}} {{$default_adress->street}}@endif</div>
                   </div>
                 </div>
               </div>
