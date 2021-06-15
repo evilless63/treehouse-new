@@ -38,6 +38,13 @@
                                 <th scope="row">{{{ $category->getLocalizeTitleRu() }}}</th>
                                 <td><a href="{{route('categories.edit', $category->id)}}">{{__('adminpanel.edit')}}</a></td>
                                 <td><a href="{{route('categories.replicate', $category->id)}}">Скопировать</a></td>
+                                <td>
+                                    <form method="POST" action="{{route('categories.destroy', $category->id)}}">
+                                        @csrf
+                                        @method('delete')
+                                        <input type="submit" class="btn btn-danger" value="Удалить">
+                                    </form>
+                                </td>
                             </tr>
                             @if(true == false)
                             @if(count($category->products))

@@ -141,7 +141,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $current_category = Category::find($id);
-        if ($current_category->products()->count() > 0) {
+        if ($current_category->colorVariations()->count() > 0) {
             return redirect()->route('categories.index')->with('error', __('adminpanel.action_error'));
         } else {
             $current_category->delete();
