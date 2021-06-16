@@ -35,7 +35,7 @@ class Controller extends BaseController
     function __construct()
     {
         $this->categories = Category::orderBy('sort_order','asc')->get();  
-        $this->products = Product::all(); 
+        $this->products = Product::orderBy('slug','asc')->get(); 
         $this->locales = LaravelLocalization::getSupportedLanguagesKeys(); 
         $this->colors = Color::all();
         $this->sizes = Size::orderBy('sort_order','asc')->get();
