@@ -95,9 +95,9 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/size/update-order', [SizeController::class, 'updateOrder']);
 });
 
-Route::post('/api/v1/importdata/colors', [ImportController::class, 'ImportColorsFrom1c']);
-Route::post('/api/v1/importdata/sizes', [ImportController::class, 'ImportSizesFrom1c']);
-Route::post('/api/v1/importdata/products', [ImportController::class, 'ImportProductsFrom1c']);
+Route::any('/api/v1/importdata/colors', [ImportController::class, 'ImportColorsFrom1c']);
+Route::any('/api/v1/importdata/sizes', [ImportController::class, 'ImportSizesFrom1c']);
+Route::any('/api/v1/importdata/products', [ImportController::class, 'ImportProductsFrom1c']);
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     App::setLocale(LaravelLocalization::setLocale());
