@@ -195,7 +195,7 @@ route('user.product', [
               <img src="{{asset($topLeftBanner->img_path)}}" class="categories-card__image" />
             </a>
           </div>
-          <div class="categories-card" data-title="{{$topRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}">
+          <div class="categories-card categories-card-small" data-title="{{$topRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}">
             <div class="categories-card__head">
               <div class="categories-card__title">{{$topRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale())}}</div>
               <a href="{{LaravelLocalization::localizeUrl(url($topRightBanner->link))}}" class="categories-card__href">Перейти</a>
@@ -303,7 +303,7 @@ route('user.product', [
                         </a>
                     </div>
 
-                    <div class="categories-card"
+                    <div class="categories-card categories-card-small"
                         data-title="{{ $downRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
                         <div class="categories-card__head">
                             <div class="categories-card__title">
@@ -415,7 +415,7 @@ route('user.product', [
                         </a>
                     </div>
 
-                    <div class="categories-card"
+                    <div class="categories-card categories-card-small"
                         data-title="{{ $secondDownRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
                         <div class="categories-card__head">
                             <div class="categories-card__title">

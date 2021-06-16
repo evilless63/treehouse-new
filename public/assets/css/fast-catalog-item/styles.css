@@ -9746,12 +9746,16 @@ a.findsize-download:hover {
     .categories-card {
         width: calc(50% - 10px)
     }
+
+    .categories-card-small {
+        width: calc(40% - 10px)
+    }
 }
 
 @media (min-width:980px) {
-    .categories-card:nth-child(2n) {
+    /* .categories-card:nth-child(2n) {
         margin-left: 20px
-    }
+    } */
 }
 
 .categories-card__head {
@@ -9858,10 +9862,12 @@ a.findsize-download:hover {
     }
 }
 
+
 .categories-cards__list {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    /* align-items: center; */
 }
 
 @media (min-width:1280px) {
