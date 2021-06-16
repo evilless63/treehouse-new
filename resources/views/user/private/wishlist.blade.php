@@ -166,9 +166,7 @@
 
                                                                                 <div class="card-sizes__comment">
 
-                                                                                    @if ($sizeVariation->stock > 10)
-                                                                                        Много
-                                                                                    @else
+                                                                                    @if ($sizeVariation->stock < 4)
                                                                                         Мало
                                                                                     @endif
                                                                                 </div>
