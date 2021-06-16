@@ -9565,7 +9565,8 @@ a.findsize-download:hover {
 @media (min-width:1024px) {
     .catalog-list__price {
         font-size: 16px;
-        margin-bottom: 14px
+        margin-bottom: 14px;
+        font-weight: 600;
     }
 }
 
