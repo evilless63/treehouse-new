@@ -26,11 +26,11 @@ CKEDITOR.replace( 'care-en' , {
 });
 
 CKEDITOR.replace( 'size_table-ru' , {
-    filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+    filebrowserUploadUrl: "/ckeditor/image_upload",
     filebrowserUploadMethod: 'form'
 } );
 CKEDITOR.replace( 'size_table-en' , {
-    filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+    filebrowserUploadUrl: "/ckeditor/image_upload",
     filebrowserUploadMethod: 'form'
 });
 

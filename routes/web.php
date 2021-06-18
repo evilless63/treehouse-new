@@ -144,5 +144,5 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('/quick-search', [UserPublicController::class, 'quickSearch'])->name('quick-search');
     Route::post('/filter-by-size', [UserPublicController::class, 'filterCategoryProductsBySize'])->name('filter-by-size');
     Route::post('/subscribe', [UserPublicController::class, 'Subscribe'])->name('filter-by-size');
-    Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
+    Route::post('/ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
 });
