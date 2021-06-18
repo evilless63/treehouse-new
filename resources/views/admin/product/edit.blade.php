@@ -31,8 +31,7 @@
 
                         <div x-data="{openTab: 1 ,activeClasses: 'border-l border-t border-r rounded-t text-blue-700',inactiveClasses: 'text-blue-500 hover:text-blue-800'}"
                             class="my-6">
-                            <ul class="flex border-b" style="    overflow-x: auto;
-                            overflow-y: hidden;">
+                            <ul class="flex border-b" >
                                 @foreach ($lang_field_sets as $lang_field_set)
 
                                     <li @click="openTab = {{ $loop->index + 1 }}"
@@ -78,7 +77,8 @@
 
                         <div x-data="{openTabColor: 1 ,activeClasses: 'border-l border-t border-r rounded-t text-blue-700',inactiveClasses: 'text-blue-500 hover:text-blue-800'}"
                             class="my-6">
-                            <ul class="flex border-b">
+                            <ul class="flex border-b" style="    overflow-x: auto;
+                            overflow-y: hidden;">
                                 @foreach ($current_product->colorVariations as $colorVariation)
                                     <li @click="openTabColor = {{ $loop->index + 1 }}"
                                         :class="{ '-mb-px': openTabColor === {{ $loop->index + 1 }} }"
