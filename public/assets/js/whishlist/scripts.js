@@ -2896,7 +2896,7 @@
                     }
                 })
             })), s.on("click", ".subscribe-form__js-submit", (function() {
-                s.trigger("submit")
+             
             }))
         }))
     }))

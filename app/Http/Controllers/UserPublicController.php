@@ -21,6 +21,7 @@ use App\Models\Article;
 use App\Models\InstagramPost;
 use App\Models\ProductLocalization;
 use App\Models\Slider;
+use App\Models\Subscription;
 use App\Models\Wishlist;
 
 class UserPublicController extends Controller
@@ -110,16 +111,21 @@ class UserPublicController extends Controller
 
         // $instagram_posts = InstagramPost::all();
         $instagram_posts = collect([]); //TODO treehouse
-        return view('user.public.index', 
-        compact('new_products', 
-        'bestseller_products', 
-        'instagram_posts', 'topLeftBanner', 
-        'topRightBanner', 
-        'downLeftBanner', 
-        'downRightBanner', 
-        'secondDownLeftBanner', 
-        'secondDownRightBanner', 
-        'videoBanner'));
+        return view(
+            'user.public.index',
+            compact(
+                'new_products',
+                'bestseller_products',
+                'instagram_posts',
+                'topLeftBanner',
+                'topRightBanner',
+                'downLeftBanner',
+                'downRightBanner',
+                'secondDownLeftBanner',
+                'secondDownRightBanner',
+                'videoBanner'
+            )
+        );
     }
 
     public function category($slug = null)
@@ -147,8 +153,8 @@ class UserPublicController extends Controller
         }
 
         $sizes = collect();
-        foreach($products_by_category as $p) {
-            foreach($p->sizeVariations as $v){
+        foreach ($products_by_category as $p) {
+            foreach ($p->sizeVariations as $v) {
                 $sizes->push($v->size);
             }
         }
@@ -170,20 +176,21 @@ class UserPublicController extends Controller
         return view('user.public.catalog', compact('all_categories', 'products_by_category', 'recently_viewed_products', 'category_name', 'sizes', 'category'));
     }
 
-    public function filterCategoryProductsBySize() {
+    public function filterCategoryProductsBySize()
+    {
         $category = Category::where('id', request()->category_id)->first();
         $productsUnfiltered = $category->colorVariations()->get();
 
         $products_by_category = collect();
-        if(request()->has('ids')){
-            $arr = explode(',',request()->input('ids'));
+        if (request()->has('ids')) {
+            $arr = explode(',', request()->input('ids'));
             $sizes = collect();
-            foreach($arr as $sizeId){
+            foreach ($arr as $sizeId) {
                 $currentSize = Size::where('id', $sizeId)->first();
-                if($currentSize !== null) {
-                    foreach($currentSize->sizeVariations as $sizeVariation){
+                if ($currentSize !== null) {
+                    foreach ($currentSize->sizeVariations as $sizeVariation) {
 
-                        if($productsUnfiltered->contains('id', $sizeVariation->color_variation_id)){
+                        if ($productsUnfiltered->contains('id', $sizeVariation->color_variation_id)) {
                             $products_by_category->push($sizeVariation->colorVariation);
                         }
                     }
@@ -313,5 +320,25 @@ class UserPublicController extends Controller
         }
 
         return $html;
+    }
+
+    public function Subscribe()
+    {
+        $email = trim(request()->email);
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return 'Неверно указан адрес электронной почты';
+        }
+
+        if (Subscription::where('email', $email)->first() == null && $email !== '') {
+            $subscription = new Subscription();
+            $subscription->email = $email;
+            $subscription->save();
+            return 'Подписка успешно оформлена';
+        } elseif ($email == '') {
+            return 'Не указан адрес почты для подписки';
+        } else {
+            return 'Данная почта уже используется для подписки';
+        }
     }
 }

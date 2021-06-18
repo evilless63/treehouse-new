@@ -278,8 +278,7 @@
                                     <div data-v-88ff0f44="" class="field__container">
                                         <div data-v-88ff0f44="" class="field__icon field__icon--left"><svg
                                                 data-v-c4f273e2="" data-v-88ff0f44="" width="17" height="17"
-                                                viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg"
-                                                class="icon"
+                                                viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg" class="icon"
                                                 style="height: 16px; width: 16px; left: 50%; margin-left: -8px; margin-top: -8px; position: absolute; top: 50%;">
                                                 <path data-v-c4f273e2="" fill-rule="evenodd" clip-rule="evenodd"
                                                     d="M11.5074 12.3559C10.2896 13.3818 8.71698 14 7 14C3.13401 14 0 10.866 0 7C0 3.13401 3.13401 0 7 0C10.866 0 14 3.13401 14 7C14 8.71698 13.3818 10.2896 12.3559 11.5074L16.4243 15.5757L15.5757 16.4243L11.5074 12.3559ZM12.8 7C12.8 10.2033 10.2033 12.8 7 12.8C3.79675 12.8 1.2 10.2033 1.2 7C1.2 3.79675 3.79675 1.2 7 1.2C10.2033 1.2 12.8 3.79675 12.8 7Z">
@@ -288,8 +287,9 @@
                                         <div data-v-88ff0f44="" class="field__inner">
                                             <div data-v-88ff0f44="" class="field__placeholder"><span
                                                     data-v-88ff0f44="">Поиск</span></div> <input data-v-88ff0f44=""
-                                                name="search" autocomplete="off" class="field__input" id="quick-search-input">
-                                                <div id="quick-search-result"></div>
+                                                name="search" autocomplete="off" class="field__input"
+                                                id="quick-search-input">
+                                            <div id="quick-search-result"></div>
                                         </div>
                                         <!---->
                                     </div>
@@ -299,8 +299,7 @@
                             <a href="{{ LaravelLocalization::localizeUrl('/user/wishlist') }}"
                                 class="favorite-button">
                                 <i class="favorite-button__icon">
-                                    <span class="favorite-button__count" id="wishlist-count" data-dkey="wishlist"
-                                    @if($wishlist->count() == 0) style="display: none" @endif>{{$wishlist->count()}}</span>
+                                    <span class="favorite-button__count" id="wishlist-count" data-dkey="wishlist" @if ($wishlist->count() == 0) style="display: none" @endif>{{ $wishlist->count() }}</span>
                                 </i>
                             </a>
                             <a href="{{ LaravelLocalization::localizeUrl('/user/cabinet') }}" class="header-user">
@@ -309,8 +308,7 @@
                             <a href="{{ LaravelLocalization::localizeUrl('/cart') }}" class="basket-button">
                                 <i class="basket-button__icon" data-ga-action="Bag icon click"
                                     data-ga-category="Checkout" data-ga-label="Пользователь залогинен">
-                                    <span class="basket-button__count" id="basket-count" data-dkey="cart" 
-                                    @if($cartItemsCount == 0) style="display: none" @endif>{{$cartItemsCount}}</span>
+                                    <span class="basket-button__count" id="basket-count" data-dkey="cart" @if ($cartItemsCount == 0) style="display: none" @endif>{{ $cartItemsCount }}</span>
                                 </i>
                             </a>
                         </div>
@@ -334,7 +332,7 @@
 
                         <div class="subscribe footer__subscribe media-query-show_mobile">
 
-                            <form class="subscribe-form " action="/subscribe-ajax" method="POST">
+                            <div class="subscribe-form">
                                 <div class="subscribe-form__settings" data-platform="mobile"
                                     data-crm="PodpiskaIzPodvala" data-source="footer_mobile"></div>
                                 <div class="subscribe-form__screen visible" data-name="contacts">
@@ -353,34 +351,12 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="subscribe-form__screen" data-name="subscriptions">
-                                    <div class="subscribe-form__title">Какие рассылки <br />вы хотели бы получать?</div>
-                                    <div class="subscribe-form__field subscribe-form__radioset">
-                                        <div class="subscribe-form__radio">
-                                            <input class="subscribe-form__radio-input subscribe-form__js-submit"
-                                                type="radio" name="gender" value="Women" />
-                                            <span class="subscribe-form__radio-selector"></span>
-                                            <label class="subscribe-form__radio-label">Женская коллекция</label>
-                                        </div>
-                                        <div class="subscribe-form__radio">
-                                            <input class="subscribe-form__radio-input subscribe-form__js-submit"
-                                                type="radio" name="gender" value="Men" />
-                                            <span class="subscribe-form__radio-selector"></span>
-                                            <label class="subscribe-form__radio-label">Мужская коллекция</label>
-                                        </div>
-                                        <div class="subscribe-form__radio">
-                                            <input class="subscribe-form__radio-input subscribe-form__js-submit"
-                                                type="radio" name="gender" value="All" />
-                                            <span class="subscribe-form__radio-selector"></span>
-                                            <label class="subscribe-form__radio-label">Обе</label>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="subscribe-form__screen" data-name="success">
-                                    <div class="subscribe-form__title">Спасибо! <br />Вы подписаны</div>
+
+                                <div class="subscribe-form__screen subscribe-form__screen_result" data-name="success">
+                                    <div class="subscribe-form__title subscribe-form__title_result"></div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
 
                         <div class="page__middle">
@@ -478,7 +454,7 @@
                                 <div class="footer-col">
                                     <div class="bottom-menu__item bottom-menu__item_subscribe">
 
-                                        <form class="subscribe-form " action="/subscribe-ajax" method="POST">
+                                        <div class="subscribe-form">
                                             <div class="subscribe-form__settings" data-platform="desktop"
                                                 data-crm="PodpiskaIzPodvala" data-source="footer_desktop"></div>
                                             <div class="subscribe-form__screen visible" data-name="contacts">
@@ -499,40 +475,10 @@
                                                 </p>
                                             </div>
 
-                                            <div class="subscribe-form__screen" data-name="subscriptions">
-                                                <div class="subscribe-form__title">Какие рассылки <br />вы хотели бы
-                                                    получать?</div>
-                                                <div class="subscribe-form__field subscribe-form__radioset">
-                                                    <div class="subscribe-form__radio">
-                                                        <input
-                                                            class="subscribe-form__radio-input subscribe-form__js-submit"
-                                                            type="radio" name="gender" value="Women" />
-                                                        <span class="subscribe-form__radio-selector"></span>
-                                                        <label class="subscribe-form__radio-label">Женская
-                                                            коллекция</label>
-                                                    </div>
-                                                    <div class="subscribe-form__radio">
-                                                        <input
-                                                            class="subscribe-form__radio-input subscribe-form__js-submit"
-                                                            type="radio" name="gender" value="Men" />
-                                                        <span class="subscribe-form__radio-selector"></span>
-                                                        <label class="subscribe-form__radio-label">Мужская
-                                                            коллекция</label>
-                                                    </div>
-                                                    <div class="subscribe-form__radio">
-                                                        <input
-                                                            class="subscribe-form__radio-input subscribe-form__js-submit"
-                                                            type="radio" name="gender" value="All" />
-                                                        <span class="subscribe-form__radio-selector"></span>
-                                                        <label class="subscribe-form__radio-label">Обе</label>
-                                                    </div>
-                                                </div>
+                                            <div class="subscribe-form__screen subscribe-form__screen_result" data-name="success">
+                                                <div class="subscribe-form__title subscribe-form__title_result"></div>
                                             </div>
-
-                                            <div class="subscribe-form__screen" data-name="success">
-                                                <div class="subscribe-form__title">Спасибо! <br />Вы подписаны</div>
-                                            </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Новый футер end -->
@@ -619,16 +565,14 @@
             })
 
             $("input.field__input").focusout(function() {
-                if($('#quick-search-input').val = '') {
-                    $('.field__placeholder').children('span').text("Поиск")
-                }
-            })
+                    if ($('#quick-search-input').val = '') {
+                        $('.field__placeholder').children('span').text("Поиск")
+                    }
+                })
 
 
-              !$('html').hasClass('t-media-head') ? $(".field:first").removeClass("field--white") : $(
-                        ".field:first").addClass("field--white")
-                        !$('html').hasClass('t-media-head') ? $(".icon:first").removeClass("icon--white") : $(
-                        ".icon:first").addClass("icon--white")
+            !$('html').hasClass('t-media-head') ? $(".field:first").removeClass("field--white") : $(".field:first").addClass("field--white") 
+            !$('html').hasClass('t-media-head') ? $(".icon:first").removeClass("icon--white") : $(".icon:first").addClass("icon--white")
 
 
             $(window).scroll(function() {
@@ -641,20 +585,22 @@
             })
 
             var result = $('#quick-search-result');
-            $('#quick-search-input').on('keyup', function(){
+            $('#quick-search-input').on('keyup', function() {
                 var search = $(this).val();
-                if ((search != '') && (search.length > 3)){
+                if ((search != '') && (search.length > 3)) {
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: "POST",
                         url: "/quick-search",
-                        data: {'search': search},
-                        success: function(msg){
+                        data: {
+                            'search': search
+                        },
+                        success: function(msg) {
                             console.log(result)
                             result.html(msg);
-                            if(msg != ''){	
+                            if (msg != '') {
                                 result.fadeIn(100);
                             } else {
                                 result.fadeOut(100);
@@ -672,22 +618,37 @@
             })
 
             $('#quick-search-input').focus(function() {
-                if(($('#quick-search-input').val() != '') && ($('#quick-search-input').val().length > 3)) {
+                if (($('#quick-search-input').val() != '') && ($('#quick-search-input').val().length >
+                        3)) {
                     $('#quick-search-result').fadeIn(100)
-                }   
+                }
             })
-        
-            // $(document).on('click', function(e){
-            //     if (!$(e.target).closest('.search').length){
 
-            //         $result.html('');
-            //         $result.fadeOut(100);
-            //     }
-            // });
-
+            $('.subscribe-form__js-submit').on('click', function(){
+                var form =  $(this).closest('.subscribe-form')
+                var resultWrapper = form.find('.subscribe-form__screen_result')
+                var resultText = form.find('.subscribe-form__title_result')
+                var emailValue = form.find('.subscribe-form__input').val()
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "/subscribe",
+                    data: {
+                        'email': emailValue
+                    },
+                    success: function(msg) {
+                        console.log(msg)
+                        resultText.html(msg)
+                        resultWrapper.height(45)
+                        resultWrapper.css({
+                            'opacity': '1'
+                        })              
+                    }
+                });
+            })
         });
-
-
 
     </script>
 </body>

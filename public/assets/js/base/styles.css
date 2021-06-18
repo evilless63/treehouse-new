@@ -20687,6 +20687,10 @@ html:not(.t-main):not(.t-404) .page {
     vertical-align: top
 }
 
+.subscribe-form__title_result {
+    font-size: 16px !important;
+}
+
 .subscribe-form__field {
     position: relative
 }

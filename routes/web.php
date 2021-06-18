@@ -22,6 +22,7 @@ use App\Http\Controllers\ImageGalleryController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PromocodeController;
 use App\Models\Order;
+use App\Http\Controllers\Subscription;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
         'orders' => OrderController::class,
         'users' => UserController::class,
         'promocodes' => PromocodeController::class,
+        'subscriptions' => SubscriptionController::class,
     ]);
 
     Route::any('/categories/{id}/replicate', [CategoryController::class, 'replicate'])->name('categories.replicate');
@@ -141,5 +143,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/home', [UserPublicController::class, 'index'])->name('home');
     Route::post('/quick-search', [UserPublicController::class, 'quickSearch'])->name('quick-search');
     Route::post('/filter-by-size', [UserPublicController::class, 'filterCategoryProductsBySize'])->name('filter-by-size');
+    Route::post('/subscribe', [UserPublicController::class, 'Subscribe'])->name('filter-by-size');
     Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
 });
