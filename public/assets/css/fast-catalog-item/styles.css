@@ -3536,15 +3536,15 @@ div.simplebar-vertical .simplebar-scrollbar {
     text-align: left
 }
 
-.popupify__scroll {
+/* .popupify__scroll {
     max-height: 80vh
-}
+} */
 
 @media (min-width:1024px) {
-    .popupify__scroll {
+    /* .popupify__scroll {
         max-width: 32.57143em;
         max-height: 90vh
-    }
+    } */
 }
 
 .popupify__scroll--default {
