@@ -5,6 +5,7 @@
 
     @yield('head', '<div></div>')
 
+    <link rel="shortcut icon" href="{{asset('favicon.png')}}" type="image/png">
 </head>
 
 <body>
