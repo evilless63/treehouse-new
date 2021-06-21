@@ -107,7 +107,7 @@ class UserPublicController extends Controller
         $downRightBanner = Banner::where('banner_position', 'DOWN_RIGHT')->first();
         $secondDownLeftBanner = Banner::where('banner_position', '2DOWN_LEFT')->first();
         $secondDownRightBanner = Banner::where('banner_position', '2DOWN_RIGHT')->first();
-        $videoBanner = Slider::first();
+        $sliders = Slider::where('is_active', '1')->get();
 
         // $instagram_posts = InstagramPost::all();
         $instagram_posts = collect([]); //TODO treehouse
@@ -123,7 +123,7 @@ class UserPublicController extends Controller
                 'downRightBanner',
                 'secondDownLeftBanner',
                 'secondDownRightBanner',
-                'videoBanner'
+                'sliders'
             )
         );
     }

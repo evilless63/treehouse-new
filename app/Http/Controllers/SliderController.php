@@ -49,13 +49,25 @@ class SliderController extends Controller
 
 
         if ($request->hasFile('source_path')) {
-            $folder = 'videos' . '/' . $data['slug'];
+            $folder = 'banners' . '/' . $data['slug'];
 
+            
             $time = time();
             $imageName = $time . '_' . $request->file('source_path')->getClientOriginalName();
             $request->source_path->move(public_path('videos/' . $folder),  $imageName);
 
-            $data['source_path'] = 'videos/' . $folder .  $imageName;
+            $data['source_path'] = 'videos/' . $folder . '/'.  $imageName;
+            
+        }
+
+        if ($request->hasFile('source_path_img')) {
+            $folder = 'banners' . '/' . $data['slug'];
+            
+            $time = time();
+            $imageName = $time . '_' . $request->file('source_path_img')->getClientOriginalName();
+            $request->source_path_img->move(public_path('images/' . $folder),  $imageName);
+
+            $data['source_path_img'] = 'images/' . $folder . '/'.  $imageName;
             
         }
 
@@ -130,7 +142,17 @@ class SliderController extends Controller
             $time = time();
             $imageName = $time . '_' . $request->file('source_path')->getClientOriginalName();
             $request->source_path->move(public_path('videos/' . $folder),  $imageName);
-            $data['source_path'] = 'videos/' . $folder .  $imageName;
+            $data['source_path'] = 'videos/' . $folder . '/' .  $imageName;
+            
+        }
+
+        if ($request->hasFile('source_path_img')) {
+            $folder = 'banners' . '/' . $slider->slug;
+
+            $time = time();
+            $imageName = $time . '_' . $request->file('source_path_img')->getClientOriginalName();
+            $request->source_path_img->move(public_path('images/' . $folder),  $imageName);
+            $data['source_path_img'] = 'images/' . $folder . '/' .  $imageName;
             
         }
 

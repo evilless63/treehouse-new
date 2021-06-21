@@ -16,7 +16,7 @@
     @endif
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mt-16">
-            Видео баннер -- Редактирование
+            Слайдеры -- Редактирование
         </h2>
     </x-slot>
 
@@ -54,14 +54,16 @@
                         <input type="text" class="form-control"placeholder="ссылка" name="link" value="{{$current_slider->link}}">
                         <!-- <a href="{{$current_slider->link}}">Посмотреть ссылку</a> -->
 
-                        <label>Видео</label>
+                        <label>Видео (в приоритете при указании и изображения и видео, рекомендуется использовать видео 1920 на 1080 px)</label>
                         <input type="file" class="filepond my-4" name="source_path">
 
+                        <label>Изображение (рекомендуется использовать изображение 1920 на 1080 px)</label>
+                        <input type="file" class="filepond my-4" name="source_path_img">
                         <!-- <label>Ссылка на ресурс (youtube)</label>
                         <input type="text" class="form-control"class="filepond my-4" name="source_path" value="{{$current_slider->source_path}}"> -->
 
-                        <!-- <label>Использовать на сайте</label>
-                        <input type="checkbox" name="is_active" value="{{old('is_active')}}"> -->
+                        <label>Использовать на сайте</label>
+                        <input type="checkbox" name="is_active" @if($current_slider->is_active) checked @endif>
                         <input type="submit" class="btn btn-primary"value="{{__('adminpanel.edit')}}">
 
                     </form>

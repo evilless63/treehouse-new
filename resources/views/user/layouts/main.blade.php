@@ -529,7 +529,12 @@
                                     </li>
                                     <li class="footer-socials-list__item footer-socials-list-item">
                                         <a class="footer-socials-list-item__link footer-socials-list-item__link--instagram "
-                                            href="https://www.instagram.com/domnadereve/" target="_blank"
+                                            href="https://www.instagram.com/dom_na_dereve/" target="_blank"
+                                            rel="nofollow"></a>
+                                    </li>
+                                    <li class="footer-socials-list__item footer-socials-list-item">
+                                        <a class="footer-socials-list-item__link footer-socials-list-item__link--instagram "
+                                            href="https://www.instagram.com/domnadereve.home/" target="_blank"
                                             rel="nofollow"></a>
                                     </li>
                                 </ul>

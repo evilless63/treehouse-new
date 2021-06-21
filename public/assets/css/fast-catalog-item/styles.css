@@ -9827,7 +9827,7 @@ a.findsize-download:hover {
 .categories-card__image {
     display: block;
     width: 100%;
-    border-radius: 4px;
+    /* border-radius: 4px; */
 }
 
 .categories-cards {
@@ -9868,7 +9868,7 @@ a.findsize-download:hover {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    /* align-items: center; */
+    align-items: center;
 }
 
 @media (min-width:1280px) {
@@ -13164,7 +13164,7 @@ a.findsize-download:hover {
 
 .hero {
     display: none;
-    height: 100vh;
+    height: 100vh !important;
     position: relative;
     width: 100%
 }
@@ -13183,7 +13183,8 @@ a.findsize-download:hover {
     height: 100%;
     left: 0;
     overflow: hidden;
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     top: 0;
     transition: opacity .5s ease, visibility .5s linear;
     width: 100%
