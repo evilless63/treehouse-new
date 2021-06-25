@@ -95,7 +95,7 @@
                     <div class="lookbook-grid js-lookbook-grid lookbook__grid">
                         <div class="lookbook-grid__list">
                             <div class="lookbook-grid__field">
-                                @foreach ($lookbook->banners as $banner)
+                                @foreach ($lookbook->banners->sortBy('sort_order') as $banner)
                                 <div class="collapse-wrapper">
                                     <div class="lookbook-grid__item w-50 js-lookbook-item lookbook-grid__item collapsible">
                                         <div class="lookbook-grid__inner">

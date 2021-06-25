@@ -189,4 +189,17 @@ class LookbookController extends Controller
         $current_lookbook->delete();   
         return redirect()->route('lookbooks.index')->with('success', __('adminpanel.action_success'));
     }
+
+    public function updateOrder(Request $request){
+        if($request->has('ids')){
+            $arr = explode(',',$request->input('ids'));
+            
+            foreach($arr as $sortOrder => $id){
+                $menu = Lookbook::find($id);
+                $menu->sort_order = $sortOrder;
+                $menu->save();
+            }
+            return ['success'=>true,'message'=>'Updated'];
+        }
+    }
 }

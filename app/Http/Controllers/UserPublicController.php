@@ -111,7 +111,7 @@ class UserPublicController extends Controller
         $firstLookBook = Lookbook::where('lookbook_position', 'ONE')->first();
         $secondLookBook = Lookbook::where('lookbook_position', 'TWO')->first();
         $thirdLookBook = Lookbook::where('lookbook_position', 'THREE')->first();
-        $sliders = Slider::where('is_active', '1')->get();
+        $sliders = $this->sliders;
 
         // $instagram_posts = InstagramPost::all();
         $instagram_posts = collect([]); //TODO treehouse

@@ -21,6 +21,7 @@ class CreateLookbooksTable extends Migration
             $table->string('category_img');
             $table->string('lookbook_position');
             $table->boolean('is_active')->default(false);
+            $table->integer('sort_order')->default(0);
         });
 
         Schema::create('lookbook_localizations', function(Blueprint $table) {

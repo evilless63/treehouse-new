@@ -100,6 +100,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/size/update-order', [SizeController::class, 'updateOrder']);
     Route::post('/banner/update-order', [BannerController::class, 'updateOrder']);
     Route::post('/slider/update-order', [SliderController::class, 'updateOrder']);
+    Route::post('/lookbook/update-order', [LookbookController::class, 'updateOrder']);
 
     Route::post('/ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
     Route::get('/export/make-and-download-subscribers', [ExcelController::class, 'makeAndDownloadExcelFile'])->name('export.subscribers');

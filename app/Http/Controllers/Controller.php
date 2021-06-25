@@ -42,10 +42,10 @@ class Controller extends BaseController
         $this->colors = Color::all();
         $this->sizes = Size::orderBy('sort_order','asc')->get();
         $this->articles = Article::all();
-        $this->sliders = Slider::orderBy('sort_order','asc')->get();
+        $this->sliders = Slider::where('is_active', '1')->orderBy('sort_order','asc')->get();
         $this->banners = Banner::orderBy('sort_order','asc')->get();
         $this->users = User::all();
         $this->orders = Order::orderBy('created_at', 'ASC')->get();
-        $this->lookbooks = Lookbook::all();
+        $this->lookbooks = Lookbook::orderBy('sort_order','asc')->get();
     }
 }
