@@ -35,6 +35,10 @@ class ColorVariation extends Model
         return $this->belongsToMany(Category::class, "category_color_variaton", "color_variation_id", "category_id");
     }
 
+    public function banners() {
+        return $this->belongsToMany(Banner::class, "banner_color_variation", "color_variation_id", "banner_id");
+    }
+
     public function main_img() {
         if(!empty($this->main_img)) {
             return $this->main_img;

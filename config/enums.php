@@ -10,6 +10,13 @@ return [
         '2DOWN_RIGHT' => "третий ряд справа",
     ],
 
+    'lookbook_positions' => [
+        'ONE' => "первый",
+        'TWO' => "второй",
+        'THREE' => "третий",
+        'NOTSHOW' => "не отображать на главной",
+    ],
+
     'purposes' => [
         'about' => "о компании",
         'counteragents' => "покупателям",

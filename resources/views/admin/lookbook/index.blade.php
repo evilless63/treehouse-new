@@ -16,7 +16,7 @@
     @endif
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mt-16">
-            Баннеры -- Список
+            Лукбуки -- Список
         </h2>
     </x-slot>
 
@@ -26,7 +26,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
                     <div class="mb-3">
-                        <a class="btn btn-primary" href="{{route('banners.create')}}">Создать баннер</a>
+                        <a class="btn btn-primary" href="{{route('lookbooks.create')}}">Создать лукбук</a>
                     </div>
 
                     <div class="mb-3">
@@ -35,17 +35,18 @@
 
                     <table class="table" id="findTable">
                         <tbody>
-                            @foreach($banners as $banner)
+                            @foreach($lookbooks as $lookbook)
                             <tr>
-                                <th scope="row">{{{ $banner->getLocalizeTitleRu() }}}</th>
-                                <td><a href="{{route('banners.edit', $banner->id)}}">{{__('adminpanel.edit')}}</a></td>
+                                <th scope="row">{{{ $lookbook->getLocalizeTitleRu() }}}</th>
+                                <td><a href="{{route('lookbooks.edit', $lookbook->id)}}">{{__('adminpanel.edit')}}</a></td>
                                 <td>
-                                    <form method="POST" action="{{route('banners.destroy', $banner->id)}}">
+                                    <form method="POST" action="{{route('lookbooks.destroy', $lookbook->id)}}">
                                         @csrf
                                         @method('delete')
                                         <input type="submit" class="btn btn-danger" value="Удалить">
                                     </form>
                                 </td>
+                                <td>{{config('enums.lookbook_positions')[$lookbook->lookbook_position]}}</td>
                             </tr>
                             @endforeach
                         </tbody>

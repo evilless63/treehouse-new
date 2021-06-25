@@ -14522,14 +14522,14 @@ a.findsize-download:hover {
 .lookbook-products {
     box-sizing: border-box;
     font-size: 1rem;
-    height: 0;
+    /* height: 0; */
     margin: 0 auto;
-    opacity: 0;
+    /* opacity: 0; */
     overflow: hidden;
     padding-left: 2.14286rem;
     position: relative;
     transition: opacity .75s ease, visibility .75s linear;
-    visibility: hidden
+    /* visibility: hidden */
 }
 
 .lookbook-products--loaded {

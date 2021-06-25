@@ -19,6 +19,7 @@ use App\Models\Article;
 // use App\Repositories\CategoryRepository;
 // use Phpfastcache\Helper\Psr16Adapter;
 use App\Models\InstagramPost;
+use App\Models\Lookbook;
 use App\Models\ProductLocalization;
 use App\Models\Slider;
 use App\Models\Subscription;
@@ -101,12 +102,15 @@ class UserPublicController extends Controller
         // dd(ColorVariation::where('is_bestseller', '1')->with(['sizeVariations' => function ($query) {
         //     $query->where('stock', '>', '0');
         //   }])->get());
-        $topLeftBanner = Banner::where('banner_position', 'TOP-LEFT')->first();
-        $topRightBanner = Banner::where('banner_position', 'TOP-RIGHT')->first();
-        $downLeftBanner = Banner::where('banner_position', 'DOWN_LEFT')->first();
-        $downRightBanner = Banner::where('banner_position', 'DOWN_RIGHT')->first();
-        $secondDownLeftBanner = Banner::where('banner_position', '2DOWN_LEFT')->first();
-        $secondDownRightBanner = Banner::where('banner_position', '2DOWN_RIGHT')->first();
+        // $topLeftBanner = Banner::where('banner_position', 'TOP-LEFT')->first();
+        // $topRightBanner = Banner::where('banner_position', 'TOP-RIGHT')->first();
+        // $downLeftBanner = Banner::where('banner_position', 'DOWN_LEFT')->first();
+        // $downRightBanner = Banner::where('banner_position', 'DOWN_RIGHT')->first();
+        // $secondDownLeftBanner = Banner::where('banner_position', '2DOWN_LEFT')->first();
+        // $secondDownRightBanner = Banner::where('banner_position', '2DOWN_RIGHT')->first();
+        $firstLookBook = Lookbook::where('lookbook_position', 'ONE')->first();
+        $secondLookBook = Lookbook::where('lookbook_position', 'TWO')->first();
+        $thirdLookBook = Lookbook::where('lookbook_position', 'THREE')->first();
         $sliders = Slider::where('is_active', '1')->get();
 
         // $instagram_posts = InstagramPost::all();
@@ -117,12 +121,9 @@ class UserPublicController extends Controller
                 'new_products',
                 'bestseller_products',
                 'instagram_posts',
-                'topLeftBanner',
-                'topRightBanner',
-                'downLeftBanner',
-                'downRightBanner',
-                'secondDownLeftBanner',
-                'secondDownRightBanner',
+                'firstLookBook',
+                'secondLookBook',
+                'thirdLookBook',
                 'sliders'
             )
         );
@@ -340,5 +341,30 @@ class UserPublicController extends Controller
         } else {
             return 'Данная почта уже используется для подписки';
         }
+    }
+
+    public function lookbooks()
+    {
+        return view('user.public.lookbooks')->with([
+            'lookbooks' => $this->lookbooks
+        ]);
+    }
+
+    public function lookbook($id)
+    {
+        
+        $lookbook = Lookbook::where('id', $id)->first();
+        return view('user.public.lookbook-item')->with([
+            'lookbook' => $lookbook
+        ]);
+    }
+
+    public function lookbookAllWear($id)
+    {
+        $lookbook = Lookbook::where('id', $id)->first();
+        return view('user.public.lookbook-allwear')->with([
+            'lookbook' => $lookbook,
+            'banners' => $lookbook->banners
+        ]);
     }
 }

@@ -17,8 +17,7 @@ class CreateBannersTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('img_path');
-            $table->string('link');
-            $table->string('banner_position')->unique();
+            $table->string('img_path_2');
         });
         
         Schema::create('banner_localizations', function(Blueprint $table) {

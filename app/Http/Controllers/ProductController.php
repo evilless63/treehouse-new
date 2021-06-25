@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
@@ -79,7 +80,8 @@ class ProductController extends Controller
             'current_product' => $current_product,
             'categories' => $this->categories,
             'choosed_categories' => $current_product->categories()->get(),
-            'lang_field_sets' => $lang_field_sets
+            'lang_field_sets' => $lang_field_sets,
+            'banners' => $this->banners
         ]);
     }
 
@@ -103,6 +105,11 @@ class ProductController extends Controller
             foreach ($request->input('choosed_categories', []) as $k => $i) {
                 ColorVariation::where('id', $k)->first()->categories()->detach();
                 ColorVariation::where('id', $k)->first()->categories()->attach(Category::find($i));
+            }
+
+            foreach ($request->input('choosed_banners', []) as $k => $i) {
+                ColorVariation::where('id', $k)->first()->banners()->detach();
+                ColorVariation::where('id', $k)->first()->banners()->attach(Banner::find($i));
             }
 
             foreach ($request->input('localization', []) as $k => $i) {

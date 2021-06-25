@@ -5935,7 +5935,7 @@ div.simplebar-vertical .simplebar-scrollbar {
         width: 940px
     }
     .blog-previews-list__item {
-        float: left;
+        /* float: left; */
         overflow: hidden;
         width: 100%;
         margin-bottom: 40px
@@ -5944,7 +5944,7 @@ div.simplebar-vertical .simplebar-scrollbar {
         width: 100%
     }
     .blog-previews.short {
-        width: 47.8%
+        /* width: 47.8% */
     }
     .blog-previews.short .blog-previews__img {
         max-width: 455px;
@@ -21912,4 +21912,9 @@ html:not(.t-main):not(.t-404) .page {
 	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   max-height: 300px;
   overflow: auto;
+}
+
+.lookbook-row {
+    display: flex;
+    justify-content: space-between;
 }

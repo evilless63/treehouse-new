@@ -13,6 +13,7 @@ use App\Models\Size;
 use App\Models\Article;
 use App\Models\Slider;
 use App\Models\Banner;
+use App\Models\Lookbook;
 use App\Models\User;
 use App\Models\Order;
 
@@ -32,6 +33,7 @@ class Controller extends BaseController
     protected $banners;
     protected $orders;
     protected $users;
+    protected $lookbooks;
     function __construct()
     {
         $this->categories = Category::orderBy('sort_order','asc')->get();  
@@ -44,5 +46,6 @@ class Controller extends BaseController
         $this->banners = Banner::all();
         $this->users = User::all();
         $this->orders = Order::orderBy('created_at', 'ASC')->get();
+        $this->lookbooks = Lookbook::all();
     }
 }

@@ -181,7 +181,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Lavary\Menu\ServiceProvider::class,
         Torann\GeoIP\GeoIPServiceProvider::class,
-
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -238,6 +238,7 @@ return [
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Menu'      => Lavary\Menu\Facade::class,
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

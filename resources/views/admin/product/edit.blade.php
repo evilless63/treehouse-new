@@ -135,9 +135,43 @@
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input"
                                                             name="choosed_categories[{{ $colorVariation->id }}][]"
-                                                            value="{{ $category->id }}" type="checkbox" checked>
+                                                            value="{{ $category->id }}" type="checkbox">
                                                         <label
                                                             class="form-check-label">{{ $category->getLocalizeTitleRu() }}</label>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                        <div class="mb-3">
+                                            <label>Баннеры для лукбуков: </label>
+                                            @if ($colorVariation->banners->count() > 0)
+                                                @foreach ($banners as $banner)
+                                                    @if ($colorVariation->banners->contains($banner))
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input"
+                                                                name="choosed_banners[{{ $colorVariation->id }}][]"
+                                                                value="{{ $banner->id }}" type="checkbox" checked>
+                                                            <label
+                                                                class="form-check-label">{{ $banner->getLocalizeTitleRu() }}</label>
+                                                        </div>
+                                                    @else
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input"
+                                                                name="choosed_banners[{{ $colorVariation->id }}][]"
+                                                                value="{{ $banner->id }}" type="checkbox">
+                                                            <label
+                                                                class="form-check-label">{{ $banner->getLocalizeTitleRu() }}</label>
+                                                        </div>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                @foreach ($banners as $banner)
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input"
+                                                            name="choosed_banners[{{ $colorVariation->id }}][]"
+                                                            value="{{ $banner->id }}" type="checkbox">
+                                                        <label
+                                                            class="form-check-label">{{ $banner->getLocalizeTitleRu() }}</label>
                                                     </div>
                                                 @endforeach
                                             @endif

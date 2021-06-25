@@ -20,7 +20,9 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\SizeVariationController;
 use App\Http\Controllers\ImageGalleryController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\PromocodeController;
+use App\Http\Controllers\LookbookController;
 use App\Models\Order;
 use App\Http\Controllers\Subscription;
 
@@ -73,6 +75,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
         'users' => UserController::class,
         'promocodes' => PromocodeController::class,
         'subscriptions' => SubscriptionController::class,
+        'lookbooks' => LookbookController::class,
     ]);
 
     Route::any('/categories/{id}/replicate', [CategoryController::class, 'replicate'])->name('categories.replicate');
@@ -95,6 +98,9 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/gallery/update-order', [ImageGalleryController::class, 'updateOrder']);
     Route::post('/category/update-order', [CategoryController::class, 'updateOrder']);
     Route::post('/size/update-order', [SizeController::class, 'updateOrder']);
+
+    Route::post('/ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
+    Route::get('/export/make-and-download-subscribers', [ExcelController::class, 'makeAndDownloadExcelFile'])->name('export.subscribers');
 });
 
 Route::any('/api/v1/importdata/colors', [ImportController::class, 'ImportColorsFrom1c']);
@@ -144,5 +150,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('/quick-search', [UserPublicController::class, 'quickSearch'])->name('quick-search');
     Route::post('/filter-by-size', [UserPublicController::class, 'filterCategoryProductsBySize'])->name('filter-by-size');
     Route::post('/subscribe', [UserPublicController::class, 'Subscribe'])->name('filter-by-size');
-    Route::post('/ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
+    Route::get('/lookbook/item/{id}', [UserPublicController::class, 'lookbook'])->name('user.lookbook');   
+    Route::get('/lookbook', [UserPublicController::class, 'lookbooks'])->name('user.lookbooks'); 
+    Route::get('/lookbook/all-wear/{id}', [UserPublicController::class, 'lookbookAllWear'])->name('user.lookbooks-allwear');
 });

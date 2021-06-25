@@ -50,20 +50,42 @@
                                 @endforeach
                             </div>
                         </div>
-                        <label>Ссылка</label>
-                        <input type="text" class="form-control"placeholder="ссылка" name="link" value="{{$current_banner->link}}">
-                        <a href="{{$current_banner->link}}">Посмотреть ссылку</a>
-                        <label>Размещение баннера</label>
-                        <select name="banner_position">
-                            @if($current_banner->banner_position == '')
-                            <option selected value="0">Не размещать</option>
+
+                        <div class="mb-3">
+                            <label>В каких лукбуках отображать: </label>
+                            @if ($current_banner->lookbooks->count() > 0)
+                                @foreach ($lookbooks as $lookbook)
+                                    @if ($current_banner->lookbooks->contains($lookbook))
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input"
+                                                name="choosed_lookbooks[{{ $current_banner->id }}][]"
+                                                value="{{ $lookbook->id }}" type="checkbox" checked>
+                                            <label
+                                                class="form-check-label">{{ $lookbook->getLocalizeTitleRu() }}</label>
+                                        </div>
+                                    @else
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input"
+                                                name="choosed_lookbooks[{{ $current_banner->id }}][]"
+                                                value="{{ $lookbook->id }}" type="checkbox">
+                                            <label
+                                                class="form-check-label">{{ $lookbook->getLocalizeTitleRu() }}</label>
+                                        </div>
+                                    @endif
+                                @endforeach
                             @else
-                            <option selected value="{{$current_banner->banner_position}}">{{config('enums.banner_positions')[$current_banner->banner_position]}}</option>
+                                @foreach ($lookbooks as $lookbook)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input"
+                                            name="choosed_lookbooks[{{ $current_banner->id }}][]"
+                                            value="{{ $lookbook->id }}" type="checkbox">
+                                        <label
+                                            class="form-check-label">{{ $lookbook->getLocalizeTitleRu() }}</label>
+                                    </div>
+                                @endforeach
                             @endif
-                            @foreach(config('enums.banner_positions') as $k => $banner_position)
-                            <option value="{{$k}}">{{$banner_position}}</option>
-                            @endforeach
-                        </select>
+                        </div>
+                        
                         <label>Изображение</label>
                         <h5>Текущее изображение</h5>
                         <div class="row">
@@ -72,6 +94,15 @@
                             </div>
                         </div>
                         <input type="file" class="filepond my-4" name="img_path">
+
+                        <h5>Текущее изображение 2</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="{{asset($current_banner->img_path_2)}}" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                        <input type="file" class="filepond my-4" name="img_path_2">
+                        
                         <input type="submit" class="btn btn-primary"value="{{__('adminpanel.edit')}}">
 
                     </form>

@@ -33,6 +33,9 @@
                             <x-dropdown-link :href="route('banners.index')" :active="request()->routeIs('banners.index')">
                                 Баннеры
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('lookbooks.index')" :active="request()->routeIs('lookbooks.index')">
+                                Лукбуки
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>
@@ -63,6 +66,7 @@
                             <x-dropdown-link :href="route('sizes.index')" :active="request()->routeIs('sizes.index')">
                                 Размеры
                             </x-dropdown-link>
+                            
                         </x-slot>
                     </x-dropdown>
                 </div>
@@ -74,6 +78,9 @@
                     </x-nav-link>
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         Пользователи
+                    </x-nav-link>
+                    <x-nav-link :href="route('export.subscribers')" :active="request()->routeIs('export.subscribers')">
+                        Скачать список подписчиков
                     </x-nav-link>
                 </div>
             </div>

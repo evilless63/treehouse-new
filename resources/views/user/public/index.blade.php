@@ -5,7 +5,7 @@
         @foreach ($sliders as $item)
             <div class="hero" data-id="48" data-title="Приветственный текст Дом на дереве (для акций и тд и тп)">
                 <div class="hero__media hero__image-wrapper">
-                    
+
                     @if ($item->source_path !== null)
                         <video autoplay muted loop id="myVideo" style="width: 100%">
                             <source src="{{ asset($item->source_path) }}" type="video/mp4">
@@ -184,6 +184,7 @@
         </div>
     @endforeach
 
+    @if($firstLookBook !== null)
     <div class="ab-2592 ab-2592-a">
         <div class="categories-cards categories-cards_with-only-mobile-element">
             <div class="categories-cards__holder">
@@ -202,36 +203,36 @@
                                 class="categories-card__image" />
                         </a>
                     </div> --}}
-                    <div class="categories-card"
-                        data-title="{{ $topLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
-                        <div class="categories-card__head">
+                    <div class="categories-card">
+                        {{-- <div class="categories-card__head">
                             <div class="categories-card__title">
                                 {{ $topLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</div>
                             <a href="{{ LaravelLocalization::localizeUrl(url($topLeftBanner->link)) }}"
                                 class="categories-card__href">Перейти</a>
-                        </div>
-                        <a href="{{ LaravelLocalization::localizeUrl(url($topLeftBanner->link)) }}"
+                        </div> --}}
+                        <a href="{{route('user.lookbook', $firstLookBook->id)}}"
                             class="categories-card__link">
-                            <img src="{{ asset($topLeftBanner->img_path) }}" class="categories-card__image" />
+                            <img src="{{ asset($firstLookBook->big_img) }}" class="categories-card__image" />
                         </a>
                     </div>
                     <div class="categories-card categories-card-small"
-                        data-title="{{ $topRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
+                        data-title="{{ $firstLookBook->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
                         <div class="categories-card__head">
                             <div class="categories-card__title">
-                                {{ $topRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</div>
-                            <a href="{{ LaravelLocalization::localizeUrl(url($topRightBanner->link)) }}"
-                                class="categories-card__href">Перейти</a>
+                                {{ $firstLookBook->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</div>
+                            <a href="{{route('user.lookbook', $firstLookBook->id)}}"
+                                class="categories-card__href">{{ $firstLookBook->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</a>
                         </div>
-                        <a href="{{ LaravelLocalization::localizeUrl(url($topRightBanner->link)) }}"
+                        <a href="{{route('user.lookbook', $firstLookBook->id)}}"
                             class="categories-card__link">
-                            <img src="{{ asset($topRightBanner->img_path) }}" class="categories-card__image" />
+                            <img src="{{ asset($firstLookBook->small_img) }}" class="categories-card__image" />
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @endif
 
     @foreach ($categories->skip(3)->take(3) as $category)
         <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
@@ -311,42 +312,46 @@
             </div>
         </div>
     @endforeach
+
+    @if($secondLookBook !== null)
     <div class="ab-2592 ab-2592-a">
         <div class="categories-cards">
             <div class="categories-cards__holder">
                 <div class="categories-cards__list">
 
-                    <div class="categories-card"
-                        data-title="{{ $downLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
+                    <div class="categories-card categories-card-small"
+                        data-title="{{ $secondLookBook->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
                         <div class="categories-card__head">
+                            <div class="categories-card__title">
+                                {{ $secondLookBook->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</div>
+                            <a href="{{route('user.lookbook', $secondLookBook->id)}}"
+                                class="categories-card__href">{{ $secondLookBook->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</a>
+                        </div>
+                        <a href="{{route('user.lookbook', $secondLookBook->id)}}"
+                            class="categories-card__link">
+                            <img src="{{ asset($secondLookBook->small_img) }}" class="categories-card__image" />
+                        </a>
+                    </div>
+
+                    <div class="categories-card">
+                        {{-- <div class="categories-card__head">
                             <div class="categories-card__title">
                                 {{ $downLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</div>
                             <a href="{{ LaravelLocalization::localizeUrl(url($downLeftBanner->link)) }}"
                                 class="categories-card__href">Перейти</a>
-                        </div>
-                        <a href="{{ LaravelLocalization::localizeUrl(url($downLeftBanner->link)) }}"
+                        </div> --}}
+                        <a href="{{route('user.lookbook', $secondLookBook->id)}}"
                             class="categories-card__link">
-                            <img src="{{ asset($downLeftBanner->img_path) }}" class="categories-card__image" />
+                            <img src="{{ asset($secondLookBook->big_img) }}" class="categories-card__image" />
                         </a>
                     </div>
 
-                    <div class="categories-card categories-card-small"
-                        data-title="{{ $downRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
-                        <div class="categories-card__head">
-                            <div class="categories-card__title">
-                                {{ $downRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</div>
-                            <a href="{{ LaravelLocalization::localizeUrl(url($downRightBanner->link)) }}"
-                                class="categories-card__href">Перейти</a>
-                        </div>
-                        <a href="{{ LaravelLocalization::localizeUrl(url($downRightBanner->link)) }}"
-                            class="categories-card__link">
-                            <img src="{{ asset($downRightBanner->img_path) }}" class="categories-card__image" />
-                        </a>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+    @endif
 
     @foreach ($categories->skip(6)->take(4) as $category)
         <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
@@ -426,44 +431,45 @@
             </div>
         </div>
     @endforeach
+
+    @if($thirdLookBook !== null)
     <div class="ab-2592 ab-2592-a">
         <div class="categories-cards">
             <div class="categories-cards__holder">
                 <div class="categories-cards__list">
 
-                    <div class="categories-card"
-                        data-title="{{ $secondDownLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
-                        <div class="categories-card__head">
+                    <div class="categories-card">
+                        {{-- <div class="categories-card__head">
                             <div class="categories-card__title">
                                 {{ $secondDownLeftBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
                             </div>
                             <a href="{{ LaravelLocalization::localizeUrl(url($secondDownLeftBanner->link)) }}"
                                 class="categories-card__href">Перейти</a>
-                        </div>
-                        <a href="{{ LaravelLocalization::localizeUrl(url($downLeftBanner->link)) }}"
+                        </div> --}}
+                        <a href="{{route('user.lookbook', $thirdLookBook->id)}}"
                             class="categories-card__link">
-                            <img src="{{ asset($secondDownLeftBanner->img_path) }}" class="categories-card__image" />
+                            <img src="{{ asset($thirdLookBook->big_img) }}" class="categories-card__image" />
                         </a>
                     </div>
 
-                    <div class="categories-card categories-card-small"
-                        data-title="{{ $secondDownRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}">
+                    <div class="categories-card categories-card-small">
                         <div class="categories-card__head">
                             <div class="categories-card__title">
-                                {{ $secondDownRightBanner->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
+                                {{ $thirdLookBook->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}
                             </div>
-                            <a href="{{ LaravelLocalization::localizeUrl(url($secondDownRightBanner->link)) }}"
-                                class="categories-card__href">Перейти</a>
+                            <a href="{{route('user.lookbook', $thirdLookBook->id)}}"
+                                class="categories-card__href">{{ $thirdLookBook->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</a>
                         </div>
-                        <a href="{{ LaravelLocalization::localizeUrl(url($secondDownRightBanner->link)) }}"
+                        <a href="{{route('user.lookbook', $thirdLookBook->id)}}"
                             class="categories-card__link">
-                            <img src="{{ asset($secondDownRightBanner->img_path) }}" class="categories-card__image" />
+                            <img src="{{ asset($thirdLookBook->small_img) }}" class="categories-card__image" />
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @endif
 
     @foreach ($categories->skip(10) as $category)
         <div class="slider-news home-slider" data-name="Bestsellers" data-ga-name="Bestsellers"
@@ -721,7 +727,7 @@
                 }
             })
         }
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('.slick-slider').slick({
                 adaptiveHeight: true,
                 autoplay: true,
@@ -730,6 +736,7 @@
                 autoplaySpeed: 6500,
             })
         })
+
     </script>
 @endsection
 

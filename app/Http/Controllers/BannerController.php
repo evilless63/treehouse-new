@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\Lookbook;
 use Illuminate\Http\Request;
 
 class BannerController extends Controller
@@ -49,8 +50,18 @@ class BannerController extends Controller
             $imageName = $time . '_' . $request->file('img_path')->getClientOriginalName();
             $request->img_path->move(public_path('images/' . $folder),  $imageName);
 
-            $data['img_path'] = 'images/' . $folder .  $imageName;
+            $data['img_path'] = 'images/' . $folder . '/' .  $imageName;
             
+        }
+
+        if ($request->hasFile('img_path_2')) {
+            $folder = 'banners' . '/' . $data['slug'];
+
+            $time = time();
+            $imageName = $time . '_' . $request->file('img_path_2')->getClientOriginalName();
+            $request->img_path_2->move(public_path('images/' . $folder),  $imageName);
+
+            $data['img_path_2'] = 'images/' . $folder . '/' .  $imageName;    
         }
 
         $banner = Banner::create($data);
@@ -97,7 +108,8 @@ class BannerController extends Controller
 
         return view('admin.banner.edit')->with([
             'current_banner' => $current_banner,
-            'lang_field_sets' => $lang_field_sets
+            'lang_field_sets' => $lang_field_sets,
+            'lookbooks' => $this->lookbooks
         ]);
     }
 
@@ -112,17 +124,32 @@ class BannerController extends Controller
     {
         $banner = Banner::find($id);
         $data = $request->all();
+
         if ($request->hasFile('img_path')) {
             $folder = 'banners' . '/' . $banner->slug;
 
             $time = time();
             $imageName = $time . '_' . $request->file('img_path')->getClientOriginalName();
             $request->img_path->move(public_path('images/' . $folder),  $imageName);
-            $data['img_path'] = 'images/' . $folder .  $imageName;
-            
+            $data['img_path'] = 'images/' . $folder . '/' .  $imageName;       
+        }
+
+        if ($request->hasFile('img_path_2')) {
+            $folder = 'banners' . '/' . $banner->slug;
+
+            $time = time();
+            $imageName = $time . '_' . $request->file('img_path_2')->getClientOriginalName();
+            $request->img_path_2->move(public_path('images/' . $folder),  $imageName);
+            $data['img_path_2'] = 'images/' . $folder . '/' .  $imageName;       
         }
 
         $haveBeenUpdated = $banner->update($data);
+
+        foreach ($request->input('choosed_lookbooks', []) as $k => $i) {
+            Banner::where('id', $k)->first()->lookbooks()->detach();
+            Banner::where('id', $k)->first()->lookbooks()->attach(Lookbook::find($i));
+        }
+
         foreach ($request->input('localization', []) as $k => $i) {
             $locale = $banner->localizations()->where('lang', $k)
                 ->update($i + ['lang' => $k]);
@@ -143,6 +170,8 @@ class BannerController extends Controller
     public function destroy($id)
     {
         $current_banner = Banner::find($id);
+        $current_banner->colorVariations()->detach();
+        $current_banner->lookbooks()->detach();
         $current_banner->delete();
         return redirect()->route('banners.index')->with('success', __('adminpanel.action_success'));
     }
