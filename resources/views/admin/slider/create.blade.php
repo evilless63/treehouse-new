@@ -59,9 +59,13 @@
                         <input type="file" class="filepond my-4" name="source_path_img" value="{{old('source_path_img')}}">
                         <!-- <label>Ссылка на ресурс (youtube)</label>
                         <input type="text" class="form-control"class="filepond my-4" name="source_path" value="{{old('source_path')}}"> -->
-
+                        <br> 
                         <label>Использовать на сайте</label>
                         <input type="checkbox" name="is_active" value="{{old('is_active')}}">
+                        <br> 
+                        <label>Заполнять текстом поверх слайдера из наименования</label>
+                        <input type="checkbox" name="text_needed" value="{{old('text_needed')}}">
+                        <br> 
                         <input type="submit" class="btn btn-primary"value="{{__('adminpanel.create')}}">
 
                     </form>

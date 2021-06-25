@@ -45,6 +45,12 @@ class SliderController extends Controller
         } else {
             $data['is_active'] = 0;
         }
+
+        if ($request->has('text_needed')) {
+            $data['text_needed'] = 1;
+        } else {
+            $data['text_needed'] = 0;
+        }
         $data['slug'] = str_slug(request()->get('localization')['ru']['title']);
 
 
@@ -134,6 +140,12 @@ class SliderController extends Controller
             $data['is_active'] = 1;
         } else {
             $data['is_active'] = 0;
+        }
+
+        if ($request->has('text_needed')) {
+            $data['text_needed'] = 1;
+        } else {
+            $data['text_needed'] = 0;
         }
 
         if ($request->hasFile('source_path')) {

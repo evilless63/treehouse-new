@@ -17,8 +17,10 @@
                 </div>
 
                 <a href="{{ LaravelLocalization::localizeUrl(url($item->link)) }}" class="hero__holder">
+                    @if($item->text_needed)
                     <span
                         class="hero__button">{{ $item->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) }}</span>
+                    @endif
                 </a>
             </div>
         @endforeach
