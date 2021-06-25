@@ -34,10 +34,10 @@
                     </div>
 
                     <table class="table" id="findTable">
-                        <tbody>
+                        <tbody  id="sortable-categories">
                             @foreach($banners as $banner)
-                            <tr>
-                                <th scope="row">{{{ $banner->getLocalizeTitleRu() }}}</th>
+                            <tr data-id="{{$banner->id}}">
+                                <th  scope="row">{{{ $banner->getLocalizeTitleRu() }}}</th>
                                 <td><a href="{{route('banners.edit', $banner->id)}}">{{__('adminpanel.edit')}}</a></td>
                                 <td>
                                     <form method="POST" action="{{route('banners.destroy', $banner->id)}}">
@@ -55,4 +55,36 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+        function updateToDatabaseCategory(idString) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            });
+
+            $.ajax({
+                url: '{{ url("/admin/banner/update-order") }}',
+                method: 'POST',
+                data: {
+                    ids: idString
+                }
+            })
+        }
+
+        var targetGallery = $('#sortable-categories')
+        targetGallery.sortable({
+            update: function(e, ui) {
+                var sortData = targetGallery.sortable('toArray', {
+                    attribute: 'data-id'
+                })
+                updateToDatabaseCategory(sortData.join(','))
+            }
+        })
+
+    </script>
 </x-app-layout>

@@ -175,4 +175,17 @@ class BannerController extends Controller
         $current_banner->delete();
         return redirect()->route('banners.index')->with('success', __('adminpanel.action_success'));
     }
+
+    public function updateOrder(Request $request){
+        if($request->has('ids')){
+            $arr = explode(',',$request->input('ids'));
+            
+            foreach($arr as $sortOrder => $id){
+                $menu = Banner::find($id);
+                $menu->sort_order = $sortOrder;
+                $menu->save();
+            }
+            return ['success'=>true,'message'=>'Updated'];
+        }
+    }
 }

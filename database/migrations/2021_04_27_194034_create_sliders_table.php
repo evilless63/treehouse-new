@@ -20,6 +20,7 @@ class CreateSlidersTable extends Migration
             $table->string('source_path_img')->nullable();
             $table->boolean('is_active')->default(false);
             $table->string('link')->nullable();
+            $table->integer('sort_order')->default(0);
         });
 
         Schema::create('slider_localizations', function(Blueprint $table) {
