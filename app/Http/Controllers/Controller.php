@@ -41,7 +41,7 @@ class Controller extends BaseController
         $this->locales = LaravelLocalization::getSupportedLanguagesKeys(); 
         $this->colors = Color::all();
         $this->sizes = Size::orderBy('sort_order','asc')->get();
-        $this->articles = Article::all();
+        $this->articles = Article::where('custom', 0)->get();
         $this->sliders = Slider::where('is_active', '1')->orderBy('sort_order','asc')->get();
         $this->banners = Banner::orderBy('sort_order','asc')->get();
         $this->users = User::all();

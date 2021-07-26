@@ -58,6 +58,7 @@
                             </div>
                         </div>
 
+                        @if(!$current_article->custom)
                         <label>Назначение статьи</label>
                         <select name="purpose">
                             <option selected value="{{$current_article->purpose}}">{{config('enums.purposes')[$current_article->purpose]}}</option>
@@ -65,6 +66,7 @@
                             <option value="{{$k}}">{{$purpose}}</option>
                             @endforeach
                         </select>
+                        @endif
                         <input type="submit" class="btn btn-primary"value="{{__('adminpanel.edit')}}">
 
                     </form>
@@ -72,4 +74,15 @@
             </div>
         </div>
     </div>
+
+    <script>
+        CKEDITOR.replace('details-ru', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form'
+        });
+        CKEDITOR.replace('details-en', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form'
+        });
+    </script>
 </x-app-layout>

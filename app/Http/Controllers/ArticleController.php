@@ -90,6 +90,24 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function editSpecialArticle($slug)
+    {
+        $current_article = Article::where('slug', $slug)->first();
+
+        $lang_field_sets = collect();
+        foreach ($this->locales as $locale) {
+            $lang_field_sets->add($current_article
+                ->localization()
+                ->where('lang', $locale)
+                ->first());
+        }
+
+        return view('admin.article.edit')->with([
+            'current_article' => $current_article,
+            'lang_field_sets' => $lang_field_sets
+        ]);
+    }
+
     /**
      * Update the specified resource in storage.
      *

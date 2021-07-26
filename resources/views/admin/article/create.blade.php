@@ -70,4 +70,15 @@
             </div>
         </div>
     </div>
+
+    <script>
+        CKEDITOR.replace('details-ru', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form'
+        });
+        CKEDITOR.replace('details-en', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form'
+        });
+    </script>
 </x-app-layout>

@@ -348,7 +348,9 @@
                                             <span>{{ __('userpanel.subscribe_button') }}</span>
                                         </div>
                                         <p class="subscribe-form__privacy">{{ __('userpanel.subscribe_alert') }}<a
-                                                href="/r/privacy_policy">{{ __('userpanel.subscribe_link') }}</a>.
+                                                href="{{route('user.article', [
+                                                    'slug' => 'privacy-policy',
+                                                  ])}}">{{ __('userpanel.subscribe_link') }}</a>.
                                         </p>
                                     </div>
                                 </div>
@@ -472,7 +474,9 @@
                                                 </div>
                                                 <p class="subscribe-form__privacy">
                                                     {{ __('userpanel.subscribe_alert') }}<a
-                                                        href="{{ LaravelLocalization::localizeUrl('/r/privacy_policy') }}">{{ __('userpanel.subscribe_link') }}</a>.
+                                                        href="{{ LaravelLocalization::localizeUrl(route('user.article', [
+                                                            'slug' => 'privacy-policy',
+                                                          ])) }}">{{ __('userpanel.subscribe_link') }}</a>.
                                                 </p>
                                             </div>
 

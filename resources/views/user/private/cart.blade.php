@@ -394,7 +394,11 @@
                 <!-- <div data-v-ea5ca2c8="" class="buttons"><button data-v-6352a6b4="" data-v-ea5ca2c8="" class="button primary mobileFixed">Оплатить заказ</button></div> -->
                 <div data-v-70b16c7e="" data-v-ea5ca2c8="" class="sidebar-error error hidden"><span data-v-70b16c7e=""></span></div>
                 <div data-v-ea5ca2c8="" class="agreement">Нажимая на&nbsp;кнопку «<span>оплатить заказ</span>»,
-                  я&nbsp;принимаю условия <a href="/r/public_offer" target="_blank">публичной оферты</a> и&nbsp;<a href="/r/privacy_policy" target="_blank">политики конфиденциальности</a></div>
+                  я&nbsp;принимаю условия <a href="{{route('user.article', [
+                    'slug' => 'public-offer',
+                  ])}}" target="_blank">публичной оферты</a> и&nbsp;<a href="{{route('user.article', [
+                    'slug' => 'privacy-policy',
+                  ])}}" target="_blank">политики конфиденциальности</a></div>
               </div>
             </div>
           </div>

@@ -107,9 +107,29 @@ class ProductController extends Controller
                 ColorVariation::where('id', $k)->first()->categories()->attach(Category::find($i));
             }
 
+
+            $colorVariationsArr =  $request->input('colorvariations_for_check');
+            if($request->input('choosed_banners') != null) {
+                foreach ($request->input('choosed_banners') as $k => $v) {
+                    foreach($colorVariationsArr as $key => $value) {
+                        if($value == $k) {
+                            unset($colorVariationsArr[$key]);
+                        }       
+                    }
+                }
+            }
+
             foreach ($request->input('choosed_banners', []) as $k => $i) {
                 ColorVariation::where('id', $k)->first()->banners()->detach();
                 ColorVariation::where('id', $k)->first()->banners()->attach(Banner::find($i));
+            }
+
+            foreach($colorVariationsArr as $k) {   
+                try {
+                    ColorVariation::where('id', $k)->first()->banners()->detach();
+                } catch (Exception $e) {
+
+                }
             }
 
             foreach ($request->input('localization', []) as $k => $i) {

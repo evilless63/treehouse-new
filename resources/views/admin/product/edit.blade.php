@@ -144,8 +144,12 @@
                                         </div>
                                         <div class="mb-3">
                                             <label>Баннеры для лукбуков: </label>
+                                            <input class="form-check-input"
+                                                                name="colorvariations_for_check[]"
+                                                                value="{{ $colorVariation->id }}" type="hidden">
                                             @if ($colorVariation->banners->count() > 0)
                                                 @foreach ($banners as $banner)
+
                                                     @if ($colorVariation->banners->contains($banner))
                                                         <div class="form-check form-check-inline">
                                                             <input class="form-check-input"

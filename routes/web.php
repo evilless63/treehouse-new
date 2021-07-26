@@ -80,6 +80,8 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
 
     Route::any('/categories/{id}/replicate', [CategoryController::class, 'replicate'])->name('categories.replicate');
     Route::any('/articles/{id}/replicate', [ArticleController::class, 'replicate'])->name('articles.replicate');
+    Route::any('/articles/r/{slug}/edit', [ArticleController::class, 'editSpecialArticle'])->name('articles.special.edit');
+
 
     Route::post('/image/upload', [UploadController::class, 'imageUpload']);
     Route::post('/image/delete', [UploadController::class, 'imageDelete']);

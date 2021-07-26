@@ -64,7 +64,10 @@
 
         <div class="profile-edit__confirm">
           <div class="checkbox form__checkbox field-user-accept">
-            <input type="hidden" value="0"><input type="checkbox" id="user-accept" class="checkbox__input" value="1"><label class="checkbox__label" for="user-accept"><span class="checkbox__label-text">{{__('userpanel.change_accert')}}<a href="/r/privacy_policy" class="checkbox__link" target="_blank">{{__('userpanel.subscribe_link')}}</a></span></label>
+            <input type="hidden" value="0"><input type="checkbox" id="user-accept" class="checkbox__input" value="1"><label class="checkbox__label" for="user-accept"><span class="checkbox__label-text">{{__('userpanel.change_accert')}}<a href="
+              {{route('user.article', [
+              'slug' => 'privacy-policy',
+            ])}}" class="checkbox__link" target="_blank">{{__('userpanel.subscribe_link')}}</a></span></label>
             <p class="form__error-message"></p>
           </div>
         </div>

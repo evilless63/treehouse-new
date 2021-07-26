@@ -27,6 +27,16 @@
                             <x-dropdown-link :href="route('articles.index')" :active="request()->routeIs('articles.index')">
                                 Статьи
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('articles.special.edit', [
+                                'slug' => 'privacy-policy',
+                              ])">
+                                Политика конфидециальности
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('articles.special.edit', [
+                                'slug' => 'public-offer',
+                              ])">
+                                Публичная оферта
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('sliders.index')" :active="request()->routeIs('sliders.index')">
                                 Слайдеры
                             </x-dropdown-link>
