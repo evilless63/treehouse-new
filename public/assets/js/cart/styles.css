@@ -22884,6 +22884,12 @@ html:not(.t-main):not(.t-404) .page {
     left: -9999px
 }
 
+.radio-control[data-v-08921c00]:checked+label::before {
+    border-color: #c5a995;
+    background-color: #c5a995;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+}
+
 .radio-label[data-v-08921c00] {
     color: #887568;
     display: flex;
@@ -22925,6 +22931,8 @@ html:not(.t-main):not(.t-404) .page {
     background: #c5a995;
     transform: scale(0)
 }
+
+
 
 @-webkit-keyframes loader-animation {
     0% {

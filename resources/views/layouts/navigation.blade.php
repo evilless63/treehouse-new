@@ -76,7 +76,9 @@
                             <x-dropdown-link :href="route('sizes.index')" :active="request()->routeIs('sizes.index')">
                                 Размеры
                             </x-dropdown-link>
-                            
+                            <x-dropdown-link :href="route('promocodes.index')" :active="request()->routeIs('promocodes.index')">
+                                Промокоды
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\ColorVariation;
 use App\Models\Promocode;
+use App\Models\Product;
 use Error;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class PromocodeController extends Controller
     public function index()
     {
         return view('admin.promocodes.index')->with([
-            'promocodes' => Promocode::all(),
+            'promocodes' => Promocode::all()
         ]);
     }
 
@@ -29,7 +30,10 @@ class PromocodeController extends Controller
      */
     public function create()
     {
-        return view('admin.promocodes.create');
+        return view('admin.promocodes.create')->with([
+            'categories' => Category::all(),
+            'products' => ColorVariation::all()
+        ]);
     }
 
     /**
@@ -40,23 +44,44 @@ class PromocodeController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $data = $request->all();
+
+        if($request->has('promocode_newer_ends')) {
+            $data['to'] = '2122-02-03T01:07';
+        }
+
+        if($data['min_subtotal'] == null) {
+            $data['min_subtotal'] = 0;
+        }
+
+        if($request->has('without_sales')) {
+            $data['without_sales'] = '1';
+        } else {
+            $data['without_sales'] = '0';
+        }
+ 
         try {
-            $promocode = new Promocode();
-            $promocode->save($data);
 
-            foreach ($request->cat_ids as $id) {
-                $category = Category::where('id', $id)->first();
-                if ($category !== null) {
-                    $promocode->categories()->attach($category);
-                }
-            }
-
-            foreach ($request->color_variations_ids as $id) {
-                $colorVatiation = ColorVariation::where('id', $id)->first();
-                if ($colorVatiation !== null) {
-                    $promocode->colorVariations()->attach($colorVatiation);
-                }
+            $promocode = Promocode::create($data);
+            
+            switch ($request->rule_type) {
+                case 'every_product_from_category' : 
+                    foreach ($request->categories as $id) {
+                        $category = Category::where('id', $id)->first();
+                        if ($category !== null) {
+                            $promocode->categories()->attach($category);
+                        }
+                    }
+                    break;
+                case 'choosed_products' : 
+                    foreach ($request->products as $id) {
+                        $product = ColorVariation::where('id', $id)->first();
+                        if ($product !== null) {
+                            $promocode->colorVariations()->attach($product);
+                        }
+                    }
+                    break;
             }
 
             return redirect()->route('promocodes.index')->with('success', __('adminpanel.action_success'));
@@ -87,6 +112,10 @@ class PromocodeController extends Controller
     {
         return view('admin.promocodes.edit')->with([
             'promocode' => $promocode,
+            'categories' => Category::all(),
+            'products' => ColorVariations::all(),
+            'categories_ids' => $promocode->categories()->get()->pluck('id')->all(),
+            'products_ids' => $promocode->colorVariations()->get()->pluck('id')->all()
         ]);
     }
 
@@ -100,22 +129,53 @@ class PromocodeController extends Controller
     public function update(Request $request, Promocode $promocode)
     {
         try {
-            $promocode->update($request->data);
+            
             $promocode->categories()->detach();
-            $promocode->colorVariations()->detach();
+            $promocode->colorVariatons()->detach();
 
-            foreach ($request->cat_ids as $id) {
-                $category = Category::where('id', $id)->first();
-                if ($category !== null) {
-                    $promocode->categories()->attach($category);
-                }
+            $data = $request->all();
+
+            if($request->has('promocode_newer_ends')) {
+                $data['to'] = '2122-02-03T01:07';
             }
 
-            foreach ($request->color_variations_ids as $id) {
-                $colorVatiation = ColorVariation::where('id', $id)->first();
-                if ($colorVatiation !== null) {
-                    $promocode->colorVariations()->attach($colorVatiation);
+            if($data['min_subtotal'] == null) {
+                $data['min_subtotal'] = 0;
+            }
+
+            if($request->has('without_sales')) {
+                $data['without_sales'] = '1';
+            } else {
+                $data['without_sales'] = '0';
+            }
+    
+            try {
+
+                $promocode->update($data);;
+                
+                switch ($request->rule_type) {
+                    case 'every_product_from_category' : 
+                        foreach ($request->categories as $id) {
+                            $category = Category::where('id', $id)->first();
+                            if ($category !== null) {
+                                $promocode->categories()->attach($category);
+                            }
+                        }
+                        break;
+                    case 'choosed_products' : 
+                        foreach ($request->products as $id) {
+                            $product = ColorVariation::where('id', $id)->first();
+                            if ($product !== null) {
+                                $promocode->colorVariations()->attach($product);
+                            }
+                        }
+                        break;
                 }
+
+                return redirect()->route('promocodes.index')->with('success', __('adminpanel.action_success'));
+            } catch (Error $e) {
+
+                return redirect()->route('promocodes.index')->with('error', __('adminpanel.action_error'));
             }
         } catch (Error $e) {
 

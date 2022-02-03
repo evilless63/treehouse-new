@@ -21,5 +21,17 @@ return [
         'about' => "о компании",
         'counteragents' => "покупателям",
         'blog' => "для блога",
+    ],
+
+    'promocode_types' => [
+        'price_discount' => "Денежная скидка (скидка на определенную сумму от стоимости заказа)",
+        'percent_discount' => "Процентная скидка (скидка на процент от стоимости заказа)",
+    ],
+
+    'promocode_rules' => [
+        'all_orders' => "все заказы",
+        'order_sum_more_than' => "заказы более",
+        'every_product_from_category' => "каждый товар из категории",
+        'choosed_products' => "выбранные товары",
     ]
 ];

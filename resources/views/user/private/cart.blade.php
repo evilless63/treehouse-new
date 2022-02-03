@@ -116,10 +116,10 @@
                 
                   <div data-v-131ebcb5="" class="form-inner">
                     <div data-v-131ebcb5="" class="input input">
-                      <div class="input-container"><input autocomplete="on" type="text" class="input-control">
+                      <div class="input-container"><input autocomplete="on" type="text" class="input-control" id="promocode_changer">
                         <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                       </div>
-                    </div> <div data-v-6352a6b4="" data-v-131ebcb5="" class="button promocode-button">OK</div>
+                    </div> <a href="{{route('user.cart.promocode', '')}}" id="promocode_link" data-v-6352a6b4="" data-v-131ebcb5="" class="button promocode-button">OK</a>
                     <!---->
                   </div>
                   <!---->
@@ -207,41 +207,11 @@
                   </div>
                 </div>
               </div>
-              <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="country" class="form-item-title">Страна</label>
-                <div data-v-b31126bc="" class="field">
-                  <div data-v-e57b8756="" data-v-684b9f47="" class="city-autocomplete" id="country" data-v-b31126bc="">
-                    <div data-v-e57b8756="" class="input">
-                      <div class="input-container"><input name="country" autocomplete="off" trim="true" type="text" class="input-control" value="{{$adress->country}}">
-                        <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
-                      </div>
-                    </div>
-                    <!---->
-                    <!---->
-                  </div>
-                  <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
-                  </div>
-                </div>
-              </div>
-              <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="city" class="form-item-title">Населенный пункт</label>
-                <div data-v-b31126bc="" class="field">
-                  <div data-v-e57b8756="" data-v-684b9f47="" class="city-autocomplete" id="city" data-v-b31126bc="">
-                    <div data-v-e57b8756="" class="input">
-                      <div class="input-container"><input name="city" autocomplete="off" trim="true" type="text" class="input-control"  value="{{$adress->city}}">
-                        <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
-                      </div>
-                    </div>
-                    <!---->
-                    <!---->
-                  </div>
-                  <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
-                  </div>
-                </div>
-              </div>
               <div data-v-684b9f47="" class="observer">
                 <div data-v-b31126bc="" data-v-684b9f47="" class="form-item radio"><label data-v-b31126bc="" for="delivery-type" class="form-item-title">Способ доставки</label>
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="radio-group" id="delivery-type" data-v-b31126bc="">
-                      <div data-v-08921c00="" class="radio checked"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-0" type="radio" class="radio-control" value="1610902120585-0"> <label data-v-08921c00="" for="delivery-type-1610902120585-0" class="radio-label">
+                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-0" type="radio" class="radio-control" value="courier"> <label data-v-08921c00="" for="delivery-type-1610902120585-0" class="radio-label">
                           <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">курьер</span> <span class="nowrap">– 490&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-10 дней)</span></span>
                           </div>
                           <!---->
@@ -257,18 +227,55 @@
                             </div>
                           </div>
                         </label></div>
-                      <div data-v-08921c00="" class="radio boxberry"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-1" type="radio" class="radio-control" value="1610902120585-1"> <label data-v-08921c00="" for="delivery-type-1610902120585-1" class="radio-label">
+                      <div data-v-08921c00="" class="radio sdek"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-1" type="radio" class="radio-control" value="sdek"> <label data-v-08921c00="" for="delivery-type-1610902120585-1" class="radio-label">
                           <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">пункт выдачи
-                                BoxBerry</span> <span class="nowrap">– 190&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-4
+                                СДЕК</span> <span class="nowrap">– 190&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-4
                                 дня)</span></span></div>
+                      
                           <!---->
                           <!---->
                           <!---->
                         </label></div>
+
+                        <div data-v-08921c00="" class="radio pochta"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-2" type="radio" class="radio-control" value="pochta"> <label data-v-08921c00="" for="delivery-type-1610902120585-2" class="radio-label">
+                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">пункт выдачи
+                                Почта</span> <span class="nowrap">– 190&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-4
+                                дня)</span></span></div>
+                          </label></div>
                       <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                     </div>
                     <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="country" class="form-item-title">Страна</label>
+                <div data-v-b31126bc="" class="field">
+                  <div data-v-e57b8756="" data-v-684b9f47="" class="city-autocomplete" id="country" data-v-b31126bc="">
+                    <div data-v-e57b8756="" class="input">
+                      <div class="input-container"><input name="country" autocomplete="off" trim="true" type="text" class="input-control" value="{{$adress->country}}" required>
+                        <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
+                      </div>
+                    </div>
+                    <!---->
+                    <!---->
+                  </div>
+                  <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
+                  </div>
+                </div>
+              </div>
+              <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="city" class="form-item-title">Город</label>
+                <div data-v-b31126bc="" class="field">
+                  <div data-v-e57b8756="" data-v-684b9f47="" class="city-autocomplete" id="city" data-v-b31126bc="">
+                    <div data-v-e57b8756="" class="input">
+                      <div class="input-container"><input name="city" autocomplete="off" trim="true" type="text" class="input-control"  value="{{$adress->city}}" required>
+                        <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
+                      </div>
+                    </div>
+                    <!---->
+                    <!---->
+                  </div>
+                  <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
                   </div>
                 </div>
               </div>
@@ -278,7 +285,7 @@
                 <div data-v-b31126bc="" class="field">
                   <div data-v-4f53bb6a="" data-v-684b9f47="" class="street-autocomplete margin-m" id="street" data-v-b31126bc="">
                     <div data-v-4f53bb6a="" class="input">
-                      <div class="input-container"><input name="street" autocomplete="off" trim="true" type="text" class="input-control"  value="{{$adress->street}}">
+                      <div class="input-container"><input name="street" autocomplete="off" trim="true" type="text" class="input-control"  value="{{$adress->street}}" required>
                         <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                       </div>
                     </div>
@@ -288,14 +295,14 @@
                   <div data-v-684b9f47="" data-v-b31126bc="" class="sub-fields-container sb margin-m">
                     <div data-v-684b9f47="" data-v-b31126bc="" class="sub-field"><label data-v-684b9f47="" data-v-b31126bc="" for="house" class="sub-field-label">Дом</label>
                       <div data-v-684b9f47="" class="input" data-v-b31126bc="">
-                        <div class="input-container"><input name="house" id="house" autocomplete="on" trim="true" type="text" class="input-control"  value="{{$adress->house}}">
+                        <div class="input-container"><input name="house" id="house" autocomplete="on" trim="true" type="text" class="input-control"  value="{{$adress->house}}" required>
                           <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                         </div>
                       </div>
                     </div>
                     <div data-v-684b9f47="" data-v-b31126bc="" class="sub-field"><label data-v-684b9f47="" data-v-b31126bc="" for="apartment" class="sub-field-label">Квартира/офис</label>
                       <div data-v-684b9f47="" class="input" data-v-b31126bc="">
-                        <div class="input-container"><input name="room" id="room" autocomplete="on" trim="true" type="text" class="input-control"  value="{{$adress->room}}">
+                        <div class="input-container"><input name="room" id="room" autocomplete="on" trim="true" type="text" class="input-control"  value="{{$adress->room}}" required>
                           <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                         </div>
                       </div>
@@ -310,7 +317,7 @@
                 <div data-v-b31126bc="" class="field">
                   <div data-v-e57b8756="" data-v-684b9f47="" class="city-autocomplete" id="zipcode" data-v-b31126bc="">
                     <div data-v-e57b8756="" class="input">
-                      <div class="input-container"><input name="zipcode" autocomplete="off" trim="true" type="text" class="input-control"  value="{{$adress->zipcode}}">
+                      <div class="input-container"><input name="zipcode" autocomplete="off" trim="true" type="text" class="input-control"  value="{{$adress->zipcode}}" required>
                         <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                       </div>
                     </div>
@@ -326,9 +333,10 @@
                 <div data-v-b31126bc="" data-v-684b9f47="" class="form-item radio"><label data-v-b31126bc="" for="payment-type" class="form-item-title">Способ оплаты</label>
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="radio-group" id="payment-type" ref="paymentType" data-v-b31126bc="">
-                      <div data-v-08921c00="" class="radio checked"><input data-v-08921c00="" name="payment-type" id="payment-type-1" type="radio" class="radio-control" value="1"> <label data-v-08921c00="" for="payment-type-1" class="radio-label"><span data-v-08921c00="">Картой онлайн, Apple Pay, Google Pay</span></label></div>
+                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="payment-type" id="payment-type-1" type="radio" class="radio-control" value="1" checked> <label data-v-08921c00="" for="payment-type-1" class="radio-label"><span data-v-08921c00="">Картой онлайн, Apple Pay, Google Pay</span></label></div>
                       <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="payment-type" id="payment-type-3" type="radio" class="radio-control" value="3"> <label data-v-08921c00="" for="payment-type-3" class="radio-label"><span data-v-08921c00="">Наличными курьеру</span></label></div>
                       <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="payment-type" id="payment-type-5" type="radio" class="radio-control" value="5"> <label data-v-08921c00="" for="payment-type-5" class="radio-label"><span data-v-08921c00="">Банковской картой курьеру</span></label></div>
+
                       <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                     </div>
                     <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
@@ -498,6 +506,14 @@
   $('#promocode_button').on('click', function(){
     $('#promocode_input').toggleClass('collapsed')
   })
+
+  let standartHref = $('#promocode_link').attr('href')
+
+  $('#promocode_changer').on("change paste keyup", function() {
+    $('#promocode_link').prop('href', standartHref)
+    $('#promocode_link').prop('href', $('#promocode_link').attr('href') + '/' + $(this).val())
+  });
+
 </script>
 @endsection
 

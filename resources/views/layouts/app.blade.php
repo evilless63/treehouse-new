@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{asset('assets/owl/assets/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/owl/assets/owl.theme.default.min.css')}}">
     <link rel="stylesheet" href="{{asset('/css/carousel-custom.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.bootstrap4.min.css" integrity="sha512-MMojOrCQrqLg4Iarid2YMYyZ7pzjPeXKRvhW9nZqLo6kPBBTuvNET9DBVWptAo/Q20Fy11EIHM5ig4WlIrJfQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Styles -->
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -33,7 +35,7 @@
     <script src="https://unpkg.com/imask"></script>
     <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 </head>

@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Article;
 use App\Models\Wishlist;
 use App\Models\ColorVariation;
+use App\Models\Promocode;
 use Auth;
 use View;
 use Cart;
@@ -157,15 +158,117 @@ class UserPrivateController extends Controller
         ]);
     }
 
+    public function cartWithPromocode($promocode)
+    {
+        $currentDefaultAdress = Auth::user()->addresses()->where('is_default', 1)->first();
+        if ($currentDefaultAdress == null) {
+            $currentDefaultAdress = new Address();
+        }
+
+        return view('user.private.cart')->with([
+            'cart' => Cart::instance('shopping')->content(),
+            'subtotal' => Cart::instance('shopping')->subtotal(),
+            'adress' => $currentDefaultAdress,
+            'user' => Auth::user(),
+        ]);
+
+        $current_subtotal = Cart::instance('shopping')->subtotal();
+        $current_cart_items = Cart::instance('shopping')->content();
+        $promocode = Promocode::where('name', $promocode)->first();
+        if ($promocode != null) {
+            switch ($promocode) {
+
+                case $promocode->rule_type == "choosed_products":
+                    $coloVariationsIds = $promocode->colorVariations()->get()->pluck('id')->all();
+                    switch ($promocode->promocode_type) {
+                        case 'price_discount':
+                            foreach($current_cart_items as $item) {
+                                if(in_array($item->id, $coloVariationsIds)) {
+                                    $item->total = $item->total - $promocode->discount;
+                                }
+                            }
+                            // $current_subtotal = $current_subtotal - $promocode->discount;
+                            break;
+                        case 'percent_discount':
+                            foreach($current_cart_items as $item) {
+                                if(in_array($item->id, $coloVariationsIds)) {
+                                    $item->total - ($item->total * $promocode->discount / 100);
+                                }
+                            }
+                            // $current_subtotal = $current_subtotal - ($current_subtotal * $promocode->discount / 100);
+                            break;    
+                    }
+                    break;
+
+                case $promocode->rule_type == "every_product_from_category":
+                    $categoriesIds = $promocode->categories()->get()->pluck('id')->all();
+                    switch ($promocode->promocode_type) {
+                        case 'price_discount':
+
+                            $current_subtotal = $current_subtotal - $promocode->discount;
+                            break;
+                        case 'percent_discount':
+
+                            $current_subtotal = $current_subtotal - ($current_subtotal * $promocode->discount / 100);
+                            break;    
+                    }
+                    break;
+
+                case $promocode->rule_type == "order_sum_more_than":
+                    $subtotal = Cart::instance('shopping')->subtotal();
+                    if($subtotal > $promocode->min_subtotal) {
+                        switch ($promocode->promocode_type) {
+                            case 'price_discount':
+                                $current_subtotal = (float)$current_subtotal - $promocode->discount;
+                                break;
+                            case 'percent_discount':
+                                $current_subtotal = (float)$current_subtotal - ((float)$current_subtotal * $promocode->discount / 100);
+                                break;    
+                        }
+                    }
+                    break;
+
+                case $promocode->rule_type == "all_orders":
+                    switch ($promocode->promocode_type) {
+                        case 'price_discount':
+                            $current_subtotal = (float)$current_subtotal - $promocode->discount;
+                            foreach($current_cart_items as $item) {
+                                $item->total = (float)$item->total - $promocode->discount;
+                            }
+                            break;
+                        case 'percent_discount':
+                            $current_subtotal = (float)$current_subtotal - ((float)$current_subtotal * $promocode->discount / 100);
+                            foreach($current_cart_items as $item) {
+                                $item->total = (float)$item->total - ((float)$item->total * $promocode->discount / 100);
+                            }
+                            break;    
+                    }
+                    break;
+            }
+        } 
+
+        return view('user.private.cart')->with([
+            'cart' => $current_cart_items,
+            'subtotal' => $current_subtotal,
+            'adress' => $currentDefaultAdress,
+            'user' => Auth::user(),
+        ]);
+    }
 
 
 
-    public function makeOrderUnpayed()
+
+    public function makeOrderUnpayed(Request $request)
     {
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'is_closed' => false,
-            'is_paid' => false
+            'is_paid' => false,
+            'country' => $request->country,
+            'city' => $request->city,
+            'street' => $request->street,
+            'house' => $request->house,
+            'zipcode' => $request->zipcode
         ]);
 
         $productsInOrder = Cart::instance('shopping')->store($order->id);
@@ -187,7 +290,7 @@ class UserPrivateController extends Controller
 
 
         Cart::instance('shopping')->destroy();
-        return redirect()->back()->with('success', $stringBody);
+        return redirect()->back()->with('success', "Заказ успешно сформирован");
     }
 
     public function postCounteragentRegisterTo1c(Request $request)
