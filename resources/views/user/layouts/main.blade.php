@@ -184,7 +184,7 @@
 
                             <ul class="header-links navbar">
                                 <li class="header-links__item"><a class="header-link"
-                                        href="{{ route('user.category', 'vodolazki') }}">Новинки</a></li>
+                                        href="{{ route('user.category', 'novinki') }}">Новинки</a></li>
                                 <li class="header-links__item">
                                     <div class="dropdown">
                                         <a class="dropbtn header-link">Одежда и декор
