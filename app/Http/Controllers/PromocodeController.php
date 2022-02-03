@@ -113,7 +113,7 @@ class PromocodeController extends Controller
         return view('admin.promocodes.edit')->with([
             'promocode' => $promocode,
             'categories' => Category::all(),
-            'products' => ColorVariations::all(),
+            'products' => ColorVariation::all(),
             'categories_ids' => $promocode->categories()->get()->pluck('id')->all(),
             'products_ids' => $promocode->colorVariations()->get()->pluck('id')->all()
         ]);
