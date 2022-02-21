@@ -101,7 +101,7 @@
 
                         <div class="menu__contact">
                             <div class="menu__contact-item">
-                                <a class="menu__contact-link" href="https://api.whatsapp.com/send?phone=79126156257"
+                                <a class="menu__contact-link" href="https://api.whatsapp.com/send?phone={{$contacts->phone}}"
                                     target="_blank">
                                     <i class="menu__contact-icon wa"></i>
                                     <span class="menu__contact-label">WhatsApp</span>
@@ -115,13 +115,13 @@
                                 </a>
                             </div>
                             <div class="menu__contact-item">
-                                <a class="menu__contact-link" href="tg://resolve?domain=twelvestoreez_bot">
+                                <a class="menu__contact-link" href="tg://resolve?domain={{$contacts->telegram}}">
                                     <i class="menu__contact-icon tg"></i>
                                     <span class="menu__contact-label">Telegram</span>
                                 </a>
                             </div>
                             <div class="menu__contact-item">
-                                <a class="menu__contact-link" href="mailto:info@domnadereve.com">
+                                <a class="menu__contact-link" href="mailto:{{$contacts->mail}}">
                                     <i class="menu__contact-icon mail"></i>
                                     <span class="menu__contact-label">E-mail</span>
                                 </a>

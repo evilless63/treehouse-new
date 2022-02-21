@@ -387,17 +387,26 @@
                 </ul>
               </div>
               <!-- Детали END -->
-
               <!-- Обратный звонок и соцсети -->
               <div class="card-contact-links__wrapper card-product-details">
                 <h4 class="card-product-details__title">
                   Есть вопросы? </h4>
                 <ul class="contact-links card-contact-links">
-                  <li class="card-contact-links__item media-query-show_tablet"><a href="tel:88005004611" data-ga-label="Phone"><span class="contact-links__icon callback"></span><span>Обратный звонок</span></a></li>
-                  <li class="card-contact-links__item media-query-show_mobile"><a href="https://api.whatsapp.com/send?phone=79126156257" target="_blank" data-ga-label="WhatsApp"><span class="contact-links__icon whatsapp"></span><span>WhatsApp</span></a></li>
-                  <li class="card-contact-links__item media-query-show_mobile"><a href="mailto:info@domnadereve.com" data-ga-label="Email"><span class="contact-links__icon email"></span><span>Эл. почта</span></a></li>
-                  <li class="card-contact-links__item media-query-show_mobile"><a href="tg://resolve?domain=twelvestoreez_bot" target="_blank" data-ga-label="Telegram"><span class="contact-links__icon telegram"></span><span>Telegram</span></a></li>
-                  <li class="card-contact-links__item media-query-show_mobile"><a href="tel:88005004611" data-ga-label="Phone"><span class="contact-links__icon callback"></span><span>Телефон</span></a></li>
+                  @if($contacts->phone != "")
+                  <li class="card-contact-links__item media-query-show_tablet"><a href="tel:{{$contacts->phone}}" data-ga-label="Phone"><span class="contact-links__icon callback"></span><span>Обратный звонок</span></a></li>
+                  @endif
+                  @if($contacts->whatsapp != "")
+                  <li class="card-contact-links__item media-query-show_mobile"><a href="https://api.whatsapp.com/send?phone={{$contacts->whatsapp}}" target="_blank" data-ga-label="WhatsApp"><span class="contact-links__icon whatsapp"></span><span>WhatsApp</span></a></li>
+                  @endif
+                  @if($contacts->mail != "")
+                  <li class="card-contact-links__item media-query-show_mobile"><a href="mailto:{{$contacts->mail}}" data-ga-label="Email"><span class="contact-links__icon email"></span><span>Эл. почта</span></a></li>
+                  @endif
+                  @if($contacts->telegram != "")
+                  <li class="card-contact-links__item media-query-show_mobile"><a href="tg://resolve?domain={{$contacts->telegram}}" target="_blank" data-ga-label="Telegram"><span class="contact-links__icon telegram"></span><span>Telegram</span></a></li>
+                  @endif
+                  @if($contacts->phone != "")
+                  <li class="card-contact-links__item media-query-show_mobile"><a href="tel:{{$contacts->phone}}" data-ga-label="Phone"><span class="contact-links__icon callback"></span><span>Телефон</span></a></li>
+                  @endif
                 </ul>
               </div>
               <!-- Обратный звонок и соцсети END -->

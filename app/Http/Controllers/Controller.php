@@ -16,6 +16,7 @@ use App\Models\Banner;
 use App\Models\Lookbook;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Contacts;
 
 use LaravelLocalization;
 
@@ -34,6 +35,8 @@ class Controller extends BaseController
     protected $orders;
     protected $users;
     protected $lookbooks;
+    protected $contacts;
+
     function __construct()
     {
         $this->categories = Category::orderBy('sort_order','asc')->get();  
@@ -47,5 +50,18 @@ class Controller extends BaseController
         $this->users = User::all();
         $this->orders = Order::orderBy('created_at', 'ASC')->get();
         $this->lookbooks = Lookbook::orderBy('sort_order','asc')->get();
+
+        $DBcontacts = Contacts::first();
+        if ($DBcontacts){
+            $contacts = $DBcontacts;
+        } else {
+            $contacts = new Contacts();
+            $contacts->phone = "";
+            $contacts->whatsapp = "";
+            $contacts->telegram = "";
+            $contacts->mail = "";
+        }
+
+        $this->contacts = $contacts;
     }
 }

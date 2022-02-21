@@ -10,6 +10,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserPrivateController;
 use App\Http\Controllers\UserPublicController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ContactsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\SliderController;
@@ -74,9 +75,13 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
         'orders' => OrderController::class,
         'users' => UserController::class,
         'promocodes' => PromocodeController::class,
-        'subscriptions' => SubscriptionController::class,
+        // 'subscriptions' => SubscriptionController::class,
         'lookbooks' => LookbookController::class,
     ]);
+
+    Route::any('/contacts/editing', [ContactsController::class, 'editing'])->name('contacts.editing');
+    Route::post('/contacts/storing', [ContactsController::class, 'storing'])->name('contacts.storing');
+    Route::patch('/contacts/{id}/updating', [ContactsController::class, 'updating'])->name('contacts.updating');
 
     Route::any('/categories/{id}/replicate', [CategoryController::class, 'replicate'])->name('categories.replicate');
     Route::any('/articles/{id}/replicate', [ArticleController::class, 'replicate'])->name('articles.replicate');

@@ -94,6 +94,9 @@
                     <x-nav-link :href="route('export.subscribers')" :active="request()->routeIs('export.subscribers')">
                         Скачать список подписчиков
                     </x-nav-link>
+                    <x-nav-link :href="route('contacts.editing')" :active="request()->routeIs('contacts.editing')">
+                        Контакты
+                    </x-nav-link>
                 </div>
             </div>
 

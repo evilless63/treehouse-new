@@ -1,7 +1,23 @@
 <x-app-layout>
+    @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+    @endif
+
+    @if (\Session::has('error'))
+    <div class="alert alert-error">
+        <ul>
+            <li>{!! \Session::get('error') !!}</li>
+        </ul>
+    </div>
+    @endif
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mt-16">
-            {{ __('Dashboard') }}
+            Главная
         </h2>
     </x-slot>
 

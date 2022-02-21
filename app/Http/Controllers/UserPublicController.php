@@ -15,6 +15,7 @@ use Cart;
 use LaravelLocalization;
 use App;
 use App\Models\Article;
+use App\Models\Contacts;
 // use App\Repositories\ProductRepository;
 // use App\Repositories\CategoryRepository;
 // use Phpfastcache\Helper\Psr16Adapter;
@@ -81,6 +82,7 @@ class UserPublicController extends Controller
         View::share('blog_articles', $this->blog_articles);
         View::share('customer_articles', $this->customer_articles);
         View::share('categories', $this->categories);
+        View::share('contacts', $this->contacts);
     }
 
     public function index()
