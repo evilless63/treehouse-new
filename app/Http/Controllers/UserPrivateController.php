@@ -77,6 +77,7 @@ class UserPrivateController extends Controller
         View::share('blog_articles', $this->blog_articles);
         View::share('customer_articles', $this->customer_articles);
         View::share('categories', $this->categories);
+        View::share('contacts', $this->contacts);
     }
 
     public function profile()
