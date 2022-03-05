@@ -499,7 +499,6 @@
                         <div class="footer-line__inn footer-line-inn">
                             <div class="footer-line-inn__left">
                                 <div class="reference-tools">
-
                                     @if (LaravelLocalization::getCurrentLocale() == 'ru')
                                         <div class="reference-tools__item"> <a
                                                 href="{{ LaravelLocalization::getLocalizedURL('en') }}"
@@ -623,7 +622,7 @@
                 }
             });
 
-            $('#quick-search-input').focusout(function() {
+            $('#quick-search-result').focusout(function() {
                 $('#quick-search-result').fadeOut(100)
             })
 

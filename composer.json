@@ -13,6 +13,7 @@
         "evilless63/transliterate": "dev-master",
         "fakerphp/faker": "^1.18",
         "fideloper/proxy": "^4.2",
+        "fomvasss/laravel-dadata": "^2.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.1",
         "hardevine/shoppingcart": "^2.9",
@@ -24,7 +25,8 @@
         "mcamara/laravel-localization": "^1.6",
         "mews/captcha": "^3.2",
         "sopamo/laravel-filepond": "^0.6.1",
-        "torann/geoip": "^3.0"
+        "torann/geoip": "^3.0",
+        "yoomoney/yookassa-sdk-php": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

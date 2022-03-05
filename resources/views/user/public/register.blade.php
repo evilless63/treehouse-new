@@ -35,7 +35,28 @@
                 </div>
                 <div class="form__item field-loginform-username">
                     <label class="form__label form__label_full" for="loginform-username">Телефон*</label><input type="text"
-                        id="loginform-username" class="form__input" type="phone" name="phone" :value="old('phone')">
+                        id="loginform-username-phone" class="form__input" type="phone" name="phone" :value="old('phone')">
+                    <script>
+                        let loginformPhone = document.getElementById('loginform-username-phone')
+                        loginformPhone.onblur = function() {
+                            if (!loginformPhone.value == '') { // не email
+                                $.ajax({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    },
+                                    url: "{{url('/clean-phone')}}",
+                                    type: "post",
+                                    data: {
+                                        phone: loginformPhone.value,
+                                    },
+                                    success: function(response) {
+                                        loginformPhone.value = response
+                                        console.log(response)
+                                    }
+                                })
+                            }
+                        }
+                    </script>
                     <p class="form__error-message"></p>
                 </div>
                 <div class="form__item field-loginform-username">
@@ -63,7 +84,7 @@
             <div class="login__reg">
                 <a href="/login" class="login__reg-link">Войти</a>
             </div>
-            
+
 
         </div>
     </div>
@@ -89,6 +110,7 @@
 
     <meta name="description"
         content="Большой выбор женской одежды, платья, рубашки, костюмы, верхняя одежда, аксессуары. Доставка.">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="stylesheet" href="{{ asset('assets/js/home/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/fast-catalog-item/styles.css') }}">

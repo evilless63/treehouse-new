@@ -50,7 +50,68 @@
             <h2 class="profile__title" onclick="location.href='/user/orders';">Мои заказы</h2>
           </div>
           <div class="profile-orders accordion js-accordion profile__orders">
-            <div class="accordion__item profile-orders__item">
+          @forelse($orders as $order)
+          <div class="accordion__item profile-orders__item">
+              <div class="profile-orders__holder">
+                <div class="accordion__head profile-orders__head">
+                  <div class="profile-orders__title accordion__title">
+                    №{{$order->id}} от {{$order->created_at}} <div class="profile-orders__line">
+                      @if($order->is_closed)
+                      <div class="profile-orders__status" data-role="status">Заказ отменен</div>
+                      @elseif($order->is_paid)
+                      <div class="profile-orders__status" data-role="status">Заказ оплачен</div>
+                      @else
+                      <div class="profile-orders__status" data-role="status">Заказ ожидает оплату</div>
+                      @endif
+                      <form method="POST" action="{{route('user.close.order', $order->id)}}">
+                        @csrf
+                        @method('delete')
+                        <div class="profile-orders__status js-popup"><button type="submit" class="profile-orders__link question">отменить заказ</button></div>
+                      </form>
+                      
+                      @if($order->is_paid)
+                      <div class="profile-orders__status">
+                        <a href="#" class="profile-orders__link">оплатить заказ</a>
+                      </div>
+                      @endif
+
+                    </div>
+                    <div class="accordion__icon profile-orders__icon"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion__box profile-orders__box" style="display: none;">
+                <div class="profile-orders__goods-list">
+                  @foreach()
+                  <div class="goods goods_profile profile-orders__goods-item " data-block-id="823930" data-order="419206" data-model="105560" data-index="0">
+                    <div class="goods__preview">
+                      <a href="/catalog/trikotaz/vodolazka-tonkaa-iz-merinosovoj-sersti-104157" class="goods__link"><img src="/images/77x0_100_in/uploads/images/CATALOG/jersey/104157/5fed87ea29eb1-12storeez-21-12-20-h1482.jpg" alt="" class="goods__image"></a>
+                    </div>
+                    <div class="goods__box">
+                      <div class="goods__spec">
+                        <a href="/catalog/trikotaz/vodolazka-tonkaa-iz-merinosovoj-sersti-104157" class="goods__head">
+                          <div class="goods__code">арт. 104157</div>
+                          <div class="goods__title">Водолазка тонкая из мериносовой шерсти</div>
+                        </a>
+                        <div class="goods__info">
+                          <div class="goods__info-line">
+                            <div class="goods__size">S</div>
+                            <div style="background-color: #f2f6fa" class="goods__color"></div>
+                            <div class="goods__count">1 шт.</div>
+                          </div>
+                        </div>
+                        <div class="goods__total">
+                          <div class="goods__price">6&nbsp;980&nbsp;{{__('userpanel.currency')}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          @empty
+          @endforelse  
+            <!-- <div class="accordion__item profile-orders__item">
               <div class="profile-orders__holder">
                 <div class="accordion__head profile-orders__head">
                   <div class="profile-orders__title accordion__title">
@@ -131,7 +192,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
 

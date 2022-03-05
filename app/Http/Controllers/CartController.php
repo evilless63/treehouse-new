@@ -7,15 +7,16 @@ use App\Models\ColorVariation;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\SizeVariation;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
-use LaravelLocalization;
-use Cart;
+use Illuminate\Support\Facades\Auth;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class CartController extends Controller
 {
     public function addToCard(Request $request)
     {
-        
+
         $sizeVariation =  SizeVariation::where('id', $request->size_variation_id)->first();
 
         if($sizeVariation->stock < $request->qty) {
@@ -27,11 +28,11 @@ class CartController extends Controller
         $size = Size::where('id', $sizeVariation->size->id)->first();
 
         $imagePath = ColorVariation::where('color_id', $color->id)->where('product_id', $product->id)->first()->main_img;
-        
+
         Cart::instance('shopping')->add(
             $product->id,
-            $product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) . ", " . __('userpanel.color') . ": " 
-            . $color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) . ", " . __('userpanel.size') . ": " 
+            $product->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) . ", " . __('userpanel.color') . ": "
+            . $color->getLocalizeTitle(LaravelLocalization::getCurrentLocale()) . ", " . __('userpanel.size') . ": "
             . $size->getLocalizeTitle(LaravelLocalization::getCurrentLocale()),
             $request->qty,
             $sizeVariation->price,
@@ -44,6 +45,7 @@ class CartController extends Controller
                 'image' => $imagePath,
             ]
         );
+        Cart::instance('shopping')->store(Auth::user()->phone);
         return Cart::instance('shopping')->content()->count();
     }
 
@@ -59,7 +61,7 @@ class CartController extends Controller
         $currentRow = Cart::instance('shopping')->get(request()->row_id);
         if($currentRow->qty + request()->count == 0) {
             return [
-                'qty' => Cart::instance('shopping')->get(request()->row_id)->qty, 
+                'qty' => Cart::instance('shopping')->get(request()->row_id)->qty,
                 'total' => Cart::instance('shopping')->get(request()->row_id)->total,
                 'subtotal' => Cart::instance('shopping')->subtotal()
             ];
@@ -72,7 +74,7 @@ class CartController extends Controller
         $sizeVariation = SizeVariation::where('size_id', $size->id)->where('color_variation_id', $colorVariation->id)->first();
         if($currentRow->qty + request()->count > $sizeVariation->stock) {
             return [
-                'qty' => Cart::instance('shopping')->get(request()->row_id)->qty, 
+                'qty' => Cart::instance('shopping')->get(request()->row_id)->qty,
                 'total' => Cart::instance('shopping')->get(request()->row_id)->total,
                 'subtotal' => Cart::instance('shopping')->subtotal()
             ];
@@ -82,9 +84,10 @@ class CartController extends Controller
             'qty' => $currentRow->qty + request()->count
         ]);
 
+        Cart::instance('shopping')->store(Auth::user()->phone);
 
         return [
-            'qty' => Cart::instance('shopping')->get(request()->row_id)->qty, 
+            'qty' => Cart::instance('shopping')->get(request()->row_id)->qty,
             'total' => Cart::instance('shopping')->get(request()->row_id)->total,
             'subtotal' => Cart::instance('shopping')->subtotal()
         ];
@@ -97,6 +100,7 @@ class CartController extends Controller
 
     public function removeItem() {
         Cart::instance('shopping')->remove(request()->row_id);
+        Cart::instance('shopping')->store(Auth::user()->phone);
         return [
             'subtotal' => Cart::instance('shopping')->subtotal(),
             'count' => Cart::instance('shopping')->count(),

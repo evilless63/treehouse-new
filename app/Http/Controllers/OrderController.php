@@ -91,4 +91,10 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function close(Order $order) {
+        $order->is_closed = 1;
+        $order->update();
+        return redirect()->back()->withSuccess('Заказ успешно отменен');
+    }
 }

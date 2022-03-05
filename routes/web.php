@@ -26,6 +26,8 @@ use App\Http\Controllers\PromocodeController;
 use App\Http\Controllers\LookbookController;
 use App\Models\Order;
 use App\Http\Controllers\Subscription;
+use App\Http\Controllers\DaDataController;
+use App\Service\WebSMSService;
 
 /*
 |--------------------------------------------------------------------------
@@ -147,6 +149,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::post('/remove-from-wishlist', [UserPrivateController::class, 'removeFromWishList'])->name('user.remove-from-withlist');
         Route::get('/reset-password', [UserPrivateController::class, 'resetPassword'])->name('reset-password');
         Route::post('/reset-password', [UserPrivateController::class, 'createNewPassword'])->name('password.reset');
+
+        Route::delete('/user/orders/{id}/close', [OrderController::class, 'close'])->name('user.close.order');
     });
 
     Route::get('/', [UserPublicController::class, 'index'])->name('user.index');
@@ -165,3 +169,32 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/lookbook', [UserPublicController::class, 'lookbooks'])->name('user.lookbooks'); 
     Route::get('/lookbook/all-wear/{id}', [UserPublicController::class, 'lookbookAllWear'])->name('user.lookbooks-allwear');
 });
+
+Route::post('/payments/callback', [PaymentController::class, 'callBack'])
+    ->name('payment.callback');
+Route::post('/payments/create', [PaymentController::class, 'create'])
+    ->name('payment.create');
+Route::get('/payments', [PaymentController::class, 'index'])
+    ->name('payment.index');
+
+Route::get('/phpinfo', function (){
+
+    $toPhone="79610832317";
+    $msg="Проверка регистрации sms";
+
+    $net = new WebSMSService();
+
+    try {
+        // $ret = $net->getSaldo();
+        // print_r($ret);
+
+        $ret = $net-> sendSms($toPhone, $msg);
+        print_r($ret);
+    } catch (Exception $ex) {
+        print $ex->getMessage();
+    }
+
+});
+
+Route::post('/clean-phone', [DaDataController::class, 'cleanPhone']);
+Route::post('/suggest-city', [DaDataController::class, 'suggestAddress']);

@@ -182,6 +182,7 @@ return [
         Lavary\Menu\ServiceProvider::class,
         Torann\GeoIP\GeoIPServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Fomvasss\Dadata\DadataServiceProvider::class,
     ],
 
     /*

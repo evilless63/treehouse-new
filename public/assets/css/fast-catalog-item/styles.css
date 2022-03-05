@@ -22538,3 +22538,9 @@ html:not(.t-main):not(.t-404) .page {
   max-height: 300px;
   overflow: auto;
 }
+
+a.search_result-name-a {
+    color: #887568;
+    text-decoration: none;
+}
+  
