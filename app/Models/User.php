@@ -58,20 +58,20 @@ class User extends Authenticatable
             'verification_code' => $code
         ])->save();
 
-        // $toPhone = $this->phone;
-        // $msg = "Пожалуйста, укажите этот код для подтверждения регистрации: " . $code;
+        $toPhone = $this->phone;
+        $msg = "Код для подтверждения: " . $code;
 
-        // $net = new WebSMSService();
+        $net = new WebSMSService();
 
-        // try {
-        // // $ret = $net->getSaldo();
-        // // print_r($ret);
+        try {
+        // $ret = $net->getSaldo();
+        // print_r($ret);
 
-        // $ret = $net-> sendSms($toPhone, $msg);
-        // // print_r($ret);
-        // } catch (Exception $ex) {
-        // // print $ex->getMessage();
-        // }
+        $ret = $net-> sendSms($toPhone, $msg);
+        // print_r($ret);
+        } catch (Exception $ex) {
+        // print $ex->getMessage();
+        }
 
     }
 

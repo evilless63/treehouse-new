@@ -43,11 +43,12 @@
     <h4 class="popupify-inner__title">
       Ошибка! </h4>
     <p>
-      Для добавления позиции в корзину необходимо необходимо авторизоваться или зарегистрироваться.</p>
+      Для добавления позиции в корзину необходимо необходимо авторизоваться или зарегистрироваться.
+    </p>
 
     <div class="login__recover">
-      <a href="#" class="login__recover-link login__recover-link--redesign">
-        Ок </a>
+      <a href="{{route('user.profile')}}" class="login__recover-link--redesign">
+        Авторизоваться </a>
     </div>
   </div>
 
@@ -70,7 +71,7 @@
       Для добавления позиции в wishlist необходимо авторизоваться или зарегистрироваться.</p>
 
     <div class="login__recover">
-      <a href="#" class="login__recover-link login__recover-link--redesign">
+      <a href="{{route('user.profile')}}" class="login__recover-link--redesign">
         Ок </a>
     </div>
   </div>
@@ -920,6 +921,7 @@
   })
 
   function addToWishList(event){
+  
     var clientId = {{Auth::user() == null ? null : Auth::user()->id}}
     console.log(clientId)
     console.log(event.target)
@@ -961,7 +963,6 @@
   }
 
   function addToCartAjax() {
-
       var dataSize = 999999999
       sizetitles = document.getElementsByClassName('sizes-selector__title')
       sizetitles.forEach(function(item, i, arr) {

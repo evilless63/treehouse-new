@@ -344,7 +344,7 @@
                   </div>
                 </div>
               </div>
-              <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="comment" class="form-item-title">Комментарий для&nbsp;курьера</label>
+              <div data-v-b31126bc="" data-v-684b9f47="" class="form-item"><label data-v-b31126bc="" for="comment" class="form-item-title">Комментарий для&nbsp;менеджера</label>
                 <div data-v-b31126bc="" class="field">
                   <div data-v-674e125c="" data-v-684b9f47="" class="input" data-v-b31126bc=""><textarea data-v-674e125c="" name="comment" id="comment" placeholder="Например: код домофона или номер подъезда" class="textarea-control"></textarea>
                     <div data-v-70b16c7e="" data-v-674e125c="" class="error hidden"><span data-v-70b16c7e=""></span>

@@ -71,7 +71,7 @@
                 Для добавления позиции в wishlist необходимо авторизоваться или зарегистрироваться.</p>
 
             <div class="login__recover">
-                <a href="#" class="login__recover-link login__recover-link--redesign">
+                <a href="{{route('user.profile')}}" class="login__recover-link--redesign">
                     Ок </a>
             </div>
         </div>

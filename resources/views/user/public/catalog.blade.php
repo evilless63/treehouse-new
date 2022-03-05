@@ -9,7 +9,7 @@
                 Для добавления позиции в wishlist необходимо авторизоваться или зарегистрироваться. </p>
 
             <div class="login__recover">
-                <a href="#" class="login__recover-link login__recover-link--redesign">
+                <a href="{{route('user.profile')}}" class="login__recover-link--redesign">
                     Ок </a>
             </div>
         </div>
@@ -325,9 +325,13 @@
         })
 
         function addToWishList(event) {
+            if({{Auth::user() == null}}) {
+                window.location.replace({{ LaravelLocalization::localizeUrl('/user/cabinet') }})
+            }
             var clientId = {{ Auth::user() == null ? null : Auth::user()->id }}
             console.log(clientId)
             console.log(event.target)
+            
             if (clientId == null) {
                 new window.basePopup({
                     context: {

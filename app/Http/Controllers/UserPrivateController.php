@@ -139,7 +139,7 @@ class UserPrivateController extends Controller
             if (request()->password == request()->password_confirmation) {
                 $curUser->password = Hash::make(request()->password);
                 $curUser->save();
-                return route('user.profile')->with(['success', 'Пароль успешно изменен']);
+                return redirect()->route('user.profile')->with('success', 'Пароль успешно изменен');
             } else {
                 return back()->withErrors('Пароли не совпадают');
             }
@@ -154,6 +154,7 @@ class UserPrivateController extends Controller
         if ($currentDefaultAdress == null) {
             $currentDefaultAdress = new Address();
         }
+
         return view('user.private.cart')->with([
             'cart' => Cart::instance('shopping')->content(),
             'subtotal' => Cart::instance('shopping')->subtotal(),
