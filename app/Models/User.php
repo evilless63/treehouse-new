@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Service\WebSMSService;
 
 class User extends Authenticatable
 {
@@ -36,6 +37,44 @@ class User extends Authenticatable
     protected $casts = [
         'phone_verified_at' => 'datetime',
     ];
+
+    public function hasVerifiedPhone()
+    {
+        return ! is_null($this->phone_verified_at);
+    }
+
+    public function markPhoneAsVerified()
+    {
+        return $this->forceFill([
+            'phone_verified_at' => $this->freshTimestamp(),
+        ])->save();
+    }
+
+    public function callToVerify()
+    {
+        $code = random_int(100000, 999999);
+        
+        $this->forceFill([
+            'verification_code' => $code
+        ])->save();
+
+        // $toPhone = $this->phone;
+        // $msg = "Пожалуйста, укажите этот код для подтверждения регистрации: " . $code;
+
+        // $net = new WebSMSService();
+
+        // try {
+        // // $ret = $net->getSaldo();
+        // // print_r($ret);
+
+        // $ret = $net-> sendSms($toPhone, $msg);
+        // // print_r($ret);
+        // } catch (Exception $ex) {
+        // // print $ex->getMessage();
+        // }
+
+    }
+
 
     public function orders() {
         return $this->hasMany(Order::class);

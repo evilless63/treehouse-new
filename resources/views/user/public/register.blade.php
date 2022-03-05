@@ -3,7 +3,7 @@
 @section('content')
     <div class="login">
         <div class="login__holder">
-            @if ($errors->any())
+            <!-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -11,20 +11,26 @@
                         @endforeach
                     </ul>
                 </div>
-            @endif
+            @endif -->
 
             <p class="popup__head">Регистрация</p>
             <form id="login-form" class="form login__form" action="{{ route('register') }}" method="post">
                 @csrf
                 <div class="form__item field-loginform-username">
-                    <label class="form__label form__label_full" for="loginform-username">Имя*</label><input type="text"
+                    <label class="form__label form__label_full" for="loginform-username">Имя* (только буквы и пробел)</label><input type="text"
                         id="loginform-username" class="form__input" type="name" name="name" :value="old('name')">
-                    <p class="form__error-message"></p>
+                    @if ($errors->has('name'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('name') }}</strong>
+                    @endif
                 </div>
                 <div class="form__item field-loginform-username">
                     <label class="form__label form__label_full" for="loginform-username">Фамилия</label><input type="text"
-                        id="loginform-username" class="form__input" type="name" name="surname" :value="old('surname')">
-                    <p class="form__error-message"></p>
+                        id="loginform-username" class="form__input" type="surname" name="surname" :value="old('surname')">
+                        @if ($errors->has('surname'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('surname') }}</strong>
+                    @endif
                 </div>
 
                 <div class="form__item field-loginform-username">
@@ -34,7 +40,7 @@
                     <p class="form__error-message"></p>
                 </div>
                 <div class="form__item field-loginform-username">
-                    <label class="form__label form__label_full" for="loginform-username">Телефон*</label><input type="text"
+                    <label class="form__label form__label_full" for="loginform-username">Телефон* (11 символов в формате <strong>79992222222</strong>)</label><input type="text"
                         id="loginform-username-phone" class="form__input" type="phone" name="phone" :value="old('phone')">
                     <script>
                         let loginformPhone = document.getElementById('loginform-username-phone')
@@ -57,6 +63,10 @@
                             }
                         }
                     </script>
+                    @if ($errors->has('phone'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('phone') }}</strong>
+                    @endif
                     <p class="form__error-message"></p>
                 </div>
                 <div class="form__item field-loginform-username">
@@ -68,16 +78,22 @@
                     <label class="form__label form__label_full" for="loginform-password">Пароль (минимум 8 символов) *</label><input
                         type="password" id="loginform-password" class="form__input" type="password" name="password" required
                         autocomplete="current-password" aria-required="true">
-                    <p class="form__error-message"></p>
+                    @if ($errors->has('password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('password') }}</strong>
+                    @endif
                 </div>
                 <div class="form__item field-loginform-password required">
                     <label class="form__label form__label_full" for="loginform-password">Подтвердите пароль (минимум 8 символов) *</label><input
                         type="password" id="loginform-password" class="form__input" type="password"
                         name="password_confirmation" required autocomplete="current-password" aria-required="true">
-                    <p class="form__error-message"></p>
+                    @if ($errors->has('password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('password') }}</strong>
+                    @endif
                 </div>
                 <div class="login__recover">
-                    <a href="/reset-password" class="login__recover-link">Восстановить пароль</a>
+                    <a href="/reset-password-phone" class="login__recover-link">Восстановить пароль</a>
                 </div>
                 <button type="submit" class="button button_powdery login__button">Зарегистрироваться</button>
             </form>

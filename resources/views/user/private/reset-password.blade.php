@@ -31,13 +31,13 @@
                                             @endif
                                             <h2 class="profile-edit__title">{{ __('userpanel.personal_data') }}</h2>
 
-                                            <div class="form__item field-loginform-password required">
+                                            <!-- <div class="form__item field-loginform-password required">
                                                 <label class="form__label form__label_full" for="loginform-password">Старый
                                                     пароль*</label><input type="password" id="loginform-password"
                                                     class="form__input" type="password" name="old_password" required
                                                     autocomplete="old_password" aria-required="true">
                                                 <p class="form__error-message"></p>
-                                            </div>
+                                            </div> -->
                                             <div class="form__item field-loginform-password required">
                                                 <label class="form__label form__label_full"
                                                     for="loginform-password">Пароль*</label><input type="password"

@@ -25,6 +25,8 @@ use App\Models\ProductLocalization;
 use App\Models\Slider;
 use App\Models\Subscription;
 use App\Models\Wishlist;
+use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 class UserPublicController extends Controller
 {
@@ -368,5 +370,61 @@ class UserPublicController extends Controller
             'lookbook' => $lookbook,
             'banners' => $lookbook->banners
         ]);
+    }
+
+
+    public function shownotice(Request $request)
+    {
+        return $request->user()->hasVerifiedPhone()
+                        ? redirect()->route('home')
+                        : view('verifyphone');
+    }
+
+
+    public function verify(Request $request)
+    {
+        if ($request->user()->verification_code !== $request->code) {
+            throw ValidationException::withMessages([
+                'code' => ['Проверочный код, который вы указали, не верен. Пожалуйста, укажите правильный код из смс.'],
+            ]);
+        }
+
+        if ($request->user()->hasVerifiedPhone()) {
+            return redirect()->route('home');
+        }
+
+        $request->user()->markPhoneAsVerified();
+
+        return redirect()->route('home')->with('status', 'Ваш номер успешно подтвержден!');
+    }
+
+    public function resetPassword()
+    {
+        return view('user.public.reset');
+    }
+
+    public function showresetnotice(Request $request)
+    {
+        return view('verifyphonereset');
+    }
+
+    public function verifyreset(Request $request)
+    {
+        $user = User::where('verification_code', $request->code)->first();
+
+        if (empty($user)) {
+            throw ValidationException::withMessages([
+                'code' => ['Проверочный код, который вы указали, не верен. Пожалуйста, укажите правильный код из смс.'],
+            ]);
+        }
+
+        if ($user->hasVerifiedPhone()) {
+            Auth::login($user);
+            return redirect()->route('reset-password');
+        }
+
+        $user->markPhoneAsVerified();
+
+        return redirect()->route('reset-password');
     }
 }

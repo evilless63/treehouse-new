@@ -32,11 +32,24 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255|unique:users',
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255|regex:/^[A-Za-zА-Яа-я ]+$/',
+            'surname' => 'required|string|max:255|regex:/^[A-Za-zА-Яа-я ]+$/',
+            'phone' => 'required|string|max:11|min:11|unique:users',
             'password' => 'required|string|confirmed|min:8',
+        ], [
+            'name.max' => 'Максимальное количество символов в имени: 255',
+            'surname.max' => 'Максимальное количество символов в фамилии: 255',
+            'phone.unique' => 'Данный телефон уже привязан к учетной записи, используйте другой.',
+            'phone.max' => 'Необходимо указать 11 символов',
+            'phone.min' => 'Необходимо указать 11 символов',
+            'password.min' => 'Минимальное количество символов в пароле: 8',
+            'password.confirmed' => 'Пароли не совпадают',
+            'name.regex' => 'Допустимо использовать только буквы и пробел',
+            'surname.regex' => 'Допустимо использовать только буквы и пробел'
         ]);
+
+        dd($validatedData);
 
         $user = User::create([
             'name' => $request->name,
@@ -50,7 +63,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        $user->callToVerify();
+        return redirect(route('phoneverification.notice'));
     }
 }

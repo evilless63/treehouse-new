@@ -82,7 +82,7 @@
               </div>
               <div class="accordion__box profile-orders__box" style="display: none;">
                 <div class="profile-orders__goods-list">
-                  @foreach()
+                  @foreach($order->productSet() as $prodSet)
                   <div class="goods goods_profile profile-orders__goods-item " data-block-id="823930" data-order="419206" data-model="105560" data-index="0">
                     <div class="goods__preview">
                       <a href="/catalog/trikotaz/vodolazka-tonkaa-iz-merinosovoj-sersti-104157" class="goods__link"><img src="/images/77x0_100_in/uploads/images/CATALOG/jersey/104157/5fed87ea29eb1-12storeez-21-12-20-h1482.jpg" alt="" class="goods__image"></a>
@@ -106,6 +106,7 @@
                       </div>
                     </div>
                   </div>
+                  @endforeach
                 </div>
               </div>
             </div>

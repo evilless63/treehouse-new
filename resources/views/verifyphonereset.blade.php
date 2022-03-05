@@ -3,35 +3,27 @@
 @section('content')
 <div class="login">
         <div class="login__holder">
-          <p class="popup__head">Вход</p>
-          <form id="login-form" class="form login__form" action="{{ route('login') }}" method="post">
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+          <p class="popup__head">На телефон отправена смс с кодом. Пожалуйста, введите этот код в окошко ниже</p>
+          <form id="login-form" class="form login__form" action="{{ route('phoneverificationreset.verify') }}" method="post">
           @csrf
             <div class="form__item field-loginform-username">
-              <label class="form__label form__label_full" for="loginform-username">Телефон</label><input
-                type="text" id="loginform-username" class="form__input"  type="phone" name="phone" :value="old('phone')">
-              @if ($errors->has('phone'))
+              <label class="form__label form__label_full" for="loginform-username">Подтверждение телефона</label>
+              <input
+                type="text" id="loginform-username" class="form__input"  name="code" type="text" placeholder="Код подтверждения" required autofocus>
+              <p class="form__error-message"></p>
+              @if ($errors->has('code'))
                   <span class="invalid-feedback" role="alert">
-                      <strong>{{ $errors->first('phone') }}</strong>
+                      <strong>{{ $errors->first('code') }}</strong>
                   </span>
               @endif
             </div>
-            <div class="form__item field-loginform-password required">
-              <label class="form__label form__label_full" for="loginform-password">Пароль</label><input type="password"
-                id="loginform-password" class="form__input" type="password"
-                                name="password"
-                                required autocomplete="current-password" aria-required="true">
-              <p class="form__error-message"></p>
-            </div>
-            <div class="login__recover">
-              <a href="/reset-password-phone" class="login__recover-link">Восстановить пароль</a>
-            </div>
-            <button type="submit" class="button button_powdery login__button">Войти</button>
+            <button type="submit" class="button button_powdery login__button">Подтвердить</button>
           </form>
-          <div class="login__reg">
-            <a href="/register" class="login__reg-link">Зарегистрироваться</a>
-          </div>
-          
-
         </div>
       </div>
 @endsection

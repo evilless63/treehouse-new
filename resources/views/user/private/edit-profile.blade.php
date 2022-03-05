@@ -20,7 +20,7 @@
 
                     <div class="form__item field-user-email required">
                       <label class="form__label" for="user-email">{{__('userpanel.email')}}</label>
-                      <div class="form__field"><input type="text" class="form__input" id="user-email" class="form__input" name="email" value="{{$user->email}}" disabled="" maxlength="255" aria-required="true">
+                      <div class="form__field"><input type="text" class="form__input" id="user-email" class="form__input" name="email" value="{{$user->email}}" maxlength="255" aria-required="true">
                         <p class="form__error-message"></p>
                       </div>
                     </div>

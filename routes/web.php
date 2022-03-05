@@ -115,13 +115,14 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/export/make-and-download-subscribers', [ExcelController::class, 'makeAndDownloadExcelFile'])->name('export.subscribers');
 });
 
+
 Route::any('/api/v1/importdata/colors', [ImportController::class, 'ImportColorsFrom1c']);
 Route::any('/api/v1/importdata/sizes', [ImportController::class, 'ImportSizesFrom1c']);
 Route::any('/api/v1/importdata/products', [ImportController::class, 'ImportProductsFrom1c']);
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     App::setLocale(LaravelLocalization::setLocale());
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth', 'verifiedphone'])->group(function () {
         Route::post('/card/add', [CartController::class, 'addToCard'])->name('cart.add');
         Route::post('/card/change-count', [CartController::class, 'changeCount'])->name('cart.add');
         Route::post('/card/remove-item', [CartController::class, 'removeItem'])->name('cart.removeItem');
@@ -168,6 +169,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/lookbook/item/{id}', [UserPublicController::class, 'lookbook'])->name('user.lookbook');   
     Route::get('/lookbook', [UserPublicController::class, 'lookbooks'])->name('user.lookbooks'); 
     Route::get('/lookbook/all-wear/{id}', [UserPublicController::class, 'lookbookAllWear'])->name('user.lookbooks-allwear');
+
+    Route::get('phone/verify', [UserPublicController::class, 'shownotice'])->name('phoneverification.notice');
+    Route::post('phone/verify', [UserPublicController::class, 'verify'])->name('phoneverification.verify');
+
+    Route::get('/reset-password-phone', [UserPublicController::class, 'resetPassword'])->name('password-phone.reset');
+    Route::get('phone/reset', [UserPublicController::class, 'showresetnotice'])->name('phoneverificationreset.notice');
+    Route::post('phone/reset', [UserPublicController::class, 'verifyreset'])->name('phoneverificationreset.verify');
 });
 
 Route::post('/payments/callback', [PaymentController::class, 'callBack'])
@@ -179,20 +187,6 @@ Route::get('/payments', [PaymentController::class, 'index'])
 
 Route::get('/phpinfo', function (){
 
-    $toPhone="79610832317";
-    $msg="Проверка регистрации sms";
-
-    $net = new WebSMSService();
-
-    try {
-        // $ret = $net->getSaldo();
-        // print_r($ret);
-
-        $ret = $net-> sendSms($toPhone, $msg);
-        print_r($ret);
-    } catch (Exception $ex) {
-        print $ex->getMessage();
-    }
 
 });
 

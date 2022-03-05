@@ -31,7 +31,7 @@ class UserPrivateController extends Controller
     // public $blog_articles;
     // public $customer_articles;
     // public $categories;
-    // public $cartItemsCount;
+    public $cartItemsCount;
 
     public function __construct()
     {
@@ -46,8 +46,38 @@ class UserPrivateController extends Controller
         // $this->customer_articles = Article::where('purpose', 'counteragents')->get();
         // $this->categories = Category::all();
 
-        $this->createWishlist();
-        $this->createCartItems();
+        View::share('mainmenu_categories', $this->mainmenu_categories);
+        View::share('categories_menu', $this->categories_menu);
+        View::share('company_articles', $this->company_articles);
+        View::share('blog_articles', $this->blog_articles);
+        View::share('customer_articles', $this->customer_articles);
+        View::share('categories', $this->categories);
+        View::share('contacts', $this->contacts);
+
+        $this->middleware(function ($request, $next) {
+            $wishlistCollection = collect();
+            if (Auth::guest() == false) {
+                $dbWishlistPositions = Wishlist::where('user_id', Auth::user()->id)->get();
+                foreach ($dbWishlistPositions as $position) {
+                    $wishlistCollection->push(ColorVariation::where('id', $position->color_variation_id)->first());
+                }
+                $this->wishlist = $wishlistCollection->unique();
+            } else {
+                $this->wishlist = $wishlistCollection;
+            }
+            View::share('wishlist', $this->wishlist);
+            return $next($request);
+        });
+
+        $this->middleware(function ($request, $next) {
+            if (Auth::guest() == false) {
+                $this->cartItemsCount = Cart::instance('shopping')->content()->count();
+            } else {
+                $this->cartItemsCount = 0;
+            }
+            View::share('cartItemsCount', $this->cartItemsCount);
+            return $next($request);
+        });
     }
 
     public function profile()
@@ -67,7 +97,7 @@ class UserPrivateController extends Controller
 
     public function orders()
     {
-        $orders = Order::where('user_id', Auth()->user->id)->all();
+        $orders = Order::where('user_id', Auth::user()->id)->get();
         return view('user.private.orders')->with([
             'orders' => $orders
         ]);
@@ -105,17 +135,17 @@ class UserPrivateController extends Controller
     {
 
         $curUser = User::where('id', Auth::user()->id)->first();
-        if (Hash::check(request()->old_password, $curUser->password)) {
+        // if (Hash::check(request()->old_password, $curUser->password)) {
             if (request()->password == request()->password_confirmation) {
                 $curUser->password = Hash::make(request()->password);
                 $curUser->save();
-                return back()->with(['success', 'Пароль успешно изменен']);
+                return route('user.profile')->with(['success', 'Пароль успешно изменен']);
             } else {
                 return back()->withErrors('Пароли не совпадают');
             }
-        } else {
-            return back()->withErrors('Старый пароль указан неверно');
-        }
+        // } else {
+        //     return back()->withErrors('Старый пароль указан неверно');
+        // }
     }
 
     public function cart()

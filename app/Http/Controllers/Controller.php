@@ -97,31 +97,7 @@ class Controller extends BaseController
     }
 
     protected function createWishlist() {
-        $this->middleware(function ($request, $next) {
-            $wishlistCollection = collect();
-            if (Auth::guest() == false) {
-                $dbWishlistPositions = Wishlist::where('user_id', Auth::user()->id)->get();
-                foreach ($dbWishlistPositions as $position) {
-                    $wishlistCollection->push(ColorVariation::where('id', $position->color_variation_id)->first());
-                }
-                $this->wishlist = $wishlistCollection->unique();
-            } else {
-                $this->wishlist = $wishlistCollection;
-            }
-            View::share('wishlist', $this->wishlist);
-            return $next($request);
-        });
+        
     }
 
-    protected function createCartItems() {
-        $this->middleware(function ($request, $next) {
-            if (Auth::guest() == false) {
-                $this->cartItemsCount = Cart::instance('shopping')->content()->count();
-            } else {
-                $this->cartItemsCount = 0;
-            }
-            View::share('cartItemsCount', $this->cartItemsCount);
-            return $next($request);
-        });
-    }
 }
