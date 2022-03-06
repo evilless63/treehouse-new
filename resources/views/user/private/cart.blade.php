@@ -22,6 +22,10 @@
         <div data-v-cfe42f2e="" class="right">
           <!---->
           <!---->
+          @if($cart->isEmpty()) 
+            <p style="padding: 48px 0;
+    text-align: center;">Ваша корзина пока пуста</p>
+          @else
           <div data-v-1b2b3207="" data-v-cfe42f2e="" class="basket order-list order__list">
             @foreach($cart as $cartItem)
             <div data-v-1b2b3207="" class="order-list__item" row-id="{{$cartItem->rowId}}">
@@ -410,6 +414,7 @@
               </div>
             </div>
           </div>
+          @endif
         </div>
       </div>
     </div>
@@ -431,7 +436,6 @@
     </div>
   </div>
 </form>
-
 
 @endsection
 

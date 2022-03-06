@@ -265,37 +265,48 @@ class UserPrivateController extends Controller
 
     public function makeOrderUnpayed(Request $request)
     {
-        $order = Order::create([
-            'user_id' => Auth::user()->id,
-            'is_closed' => false,
-            'is_paid' => false,
-            'country' => $request->country,
-            'city' => $request->city,
-            'street' => $request->street,
-            'house' => $request->house,
-            'zipcode' => $request->zipcode
-        ]);
-
-        $productsInOrder = Cart::instance('shopping')->store($order->id);
-
-        $client = new Client();
-
         try {
-            $response = $client->request('POST', 'http://31.128.156.218:55315/ushp/hs/obmen/get-orders', [
-                'auth' => ['Анна', '17382256Ksu@'],
-                'body' => response()->json(Cart::instance('shopping')->content(), 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE)
+            $order = Order::create([
+                'user_id' => Auth::user()->id,
+                'is_closed' => false,
+                'is_paid' => false,
+                'country' => $request->country,
+                'city' => $request->city,
+                'street' => $request->street,
+                'house' => $request->house,
+                'zipcode' => $request->zipcode
             ]);
+    
+            $productsInOrder = Cart::instance('shopping')->store($order->id);
+    
+            $client = new Client();
+    
+            // try {
+            //     $response = $client->request('POST', 'http://31.128.156.218:55315/ushp/hs/obmen/get-orders', [
+            //         'auth' => ['Анна', '17382256Ksu@'],
+            //         'body' => response()->json(Cart::instance('shopping')->content(), 200, array('Content-Type' => 'application/json;charset=utf8'), JSON_UNESCAPED_UNICODE)
+            //     ]);
+            // } catch (RequestException $e) {
+            //     Log::info($e);
+            //     return response('ERROR', 500);
+            // }
+    
+            // $body = $response->getBody();
+            // $stringBody = (string) $body;
+    
+    
+            Cart::instance('shopping')->destroy();
+            return view('user.private.payed')->with('success', "Заказ успешно сформирован");
         } catch (RequestException $e) {
-            Log::info($e);
-            return response('ERROR', 500);
+            return view('user.private.payed')->with([
+                'error' => "Заказ не был сформирован",
+                'user' => Auth::user(),
+                'order' => $order,
+                'cart' => $order->productSet()
+            ]);
         }
 
-        $body = $response->getBody();
-        $stringBody = (string) $body;
 
-
-        Cart::instance('shopping')->destroy();
-        return redirect()->back()->with('success', "Заказ успешно сформирован");
     }
 
     public function postCounteragentRegisterTo1c(Request $request)
