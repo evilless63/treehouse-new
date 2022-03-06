@@ -29,6 +29,8 @@ use App\Http\Controllers\Subscription;
 use App\Http\Controllers\DaDataController;
 use App\Service\WebSMSService;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +83,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
         // 'subscriptions' => SubscriptionController::class,
         'lookbooks' => LookbookController::class,
         'delivery' => DeliveryController::class,
+        'payment' => PaymentController::class,
     ]);
 
     Route::any('/contacts/editing', [ContactsController::class, 'editing'])->name('contacts.editing');
@@ -113,6 +116,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/slider/update-order', [SliderController::class, 'updateOrder']);
     Route::post('/lookbook/update-order', [LookbookController::class, 'updateOrder']);
     Route::post('/delivery/update-order', [DeliveryController::class, 'updateOrder']);
+    Route::post('/payment/update-order', [PaymentController::class, 'updateOrder']);
 
     Route::post('/ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
     Route::get('/export/make-and-download-subscribers', [ExcelController::class, 'makeAndDownloadExcelFile'])->name('export.subscribers');
@@ -181,12 +185,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('phone/reset', [UserPublicController::class, 'verifyreset'])->name('phoneverificationreset.verify');
 });
 
-Route::post('/payments/callback', [PaymentController::class, 'callBack'])
-    ->name('payment.callback');
-Route::post('/payments/create', [PaymentController::class, 'create'])
-    ->name('payment.create');
-Route::get('/payments', [PaymentController::class, 'index'])
-    ->name('payment.index');
+Route::post('/transactions/callback', [TransactionController::class, 'callBack'])
+    ->name('transaction.callback');
+Route::post('/transactions/create', [TransactionController::class, 'create'])
+    ->name('transaction.create');
+Route::get('/transactions', [TransactionController::class, 'index'])
+    ->name('transaction.index');
 
 Route::get('/phpinfo', function (){
 

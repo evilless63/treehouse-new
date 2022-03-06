@@ -216,7 +216,7 @@
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="radio-group" id="delivery-type" data-v-b31126bc="">
                       @foreach($deliveries as $delivery)
-                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="delivery-type" id="delivery-type-{{$delivery->id}}" type="radio" class="radio-control" value="courier"> 
+                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="delivery-type" id="delivery-type-{{$delivery->id}}" type="radio" class="radio-control" value="{{$delivery->id}}"> 
                       <label data-v-08921c00="" for="delivery-type-{{$delivery->id}}" class="radio-label">
                           <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label">
                             <span data-v-684b9f47="" data-v-08921c00="">
@@ -355,10 +355,14 @@
                 <div data-v-b31126bc="" data-v-684b9f47="" class="form-item radio"><label data-v-b31126bc="" for="payment-type" class="form-item-title">Способ оплаты</label>
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="radio-group" id="payment-type" ref="paymentType" data-v-b31126bc="">
-                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="payment-type" id="payment-type-1" type="radio" class="radio-control" value="1" checked> <label data-v-08921c00="" for="payment-type-1" class="radio-label"><span data-v-08921c00="">Картой онлайн, Apple Pay, Google Pay</span></label></div>
-                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="payment-type" id="payment-type-3" type="radio" class="radio-control" value="3"> <label data-v-08921c00="" for="payment-type-3" class="radio-label"><span data-v-08921c00="">Наличными курьеру</span></label></div>
-                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="payment-type" id="payment-type-5" type="radio" class="radio-control" value="5"> <label data-v-08921c00="" for="payment-type-5" class="radio-label"><span data-v-08921c00="">Банковской картой курьеру</span></label></div>
-
+                      @foreach($payment_methods as $payment_method)
+                      <div data-v-08921c00="" class="radio">
+                        <input data-v-08921c00="" name="payment-method" id="payment-method-{{$payment_method->id}}" type="radio" class="radio-control" value="{{$payment_method->id}}" @if($loop->first) checked @endif> 
+                        <label data-v-08921c00="" for="payment-method-{{$payment_method->id}}" class="radio-label">
+                          <span data-v-08921c00="">{{$payment_method->method}}</span>
+                        </label>
+                      </div>
+                      @endforeach
                       <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                     </div>
                     <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>

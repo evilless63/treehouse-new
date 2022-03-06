@@ -3,74 +3,153 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Service\PaymentService;
-use App\Models\Transaction;
-use YooKassa\Model\Notification\NotificationSucceeded;
-use YooKassa\Model\Notification\NotificationWaitingForCapture;
-use YooKassa\Model\NotificationEventType;
-use App\Enums\PaymentStatusEnum;
+use App\Models\Payment;
+use App\Models\Order;
 
 class PaymentController extends Controller
 {
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->createWishlist();
-        $this->createCartItems();
-    }
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $transactions = Transaction::all();
-        return view('user.payments.index', ['transactions' => $transactions]);
+        return view('admin.payment.index')->with([
+            'payments' => Payment::all()
+        ]);
     }
 
-    public function create(Request $request, PaymentService $service)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        $amount = (string)$request->input('amount');
-        $description = (string)$request->input('description');
+        return view('admin.payment.create');
+    }
 
-        $transaction = Transaction::create([
-            'amount' => $amount,
-            'description' => $description,
-        ]);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        if($request->has('payable')) {
+            $data['payable'] = '1';
+        } else {
+            $data['payable'] = '0';
+        }
+        $payment = Payment::create($data);
 
-        if($transaction) {
-            $link = $service->createPayment($amount, $description, [
-                'transaction_id' => $transaction->id
-            ]);
-
-            return redirect()->away($link);
+        if ($payment) {
+            return redirect()->route('payment.index')->with('success', __('adminpanel.action_success'));
+        } else {
+            return redirect()->route('payment.index')->with('error', __('adminpanel.action_error'));
         }
     }
 
-    public function callBack(Request $request, PaymentService $service)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-        $source = file_get_contents('php://input');
-        $requestBody = json_decode($source, true);
+        //
+    }
 
-        $notification = ($requestBody['event'] === NotificationEventType::PAYMENT_SUCCEEDED)
-        ? new NotificationSucceeded($requestBody)
-        : new NotificationWaitingForCapture($requestBody);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $payment = Payment::where('id', $id)->first();
+        if($payment) {
+            return view('admin.payment.edit')->with([
+                'payment' => $payment
+            ]);
+        } else {
+            return redirect()->route('payment.index')->with('error', __('adminpanel.action_error'));
+        }
+        
+    }
 
-        $payment = $notification->getObject();
-        if(isset($payment->status) && $payment->status === 'succeeded') {
-            if((bool)$payment->paid === true) {
-                $metadata = (object)$payment->metadata;
-                if(isset($metadata->transaction_id)) {
-                    $transactionId = (int)$metadata->transaction_id;
-                    $transaction = Transaction::find($transactionId);
-                    $transaction->status = PaymentStatusEnum::CONFIRMED;
-                    $transaction->save();
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        if($request->has('payable')) {
+            $data['payable'] = '1';
+        } else {
+            $data['payable'] = '0';
+        }
 
-                    if(cache()->has('balance')) {
-                        cache()->forever('balance', (float)cache()->get('balance') + $payment->amount->value);
-                    } else {
-                        cache()->forever('balance', (float)$payment->amount->value);
-                    }
-                }
+        if($request->has('archived')) {
+            $data['archived'] = '1';
+        } else {
+            $data['archived'] = '0';
+        }
+        $payment = Payment::where('id', $id)->first();
+        if($payment) {
+            $haveBeenUpdated = $payment->update($data);
+            if ($haveBeenUpdated) {
+                return redirect()->route('payment.index')->with('success', __('adminpanel.action_success'));
+            } else {
+                return redirect()->route('payment.index')->with('error', __('adminpanel.action_error'));
             }
+        } else {
+            return redirect()->route('payment.index')->with('error', __('adminpanel.action_error'));
+        } 
+        
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $payment = Payment::where('id', $id)->first();
+        if($payment) {
+            if(Order::where('payment_id', $payment->id)->get()->isEmpty()) {
+                $payment->delete();
+                return redirect()->route('payment.index')->with('success', __('adminpanel.action_success'));
+            } else {
+                return redirect()->route('payment.index')->with('error', "Существуют заказы с данным способом оплаты");
+            }
+        } else {
+            return redirect()->route('payment.index')->with('error', __('adminpanel.action_error'));
+        } 
+
+    }
+
+    public function updateOrder(Request $request){
+        if($request->has('ids')){
+            $arr = explode(',',$request->input('ids'));
+            
+            foreach($arr as $sortOrder => $id){
+                $menu = Payment::find($id);
+                $menu->sort_order = $sortOrder;
+                $menu->save();
+            }
+            return ['success'=>true,'message'=>'Updated'];
         }
     }
 }

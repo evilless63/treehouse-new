@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDeliveryRequest;
 use App\Http\Requests\UpdateDeliveryRequest;
 use App\Models\Delivery;
+use App\Models\Order;
 
 class DeliveryController extends Controller
 {
@@ -54,6 +55,12 @@ class DeliveryController extends Controller
             $data['payable'] = '1';
         } else {
             $data['payable'] = '0';
+        }
+
+        if($request->has('archived')) {
+            $data['archived'] = '1';
+        } else {
+            $data['archived'] = '0';
         }
 
         
@@ -141,7 +148,7 @@ class DeliveryController extends Controller
      */
     public function destroy(Delivery $delivery)
     {
-        if(Order::where('delivery_id', $delivery->id)->all()->isEmpty()) {
+        if(Order::where('delivery_id', $delivery->id)->get()->isEmpty()) {
             $delivery->delete();
             return redirect()->route('delivery.index')->with('success', __('adminpanel.action_success'));
         } else {

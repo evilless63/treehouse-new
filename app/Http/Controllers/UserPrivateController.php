@@ -21,6 +21,7 @@ use Database\Seeders\ColorVariationSeeder;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Delivery;
+use App\Models\Payment;
 
 class UserPrivateController extends Controller
 {
@@ -161,7 +162,8 @@ class UserPrivateController extends Controller
             'subtotal' => Cart::instance('shopping')->subtotal(),
             'adress' => $currentDefaultAdress,
             'user' => Auth::user(),
-            'deliveries' => Delivery::where('archived', 0)->get()
+            'deliveries' => Delivery::where('archived', 0)->get(),
+            'payment_methods' => Payment::where('archived', 0)->get()
         ]);
     }
 
@@ -267,6 +269,7 @@ class UserPrivateController extends Controller
 
     public function makeOrderUnpayed(Request $request)
     {
+        dd($request);
         try {
             $order = Order::create([
                 'user_id' => Auth::user()->id,

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cart as CartModel;
+use Delivery;
+use Payment;
 
 class Order extends Model
 {
@@ -30,5 +32,9 @@ class Order extends Model
 
     public function delivery() {
         $this->hasOne(Delivery::class, 'id');
+    }
+
+    public function payment() {
+        $this->hasOne(Payment::class, 'id');
     }
 }

@@ -82,6 +82,9 @@
                             <x-dropdown-link :href="route('delivery.index')" :active="request()->routeIs('delivery.index')">
                                 Доставка
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('payment.index')" :active="request()->routeIs('payment.index')">
+                                Оплата
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>
