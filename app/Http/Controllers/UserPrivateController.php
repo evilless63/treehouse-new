@@ -20,6 +20,7 @@ use App\Repositories\CategoryRepository;
 use Database\Seeders\ColorVariationSeeder;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Delivery;
 
 class UserPrivateController extends Controller
 {
@@ -160,6 +161,7 @@ class UserPrivateController extends Controller
             'subtotal' => Cart::instance('shopping')->subtotal(),
             'adress' => $currentDefaultAdress,
             'user' => Auth::user(),
+            'deliveries' => Delivery::where('archived', 0)->get()
         ]);
     }
 

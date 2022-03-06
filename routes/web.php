@@ -28,6 +28,7 @@ use App\Models\Order;
 use App\Http\Controllers\Subscription;
 use App\Http\Controllers\DaDataController;
 use App\Service\WebSMSService;
+use App\Http\Controllers\DeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +80,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
         'promocodes' => PromocodeController::class,
         // 'subscriptions' => SubscriptionController::class,
         'lookbooks' => LookbookController::class,
+        'delivery' => DeliveryController::class,
     ]);
 
     Route::any('/contacts/editing', [ContactsController::class, 'editing'])->name('contacts.editing');
@@ -110,6 +112,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::post('/banner/update-order', [BannerController::class, 'updateOrder']);
     Route::post('/slider/update-order', [SliderController::class, 'updateOrder']);
     Route::post('/lookbook/update-order', [LookbookController::class, 'updateOrder']);
+    Route::post('/delivery/update-order', [DeliveryController::class, 'updateOrder']);
 
     Route::post('/ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
     Route::get('/export/make-and-download-subscribers', [ExcelController::class, 'makeAndDownloadExcelFile'])->name('export.subscribers');

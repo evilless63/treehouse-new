@@ -10,7 +10,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'is_closed', 'is_paid', 'country', 'city', 'street', 'house', 'zipcode'];
+    protected $fillable = ['user_id', 'is_closed', 'is_paid', 'country', 'city', 'street', 'house', 'zipcode', 'delivery_id'];
 
     // public function colorVariation() {
     //     return $this->belongsTo(ColorVariation::class);
@@ -28,4 +28,7 @@ class Order extends Model
         $this->hasOne(CartModel::class, 'identifier');
     }
 
+    public function delivery() {
+        $this->hasOne(Delivery::class, 'id');
+    }
 }

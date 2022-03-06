@@ -79,6 +79,9 @@
                             <x-dropdown-link :href="route('promocodes.index')" :active="request()->routeIs('promocodes.index')">
                                 Промокоды
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('delivery.index')" :active="request()->routeIs('delivery.index')">
+                                Доставка
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>

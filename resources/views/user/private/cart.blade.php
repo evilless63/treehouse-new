@@ -215,11 +215,30 @@
                 <div data-v-b31126bc="" data-v-684b9f47="" class="form-item radio"><label data-v-b31126bc="" for="delivery-type" class="form-item-title">Способ доставки</label>
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="radio-group" id="delivery-type" data-v-b31126bc="">
-                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-0" type="radio" class="radio-control" value="courier"> <label data-v-08921c00="" for="delivery-type-1610902120585-0" class="radio-label">
-                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">курьер</span> <span class="nowrap">– 490&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-10 дней)</span></span>
+                      @foreach($deliveries as $delivery)
+                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="delivery-type" id="delivery-type-{{$delivery->id}}" type="radio" class="radio-control" value="courier"> 
+                      <label data-v-08921c00="" for="delivery-type-{{$delivery->id}}" class="radio-label">
+                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label">
+                            <span data-v-684b9f47="" data-v-08921c00="">
+                              <span class="nowrap">{{$delivery->method}} </span> 
+                              <span class="nowrap">– {{$delivery->price}}&nbsp;{{__('userpanel.currency')}}</span> 
+                            </span>
                           </div>
                           <!---->
                           <!---->
+                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-note visible">
+                            <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-note__inner">
+                              <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-note__text">
+                                {{$delivery->description}}
+                              </div>
+                            </div>
+                          </div>
+                        </label>
+                      </div>
+                      @endforeach
+                      <!-- <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-0" type="radio" class="radio-control" value="courier"> <label data-v-08921c00="" for="delivery-type-1610902120585-0" class="radio-label">
+                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">курьер</span> <span class="nowrap">– 490&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-10 дней)</span></span>
+                          </div>
                           <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-note visible">
                             <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-note__inner">
                               <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-note__text">
@@ -230,22 +249,21 @@
                               </div>
                             </div>
                           </div>
-                        </label></div>
-                      <div data-v-08921c00="" class="radio sdek"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-1" type="radio" class="radio-control" value="sdek"> <label data-v-08921c00="" for="delivery-type-1610902120585-1" class="radio-label">
+                        </label>
+                      </div> -->
+                      <!-- <div data-v-08921c00="" class="radio sdek"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-1" type="radio" class="radio-control" value="sdek"> <label data-v-08921c00="" for="delivery-type-1610902120585-1" class="radio-label">
                           <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">пункт выдачи
                                 СДЕК</span> <span class="nowrap">– 190&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-4
                                 дня)</span></span></div>
-                      
-                          <!---->
-                          <!---->
-                          <!---->
-                        </label></div>
+                        </label>
+                      </div> -->
 
-                        <div data-v-08921c00="" class="radio pochta"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-2" type="radio" class="radio-control" value="pochta"> <label data-v-08921c00="" for="delivery-type-1610902120585-2" class="radio-label">
+                        <!-- <div data-v-08921c00="" class="radio pochta"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-2" type="radio" class="radio-control" value="pochta"> <label data-v-08921c00="" for="delivery-type-1610902120585-2" class="radio-label">
                           <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">пункт выдачи
                                 Почта</span> <span class="nowrap">– 190&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-4
                                 дня)</span></span></div>
-                          </label></div>
+                          </label>
+                        </div> -->
                       <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                     </div>
                     <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
