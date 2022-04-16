@@ -133,6 +133,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::post('/card/add', [CartController::class, 'addToCard'])->name('cart.add');
         Route::post('/card/change-count', [CartController::class, 'changeCount'])->name('cart.add');
         Route::post('/card/remove-item', [CartController::class, 'removeItem'])->name('cart.removeItem');
+        Route::post('/card/add-delivery-price', [CartController::class, 'addDeliveryPrice'])->name('cart.adddeliveryPrice');
         Route::get('/cart', [CartController::class, 'getCartContent'])->name('cart.content');
         Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
         Route::get('/user/cabinet', [UserPrivateController::class, 'profile'])->name('user.profile');

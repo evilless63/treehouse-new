@@ -269,7 +269,6 @@ class UserPrivateController extends Controller
 
     public function makeOrderUnpayed(Request $request)
     {
-        dd($request);
         try {
             $order = Order::create([
                 'user_id' => Auth::user()->id,
@@ -279,12 +278,14 @@ class UserPrivateController extends Controller
                 'city' => $request->city,
                 'street' => $request->street,
                 'house' => $request->house,
-                'zipcode' => $request->zipcode
+                'zipcode' => $request->zipcode,
+                'delivery_id' => $request->delivery_type,
+                'payment_id' => $request->payment_method
             ]);
     
             $productsInOrder = Cart::instance('shopping')->store($order->id);
     
-            $client = new Client();
+            // $client = new Client();
     
             // try {
             //     $response = $client->request('POST', 'http://31.128.156.218:55315/ushp/hs/obmen/get-orders', [
@@ -299,15 +300,20 @@ class UserPrivateController extends Controller
             // $body = $response->getBody();
             // $stringBody = (string) $body;
     
-    
             Cart::instance('shopping')->destroy();
-            return view('user.private.payed')->with('success', "Заказ успешно сформирован");
+            Cart::instance('shopping')->restore($order->id);
+            return view('user.private.payed')->with([
+                'success' => "Заказ успешно сформирован",
+                'user' => Auth::user(),
+                'order' => $order,
+                'cart' => $productsInOrder
+            ]);
         } catch (RequestException $e) {
             return view('user.private.payed')->with([
                 'error' => "Заказ не был сформирован",
                 'user' => Auth::user(),
                 'order' => $order,
-                'cart' => $order->productSet()
+                'cart' => $productsInOrder
             ]);
         }
 

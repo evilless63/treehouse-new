@@ -12,7 +12,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'is_closed', 'is_paid', 'country', 'city', 'street', 'house', 'zipcode', 'delivery_id'];
+    protected $fillable = ['user_id', 'is_closed', 'is_paid', 'country', 'city', 'street', 'house', 'zipcode', 'delivery_id', 'payment_id'];
 
     // public function colorVariation() {
     //     return $this->belongsTo(ColorVariation::class);

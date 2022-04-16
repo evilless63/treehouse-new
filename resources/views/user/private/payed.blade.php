@@ -12,7 +12,7 @@
       <div class="page__middle">
         <div class="blog-post__top">
           <div class="blog-post__header">
-            <h1 class="blog-post__title">Спасибо за заказ №657720</h1>
+            <h1 class="blog-post__title">Спасибо за заказ №{{$order->id}}</h1>
             <div class="blog-post__date">&nbsp;</div>
           </div>
         </div>
@@ -20,7 +20,7 @@
           <div class="page__body-holder">
     <div class="order-success__content">
       <div class="order-success__section">
-        <div class="order-success__title">Спасибо за заказ №657720</div>
+        <div class="order-success__title">Спасибо за заказ №{{$order->id}}</div>
         <div class="order-success__text">
                       <p>Ваш заказ ожидает подтверждения.</p>
                   </div>
@@ -37,15 +37,12 @@
         <div class="order-success__subtitle">Детальная информация:</div>
         <div class="order-success__text">
           <p>Получатель: <strong>Емельянов Виталий</strong></p>
-          <p>Сумма: <strong>11&nbsp;470&nbsp;₽</strong></p>
-
+          <p>Сумма: <strong>{{$cart->subtotal()}}₽</strong></p>
           
-                      <p>Может быть начислено: <span class="order-success__bonus-details">327 баллов</span></p>
+                      <p>Способ оплаты: <strong>{{$order->payment()->method}}</strong></p>
           
-                      <p>Способ оплаты: <strong>Наличными при получении</strong></p>
-          
-                                  <p>Способ доставки: <strong>Курьером</strong></p>
-                          <p>Адрес доставки: <strong>404095, Волгоград, д. 67</strong></p>
+                                  <p>Способ доставки: <strong>{{$order->delivery()->method}}</strong></p>
+                          <p>Адрес доставки: <strong>{{$order->zipcode}}, {{$order->city}}, д. {{$order->house}}</strong></p>
                                           </div>
       </div>
 
@@ -56,7 +53,7 @@
         </div>
       
       <div class="order-success__controls">
-        <a class="order-success__button order-success__button--arrow" href="/catalog/new">
+        <a class="order-success__button order-success__button--arrow" href="/shop/novinki">
           <span>Смотреть новинки</span>
         </a>
       </div>

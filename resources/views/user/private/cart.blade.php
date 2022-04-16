@@ -216,7 +216,7 @@
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="radio-group" id="delivery-type" data-v-b31126bc="">
                       @foreach($deliveries as $delivery)
-                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="delivery-type" id="delivery-type-{{$delivery->id}}" type="radio" class="radio-control" value="{{$delivery->id}}"> 
+                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="delivery_type" need-api="false" delivery-id="{{$delivery->id}}" id="delivery-type-{{$delivery->id}}" type="radio" class="radio-control" value="{{$delivery->id}}"> 
                       <label data-v-08921c00="" for="delivery-type-{{$delivery->id}}" class="radio-label">
                           <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label">
                             <span data-v-684b9f47="" data-v-08921c00="">
@@ -236,34 +236,6 @@
                         </label>
                       </div>
                       @endforeach
-                      <!-- <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-0" type="radio" class="radio-control" value="courier"> <label data-v-08921c00="" for="delivery-type-1610902120585-0" class="radio-label">
-                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">курьер</span> <span class="nowrap">– 490&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-10 дней)</span></span>
-                          </div>
-                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-note visible">
-                            <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-note__inner">
-                              <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-note__text">
-                                <p>Примерка и частичный выкуп отсутствуют, но вы можете воспользоваться бесплатным
-                                  возвратом.</p>
-                                <p>При получении предоплаченного заказа нужно будет предъявить паспорт
-                                  на&nbsp;фамилию и имя оформителя заказа и расписаться.</p>
-                              </div>
-                            </div>
-                          </div>
-                        </label>
-                      </div> -->
-                      <!-- <div data-v-08921c00="" class="radio sdek"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-1" type="radio" class="radio-control" value="sdek"> <label data-v-08921c00="" for="delivery-type-1610902120585-1" class="radio-label">
-                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">пункт выдачи
-                                СДЕК</span> <span class="nowrap">– 190&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-4
-                                дня)</span></span></div>
-                        </label>
-                      </div> -->
-
-                        <!-- <div data-v-08921c00="" class="radio pochta"><input data-v-08921c00="" name="delivery-type" id="delivery-type-1610902120585-2" type="radio" class="radio-control" value="pochta"> <label data-v-08921c00="" for="delivery-type-1610902120585-2" class="radio-label">
-                          <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label"><span data-v-684b9f47="" data-v-08921c00=""><span class="nowrap">пункт выдачи
-                                Почта</span> <span class="nowrap">– 190&nbsp;{{__('userpanel.currency')}}</span> <span class="nowrap">(3-4
-                                дня)</span></span></div>
-                          </label>
-                        </div> -->
                       <div data-v-70b16c7e="" class="error hidden"><span data-v-70b16c7e=""></span></div>
                     </div>
                     <div data-v-70b16c7e="" data-v-b31126bc="" class="error hidden"><span data-v-70b16c7e=""></span>
@@ -357,7 +329,7 @@
                     <div data-v-684b9f47="" class="radio-group" id="payment-type" ref="paymentType" data-v-b31126bc="">
                       @foreach($payment_methods as $payment_method)
                       <div data-v-08921c00="" class="radio">
-                        <input data-v-08921c00="" name="payment-method" id="payment-method-{{$payment_method->id}}" type="radio" class="radio-control" value="{{$payment_method->id}}" @if($loop->first) checked @endif> 
+                        <input data-v-08921c00="" name="payment_method" id="payment-method-{{$payment_method->id}}" type="radio" class="radio-control" value="{{$payment_method->id}}" @if($loop->first) checked @endif> 
                         <label data-v-08921c00="" for="payment-method-{{$payment_method->id}}" class="radio-label">
                           <span data-v-08921c00="">{{$payment_method->method}}</span>
                         </label>
@@ -471,6 +443,35 @@
 <script src="{{asset('assets/js/cart/scripts.js')}}"></script>
 <script src="{{asset('assets/js/jquery-ui.js')}}"></script>
 <script src="{{asset('assets/js/autocomplete.js')}}"></script>
+
+<script>
+  $('input[type=radio][name=delivery_type]').change(function() {
+      const checked = $('input[type=radio][name=delivery_type]:checked')
+      console.log(checked)
+      if (checked[0].getAttribute('need-api') == 'true') {
+          alert("Allot Thai Gayo Bhai")
+      }
+      else {
+          const deliveryId = checked[0].getAttribute('delivery-id')
+          $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "{{url('/card/add-delivery-price')}}",
+          type: "post",
+          data: {
+            delivery_id: deliveryId,
+          },
+          success: function(response) {
+            console.log(response)
+
+            var total = $('.total-value')[0]
+            total.innerText = response.subtotal + ' {{__("userpanel.currency")}}'
+          }
+        })
+      }
+  })
+</script>
 
 <script>
   function changeCount(event) { 

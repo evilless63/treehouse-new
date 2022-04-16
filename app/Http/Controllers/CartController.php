@@ -7,6 +7,7 @@ use App\Models\ColorVariation;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\SizeVariation;
+use App\Models\Delivery;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,6 +105,15 @@ class CartController extends Controller
         return [
             'subtotal' => Cart::instance('shopping')->subtotal(),
             'count' => Cart::instance('shopping')->count(),
+        ];
+    }
+
+    public function addDeliveryPrice() {
+        $delivery = Delivery::where('id', request()->delivery_id)->firstOrFail();
+        $subtotal = (float)$delivery->price + (float)str_replace(",", "", Cart::instance('shopping')->subtotal());
+        $subtotal_formatted = number_format($subtotal, $decimals = 2, $decimal_separator = ".", $thousants_sep = ",");
+        return [
+            'subtotal' => $subtotal_formatted
         ];
     }
 }
