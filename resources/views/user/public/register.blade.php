@@ -25,12 +25,12 @@
                     @endif
                 </div>
                 <div class="form__item field-loginform-username">
-                    <label class="form__label form__label_full" for="loginform-username">Фамилия</label><input type="text"
+                    <label class="form__label form__label_full" for="loginform-username">Фамилия* (только буквы и пробел)</label><input type="text"
                         id="loginform-username" class="form__input" type="surname" name="surname" :value="old('surname')">
                         @if ($errors->has('surname'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('surname') }}</strong>
-                    @endif
+                        @endif
                 </div>
 
                 <div class="form__item field-loginform-username">
@@ -40,29 +40,8 @@
                     <p class="form__error-message"></p>
                 </div>
                 <div class="form__item field-loginform-username">
-                    <label class="form__label form__label_full" for="loginform-username">Телефон* (11 символов в формате <strong>79992222222</strong>)</label><input type="text"
+                    <label class="form__label form__label_full" for="loginform-username">Телефон* (11 цифр в формате 89992223344)</label><input type="text"
                         id="loginform-username-phone" class="form__input" type="phone" name="phone" :value="old('phone')">
-                    <script>
-                        let loginformPhone = document.getElementById('loginform-username-phone')
-                        loginformPhone.onblur = function() {
-                            if (!loginformPhone.value == '') { // не email
-                                $.ajax({
-                                    headers: {
-                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                    },
-                                    url: "{{url('/clean-phone')}}",
-                                    type: "post",
-                                    data: {
-                                        phone: loginformPhone.value,
-                                    },
-                                    success: function(response) {
-                                        loginformPhone.value = response
-                                        console.log(response)
-                                    }
-                                })
-                            }
-                        }
-                    </script>
                     @if ($errors->has('phone'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('phone') }}</strong>

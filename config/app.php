@@ -171,7 +171,6 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
@@ -182,7 +181,6 @@ return [
         Lavary\Menu\ServiceProvider::class,
         Torann\GeoIP\GeoIPServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        Fomvasss\Dadata\DadataServiceProvider::class,
     ],
 
     /*

@@ -356,7 +356,7 @@ class UserPublicController extends Controller
 
     public function lookbook($id)
     {
-        
+
         $lookbook = Lookbook::where('id', $id)->first();
         return view('user.public.lookbook-item')->with([
             'lookbook' => $lookbook

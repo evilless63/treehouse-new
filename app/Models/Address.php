@@ -9,7 +9,7 @@ class Address extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = ['privacy-accepted'];
 
     public function user(){
         return $this->hasOne(User::class);

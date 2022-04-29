@@ -6,6 +6,8 @@
     @yield('head', '<div></div>')
 
     <link rel="shortcut icon" href="{{asset('favicon.png')}}" type="image/png">
+
+    <script src="https://unpkg.com/imask"></script>
 </head>
 
 <body>
@@ -580,7 +582,7 @@
                 })
 
 
-            !$('html').hasClass('t-media-head') ? $(".field:first").removeClass("field--white") : $(".field:first").addClass("field--white") 
+            !$('html').hasClass('t-media-head') ? $(".field:first").removeClass("field--white") : $(".field:first").addClass("field--white")
             !$('html').hasClass('t-media-head') ? $(".icon:first").removeClass("icon--white") : $(".icon:first").addClass("icon--white")
 
 
@@ -653,7 +655,7 @@
                         resultWrapper.height(45)
                         resultWrapper.css({
                             'opacity': '1'
-                        })              
+                        })
                     }
                 });
             })

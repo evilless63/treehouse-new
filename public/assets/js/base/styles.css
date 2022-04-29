@@ -9937,9 +9937,9 @@ a.findsize-download:hover {
 
 .checkbox__label-subscribe,
 .checkbox__label-text {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%)
+    /*position: absolute;*/
+    /*top: 50%;*/
+    transform: translateY(-26%)
 }
 
 .checkbox__label-subscribe {
@@ -21676,7 +21676,7 @@ html:not(.t-main):not(.t-404) .page {
 .navbar {
     overflow: hidden;
   }
-  
+
   /* Links inside the navbar */
   /* .navbar a {
     float: left;
@@ -21686,13 +21686,13 @@ html:not(.t-main):not(.t-404) .page {
     padding: 14px 16px;
     text-decoration: none;
   } */
-  
+
   /* The dropdown container */
   /* .dropdown {
     float: left;
     overflow: hidden;
   } */
-  
+
   /* Dropdown button */
   .dropdown .dropbtn {
     font-size: 16px;
@@ -21705,13 +21705,13 @@ html:not(.t-main):not(.t-404) .page {
     font: inherit; /* Important for vertical align on mobile phones */
     margin: 0; /* Important for vertical align on mobile phones */
   }
-  
+
   /* Add a red background color to navbar links on hover */
   /* .navbar a:hover, .dropdown:hover .dropbtn {
     background-color: red;
   } */
-  
-  
+
+
   /* Dropdown content (hidden by default) */
   .dropdown-content {
     display: none;
@@ -21725,14 +21725,14 @@ html:not(.t-main):not(.t-404) .page {
     /* top: 3.5555rem; */
     /* padding-top: 3.555rem; */
   }
-  
+
   /* Mega Menu header, if needed */
   .dropdown-content .header {
     background: #fff;
     padding: 16px;
     color: white;
   }
-  
+
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {
     display: block;
@@ -21747,7 +21747,7 @@ html:not(.t-main):not(.t-404) .page {
     position: relative;
     border-top: #ebe6e1 1px solid;
   }
-  
+
   /* Create three equal columns that floats next to each other */
   .dropdown-content .row .column {
     /* float: left;
@@ -21765,8 +21765,8 @@ html:not(.t-main):not(.t-404) .page {
     margin-left: 56px;
   }
 
- 
-  
+
+
   /* Style links inside the columns */
   .dropdown-content .row .column a {
     float: none;
@@ -21776,12 +21776,12 @@ html:not(.t-main):not(.t-404) .page {
     display: block;
     text-align: left;
   }
-  
+
   /* Add a background color on hover */
   /* .column a:hover {
     background-color: #ddd;
   } */
-  
+
   /* Clear floats after the columns */
   .row:after {
     content: "";

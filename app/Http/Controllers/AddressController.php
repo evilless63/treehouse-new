@@ -94,6 +94,7 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
+        $this->requestValidate($request);
         $data = $request->all();
         if (Address::all()->count() == 0) {
             $data['is_default'] = 1;
@@ -139,6 +140,7 @@ class AddressController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->requestValidate($request);
         $adress = Address::where('id', $id)->first();
         $data = $request->all();
 
@@ -152,6 +154,7 @@ class AddressController extends Controller
         } else {
             $data['is_default'] = 0;
         }
+
 
         $adress->update($data);
         return redirect()->route('user.adresses')->with(['success', 'Адрес успешно обновлен']);
@@ -175,5 +178,30 @@ class AddressController extends Controller
         }
         $adress->delete();
         return redirect()->route('user.adresses')->with(['success', 'Адрес успешно удален']);
+    }
+
+    public function requestValidate(Request $request) {
+        $validatedData = $request->validate([
+            'country' => 'required|max:255|alpha',
+            'city' => 'required|max:255|alpha',
+            'street' => 'required|max:255|alpha',
+            'house' => 'required|max:255',
+            'room' => 'required|max:255',
+            'zipcode' => 'required|integer',
+            'privacy-accepted' => 'accepted|in:1'
+        ], [
+            'country.required' => 'Заполнение страны обязательно',
+            'city.required' => 'Заполнение города обязательно',
+            'street.required' => 'Заполнение города обязательно',
+            'city.alpha' => 'Можно использовать только буквы',
+            'country.alpha' => 'Можно использовать только буквы',
+            'street.alpha' => 'Можно использовать только буквы',
+            'house.required' => 'Заполнение номера дома обязательно',
+            'room.required' => 'Заполнение офиса/квартиры обязательно',
+            'zipcode.required' => 'Заполнение индекса обязательно',
+            'zipcode.integer' => 'Индекс может состоять только из цифр',
+            'surname.max' => 'Максимальное количество символов в фамилии: 255',
+            'privacy-accepted.accepted' => 'Необходимо принять согласие на обработку персональных данных'
+        ]);
     }
 }

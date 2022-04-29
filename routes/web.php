@@ -134,7 +134,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::post('/card/change-count', [CartController::class, 'changeCount'])->name('cart.add');
         Route::post('/card/remove-item', [CartController::class, 'removeItem'])->name('cart.removeItem');
         Route::post('/card/add-delivery-price', [CartController::class, 'addDeliveryPrice'])->name('cart.adddeliveryPrice');
-        Route::get('/cart', [CartController::class, 'getCartContent'])->name('cart.content');
+//        Route::get('/cart', [CartController::class, 'getCartContent'])->name('cart.content');
+//        Route::post('/card/calculate-sdek', [DeliveryController::class, 'calculateSdek'])->name('delivery.calculateSdek');
+//        Route::post('/cart', [DeliveryController::class, 'calculatePochta'])->name('delivery.calculatePochta');
         Route::delete('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
         Route::get('/user/cabinet', [UserPrivateController::class, 'profile'])->name('user.profile');
         Route::get('/user/edit', [UserPrivateController::class, 'editProfile'])->name('user.edit_profile');
@@ -154,6 +156,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('/cart', [UserPrivateController::class, 'cart'])->name('user.cart');
         Route::get('/cart/{propmocode}', [UserPrivateController::class, 'cartWithPromocode'])->name('user.cart.promocode');
         Route::post('/makeorder', [UserPrivateController::class, 'makeOrderUnpayed'])->name('makeorder');
+
         Route::post('/add-to-wishlist', [UserPrivateController::class, 'addToWishList'])->name('user.add-to-withlist');
         Route::post('/remove-from-wishlist', [UserPrivateController::class, 'removeFromWishList'])->name('user.remove-from-withlist');
         Route::get('/reset-password', [UserPrivateController::class, 'resetPassword'])->name('reset-password');
@@ -174,8 +177,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('/quick-search', [UserPublicController::class, 'quickSearch'])->name('quick-search');
     Route::post('/filter-by-size', [UserPublicController::class, 'filterCategoryProductsBySize'])->name('filter-by-size');
     Route::post('/subscribe', [UserPublicController::class, 'Subscribe'])->name('filter-by-size');
-    Route::get('/lookbook/item/{id}', [UserPublicController::class, 'lookbook'])->name('user.lookbook');   
-    Route::get('/lookbook', [UserPublicController::class, 'lookbooks'])->name('user.lookbooks'); 
+    Route::get('/lookbook/item/{id}', [UserPublicController::class, 'lookbook'])->name('user.lookbook');
+    Route::get('/lookbook', [UserPublicController::class, 'lookbooks'])->name('user.lookbooks');
     Route::get('/lookbook/all-wear/{id}', [UserPublicController::class, 'lookbookAllWear'])->name('user.lookbooks-allwear');
 
     Route::get('phone/verify', [UserPublicController::class, 'shownotice'])->name('phoneverification.notice');

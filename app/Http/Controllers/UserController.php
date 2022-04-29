@@ -98,6 +98,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => array(
+                'required',
+                'string',
+                'max:255',
+                'alpha'
+            ),
+            'surname' => 'required|string|max:255|alpha',
+            'password' => 'required|string|confirmed|min:8',
+            'privacy-accepted' => 'accepted|in:1'
+        ], [
+            'name.max' => 'Максимальное количество символов в имени: 255',
+            'surname.max' => 'Максимальное количество символов в фамилии: 255',
+            'name.alpha' => 'Допустимо использовать только буквы',
+            'name.required' => 'Укажите как Вас зовут',
+            'surname.alpha' => 'Допустимо использовать только буквы',
+            'surname.required' => 'Укажите вашу фамилию',
+            'privacy-accepted.accepted' => 'Необходимо принять согласие на обработку персональных данных'
+        ]);
+
         $User = User::find($id);
         $haveBeenUpdated = $User->update($request->all());
 

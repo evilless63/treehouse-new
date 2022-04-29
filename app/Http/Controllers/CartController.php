@@ -110,10 +110,20 @@ class CartController extends Controller
 
     public function addDeliveryPrice() {
         $delivery = Delivery::where('id', request()->delivery_id)->firstOrFail();
-        $subtotal = (float)$delivery->price + (float)str_replace(",", "", Cart::instance('shopping')->subtotal());
-        $subtotal_formatted = number_format($subtotal, $decimals = 2, $decimal_separator = ".", $thousants_sep = ",");
-        return [
-            'subtotal' => $subtotal_formatted
-        ];
+        $deliveryController = new DeliveryController();
+        switch ($delivery->calculable) {
+            case 0: $subtotal = (float)$delivery->price + (float)str_replace(",", "", Cart::instance('shopping')->subtotal());
+                $subtotal_formatted = number_format($subtotal, $decimals = 2, $decimal_separator = ".", $thousants_sep = ",");
+                return [
+                    'subtotal' => $subtotal_formatted
+                ];
+            case 1:
+                switch ($delivery->api)  {
+                    case 'CDEK': return $deliveryController->calculateSdek(request()->zipCodeTo);
+                    case 'POCHTA': return $deliveryController->calculatePochta(request()->zipCodeTo);
+                }
+        }
+
+
     }
 }

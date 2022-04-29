@@ -9,14 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "antistress-store/cdek-sdk-v2": "^1.0",
         "cviebrock/eloquent-sluggable": "^8.0",
         "evilless63/transliterate": "dev-master",
         "fakerphp/faker": "^1.18",
         "fideloper/proxy": "^4.2",
-        "fomvasss/laravel-dadata": "^2.2",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.1",
+        "guzzlehttp/guzzle": "^7.4",
         "hardevine/shoppingcart": "^2.9",
+        "lapaygroup/russianpost": "^0.9.19",
         "laravel/framework": "^8.0",
         "laravel/helpers": "^1.4",
         "laravel/tinker": "^2.0",
@@ -26,7 +27,8 @@
         "mews/captcha": "^3.2",
         "sopamo/laravel-filepond": "^0.6.1",
         "torann/geoip": "^3.0",
-        "yoomoney/yookassa-sdk-php": "^2.2"
+        "yoomoney/yookassa-sdk-php": "^2.4",
+        "zabaraindustry/laravel-dadata": "^1.1"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

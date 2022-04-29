@@ -10,7 +10,7 @@
 
             <div class="page__middle">
                 <div class="profile-edit profile__edit">
-                    
+
                         <div class="profile-edit__row">
                             <div class="profile-edit__column">
                                 <div class="profile-edit__item">
@@ -22,13 +22,13 @@
                                         @endif
 
                                         @foreach($adresses as $adress)
-                                        <div class="form__item">
+                                        <div class="form__item adress--item">
                                             <label for="pass" class="form__label">{{$adress->country}} {{$adress->city}} {{$adress->street}} @if($adress->is_default) - используется по умолчанию @endif</label>
                                             <div class="form__field"><a href="{{route('user.edit-adress', $adress->id)}}" class="link ">Редактировать</a></div>
                                             <form method="post" action="{{route('user.delete-adress', $adress->id)}}">
                                                 @csrf
                                                 @method('delete')
-                                                <div class="form__field"><button class="link ">Удалить адрес доставки</button></div>
+                                                <div class="form__field"><button class="goods-edit__remove"></button></div>
                                             </form>
                                         </div>
                                         @endforeach
@@ -45,7 +45,7 @@
 
                 </div>
 
-                
+
 
 
             </div>

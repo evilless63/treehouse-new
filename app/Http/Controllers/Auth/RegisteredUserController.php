@@ -33,23 +33,29 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255|regex:/^[A-Za-zА-Яа-я ]+$/',
-            'surname' => 'required|string|max:255|regex:/^[A-Za-zА-Яа-я ]+$/',
-            'phone' => 'required|string|max:11|min:11|unique:users',
+            'name' => array(
+                'required',
+                'string',
+                'max:255',
+                'alpha'
+            ),
+            'surname' => 'required|string|max:255|alpha',
+            'phone' => 'required|max:11|min:11|unique:users|integer',
             'password' => 'required|string|confirmed|min:8',
         ], [
             'name.max' => 'Максимальное количество символов в имени: 255',
             'surname.max' => 'Максимальное количество символов в фамилии: 255',
             'phone.unique' => 'Данный телефон уже привязан к учетной записи, используйте другой.',
-            'phone.max' => 'Необходимо указать 11 символов',
-            'phone.min' => 'Необходимо указать 11 символов',
+            'phone.max' => 'Необходимо указать 11 цифр',
+            'phone.min' => 'Необходимо указать 11 цифр',
+            'phone.integer' => 'Можно использовать только цифры',
             'password.min' => 'Минимальное количество символов в пароле: 8',
             'password.confirmed' => 'Пароли не совпадают',
-            'name.regex' => 'Допустимо использовать только буквы и пробел',
-            'surname.regex' => 'Допустимо использовать только буквы и пробел'
+            'name.alpha' => 'Допустимо использовать только буквы',
+            'name.required' => 'Укажите как Вас зовут',
+            'surname.alpha' => 'Допустимо использовать только буквы',
+            'surname.required' => 'Укажите вашу фамилию',
         ]);
-
-        dd($validatedData);
 
         $user = User::create([
             'name' => $request->name,

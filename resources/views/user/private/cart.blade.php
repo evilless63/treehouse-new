@@ -22,7 +22,7 @@
         <div data-v-cfe42f2e="" class="right">
           <!---->
           <!---->
-          @if($cart->isEmpty()) 
+          @if($cart->isEmpty())
             <p style="padding: 48px 0;
     text-align: center;">Ваша корзина пока пуста</p>
           @else
@@ -117,7 +117,7 @@
             <div data-v-131ebcb5="" data-v-cfe42f2e="" class="promo-form">
               <div data-v-131ebcb5="" class="title" id="promocode_button">Ввести промокод</div>
               <div data-v-131ebcb5="" class="wrapper collapsed" id="promocode_input">
-                
+
                   <div data-v-131ebcb5="" class="form-inner">
                     <div data-v-131ebcb5="" class="input input">
                       <div class="input-container"><input autocomplete="on" type="text" class="input-control" id="promocode_changer">
@@ -127,7 +127,7 @@
                     <!---->
                   </div>
                   <!---->
-                
+
               </div>
               <div data-v-131ebcb5="" role="modal" class="simplert">
                 <div class="simplert__content">
@@ -216,12 +216,12 @@
                   <div data-v-b31126bc="" class="field">
                     <div data-v-684b9f47="" class="radio-group" id="delivery-type" data-v-b31126bc="">
                       @foreach($deliveries as $delivery)
-                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" name="delivery_type" need-api="false" delivery-id="{{$delivery->id}}" id="delivery-type-{{$delivery->id}}" type="radio" class="radio-control" value="{{$delivery->id}}"> 
+                      <div data-v-08921c00="" class="radio"><input data-v-08921c00="" calculable="{{$delivery->calculable}}" name="delivery_type" need-api="false" delivery-id="{{$delivery->id}}" id="delivery-type-{{$delivery->id}}" type="radio" class="radio-control" value="{{$delivery->id}}">
                       <label data-v-08921c00="" for="delivery-type-{{$delivery->id}}" class="radio-label">
                           <div data-v-684b9f47="" data-v-08921c00="" class="delivery-type-label">
                             <span data-v-684b9f47="" data-v-08921c00="">
-                              <span class="nowrap">{{$delivery->method}} </span> 
-                              <span class="nowrap">– {{$delivery->price}}&nbsp;{{__('userpanel.currency')}}</span> 
+                              <span class="nowrap">{{$delivery->method}} </span>
+                              <span class="nowrap">– {{$delivery->price}}&nbsp;{{__('userpanel.currency')}}</span>
                             </span>
                           </div>
                           <!---->
@@ -329,7 +329,7 @@
                     <div data-v-684b9f47="" class="radio-group" id="payment-type" ref="paymentType" data-v-b31126bc="">
                       @foreach($payment_methods as $payment_method)
                       <div data-v-08921c00="" class="radio">
-                        <input data-v-08921c00="" name="payment_method" id="payment-method-{{$payment_method->id}}" type="radio" class="radio-control" value="{{$payment_method->id}}" @if($loop->first) checked @endif> 
+                        <input data-v-08921c00="" name="payment_method" id="payment-method-{{$payment_method->id}}" type="radio" class="radio-control" value="{{$payment_method->id}}" @if($loop->first) checked @endif>
                         <label data-v-08921c00="" for="payment-method-{{$payment_method->id}}" class="radio-label">
                           <span data-v-08921c00="">{{$payment_method->method}}</span>
                         </label>
@@ -445,36 +445,67 @@
 <script src="{{asset('assets/js/autocomplete.js')}}"></script>
 
 <script>
-  $('input[type=radio][name=delivery_type]').change(function() {
-      const checked = $('input[type=radio][name=delivery_type]:checked')
-      console.log(checked)
-      if (checked[0].getAttribute('need-api') == 'true') {
-          alert("Allot Thai Gayo Bhai")
-      }
-      else {
-          const deliveryId = checked[0].getAttribute('delivery-id')
-          $.ajax({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          url: "{{url('/card/add-delivery-price')}}",
-          type: "post",
-          data: {
-            delivery_id: deliveryId,
-          },
-          success: function(response) {
-            console.log(response)
+    $
+    $('input[type=radio][name=delivery_type]').change(function() {
+        calculateDelivery()
+    })
 
-            var total = $('.total-value')[0]
-            total.innerText = response.subtotal + ' {{__("userpanel.currency")}}'
-          }
+    $('input[type=text][name=zipcode]').change(function() {
+        calculateDelivery()
+    })
+
+    function calculateDelivery() {
+        const checked = $('input[type=radio][name=delivery_type]:checked')
+        console.log(checked)
+        const deliveryId = checked[0].getAttribute('delivery-id')
+        // if (checked[0].getAttribute('calculable') === '1') {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{url('/card/add-delivery-price')}}",
+            type: "post",
+            data: {
+                zipCodeTo: $('input[type=text][name=zipcode]').val(),
+                delivery_id: deliveryId,
+            },
+            success: function(response) {
+                var total = $('.total-value')[0]
+                total.innerText = response.subtotal + ' {{__("userpanel.currency")}}'
+                alert("Стоимость пересчитана с учетом доставки")
+            },
+
+            error: function (error) {
+                console.log(error.responseJSON)
+                alert(error.responseJSON + "\nПроверьте правильность указания Индекса.")
+            }
         })
-      }
-  })
+        // }
+        {{--else {--}}
+        {{--    const deliveryId = checked[0].getAttribute('delivery-id')--}}
+        {{--    $.ajax({--}}
+        {{--        headers: {--}}
+        {{--            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+        {{--        },--}}
+        {{--        url: "{{url('/card/add-delivery-price')}}",--}}
+        {{--        type: "post",--}}
+        {{--        data: {--}}
+        {{--            delivery_id: deliveryId,--}}
+        {{--        },--}}
+        {{--        success: function (response) {--}}
+        {{--            console.log(response)--}}
+
+        {{--            var total = $('.total-value')[0]--}}
+        {{--            total.innerText = response.subtotal + ' {{__("userpanel.currency")}}'--}}
+        {{--            alert("Стоимость пересчитана с учетом доставки")--}}
+        {{--        }--}}
+        {{--    })--}}
+        {{--}--}}
+    }
 </script>
 
 <script>
-  function changeCount(event) { 
+  function changeCount(event) {
     var row_id = $(event.target).closest('.order-list__item').attr('row-id')
     $.ajax({
       headers: {
@@ -488,7 +519,7 @@
       },
       success: function(response) {
         console.log(response)
-        
+
         var input = $(event.target).closest('.order-list__item').find('input')[0]
         console.log(input)
         input.value = response.qty
@@ -503,7 +534,6 @@
 
   function removeCartItem(event) {
     var row_id = $(event.target).closest('.order-list__item').attr('row-id')
-    
 
     $.ajax({
       headers: {
@@ -518,7 +548,7 @@
         var cartCount = document.getElementById('basket-count')
         console.log(response)
         if(response.count > 0) {
-          cartCount.style.display = "block"            
+          cartCount.style.display = "block"
         } else {
           cartCount.style.display = "none"
         }

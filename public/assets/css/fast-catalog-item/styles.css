@@ -3116,7 +3116,7 @@ textarea {
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@100&display=swap');
 
 /* @font-face {
-    
+
     font-family: Cera Pro;
     src: url(../fonts/CeraPro-Light.eot);
     src: url(../fonts/CeraPro-Light.eot?#iefix) format("embedded-opentype"), url(../fonts/CeraPro-Light.woff2) format("woff2"), url(../fonts/CeraPro-Light.woff) format("woff"), url(../fonts/CeraPro-Light.ttf) format("truetype"), url(../fonts/CeraPro-Light.svg#CeraPro-Light) format("svg");
@@ -5750,7 +5750,7 @@ div.simplebar-vertical .simplebar-scrollbar {
 .blog-post__content {
     margin-bottom: 50px;
     flex-shrink: 0
-    
+
 }
 
 .blog-post__media-overlay {
@@ -7007,7 +7007,7 @@ body.hide_one_click .button_one_click {
 
 .card-info__price {
     font-size: 16px;
-    font-weight: bold;   
+    font-weight: bold;
 }
 
 @media (min-width:1024px) {
@@ -9953,9 +9953,9 @@ a.findsize-download:hover {
 
 .checkbox__label-subscribe,
 .checkbox__label-text {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%)
+    /*position: absolute;*/
+    /*top: 50%;*/
+    transform: translateY(-26%)
 }
 
 .checkbox__label-subscribe {
@@ -11399,6 +11399,13 @@ a.findsize-download:hover {
     .form__item+.form__item {
         margin-top: 2.85714rem
     }
+
+    .adress--item {
+        display: flex;
+        width: 100%;
+        justify-content: left;
+        align-items: center;
+    }
 }
 
 .form__field {
@@ -12704,7 +12711,7 @@ a.findsize-download:hover {
     display: none
 }
 
-@media (min-width:1400px) {
+@media (min-width:1200px) {
     .header-links {
         display: flex
     }
@@ -22274,7 +22281,7 @@ html:not(.t-main):not(.t-404) .page {
 .navbar {
     overflow: hidden;
   }
-  
+
   /* Links inside the navbar */
   /* .navbar a {
     float: left;
@@ -22284,13 +22291,13 @@ html:not(.t-main):not(.t-404) .page {
     padding: 14px 16px;
     text-decoration: none;
   } */
-  
+
   /* The dropdown container */
   /* .dropdown {
     float: left;
     overflow: hidden;
   } */
-  
+
   /* Dropdown button */
   .dropdown .dropbtn {
     font-size: 16px;
@@ -22303,13 +22310,13 @@ html:not(.t-main):not(.t-404) .page {
     font: inherit; /* Important for vertical align on mobile phones */
     margin: 0; /* Important for vertical align on mobile phones */
   }
-  
+
   /* Add a red background color to navbar links on hover */
   /* .navbar a:hover, .dropdown:hover .dropbtn {
     background-color: red;
   } */
-  
-  
+
+
   /* Dropdown content (hidden by default) */
   .dropdown-content {
     display: none;
@@ -22323,14 +22330,14 @@ html:not(.t-main):not(.t-404) .page {
     /* top: 3.5555rem; */
     /* padding-top: 3.555rem; */
   }
-  
+
   /* Mega Menu header, if needed */
   .dropdown-content .header {
     background: #fff;
     padding: 16px;
     color: white;
   }
-  
+
   /* Show the dropdown menu on hover */
   .dropdown:hover .dropdown-content {
     display: block;
@@ -22345,7 +22352,7 @@ html:not(.t-main):not(.t-404) .page {
     position: relative;
     border-top: #ebe6e1 1px solid;
   }
-  
+
   /* Create three equal columns that floats next to each other */
   .dropdown-content .row .column {
     /* float: left;
@@ -22363,8 +22370,8 @@ html:not(.t-main):not(.t-404) .page {
     margin-left: 56px;
   }
 
- 
-  
+
+
   /* Style links inside the columns */
   .dropdown-content .row .column a {
     float: none;
@@ -22374,12 +22381,12 @@ html:not(.t-main):not(.t-404) .page {
     display: block;
     text-align: left;
   }
-  
+
   /* Add a background color on hover */
   /* .column a:hover {
     background-color: #ddd;
   } */
-  
+
   /* Clear floats after the columns */
   .row:after {
     content: "";
@@ -22415,7 +22422,7 @@ html:not(.t-main):not(.t-404) .page {
 }
 
 .catalog__category-header {
-    
+
     max-width: 824px;
     position: relative;
 }
@@ -22426,6 +22433,7 @@ html:not(.t-main):not(.t-404) .page {
     right: 152px;
     top: 50%;
     width: 296px;
+    z-index: 999;
 }
 
 .field[data-v-88ff0f44] {
@@ -22549,4 +22557,3 @@ a.search_result-name-a {
     color: #887568;
     text-decoration: none;
 }
-  

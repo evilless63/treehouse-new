@@ -325,13 +325,16 @@
         })
 
         function addToWishList(event) {
-            if({{Auth::user() == null}}) {
-                window.location.replace({{ LaravelLocalization::localizeUrl('/user/cabinet') }})
+
+            if({{ Auth::check() }}) {
+
+            } else {
+                window.location.replace('{{ LaravelLocalization::localizeUrl('/user/cabinet') }}')
             }
             var clientId = {{ Auth::user() == null ? null : Auth::user()->id }}
             console.log(clientId)
             console.log(event.target)
-            
+
             if (clientId == null) {
                 new window.basePopup({
                     context: {
@@ -380,7 +383,7 @@
 
         var result = $('#catalog-grid');
         $('.size-filter-apply').on('click', function() {
-            
+
             result.fadeOut( "slow" )
             var category_id = $(this).attr('category-id');
             var ids = []
@@ -398,7 +401,7 @@
                 data: {
                     'category_id': category_id,
                     'ids': ids.join(',')
-                    
+
                 },
                 success: function(msg) {
                     result.html(msg)

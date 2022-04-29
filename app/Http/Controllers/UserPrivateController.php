@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Service\CdekService;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
@@ -205,7 +206,7 @@ class UserPrivateController extends Controller
                                 }
                             }
                             // $current_subtotal = $current_subtotal - ($current_subtotal * $promocode->discount / 100);
-                            break;    
+                            break;
                     }
                     break;
 
@@ -219,7 +220,7 @@ class UserPrivateController extends Controller
                         case 'percent_discount':
 
                             $current_subtotal = $current_subtotal - ($current_subtotal * $promocode->discount / 100);
-                            break;    
+                            break;
                     }
                     break;
 
@@ -232,7 +233,7 @@ class UserPrivateController extends Controller
                                 break;
                             case 'percent_discount':
                                 $current_subtotal = (float)$current_subtotal - ((float)$current_subtotal * $promocode->discount / 100);
-                                break;    
+                                break;
                         }
                     }
                     break;
@@ -250,11 +251,11 @@ class UserPrivateController extends Controller
                             foreach($current_cart_items as $item) {
                                 $item->total = (float)$item->total - ((float)$item->total * $promocode->discount / 100);
                             }
-                            break;    
+                            break;
                     }
                     break;
             }
-        } 
+        }
 
         return view('user.private.cart')->with([
             'cart' => $current_cart_items,
@@ -282,11 +283,11 @@ class UserPrivateController extends Controller
                 'delivery_id' => $request->delivery_type,
                 'payment_id' => $request->payment_method
             ]);
-    
+
             $productsInOrder = Cart::instance('shopping')->store($order->id);
-    
+
             // $client = new Client();
-    
+
             // try {
             //     $response = $client->request('POST', 'http://31.128.156.218:55315/ushp/hs/obmen/get-orders', [
             //         'auth' => ['Анна', '17382256Ksu@'],
@@ -296,10 +297,10 @@ class UserPrivateController extends Controller
             //     Log::info($e);
             //     return response('ERROR', 500);
             // }
-    
+
             // $body = $response->getBody();
             // $stringBody = (string) $body;
-    
+
             Cart::instance('shopping')->destroy();
             Cart::instance('shopping')->restore($order->id);
             return view('user.private.payed')->with([
@@ -358,4 +359,5 @@ class UserPrivateController extends Controller
 
         return Auth::user() !== null ? Wishlist::where('user_id', Auth::user()->id)->get()->count() : 0;
     }
+
 }

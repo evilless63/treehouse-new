@@ -6,7 +6,7 @@
     <div class="page__row">
 
       @include('user.includes.profile-nav')
-    
+
       <div class="page__middle">
         <div class="profile-edit profile__edit">
           <form id="dynamic-form" class="form profile-edit__form" action="{{route('user.update_profile', $user->id)}}" method="post" autocomplete="off">
@@ -21,7 +21,10 @@
                     <div class="form__item field-user-email required">
                       <label class="form__label" for="user-email">{{__('userpanel.email')}}</label>
                       <div class="form__field"><input type="text" class="form__input" id="user-email" class="form__input" name="email" value="{{$user->email}}" maxlength="255" aria-required="true">
-                        <p class="form__error-message"></p>
+                          @if ($errors->has('email'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('email') }}</strong>
+                          @endif
                       </div>
                     </div>
                     <div class="form__item">
@@ -30,28 +33,40 @@
                     </div>
 
                     <div class="form__item field-user-name">
-                      <label class="form__label" for="user-name">{{__('userpanel.name')}}</label>
+                      <label class="form__label" for="user-name">{{__('userpanel.name')}}*</label>
                       <div class="form__field"><input type="text" class="form__input" id="user-name" class="form__input" name="name" maxlength="255" value="{{$user->name}}">
-                        <p class="form__error-message"></p>
+                          @if ($errors->has('name'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('name') }}</strong>
+                          @endif
                       </div>
                     </div>
                     <div class="form__item no-surname-hide field-user-surname">
-                      <label class="form__label" for="user-surname">{{__('userpanel.surname')}}</label>
+                      <label class="form__label" for="user-surname">{{__('userpanel.surname')}}*</label>
                       <div class="form__field"><input type="text" class="form__input" id="user-surname" class="form__input" name="surname" maxlength="255" value="{{$user->surname}}">
-                        <p class="form__error-message"></p>
+                          @if ($errors->has('surname'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('surname') }}</strong>
+                          @endif
                       </div>
                     </div>
                     <div class="form__item no-surname-hide field-user-surname">
                       <label class="form__label" for="user-surname">{{__('userpanel.patronymic')}}</label>
                       <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="patronymic" maxlength="255" value="{{$user->patronymic}}">
-                        <p class="form__error-message"></p>
+                          @if ($errors->has('patronymic'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('patronymic') }}</strong>
+                          @endif
                       </div>
                     </div>
                     <div class="form__item field-user-number">
-                      <label class="form__label" for="user-number">{{__('userpanel.phone')}}</label>
+                      <label class="form__label" for="user-number">{{__('userpanel.phone')}}*</label>
                       <div class="form__field">
-                        <input type="tel" id="user-number" disabled="" class="form__input" name="phone" autocomplete="off" placeholder="+7" value="{{$user->phone}}">
-                        <p class="form__error-message"></p>
+                        <input type="text" id="user-number" readonly class="form__input" autocomplete="off" placeholder="+7" value="{{$user->phone}}">
+                          @if ($errors->has('phone'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('phone') }}</strong>
+                          @endif
                       </div>
                     </div>
 
@@ -65,11 +80,14 @@
 
         <div class="profile-edit__confirm">
           <div class="checkbox form__checkbox field-user-accept">
-            <input type="hidden" value="0"><input type="checkbox" id="user-accept" class="checkbox__input" value="1"><label class="checkbox__label" for="user-accept"><span class="checkbox__label-text">{{__('userpanel.change_accert')}}<a href="
+            <input type="hidden" name="privacy-accepted" value="0"><input name="privacy-accepted" type="checkbox" id="user-accept" class="checkbox__input" value="1"><label class="checkbox__label" for="user-accept"><span class="checkbox__label-text">{{__('userpanel.change_accert')}}<a href="
             {{route('user.article', [
               'slug' => 'privacy-policy',
-            ])}}" class="checkbox__link" target="_blank">{{__('userpanel.subscribe_link')}}</a></span></label>
-            <p class="form__error-message"></p>
+            ])}}" class="checkbox__link" target="_blank">{{__('userpanel.subscribe_link')}}*</a></span></label>
+              @if ($errors->has('privacy-accepted'))
+                  <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('privacy-accepted') }}</strong>
+              @endif
           </div>
         </div>
         <button type="submit" class="button button_powdery button_fixed profile-edit__button card__button_with-spaces save">{{__('userpanel.save_changes_button_text')}}</button>

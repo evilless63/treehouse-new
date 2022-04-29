@@ -6,7 +6,7 @@
     <div class="page__row">
 
       @include('user.includes.profile-nav')
-    
+
       <div class="page__middle">
         <div class="profile-edit profile__edit">
           <form id="dynamic-form" class="form profile-edit__form" action="{{route('user.update-adress', $adress->id)}}" method="post" autocomplete="off">
@@ -20,43 +20,63 @@
 
 
                     <div class="form__item field-user-name">
-                      <label class="form__label" for="user-name">Страна</label>
+                      <label class="form__label" for="user-name">Страна*</label>
                       <div class="form__field"><input type="text" class="form__input" id="user-name" class="form__input" name="country" maxlength="255" value="{{$adress->country}}">
-                        <p class="form__error-message"></p>
+                          @if ($errors->has('country'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('country') }}</strong>
+                          @endif
                       </div>
                     </div>
                     <div class="form__item no-surname-hide field-user-surname">
-                      <label class="form__label" for="user-surname">Город</label>
+                      <label class="form__label" for="user-surname">Город*</label>
                       <div class="form__field"><input type="text" class="form__input" id="user-surname" class="form__input" name="city" maxlength="255" value="{{$adress->city}}">
-                        <p class="form__error-message"></p>
+                          @if ($errors->has('city'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('city') }}</strong>
+                          @endif
                       </div>
                     </div>
                     <div class="form__item no-surname-hide field-user-surname">
-                      <label class="form__label" for="user-surname">Улица</label>
+                      <label class="form__label" for="user-surname">Улица*</label>
                       <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="street" maxlength="255" value="{{$adress->street}}">
-                        <p class="form__error-message"></p>
+                          @if ($errors->has('street'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('street') }}</strong>
+                          @endif
                       </div>
                     </div>
                     <div class="form__item no-surname-hide field-user-surname">
-                      <label class="form__label" for="user-surname">Дом</label>
+                      <label class="form__label" for="user-surname">Дом*</label>
                       <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="house" maxlength="255" value="{{$adress->house}}">
-                        <p class="form__error-message"></p>
+                          @if ($errors->has('house'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('house') }}</strong>
+                          @endif
                       </div>
                     </div>
                     <div class="form__item no-surname-hide field-user-surname">
-                      <label class="form__label" for="user-surname">Квартира/офис</label>
+                      <label class="form__label" for="user-surname">Квартира/офис*</label>
                       <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="room" maxlength="255" value="{{$adress->room}}">
-                        <p class="form__error-message"></p>
+                          @if ($errors->has('room'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('room') }}</strong>
+                          @endif
                       </div>
                     </div>
                     <div class="form__item no-surname-hide field-user-surname">
-                      <label class="form__label" for="user-surname">Почтовый индекс</label>
+                      <label class="form__label" for="user-surname">Почтовый индекс*</label>
                       <div class="form__field"><input type="text" class="form__input" id="user-patronymic" class="form__input" name="zipcode" maxlength="255" value="{{$adress->zipcode}}">
-                        <p class="form__error-message"></p>
+                          @if ($errors->has('zipcode'))
+                              <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('zipcode') }}</strong>
+                          @endif
                       </div>
                     </div>
-                    <label>Использовать по умолчанию</label>
+                      <div class="form__item no-surname-hide field-user-surname">
+                    <label  class="form__label" for="is_default">Использовать по умолчанию</label>
                         <input type="checkbox" name="is_default"  @if($adress->is_default) checked @endif>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -65,15 +85,18 @@
 
         </div>
 
-        <div class="profile-edit__confirm">
-          <div class="checkbox form__checkbox field-user-accept">
-            <input type="hidden" value="0"><input type="checkbox" id="user-accept" class="checkbox__input" value="1"><label class="checkbox__label" for="user-accept"><span class="checkbox__label-text">{{__('userpanel.change_accert')}}<a href="
-              {{route('user.article', [
+          <div class="profile-edit__confirm">
+              <div class="checkbox form__checkbox field-user-accept">
+                  <input type="hidden" name="privacy-accepted" value="0"><input name="privacy-accepted" type="checkbox" id="user-accept" class="checkbox__input" value="1"><label class="checkbox__label" for="user-accept"><span class="checkbox__label-text">{{__('userpanel.change_accert')}}<a href="
+            {{route('user.article', [
               'slug' => 'privacy-policy',
-            ])}}" class="checkbox__link" target="_blank">{{__('userpanel.subscribe_link')}}</a></span></label>
-            <p class="form__error-message"></p>
+            ])}}" class="checkbox__link" target="_blank">{{__('userpanel.subscribe_link')}}*</a></span></label>
+                  @if ($errors->has('privacy-accepted'))
+                      <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('privacy-accepted') }}</strong>
+                  @endif
+              </div>
           </div>
-        </div>
         <button type="submit" class="button button_powdery button_fixed profile-edit__button card__button_with-spaces save">{{__('userpanel.save_changes_button_text')}}</button>
         </form>
 

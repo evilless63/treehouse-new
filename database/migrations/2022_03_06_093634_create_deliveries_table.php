@@ -23,6 +23,7 @@ class CreateDeliveriesTable extends Migration
             $table->boolean('calculable')->default(false);
             $table->integer('sort_order')->default(0);
             $table->integer('archived')->default(false);
+            $table->integer('archived')->default(false);
         });
     }
 
